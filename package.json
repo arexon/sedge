@@ -1,0 +1,17 @@
+{
+	"name": "volars-monorepo",
+	"private": true,
+	"scripts": {
+		"build": "turbo run build --scope=\"!playground*\"",
+		"format": "prettier --write \"**/*.ts\" --ignore-path .gitignore"
+	},
+	"devDependencies": {
+		"prettier": "latest",
+		"turbo": "latest"
+	},
+	"engines": {
+		"npm": ">=7.0.0",
+		"node": ">=14.0.0"
+	},
+	"packageManager": "pnpm@7.1.0"
+}

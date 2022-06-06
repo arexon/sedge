@@ -1,0 +1,11 @@
+{
+	"name": "playground",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "volars build"
+	},
+	"devDependencies": {
+		"volars": "workspace:*"
+	}
+}
