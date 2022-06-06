@@ -1,2 +1,2 @@
 export { defineVolarsConfig } from './config'
-export * from './core/block'
+export * from './core/defineBlock'

@@ -1,19 +1,7 @@
 import { loadVolarsConfig, VolarsConfig } from '../config'
+import { BlockTemplate } from './types'
 
-type FormatVersion = '1.16.100'
-
-interface Description {
-	identifier: string
-}
-
-interface BlockTemplate {
-	namespace?: string
-
-	formatVersion: (data: FormatVersion) => void
-	description: (data: Description) => void
-}
-
-class Block {
+export class Block {
 	private template: BlockTemplate | undefined
 	private output: Object = {}
 	private load: Function
@@ -23,11 +11,13 @@ class Block {
 		this.load = fn
 	}
 
-	public async transform(): Promise<void> {
+	public async init(): Promise<void> {
 		this.config = await loadVolarsConfig()
+	}
 
+	public async transform(): Promise<void> {
 		this.template = {
-			namespace: this.config.namespace,
+			namespace: this.config?.namespace,
 			formatVersion: (data) => (this.output = { format_version: data }),
 			description: (data) => (this.output = { ...this.output, description: data })
 		}
@@ -35,9 +25,4 @@ class Block {
 
 		console.log(JSON.stringify(this.output, null, '\t'))
 	}
-}
-
-export const defineBlock = (fn: (template: BlockTemplate) => void): void => {
-	const block = new Block(fn)
-	block.transform()
 }
