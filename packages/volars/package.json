@@ -19,11 +19,6 @@
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.mjs",
 			"default": "./dist/index.mjs"
-		},
-		"./cli": {
-			"types": "./dist/cli.d.ts",
-			"import": "./dist/cli.mjs",
-			"default": "./dist/cli.mjs"
 		}
 	},
 	"main": "./dist/index.mjs",
