@@ -4,5 +4,5 @@ export default defineBuildConfig({
 	clean: true,
 	declaration: true,
 	entries: ['src/index', 'src/cli'],
-	dependencies: ['c12', 'vite', 'vite-node', 'cac', 'pathe', 'fast-glob']
+	dependencies: ['c12', 'vite', 'vite-node', 'cac', 'pathe', 'fast-glob', 'consola', 'chalk']
 })

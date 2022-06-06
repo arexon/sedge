@@ -2,17 +2,15 @@
 
 import cac from 'cac'
 import { handleError } from './compiler/error'
-import { build } from './compiler/build'
-
-const name = 'Volars'
+import { Compiler } from './compiler/Compiler'
 
 const main = async () => {
-	const cli = cac(name)
+	const cli = cac('Volars')
+	const compiler = new Compiler()
 
 	cli.command('build').action(async () => {
-		console.info(`${name} is building the project...`)
-
-		await build()
+		await compiler.init()
+		await compiler.build()
 	})
 
 	cli.parse()
