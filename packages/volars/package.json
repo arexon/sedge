@@ -1,7 +1,7 @@
 {
 	"name": "volars",
 	"version": "0.0.1",
-	"description": "The framework for supercharged Minecraft Add-Ons.",
+	"description": "The framework for supercharged Minecraft Add-On development.",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
 	"homepage": "https://github.com/arexon/volars/packages/volars",

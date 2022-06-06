@@ -1,3 +1,3 @@
 # Volars
 
-> ⚡ The framework for supercharged Minecraft Add-Ons
+> ⚡ The framework for supercharged Minecraft Add-On development.
