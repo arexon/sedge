@@ -1,5 +1,7 @@
-export const handleError = (error: unknown) => {
-	console.error(error)
+import { error } from './console'
 
-	process.exitCode = 1
+export const handleError = (message: unknown) => {
+	error(message)
+
+	process.exit(1)
 }
