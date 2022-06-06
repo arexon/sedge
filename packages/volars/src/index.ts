@@ -1,2 +1,2 @@
 export { defineVolarsConfig } from './config'
-export { sayHi } from './core'
+export * from './core/block'

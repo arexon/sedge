@@ -1,3 +1,8 @@
-import { sayHi } from 'volars'
+import { defineBlock } from 'volars'
 
-sayHi()
+defineBlock(({ namespace, formatVersion, description }) => {
+	formatVersion('1.16.100')
+	description({
+		identifier: `${namespace}:wood`
+	})
+})

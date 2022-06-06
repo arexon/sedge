@@ -1,13 +1,14 @@
-import { loadConfig, ResolvedConfig } from 'c12'
+import { loadConfig } from 'c12'
 
-interface VolarsConfig {
+export interface VolarsConfig {
 	namespace: string
 }
 
-export const loadVolarsConfig = (): Promise<ResolvedConfig<VolarsConfig>> => {
-	return loadConfig<VolarsConfig>({
+export const loadVolarsConfig = async (): Promise<VolarsConfig> => {
+	const { config } = await loadConfig<VolarsConfig>({
 		name: 'volars'
 	})
+	return config
 }
 
 export const defineVolarsConfig = (config: VolarsConfig): VolarsConfig => config
