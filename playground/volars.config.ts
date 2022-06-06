@@ -1,5 +1,8 @@
 import { defineVolarsConfig } from 'volars'
 
 export default defineVolarsConfig({
-	namespace: 'playground'
+	name: 'playground',
+	authors: ['arexon'],
+	namespace: 'playground',
+	targetVersion: '1.19.0'
 })
