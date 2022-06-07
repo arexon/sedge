@@ -1,16 +1,7 @@
 import { loadConfig } from 'c12'
+import type { VolarsConfig } from './types/volars'
 
-type PackType = 'behaviorPack' | 'resourcePack'
-export type Packs = { [packType in PackType]: string }
-export interface VolarsConfig {
-	name: string
-	authors: string[]
-	namespace: string
-	targetVersion: '1.19.0'
-	packs?: Packs
-}
-
-export const loadVolarsConfig = async (): Promise<VolarsConfig> => {
+export async function loadVolarsConfig(): Promise<VolarsConfig> {
 	const { config } = await loadConfig<VolarsConfig>({
 		name: 'volars',
 		defaults: {
@@ -27,4 +18,6 @@ export const loadVolarsConfig = async (): Promise<VolarsConfig> => {
 	return config
 }
 
-export const defineVolarsConfig = (config: VolarsConfig): VolarsConfig => config
+export function defineVolarsConfig(config: VolarsConfig): VolarsConfig {
+	return config
+}

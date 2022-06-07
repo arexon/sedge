@@ -1,14 +1,16 @@
 import jiti from 'jiti'
 import { resolve } from 'path'
 import { globby } from 'globby'
-import { logger } from './logger'
-import { loadVolarsConfig, type Packs } from '../config'
+import { Packs, Volars } from '../types/volars'
 
-export async function build(): Promise<void> {
-	const config = await loadVolarsConfig()
-	const files = await getAllFiles(config.packs!)
+export async function build(volars: Volars): Promise<void> {
+	return volars.dev ? _watch(volars) : _build(volars)
+}
 
-	logger.start('Building the project...')
+async function _build(volars: Volars): Promise<void> {
+	const files = await getAllFiles(volars.config.packs)
+
+	volars.logger.start('Building the project...')
 
 	const start = Date.now()
 	const results = await Promise.allSettled(
@@ -17,7 +19,11 @@ export async function build(): Promise<void> {
 		})
 	)
 
-	logger.success(`Compiled ${results.length} files in ${Date.now() - start} ms`)
+	volars.logger.success(`Compiled ${results.length} files in ${Date.now() - start} ms`)
+}
+
+async function _watch(volars: Volars): Promise<void> {
+	volars.logger.start('Watching the project...')
 }
 
 function getAboslutePath(path: string): string {
