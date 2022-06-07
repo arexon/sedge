@@ -1,28 +1,16 @@
-import { loadVolarsConfig, VolarsConfig } from '../config'
-import { BlockTemplate } from './types'
+import { loadVolarsConfig } from '../config'
+import type { BlockTemplate } from './types'
 
-export class Block {
-	private template: BlockTemplate | undefined
-	private output: Object = {}
-	private load: Function
-	private config: VolarsConfig | undefined
+export const defineBlock = async (fn: (template: BlockTemplate) => void): Promise<Object> => {
+	let src: Object = {}
+	const config = await loadVolarsConfig()
 
-	constructor(fn: (template: BlockTemplate) => void) {
-		this.load = fn
+	const template: BlockTemplate = {
+		namespace: config.namespace,
+		formatVersion: (format_version) => (src = { format_version }),
+		description: (description) => (src = { ...src, description })
 	}
+	fn(template)
 
-	public async init(): Promise<void> {
-		this.config = await loadVolarsConfig()
-	}
-
-	public async transform(): Promise<void> {
-		this.template = {
-			namespace: this.config?.namespace,
-			formatVersion: (data) => (this.output = { format_version: data }),
-			description: (data) => (this.output = { ...this.output, description: data })
-		}
-		this.load(this.template)
-
-		console.log(JSON.stringify(this.output, null, '\t'))
-	}
+	return src
 }
