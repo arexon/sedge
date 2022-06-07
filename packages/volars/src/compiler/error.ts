@@ -1,7 +1,7 @@
-import { error } from './console'
+import { logger } from './logger'
 
 export const handleError = (message: unknown) => {
-	error(message)
+	logger.error(message)
 
 	process.exit(1)
 }
