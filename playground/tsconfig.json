@@ -1,0 +1,3 @@
+{
+	"extends": "./.volars/tsconfig.json"
+}
