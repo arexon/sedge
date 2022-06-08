@@ -12,7 +12,8 @@ export async function loadVolarsConfig(): Promise<VolarsConfig> {
 			packs: {
 				behaviorPack: 'BP',
 				resourcePack: 'RP'
-			}
+			},
+			buildDir: 'build'
 		}
 	})
 	return config

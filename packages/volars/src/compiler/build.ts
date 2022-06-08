@@ -4,7 +4,7 @@ import { globby } from 'globby'
 import { watch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
 import type { TSConfig } from 'pkg-types'
-import type { Packs, Volars } from '../types/volars'
+import type { FileTable, FileType, Packs, Volars } from '../types/volars'
 import { blockTypes } from './typeTemplates'
 
 export async function build(volars: Volars): Promise<void> {
@@ -12,16 +12,19 @@ export async function build(volars: Volars): Promise<void> {
 }
 
 async function _build(volars: Volars): Promise<void> {
-	const files = await getAllFiles(volars.config.packs)
-
 	volars.logger.start('Building the project...')
 
 	await generateTypes()
-
 	volars.logger.success('Generated types')
 
+	const blocksBatch = await getFileBatch(volars, 'block')
+
+	await prepareDir(getAboslutePath('build'))
+
 	const start = Date.now()
-	const results = await Promise.allSettled(files.map(async (file) => await executeFile(file)))
+	const results = await Promise.allSettled(
+		blocksBatch.map(async ({ path, type }) => await writeFileFrom(path, type, volars))
+	)
 
 	volars.logger.success(`Compiled ${results.length} files in ${Date.now() - start} ms`)
 }
@@ -41,7 +44,7 @@ async function _watch(volars: Volars): Promise<void> {
 	const reload = debounce(async () => {
 		await Promise.all(
 			watchedFilesQueue.updated!.map(async (file) => {
-				await executeFile(file)
+				await writeFileFrom(file, 'block', volars)
 			})
 		)
 
@@ -93,10 +96,28 @@ function getAboslutePath(path: string): string {
 	return resolve(process.cwd(), path).replace(/\\/g, '/')
 }
 
-async function getAllFiles(packs: Packs): Promise<string[]> {
-	return await globby([getAboslutePath(`${packs.behaviorPack}/blocks/*.block.ts`)])
+async function getFileBatch(volars: Volars, type: FileType): Promise<FileTable[]> {
+	return (await globby(`${volars.config.packs.behaviorPack}/${type}s/*.ts`)).map((path) => ({
+		path: getAboslutePath(path),
+		type
+	}))
 }
 
-async function executeFile(file: string): Promise<void> {
-	await jiti('', { interopDefault: true })(file)
+function getFileNameWithoutExtension(path: string): string {
+	return path
+		.split('/')
+		.pop()!
+		.replace(/\.[^/.]+$/, '')
+}
+
+async function writeFileFrom(path: string, type: FileType, volars: Volars): Promise<void> {
+	const file = await import(path)
+	const base = getAboslutePath(`${volars.config.buildDir}/BP/${type}s`)
+
+	await fs.mkdirs(base)
+
+	await fs.writeFile(
+		`${base}/${getFileNameWithoutExtension(path)}.json`,
+		JSON.stringify(file, null, '\t')
+	)
 }

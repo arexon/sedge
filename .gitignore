@@ -4,3 +4,4 @@ node_modules
 .turbo
 dist
 playground/.volars
+playground/build
