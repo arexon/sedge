@@ -1,5 +1,5 @@
 import { loadVolarsConfig } from '../config'
-import type { BlockTemplate } from './types'
+import { BlockTemplate } from '../types/template/block'
 
 export const defineBlock = async (fn: (template: BlockTemplate) => void): Promise<Object> => {
 	let src: Object = {}

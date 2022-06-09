@@ -1,6 +1,6 @@
-export type FormatVersion = '1.16.100'
+type FormatVersion = '1.16.100'
 
-export interface Description {
+interface Description {
 	identifier: string
 	properties?: {
 		[key: `${string}:${string}`]: (string | boolean | number)[]
@@ -9,7 +9,6 @@ export interface Description {
 
 export interface BlockTemplate {
 	namespace?: string
-
-	formatVersion: (data: FormatVersion) => void
-	description: (data: Description) => void
+	formatVersion: (template: FormatVersion) => void
+	description: (template: Description) => void
 }

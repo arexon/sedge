@@ -22,11 +22,11 @@ export const blockTypes = `declare global {
 		 * If the version is lower than the current version,
 		 * any changes made to the block in the vanilla version will be applied to it.
 		 */
-		formatVersion: (data: FormatVersion) => void
+		formatVersion: (template: FormatVersion) => void
 		/**
 		 * Defines the description of the block.
 		 */
-		description: (data: Description) => void
+		description: (template: Description) => void
 	}
 }
 
