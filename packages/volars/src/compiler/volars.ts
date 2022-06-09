@@ -1,10 +1,7 @@
 import consola from 'consola'
 import { loadVolarsConfig } from '../config'
-import { Volars } from '../types/volars'
-
-type DeepPartial<T> = T extends Record<string, any>
-	? { [P in keyof T]?: DeepPartial<T[P]> | T[P] }
-	: T
+import type { DeepPartial } from '../types/deepPartial'
+import type { Volars } from '../types/volars'
 
 export async function createVolars(options: DeepPartial<Volars>): Promise<Volars> {
 	const config = await loadVolarsConfig()

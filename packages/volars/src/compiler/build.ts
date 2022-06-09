@@ -26,13 +26,13 @@ export async function build(volars: Volars): Promise<void> {
 async function _build(volars: Volars): Promise<void> {
 	const start = Date.now()
 
-	const files = await getFileBatches(volars.config.packs)
+	const files = await getFileBatches(volars.config.packs!)
 
 	const results = await Promise.allSettled(
 		files.map(async (path) => {
 			const content = await loadFile(resolve(path))
 
-			await writeFile(resolve(volars.config.buildDir, path), content as string)
+			await writeFile(resolve(volars.config.buildDir!, path), content as string)
 		})
 	)
 
@@ -53,10 +53,10 @@ async function _watch(volars: Volars): Promise<void> {
 		watchedFilesQueue.updated!.map(async (file) => {
 			const content = await loadFile(resolve(file))
 
-			await writeFile(resolve(volars.config.buildDir, file), content as string)
+			await writeFile(resolve(volars.config.buildDir!, file), content as string)
 		})
 		watchedFilesQueue.deleted!.map(async (file) => {
-			await deleteFile(resolve(volars.config.buildDir, file))
+			await deleteFile(resolve(volars.config.buildDir!, file))
 		})
 
 		volars.logger.success(watchedFilesQueue)
@@ -64,7 +64,7 @@ async function _watch(volars: Volars): Promise<void> {
 		watchedFilesQueue = { updated: [], deleted: [] }
 	}, 100)
 
-	const watcher = watch(volars.config.packs.behaviorPack, { ignoreInitial: true })
+	const watcher = watch(volars.config.packs!.behaviorPack, { ignoreInitial: true })
 
 	watcher.on('all', async (event, path) => {
 		if (!validatePath(volars, normalize(path))) return
@@ -109,7 +109,7 @@ async function getFileBatches(packs: Packs): Promise<string[]> {
 }
 
 function validatePath(volars: Volars, path: string): boolean {
-	return path.search(`${volars.config.packs.behaviorPack}/blocks`) === 0
+	return path.search(`${volars.config.packs!.behaviorPack}/blocks`) === 0
 }
 
 function getPathWithoutFileName(path: string): string {

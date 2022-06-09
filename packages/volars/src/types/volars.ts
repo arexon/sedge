@@ -8,8 +8,8 @@ export interface VolarsConfig {
 	authors: string[]
 	namespace: string
 	targetVersion: '1.19.0'
-	packs: Packs
-	buildDir: string
+	packs?: Packs
+	buildDir?: string
 }
 
 export interface Volars {
