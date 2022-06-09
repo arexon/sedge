@@ -12,7 +12,8 @@ export default defineBuildConfig({
 		'consola',
 		'chokidar',
 		'perfect-debounce',
-		'fs-extra'
+		'fs-extra',
+		'jiti'
 	],
 	rollup: {
 		inlineDependencies: true,

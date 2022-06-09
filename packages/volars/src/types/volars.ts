@@ -17,9 +17,3 @@ export interface Volars {
 	logger: Consola
 	dev: boolean
 }
-
-export type FileType = 'block'
-export interface FileTable {
-	path: string
-	type: FileType
-}
