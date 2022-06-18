@@ -2,7 +2,7 @@
 
 import mri from 'mri'
 import consola from 'consola'
-import { build } from './compiler/build'
+import { start } from './compiler/build/start'
 import { createVolars } from './compiler/volars'
 
 const main = async () => {
@@ -14,7 +14,7 @@ const main = async () => {
 			dev: true
 		})
 
-		await build(volars)
+		await start(volars)
 		return
 	}
 
@@ -23,7 +23,7 @@ const main = async () => {
 			dev: false
 		})
 
-		await build(volars)
+		await start(volars)
 		process.exit(0)
 	}
 

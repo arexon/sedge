@@ -7,5 +7,7 @@
 		"behaviorPack": "./BP",
 		"resourcePack": "./RP"
 	},
-	"buildDir": "build"
+	"volars": {
+		"target": "build"
+	}
 }
