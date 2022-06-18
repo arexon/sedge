@@ -1,0 +1,11 @@
+{
+	"name": "playground",
+	"authors": ["arexon"],
+	"namespace": "playground",
+	"targetVersion": "1.19.0",
+	"packs": {
+		"behaviorPack": "./BP",
+		"resourcePack": "./RP"
+	},
+	"buildDir": "build"
+}
