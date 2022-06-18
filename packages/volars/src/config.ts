@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import { resolve } from 'pathe'
 
-export async function loadVolarsConfig(): Promise<Config> {
+export async function loadConfig(): Promise<Config> {
 	const path = resolve(process.cwd(), 'config.json')
 	const config: Config = await fs.readJson(path)
 
