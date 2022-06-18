@@ -1,7 +1,7 @@
 import jiti from 'jiti'
 import { join } from 'pathe'
 import { globby } from 'globby'
-import { mkdirs, remove, writeFile } from 'fs-extra'
+import fs from 'fs-extra'
 import type { Packs } from '../config'
 
 export async function getFilesBatch(packs: Packs): Promise<string[]> {
@@ -15,16 +15,16 @@ export async function loadFile(path: string): Promise<unknown> {
 }
 
 export async function createFile(path: string, content: string): Promise<void> {
-	await mkdirs(getPathWithoutFileName(path))
+	await fs.mkdirs(getPathWithoutFileName(path))
 
-	await writeFile(
+	await fs.writeFile(
 		getPathWithJsonExtension(path),
 		JSON.stringify(content, null, '\t')
 	)
 }
 
 export async function removeFile(path: string): Promise<void> {
-	await remove(getPathWithJsonExtension(path))
+	await fs.remove(getPathWithJsonExtension(path))
 }
 
 function getPathWithJsonExtension(path: string): string {

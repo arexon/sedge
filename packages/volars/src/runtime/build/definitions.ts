@@ -1,4 +1,4 @@
-import { copy, writeFile, remove } from 'fs-extra'
+import fs from 'fs-extra'
 import { TSConfig } from 'pkg-types'
 
 export async function createDefinitions(): Promise<void> {
@@ -14,9 +14,9 @@ export async function createDefinitions(): Promise<void> {
 		include: ['./block.d.ts', './vanilla.d.ts', '../BP']
 	}
 
-	await remove('.volars')
-	await copy(definitions, '.volars', { dereference: true })
-	await writeFile(
+	await fs.remove('.volars')
+	await fs.copy(definitions, '.volars', { dereference: true })
+	await fs.writeFile(
 		'.volars/tsconfig.json',
 		JSON.stringify(tsConfig, null, '\t')
 	)

@@ -1,6 +1,6 @@
-import { mkdir, emptyDir } from 'fs-extra'
+import fs from 'fs-extra'
 
 export async function prepareDir(dir: string): Promise<void> {
-	await mkdir(dir, { recursive: true })
-	await emptyDir(dir)
+	await fs.mkdir(dir, { recursive: true })
+	await fs.emptyDir(dir)
 }
