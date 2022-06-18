@@ -1,8 +1,8 @@
 import fs from 'fs-extra'
 import type { TSConfig } from 'pkg-types'
-import type { Packs } from '../../config'
+import type { Packs } from '../config'
 
-export async function createDefinitions(packs: Packs): Promise<void> {
+export async function prepareDefinitions(packs: Packs): Promise<void> {
 	const definitions = 'node_modules/volars/dist/definitions'
 	const tsConfig: TSConfig = {
 		compilerOptions: {
