@@ -1,7 +1,4 @@
-export const vanilla = `export type ItemGroup = \`\${'itemGroup.item.'}\${string}\`
-	export type CreativeGroup = 'nature' | 'construction' | 'items' | 'equipment' | 'none' | 'commands'`
-
-export const blockTypes = `import { CreativeGroup, ItemGroup } from './vanilla'
+import { CreativeGroup, ItemGroup } from './vanilla'
 
 declare global {
 	type FormatVersion = '1.16.100'
@@ -16,7 +13,7 @@ declare global {
 		 * Define block properties and their possible values.
 		 */
 		properties?: {
-			[key: \`\${string}:\${string}\`]: (string | boolean | number)[]
+			[key: `${string}:${string}`]: (string | boolean | number)[]
 		}
 	}
 
@@ -30,7 +27,7 @@ declare global {
 			| {
 					origin: [number, number, number]
 					size: [number, number, number]
-			}
+			  }
 			| boolean
 
 		/**
@@ -42,7 +39,7 @@ declare global {
 			| {
 					origin: [number, number, number]
 					size: [number, number, number]
-			}
+			  }
 			| boolean
 
 		/**
@@ -72,13 +69,13 @@ declare global {
 			 * Defines the tags recipes should define to be crafted on this table.
 			 * Limited to 64 tags. Each tag is limited to 64 characters.
 			 */
-			'custom_description': string
+			custom_description: string
 
 			/**
 			 * Defines the language file key that maps what text will be displayed in the UI of this table.
 			 * If not specified, the name of the block will be used.
 			 */
-			'crafting_tags': string[]
+			crafting_tags: string[]
 		}
 
 		/**
@@ -129,4 +126,4 @@ declare module 'volars' {
 	// @ts-expect-error
 	function defineBlock(fn: (template: BlockTemplate) => void): Promise<Object>
 }
-export {}`
+export {}
