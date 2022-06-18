@@ -17,7 +17,10 @@ export async function loadFile(path: string): Promise<unknown> {
 export async function createFile(path: string, content: string): Promise<void> {
 	await mkdirs(getPathWithoutFileName(path))
 
-	await writeFile(getPathWithJsonExtension(path), JSON.stringify(content, null, '\t'))
+	await writeFile(
+		getPathWithJsonExtension(path),
+		JSON.stringify(content, null, '\t')
+	)
 }
 
 export async function removeFile(path: string): Promise<void> {

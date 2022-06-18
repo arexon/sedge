@@ -19,7 +19,10 @@ export async function watch(volars: VolarsInstance): Promise<void> {
 		filesQueue.updated!.map(async (file) => {
 			const content = await loadFile(resolve(file))
 
-			await createFile(resolve(volars.config.volars.target!, file), content as string)
+			await createFile(
+				resolve(volars.config.volars.target!, file),
+				content as string
+			)
 		})
 
 		filesQueue.removed!.map(async (file) => {
@@ -31,7 +34,9 @@ export async function watch(volars: VolarsInstance): Promise<void> {
 		filesQueue = { updated: [], removed: [] }
 	}, 100)
 
-	const watcher = chokidarWatch(volars.config.packs!.behaviorPack, { ignoreInitial: true })
+	const watcher = chokidarWatch(volars.config.packs!.behaviorPack, {
+		ignoreInitial: true
+	})
 
 	watcher.on('all', async (event, path) => {
 		switch (event) {

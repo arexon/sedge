@@ -16,5 +16,8 @@ export async function createDefinitions(): Promise<void> {
 
 	await remove('.volars')
 	await copy(definitions, '.volars', { dereference: true })
-	await writeFile('.volars/tsconfig.json', JSON.stringify(tsConfig, null, '\t'))
+	await writeFile(
+		'.volars/tsconfig.json',
+		JSON.stringify(tsConfig, null, '\t')
+	)
 }

@@ -1,7 +1,9 @@
 import { loadVolarsConfig } from '../config'
 import { BlockTemplate } from '../types/template/block'
 
-export async function defineBlock(fn: (template: BlockTemplate) => void): Promise<Object> {
+export async function defineBlock(
+	fn: (template: BlockTemplate) => void
+): Promise<Object> {
 	const config = await loadVolarsConfig()
 	const block = 'minecraft:block'
 

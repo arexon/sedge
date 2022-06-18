@@ -11,9 +11,14 @@ export async function build(volars: VolarsInstance): Promise<void> {
 		files.map(async (path) => {
 			const content = await loadFile(resolve(path))
 
-			await createFile(resolve(volars.config.volars.target!, path), content as string)
+			await createFile(
+				resolve(volars.config.volars.target!, path),
+				content as string
+			)
 		})
 	)
 
-	volars.logger.success(`Compiled ${results.length} files in ${Date.now() - start} ms`)
+	volars.logger.success(
+		`Compiled ${results.length} files in ${Date.now() - start} ms`
+	)
 }
