@@ -1,4 +1,4 @@
-type FormatVersion = '1.16.100'
+type FormatVersion = string
 
 interface Description {
 	identifier: string
@@ -7,8 +7,11 @@ interface Description {
 	}
 }
 
+interface Components {}
+
 export interface BlockTemplate {
 	namespace?: string
 	formatVersion: (template: FormatVersion) => void
 	description: (template: Description) => void
+	components: (template: Components) => void
 }

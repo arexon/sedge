@@ -2,16 +2,25 @@ import { loadVolarsConfig } from '../config'
 import { BlockTemplate } from '../types/template/block'
 
 export const defineBlock = async (fn: (template: BlockTemplate) => void): Promise<Object> => {
-	let src: Object = {}
 	const config = await loadVolarsConfig()
 	const block = 'minecraft:block'
 
-	const template: BlockTemplate = {
-		namespace: config.namespace,
-		formatVersion: (format_version) => (src = { format_version }),
-		description: (description) => (src = { ...src, [block]: { description } })
-	}
-	fn(template)
+	let formatVersion = ''
+	let description = {}
+	let components = {}
 
-	return src
+	fn({
+		namespace: config.namespace,
+		formatVersion: (template) => (formatVersion = template),
+		description: (template) => (description = template),
+		components: (template) => (components = template)
+	})
+
+	return {
+		format_version: formatVersion,
+		[block]: {
+			description,
+			components
+		}
+	}
 }

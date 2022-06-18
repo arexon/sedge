@@ -4,7 +4,7 @@ import { resolve, normalize, join } from 'pathe'
 import { globby } from 'globby'
 import { watch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
-import { blockTypes } from './typeTemplates'
+import { blockTypes, vanilla } from './typeTemplates'
 import type { TSConfig } from 'pkg-types'
 import type { Packs, Volars } from '../types/volars'
 
@@ -87,7 +87,8 @@ async function prepareDir(dir: string): Promise<void> {
 async function generateTypes(): Promise<void> {
 	await prepareDir(resolve('.volars'))
 
-	await fs.writeFile(resolve('.volars/blockTypes.d.ts'), blockTypes, { encoding: 'utf8' })
+	await fs.writeFile(resolve('.volars/vanilla.d.ts'), vanilla)
+	await fs.writeFile(resolve('.volars/blockTypes.d.ts'), blockTypes)
 
 	const tsConfig: TSConfig = {
 		compilerOptions: {
@@ -97,7 +98,7 @@ async function generateTypes(): Promise<void> {
 			strict: true,
 			esModuleInterop: true
 		},
-		include: ['./blockTypes.d.ts', '../BP']
+		include: ['./blockTypes.d.ts', './vanilla.d.ts', '../BP']
 	}
 	await fs.writeFile(resolve('.volars/tsconfig.json'), JSON.stringify(tsConfig, null, '\t'))
 }
