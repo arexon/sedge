@@ -5,7 +5,7 @@ import { watch } from './watch'
 import { createDefinitions } from './definitions'
 
 export async function start(volars: VolarsInstance): Promise<void> {
-	await createDefinitions()
+	await createDefinitions(volars.config.packs)
 	await prepareDir(volars.config.volars.target)
 
 	if (volars.dev) {

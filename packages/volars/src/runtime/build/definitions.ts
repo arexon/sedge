@@ -1,7 +1,8 @@
 import fs from 'fs-extra'
-import { TSConfig } from 'pkg-types'
+import type { TSConfig } from 'pkg-types'
+import type { Packs } from '../../config'
 
-export async function createDefinitions(): Promise<void> {
+export async function createDefinitions(packs: Packs): Promise<void> {
 	const definitions = 'node_modules/volars/dist/definitions'
 	const tsConfig: TSConfig = {
 		compilerOptions: {
@@ -11,7 +12,12 @@ export async function createDefinitions(): Promise<void> {
 			strict: true,
 			esModuleInterop: true
 		},
-		include: ['./block.d.ts', './vanilla.d.ts', '../BP']
+		include: [
+			'./block.d.ts',
+			'./vanilla.d.ts',
+			`../${packs.resourcePack.replace(/^.\//, '')}`,
+			`../${packs.behaviorPack.replace(/^.\//, '')}`
+		]
 	}
 
 	await fs.remove('.volars')
