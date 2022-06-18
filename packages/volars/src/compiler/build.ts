@@ -6,9 +6,10 @@ import { watch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
 import { blockTypes, vanilla } from './typeTemplates'
 import type { TSConfig } from 'pkg-types'
-import type { Packs, Volars } from '../types/volars'
+import type { VolarsInstance } from './volars'
+import type { Packs } from '../config'
 
-export async function build(volars: Volars): Promise<void> {
+export async function build(volars: VolarsInstance): Promise<void> {
 	await generateTypes()
 	await prepareDir(resolve('build'))
 
@@ -23,7 +24,7 @@ export async function build(volars: Volars): Promise<void> {
 	}
 }
 
-async function _build(volars: Volars): Promise<void> {
+async function _build(volars: VolarsInstance): Promise<void> {
 	const start = Date.now()
 
 	const files = await getFileBatches(volars.config.packs!)
@@ -32,14 +33,14 @@ async function _build(volars: Volars): Promise<void> {
 		files.map(async (path) => {
 			const content = await loadFile(resolve(path))
 
-			await writeFile(resolve(volars.config.buildDir!, path), content as string)
+			await writeFile(resolve(volars.config.volars.target!, path), content as string)
 		})
 	)
 
 	volars.logger.success(`Compiled ${results.length} files in ${Date.now() - start} ms`)
 }
 
-async function _watch(volars: Volars): Promise<void> {
+async function _watch(volars: VolarsInstance): Promise<void> {
 	interface WatchedFilesQueue {
 		updated?: string[]
 		deleted?: string[]
@@ -53,10 +54,10 @@ async function _watch(volars: Volars): Promise<void> {
 		watchedFilesQueue.updated!.map(async (file) => {
 			const content = await loadFile(resolve(file))
 
-			await writeFile(resolve(volars.config.buildDir!, file), content as string)
+			await writeFile(resolve(volars.config.volars.target!, file), content as string)
 		})
 		watchedFilesQueue.deleted!.map(async (file) => {
-			await deleteFile(resolve(volars.config.buildDir!, file))
+			await deleteFile(resolve(volars.config.volars.target!, file))
 		})
 
 		volars.logger.success(watchedFilesQueue)
@@ -109,7 +110,7 @@ async function getFileBatches(packs: Packs): Promise<string[]> {
 	return [...blocksBatch]
 }
 
-function validatePath(volars: Volars, path: string): boolean {
+function validatePath(volars: VolarsInstance, path: string): boolean {
 	return path.search(`${volars.config.packs!.behaviorPack}/blocks`) === 0
 }
 
