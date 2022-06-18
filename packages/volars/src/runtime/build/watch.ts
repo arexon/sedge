@@ -28,6 +28,7 @@ export async function watch(volars: VolarsInstance): Promise<void> {
 			await removeFile(resolve(volars.config.volars.target, file))
 		})
 
+		console.clear()
 		volars.logger.success(filesQueue)
 
 		filesQueue = { updated: [], removed: [] }
