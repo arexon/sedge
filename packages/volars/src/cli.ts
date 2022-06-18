@@ -2,8 +2,8 @@
 
 import mri from 'mri'
 import consola from 'consola'
-import { start } from './compiler/build/start'
-import { createVolars } from './compiler/volars'
+import { start } from './runtime/build/start'
+import { createVolars } from './runtime/volars'
 
 const main = async () => {
 	const args = mri(process.argv.slice(2))
