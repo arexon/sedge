@@ -6,13 +6,12 @@ import { build } from './build'
 import { createFile, loadFile, removeFile } from '../file'
 
 export async function watch(volars: VolarsInstance): Promise<void> {
+	await build(volars)
+
 	interface FilesQueue {
 		updated?: string[]
 		removed?: string[]
 	}
-
-	await build(volars)
-
 	let filesQueue: FilesQueue = { updated: [], removed: [] }
 
 	const reload = debounce(async () => {
@@ -20,13 +19,13 @@ export async function watch(volars: VolarsInstance): Promise<void> {
 			const content = await loadFile(resolve(file))
 
 			await createFile(
-				resolve(volars.config.volars.target!, file),
+				resolve(volars.config.volars.target, file),
 				content as string
 			)
 		})
 
 		filesQueue.removed!.map(async (file) => {
-			await removeFile(resolve(volars.config.volars.target!, file))
+			await removeFile(resolve(volars.config.volars.target, file))
 		})
 
 		volars.logger.success(filesQueue)
@@ -34,7 +33,7 @@ export async function watch(volars: VolarsInstance): Promise<void> {
 		filesQueue = { updated: [], removed: [] }
 	}, 100)
 
-	const watcher = chokidarWatch(volars.config.packs!.behaviorPack, {
+	const watcher = chokidarWatch(volars.config.packs.behaviorPack, {
 		ignoreInitial: true
 	})
 

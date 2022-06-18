@@ -12,7 +12,7 @@ export async function build(volars: VolarsInstance): Promise<void> {
 			const content = await loadFile(resolve(path))
 
 			await createFile(
-				resolve(volars.config.volars.target!, path),
+				resolve(volars.config.volars.target, path),
 				content as string
 			)
 		})
