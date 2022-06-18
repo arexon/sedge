@@ -12,9 +12,9 @@ export default defineBlock(({ namespace, formatVersion, description, components 
 		},
 		'minecraft:breathability': 'solid',
 		'minecraft:block_light_filter': 2,
-		'minecraft:crafting_table': {
-			crafting_tags: ['fasdfcas'],
-			custom_description: 'safasdcad'
+		'minecraft:block_collision': {
+			origin: [0, 0, 0],
+			size: [16, 16, 16]
 		}
 	})
 })

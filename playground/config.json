@@ -4,8 +4,8 @@
 	"namespace": "playground",
 	"targetVersion": "1.19.0",
 	"packs": {
-		"behaviorPack": "./BP",
-		"resourcePack": "./RP"
+		"behaviorPack": "./packs/BP",
+		"resourcePack": "./packs/RP"
 	},
 	"volars": {
 		"target": "build"
