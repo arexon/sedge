@@ -2,7 +2,7 @@ import { prepareDir } from '../fs'
 import { VolarsInstance } from '../volars'
 import { build } from './build'
 import { watch } from './watch'
-import { prepareDefinitions } from '../../definitions/prepare'
+import { prepareDefinitions } from './definitions'
 
 export async function start(volars: VolarsInstance): Promise<void> {
 	await prepareDefinitions(volars.config.packs)
