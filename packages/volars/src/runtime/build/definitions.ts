@@ -3,7 +3,6 @@ import type { TSConfig } from 'pkg-types'
 import type { Packs } from '../../config'
 
 export async function prepareDefinitions(packs: Packs): Promise<void> {
-	const definitions = 'node_modules/volars/dist/definitions'
 	const tsConfig: TSConfig = {
 		compilerOptions: {
 			target: 'esnext',
@@ -13,17 +12,16 @@ export async function prepareDefinitions(packs: Packs): Promise<void> {
 			esModuleInterop: true
 		},
 		include: [
-			'./block.d.ts',
-			'./vanilla.d.ts',
+			'./*.d.ts',
 			`../${packs.resourcePack.replace(/^.\//, '')}`,
 			`../${packs.behaviorPack.replace(/^.\//, '')}`
 		]
 	}
 
 	await fs.remove('.volars')
-	await fs.copy(definitions, '.volars', { dereference: true })
-	await fs.writeFile(
-		'.volars/tsconfig.json',
-		JSON.stringify(tsConfig, null, '\t')
-	)
+	await fs.mkdirp('.volars')
+	await fs.copy('node_modules/volars/dist/definitions', '.volars', {
+		dereference: true
+	})
+	await fs.writeJson('.volars/tsconfig.json', tsConfig, { spaces: '\t' })
 }
