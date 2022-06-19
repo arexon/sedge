@@ -10,17 +10,17 @@ export async function getFilesBatch(packs: Packs): Promise<string[]> {
 	return [...blocks]
 }
 
-export async function loadFile(path: string): Promise<unknown> {
-	return await jiti('', { interopDefault: true, requireCache: false })(path)
+export async function loadModule(
+	path: string,
+	requireCache = false
+): Promise<any> {
+	return await jiti('', { interopDefault: true, requireCache })(path)
 }
 
-export async function createFile(path: string, content: string): Promise<void> {
-	await fs.mkdirs(getPathWithoutFileName(path))
-
-	await fs.writeFile(
-		getPathWithJsonExtension(path),
-		JSON.stringify(content, null, '\t')
-	)
+export async function writeJson(path: string, content: string): Promise<void> {
+	await fs.outputJSON(getPathWithJsonExtension(path), content, {
+		spaces: '\t'
+	})
 }
 
 export async function removeFile(path: string): Promise<void> {

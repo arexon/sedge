@@ -3,7 +3,7 @@ import { watch as chokidarWatch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
 import { VolarsInstance } from '../volars'
 import { build } from './build'
-import { createFile, loadFile, removeFile } from '../file'
+import { writeJson, loadModule, removeFile } from '../file'
 
 export async function watch(volars: VolarsInstance): Promise<void> {
 	await build(volars)
@@ -16,12 +16,9 @@ export async function watch(volars: VolarsInstance): Promise<void> {
 
 	const reload = debounce(async () => {
 		filesQueue.updated!.map(async (file) => {
-			const content = await loadFile(resolve(file))
+			const content: string = await loadModule(resolve(file))
 
-			await createFile(
-				resolve(volars.config.volars.target, file),
-				content as string
-			)
+			await writeJson(resolve(volars.config.volars.target, file), content)
 		})
 
 		filesQueue.removed!.map(async (file) => {

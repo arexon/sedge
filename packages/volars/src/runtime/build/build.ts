@@ -1,5 +1,5 @@
 import { resolve } from 'pathe'
-import { createFile, getFilesBatch, loadFile } from '../file'
+import { writeJson, getFilesBatch, loadModule } from '../file'
 import type { VolarsInstance } from '../volars'
 
 export async function build(volars: VolarsInstance): Promise<void> {
@@ -9,12 +9,9 @@ export async function build(volars: VolarsInstance): Promise<void> {
 
 	const results = await Promise.allSettled(
 		files.map(async (path) => {
-			const content = await loadFile(resolve(path))
+			const content: string = await loadModule(resolve(path))
 
-			await createFile(
-				resolve(volars.config.volars.target, path),
-				content as string
-			)
+			await writeJson(resolve(volars.config.volars.target, path), content)
 		})
 	)
 
