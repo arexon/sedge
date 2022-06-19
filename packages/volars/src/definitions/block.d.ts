@@ -162,6 +162,8 @@ declare module 'volars' {
 	 * Defines a new block based on the given template.
 	 */
 	// @ts-expect-error
-	function defineBlock(fn: (template: BlockTemplate) => void): Promise<Object>
+	async function defineBlock(
+		fn: (template: BlockTemplate) => void
+	): Promise<Object>
 }
 export {}

@@ -5,7 +5,6 @@ export async function defineBlock(
 	fn: (template: BlockTemplate) => void
 ): Promise<Object> {
 	const config = await loadConfig()
-	const block = 'minecraft:block'
 
 	let formatVersion = ''
 	let description = {}
@@ -20,7 +19,7 @@ export async function defineBlock(
 
 	return {
 		format_version: formatVersion,
-		[block]: {
+		'minecraft:block': {
 			description,
 			components
 		}
