@@ -41,7 +41,7 @@ declare global {
 					 *
 					 * @default [-8.0, 0.0, -8.0]
 					 */
-					origin: [number, number, number]
+					origin?: [number, number, number]
 					/**
 					 * ### Size
 					 *
@@ -50,7 +50,7 @@ declare global {
 					 *
 					 * @default [16.0, 16.0, 16.0]
 					 */
-					size: [number, number, number]
+					size?: [number, number, number]
 			  }
 			| boolean
 
@@ -73,7 +73,7 @@ declare global {
 					 *
 					 * @default [-8.0, 0.0, -8.0]
 					 */
-					origin: [number, number, number]
+					origin?: [number, number, number]
 					/**
 					 * ### Size
 					 *
@@ -82,7 +82,7 @@ declare global {
 					 *
 					 * @default [16.0, 16.0, 16.0]
 					 */
-					size: [number, number, number]
+					size?: [number, number, number]
 			  }
 			| boolean
 
@@ -132,14 +132,14 @@ declare global {
 			 * Defines the tags recipes should define to be crafted on this table.
 			 * Limited to 64 tags. Each tag is limited to 64 characters.
 			 */
-			custom_description: string
+			custom_description?: string
 			/**
 			 * ### Crafting Tags
 			 *
 			 * Defines the language file key that maps what text will be displayed in the UI of this table.
 			 * If not specified, the name of the block will be used.
 			 */
-			crafting_tags: string[]
+			crafting_tags?: string[]
 		}
 
 		/**
