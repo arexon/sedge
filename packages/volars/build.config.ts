@@ -13,7 +13,6 @@ export default defineBuildConfig({
 		}
 	],
 	dependencies: [
-		'mri',
 		'pathe',
 		'globby',
 		'consola',

@@ -1,37 +1,33 @@
 #!/usr/bin/env node
 
-import mri from 'mri'
-import consola from 'consola'
 import { start } from './runtime/build/start'
 import { createVolars } from './runtime/volars'
 
 const main = async () => {
-	const args = mri(process.argv.slice(2))
-	const command = args._[0]
+	let volars = await createVolars({
+		dev: false
+	})
 
-	if (command === 'dev') {
-		const volars = await createVolars({
-			dev: true
-		})
+	try {
+		switch (process.argv[2]) {
+			case 'build':
+				await start(volars)
+				process.exit(0)
 
-		await start(volars)
-		return
+			case 'dev':
+				volars.dev = true
+
+				await start(volars)
+				return
+
+			default:
+				volars.logger.error(`Unknown command! Usage: volars build|dev`)
+				process.exit(1)
+		}
+	} catch (error) {
+		volars.logger.error(error)
+		process.exit(1)
 	}
-
-	if (command === 'build') {
-		const volars = await createVolars({
-			dev: false
-		})
-
-		await start(volars)
-		process.exit(0)
-	}
-
-	consola.error(`Unknown command ${command} - use volars dev|build`)
-	process.exit(1)
 }
 
-main().catch((error) => {
-	consola.error(error)
-	process.exit(1)
-})
+main()
