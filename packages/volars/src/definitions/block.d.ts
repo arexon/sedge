@@ -31,7 +31,7 @@ declare global {
 		 *
 		 * @requires Holiday Creator Features
 		 */
-		'minecraft:aim_ollision'?:
+		'minecraft:aim_collision'?:
 			| {
 					/**
 					 * ### Origin
