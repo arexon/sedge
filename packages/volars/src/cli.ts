@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
 import { start } from './runtime/build/start'
 import { createVolars } from './runtime/volars'
