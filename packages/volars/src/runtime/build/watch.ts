@@ -1,3 +1,4 @@
+import fs from 'fs-extra'
 import { normalize, resolve } from 'pathe'
 import { watch as chokidarWatch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
@@ -15,14 +16,20 @@ export async function watch(volars: VolarsInstance): Promise<void> {
 	let filesQueue: FilesQueue = { updated: [], removed: [] }
 
 	const reload = debounce(async () => {
-		filesQueue.updated!.map(async (file) => {
-			const content: string = await loadModule(resolve(file))
-
-			await writeJson(resolve(volars.config.volars.target, file), content)
+		filesQueue.updated!.map(async (path) => {
+			if (path.endsWith('.ts')) {
+				const content: string = await loadModule(resolve(path))
+				await writeJson(
+					resolve(volars.config.volars.target, path),
+					content
+				)
+			} else {
+				fs.copySync(path, resolve(volars.config.volars.target, path))
+			}
 		})
 
-		filesQueue.removed!.map(async (file) => {
-			await removeFile(resolve(volars.config.volars.target, file))
+		filesQueue.removed!.map(async (path) => {
+			await removeFile(resolve(volars.config.volars.target, path))
 		})
 
 		console.clear()
