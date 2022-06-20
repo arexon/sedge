@@ -1,18 +1,13 @@
 import fs from 'fs-extra'
 import { resolve } from 'pathe'
-import {
-	writeJson,
-	getModulesBatch,
-	loadModule,
-	getFilesBatch
-} from '../fileSystem'
+import { writeJson, getModules, loadModule, getFiles } from '../fileSystem'
 import type { VolarsInstance } from '../volars'
 
 export async function build(volars: VolarsInstance): Promise<void> {
 	const start = Date.now()
 
-	const modules = await getModulesBatch(volars.config.packs)
-	const files = await getFilesBatch(volars.config.packs)
+	const modules = await getModules(volars.config.packs)
+	const files = await getFiles(volars.config.packs)
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {

@@ -4,13 +4,11 @@ import { globby } from 'globby'
 import fs from 'fs-extra'
 import type { Packs } from '../config'
 
-export async function getModulesBatch(packs: Packs): Promise<string[]> {
-	const blocks = await globby(`${packs.behaviorPack}/blocks/**/*.ts`)
-
-	return [...blocks]
+export async function getModules(packs: Packs): Promise<string[]> {
+	return await globby(`${packs.behaviorPack}/*/*.ts`)
 }
 
-export async function getFilesBatch(packs: Packs): Promise<string[]> {
+export async function getFiles(packs: Packs): Promise<string[]> {
 	return await globby(`${packs.behaviorPack}/**/*`, {
 		ignore: ['**/*.ts']
 	})

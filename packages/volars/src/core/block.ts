@@ -5,19 +5,19 @@ export async function defineBlock(
 ): Promise<Object> {
 	const config = await loadConfig()
 
-	let formatVersion = ''
+	let format_version = ''
 	let description = {}
 	let components = {}
 
 	fn({
 		namespace: config.namespace,
-		formatVersion: (template) => (formatVersion = template),
+		formatVersion: (template) => (format_version = template),
 		description: (template) => (description = template),
 		components: (template) => (components = template)
 	})
 
 	return {
-		format_version: formatVersion,
+		format_version,
 		'minecraft:block': {
 			description,
 			components
