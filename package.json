@@ -10,8 +10,7 @@
 		"turbo": "^1.2.16"
 	},
 	"engines": {
-		"npm": ">=7.0.0",
-		"node": ">=14.0.0"
+		"node": ">=18.0.0"
 	},
-	"packageManager": "pnpm@7.1.0"
+	"packageManager": "pnpm@7.3.0"
 }
