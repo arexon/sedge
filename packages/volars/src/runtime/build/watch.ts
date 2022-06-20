@@ -4,7 +4,7 @@ import { watch as chokidarWatch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
 import { VolarsInstance } from '../volars'
 import { build } from './build'
-import { writeJson, loadModule, removeFile } from '../file'
+import { writeJson, loadModule, removeFile } from '../fileSystem'
 
 export async function watch(volars: VolarsInstance): Promise<void> {
 	await build(volars)

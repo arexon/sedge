@@ -33,6 +33,11 @@ export async function removeFile(path: string): Promise<void> {
 	await fs.remove(getPathWithJsonExtension(path))
 }
 
+export async function prepareDir(path: string): Promise<void> {
+	await fs.remove(path)
+	await fs.ensureDir(path)
+}
+
 function getPathWithJsonExtension(path: string): string {
 	return join(
 		getPathWithoutFileName(path),

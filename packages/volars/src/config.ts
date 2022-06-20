@@ -1,6 +1,5 @@
-import fs from 'fs-extra'
 import { resolve } from 'pathe'
-import { loadModule } from './runtime/file'
+import { loadModule } from './runtime/fileSystem'
 
 export async function loadConfig(): Promise<Config> {
 	const path = resolve(process.cwd(), 'config.json')

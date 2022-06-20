@@ -1,6 +1,11 @@
 import fs from 'fs-extra'
 import { resolve } from 'pathe'
-import { writeJson, getModulesBatch, loadModule, getFilesBatch } from '../file'
+import {
+	writeJson,
+	getModulesBatch,
+	loadModule,
+	getFilesBatch
+} from '../fileSystem'
 import type { VolarsInstance } from '../volars'
 
 export async function build(volars: VolarsInstance): Promise<void> {
