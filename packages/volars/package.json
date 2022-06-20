@@ -36,7 +36,7 @@
 	},
 	"devDependencies": {
 		"@types/fs-extra": "^9.0.13",
-		"@types/node": "^17.0.39",
+		"@types/node": "^17.0.45",
 		"pkg-types": "^0.3.2",
 		"unbuild": "^0.7.4"
 	},
@@ -44,7 +44,7 @@
 		"chokidar": "^3.5.3",
 		"consola": "^2.15.3",
 		"fs-extra": "^10.1.0",
-		"globby": "^13.1.1",
+		"globby": "^13.1.2",
 		"jiti": "^1.13.0",
 		"mri": "^1.2.0",
 		"pathe": "^0.3.0",

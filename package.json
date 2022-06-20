@@ -6,8 +6,8 @@
 		"format": "prettier --write \"**/*.ts\" --ignore-path .gitignore"
 	},
 	"devDependencies": {
-		"prettier": "latest",
-		"turbo": "latest"
+		"prettier": "^2.7.1",
+		"turbo": "^1.2.16"
 	},
 	"engines": {
 		"npm": ">=7.0.0",
