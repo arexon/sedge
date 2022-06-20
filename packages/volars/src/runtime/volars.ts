@@ -1,6 +1,5 @@
 import consola, { type Consola } from 'consola'
 import { type Config, loadConfig } from '../config'
-import type { DeepPartial } from '../types/deepPartial'
 
 export async function createVolars(
 	options: DeepPartial<VolarsInstance>
@@ -21,3 +20,7 @@ export interface VolarsInstance {
 	logger: Consola
 	dev: boolean
 }
+
+type DeepPartial<T> = T extends Record<string, any>
+	? { [P in keyof T]?: DeepPartial<T[P]> | T[P] }
+	: T

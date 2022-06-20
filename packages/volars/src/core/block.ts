@@ -1,5 +1,4 @@
 import { loadConfig } from '../config'
-import { BlockTemplate } from '../types/template/block'
 
 export async function defineBlock(
 	fn: (template: BlockTemplate) => void
@@ -24,4 +23,11 @@ export async function defineBlock(
 			components
 		}
 	}
+}
+
+interface BlockTemplate {
+	namespace?: string
+	formatVersion: (template: string) => void
+	description: (template: Object) => void
+	components: (template: Object) => void
 }
