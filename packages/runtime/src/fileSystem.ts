@@ -2,7 +2,7 @@ import jiti from 'jiti'
 import { join } from 'pathe'
 import { globby } from 'globby'
 import fs from 'fs-extra'
-import type { Packs } from '../config'
+import type { Packs } from 'volars-config'
 
 export async function getModules(packs: Packs): Promise<string[]> {
 	return await globby(`${packs.behaviorPack}/*/*.ts`)
@@ -14,11 +14,8 @@ export async function getFiles(packs: Packs): Promise<string[]> {
 	})
 }
 
-export async function loadModule(
-	path: string,
-	requireCache = false
-): Promise<any> {
-	return await jiti('', { interopDefault: true, requireCache })(path)
+export async function loadModule(path: string): Promise<any> {
+	return await jiti('', { interopDefault: true, requireCache: false })(path)
 }
 
 export async function writeJson(path: string, content: string): Promise<void> {

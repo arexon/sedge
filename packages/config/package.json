@@ -1,14 +1,14 @@
 {
-	"name": "volars",
+	"name": "volars-config",
 	"version": "0.0.1",
-	"description": "The framework for supercharged Minecraft Add-On development.",
+	"description": "The configuration loader for Volars.",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
-	"homepage": "https://github.com/arexon/volars/packages/volars",
+	"homepage": "https://github.com/arexon/volars/packages/config",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/arexon/volars.git",
-		"directory": "packages/volars"
+		"directory": "packages/config"
 	},
 	"bugs": {
 		"url": "https://github.com/arexon/volars/issues"
@@ -24,12 +24,6 @@
 	"main": "./dist/index.mjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"bin": {
-		"volars": "./dist/cli.mjs"
-	},
-	"files": [
-		"dist"
-	],
 	"scripts": {
 		"build": "unbuild",
 		"dev": "unbuild --stub"
@@ -39,7 +33,7 @@
 		"unbuild": "^0.7.4"
 	},
 	"dependencies": {
-		"volars-core": "workspace:*",
-		"volars-runtime": "workspace:*"
+		"jiti": "^1.13.0",
+		"pathe": "^0.3.0"
 	}
 }

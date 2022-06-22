@@ -1,14 +1,14 @@
 {
-	"name": "volars",
+	"name": "volars-runtime",
 	"version": "0.0.1",
-	"description": "The framework for supercharged Minecraft Add-On development.",
+	"description": "The runtime used for compiling Volars projects.",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
-	"homepage": "https://github.com/arexon/volars/packages/volars",
+	"homepage": "https://github.com/arexon/volars/packages/runtime",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/arexon/volars.git",
-		"directory": "packages/volars"
+		"directory": "packages/runtime"
 	},
 	"bugs": {
 		"url": "https://github.com/arexon/volars/issues"
@@ -24,9 +24,6 @@
 	"main": "./dist/index.mjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"bin": {
-		"volars": "./dist/cli.mjs"
-	},
 	"files": [
 		"dist"
 	],
@@ -35,11 +32,18 @@
 		"dev": "unbuild --stub"
 	},
 	"devDependencies": {
+		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^17.0.45",
 		"unbuild": "^0.7.4"
 	},
 	"dependencies": {
-		"volars-core": "workspace:*",
-		"volars-runtime": "workspace:*"
+		"chokidar": "^3.5.3",
+		"consola": "^2.15.3",
+		"fs-extra": "^10.1.0",
+		"globby": "^13.1.2",
+		"jiti": "^1.13.0",
+		"pathe": "^0.3.0",
+		"perfect-debounce": "^0.1.3",
+		"volars-config": "workspace:*"
 	}
 }

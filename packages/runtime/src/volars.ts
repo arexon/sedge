@@ -1,5 +1,5 @@
 import consola, { type Consola } from 'consola'
-import { type Config, loadConfig } from '../config'
+import { type Config, loadConfig } from 'volars-config'
 
 export async function createVolars(
 	options: DeepPartial<VolarsInstance>

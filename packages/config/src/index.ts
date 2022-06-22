@@ -1,14 +1,21 @@
+import jiti from 'jiti'
 import { resolve } from 'pathe'
-import { loadModule } from './runtime/fileSystem'
 
 export async function loadConfig(): Promise<Config> {
 	const path = resolve(process.cwd(), 'config.json')
-	const config: Config = await loadModule(path, true)
+	const config: Config = await jiti('', {
+		interopDefault: true
+	})(path)
 
 	return config
 }
 
+type PackType = 'behaviorPack' | 'resourcePack'
 export type Packs = { [packType in PackType]: string }
+
+interface VolarsConfig {
+	target: string
+}
 export interface Config {
 	name: string
 	authors: string[]
@@ -16,9 +23,4 @@ export interface Config {
 	targetVersion: '1.19.0'
 	packs: Packs
 	volars: VolarsConfig
-}
-
-type PackType = 'behaviorPack' | 'resourcePack'
-interface VolarsConfig {
-	target: string
 }

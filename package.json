@@ -3,6 +3,7 @@
 	"private": true,
 	"scripts": {
 		"build": "turbo run build --scope=\"!playground*\"",
+		"dev": "turbo run dev --scope=\"!playground*\"",
 		"format": "prettier --write \"**/*.ts\" --ignore-path .gitignore"
 	},
 	"devDependencies": {

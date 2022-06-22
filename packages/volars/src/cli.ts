@@ -1,9 +1,8 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env node
 
-import { start } from './runtime/build/start'
-import { createVolars } from './runtime/volars'
+import { start, createVolars } from 'volars-runtime'
 
-const main = async () => {
+async function main(): Promise<void> {
 	let volars = await createVolars({
 		dev: false
 	})

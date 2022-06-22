@@ -1,7 +1,11 @@
+import { loadConfig } from 'volars-config'
 import { BlockTemplate, FormatVersion } from 'volars-schema'
-import { loadConfig } from '../config'
 
-/** Creates a new block based on the given template. */
+/**
+ * # Define Block
+ *
+ * Creates a new block based on the given template.
+ */
 export async function defineBlock<Version extends FormatVersion>(
 	formatVersion: Version,
 	block: (template: BlockTemplate<Version>) => void
