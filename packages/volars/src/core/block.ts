@@ -1,33 +1,38 @@
+import { BlockTemplate, FormatVersion } from 'volars-schema'
 import { loadConfig } from '../config'
 
-export async function defineBlock(
-	fn: (template: BlockTemplate) => void
+/** Creates a new block based on the given template. */
+export async function defineBlock<Version extends FormatVersion>(
+	formatVersion: Version,
+	block: (template: BlockTemplate<Version>) => void
 ): Promise<Object> {
 	const config = await loadConfig()
 
-	let format_version = ''
 	let description = {}
 	let components = {}
 
-	fn({
+	block({
 		namespace: config.namespace,
-		formatVersion: (template) => (format_version = template),
 		description: (template) => (description = template),
 		components: (template) => (components = template)
 	})
 
 	return {
-		format_version,
+		format_version: formatVersion,
 		'minecraft:block': {
 			description,
-			components
+			components: prependNamespaces(components, 'minecraft')
 		}
 	}
 }
 
-interface BlockTemplate {
-	namespace?: string
-	formatVersion: (template: string) => void
-	description: (template: Object) => void
-	components: (template: Object) => void
+function prependNamespaces(
+	object: Record<string, any>,
+	namespace: string
+): object {
+	for (const key in object) {
+		object[`${namespace}:${key}`] = object[key]
+		delete object[key]
+	}
+	return object
 }

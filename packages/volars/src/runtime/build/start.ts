@@ -1,11 +1,9 @@
 import { VolarsInstance } from '../volars'
 import { build } from './build'
 import { watch } from './watch'
-import { prepareDefinitions } from './definitions'
 import { prepareDir } from '../fileSystem'
 
 export async function start(volars: VolarsInstance): Promise<void> {
-	await prepareDefinitions(volars.config.packs)
 	await prepareDir(volars.config.volars.target)
 
 	if (volars.dev) {
