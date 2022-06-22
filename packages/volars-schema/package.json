@@ -1,0 +1,37 @@
+{
+	"name": "volars-schema",
+	"version": "0.0.1",
+	"description": "Schema definitions for Volars.",
+	"author": "Arexon <me@arexon.me>",
+	"license": "MIT",
+	"homepage": "https://github.com/arexon/volars/packages/volars-schema",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/arexon/volars.git",
+		"directory": "packages/volars-schema"
+	},
+	"bugs": {
+		"url": "https://github.com/arexon/volars/issues"
+	},
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.mjs",
+			"default": "./dist/index.mjs"
+		}
+	},
+	"main": "./dist/index.mjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "unbuild",
+		"dev": "unbuild --stub"
+	},
+	"devDependencies": {
+		"unbuild": "^0.7.4"
+	}
+}
