@@ -1,5 +1,6 @@
 import jiti from 'jiti'
 import { resolve } from 'pathe'
+import { Config } from './types'
 
 export async function loadConfig(): Promise<Config> {
 	const path = resolve(process.cwd(), 'config.json')
@@ -10,18 +11,4 @@ export async function loadConfig(): Promise<Config> {
 	return config
 }
 
-type PackType = 'behaviorPack' | 'resourcePack'
-export type Packs = { [packType in PackType]: string }
-
-interface VolarsConfig {
-	targets: {
-		[name: string | 'default']: string
-	}
-}
-export interface Config {
-	name: string
-	authors: string[]
-	namespace: string
-	packs: Packs
-	volars: VolarsConfig
-}
+export * from './types'
