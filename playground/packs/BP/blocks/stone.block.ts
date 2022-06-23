@@ -2,9 +2,15 @@ import { defineBlock } from 'volars'
 
 export default defineBlock(
 	'1.19.10',
-	({ namespace, description, permutations, components }) => {
+	({ namespace, description, permutations, components, events }) => {
+		const isRotated = `${namespace}:is_rotated`
+		const rotateBy90 = `${namespace}:rotate_by_90`
+
 		description({
-			identifier: `${namespace}:stone`
+			identifier: `${namespace}:stone`,
+			properties: {
+				[isRotated]: [false, true]
+			}
 		})
 
 		permutations([
@@ -18,10 +24,17 @@ export default defineBlock(
 
 		components({
 			unit_cube: {},
-			map_color: '#123456',
 			on_interact: {
 				condition: 'q.is_sneaking',
-				event: `${namespace}:some_event`
+				event: rotateBy90
+			}
+		})
+
+		events({
+			[rotateBy90]: {
+				set_block_property: {
+					[isRotated]: true
+				}
 			}
 		})
 	}
