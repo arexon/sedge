@@ -13,10 +13,12 @@ importers:
   packages/config:
     specifiers:
       '@types/node': ^17.0.45
+      consola: ^2.15.3
       jiti: ^1.14.0
       pathe: ^0.3.0
       unbuild: ^0.7.4
     dependencies:
+      consola: 2.15.3
       jiti: 1.14.0
       pathe: 0.3.0
     devDependencies:
