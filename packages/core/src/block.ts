@@ -16,8 +16,9 @@ export async function defineBlock<Version extends FormatVersion>(
 	const config = await loadConfig()
 
 	let description: BlockObject = {}
-	let components: BlockObject = {}
 	let permutations: BlockObject[] = []
+	let components: BlockObject = {}
+	let events: BlockObject = {}
 
 	try {
 		block({
@@ -25,10 +26,13 @@ export async function defineBlock<Version extends FormatVersion>(
 			description: (template: BlockObject) => (description = template),
 			...(formatVersion !== '1.16.0' && {
 				permutations: (template: BlockObject[]) => {
-					permutations = template
+					permutations = template || []
+				},
+				events: (template: BlockObject) => {
+					events = template || {}
 				}
 			}),
-			components: (template: BlockObject) => (components = template)
+			components: (template: BlockObject) => (components = template || {})
 		} as any)
 
 		return {
@@ -42,7 +46,8 @@ export async function defineBlock<Version extends FormatVersion>(
 						'minecraft'
 					)
 				}),
-				components: prependNamespacesInObject(components, 'minecraft')
+				components: prependNamespacesInObject(components, 'minecraft'),
+				...(formatVersion !== '1.16.0' && { events })
 			}
 		}
 	} catch (error) {
