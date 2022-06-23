@@ -4,7 +4,7 @@ import { watch } from './watch'
 import { prepareDir } from '../fileSystem'
 
 export async function start(volars: VolarsInstance): Promise<void> {
-	await prepareDir(volars.config.volars.target)
+	await prepareDir(volars.target)
 
 	if (volars.dev) {
 		volars.logger.start('Watching the project...')

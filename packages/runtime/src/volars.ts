@@ -2,14 +2,15 @@ import consola, { type Consola } from 'consola'
 import { type Config, loadConfig } from 'volars-config'
 
 export async function createVolars(
-	options: DeepPartial<VolarsInstance>
+	options: VolarsInstanceOptions
 ): Promise<VolarsInstance> {
 	const config = await loadConfig()
 
 	const volars: VolarsInstance = {
 		config,
-		logger: consola.withTag('volars') || options.logger,
-		dev: false || options.dev!
+		target: options.dev ? 'dev' : 'build',
+		logger: consola.withTag('volars'),
+		dev: options.dev
 	}
 
 	return volars
@@ -17,10 +18,12 @@ export async function createVolars(
 
 export interface VolarsInstance {
 	config: Config
+	target: string
 	logger: Consola
 	dev: boolean
 }
 
-type DeepPartial<T> = T extends Record<string, any>
-	? { [P in keyof T]?: DeepPartial<T[P]> | T[P] }
-	: T
+interface VolarsInstanceOptions {
+	target?: string
+	dev: boolean
+}

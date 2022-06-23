@@ -19,17 +19,14 @@ export async function watch(volars: VolarsInstance): Promise<void> {
 		filesQueue.updated?.map(async (path) => {
 			if (path.endsWith('.ts')) {
 				const content: string = await loadModule(resolve(path))
-				await writeJson(
-					resolve(volars.config.volars.target, path),
-					content
-				)
+				await writeJson(resolve(volars.target, path), content)
 			} else {
-				fs.copySync(path, resolve(volars.config.volars.target, path))
+				fs.copySync(path, resolve(volars.target, path))
 			}
 		})
 
 		filesQueue.removed?.map(async (path) => {
-			await removeFile(resolve(volars.config.volars.target, path))
+			await removeFile(resolve(volars.target, path))
 		})
 
 		console.clear()

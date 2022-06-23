@@ -5,3 +5,5 @@ node_modules
 dist
 playground/.volars
 playground/build
+playground/dev
+playground/prototyping

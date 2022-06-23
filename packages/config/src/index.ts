@@ -14,13 +14,14 @@ type PackType = 'behaviorPack' | 'resourcePack'
 export type Packs = { [packType in PackType]: string }
 
 interface VolarsConfig {
-	target: string
+	targets: {
+		[name: string | 'default']: string
+	}
 }
 export interface Config {
 	name: string
 	authors: string[]
 	namespace: string
-	targetVersion: '1.19.0'
 	packs: Packs
 	volars: VolarsConfig
 }

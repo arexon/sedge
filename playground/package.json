@@ -3,7 +3,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "volars dev",
+		"dev": "volars dev prototype",
 		"build": "volars build"
 	},
 	"devDependencies": {

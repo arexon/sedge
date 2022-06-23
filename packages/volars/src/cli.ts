@@ -7,24 +7,51 @@ async function main(): Promise<void> {
 		dev: false
 	})
 
-	try {
-		switch (process.argv[2]) {
-			case 'build':
-				await start(volars)
-				process.exit(0)
+	const mode = process.argv[2] as 'build' | 'dev'
+	const target = process.argv[3] as string | 'default' | undefined
+	const configTargets = volars.config.volars.targets
 
-			case 'dev':
-				volars.dev = true
+	const tryStart = async (): Promise<void> => {
+		try {
+			switch (mode) {
+				case 'build':
+					await start(volars)
+					process.exit(0)
 
-				await start(volars)
-				return
+				case 'dev':
+					volars.dev = true
+					// TODO: Implement syncing to com.mojang folder
+					await start(volars)
+					return
 
-			default:
-				volars.logger.error(`Unknown command! Usage: volars build|dev`)
-				process.exit(1)
+				default:
+					volars.logger.error(
+						'Unknown command! Usage: volars [build|dev] [target]'
+					)
+					process.exit(1)
+			}
+		} catch (error) {
+			volars.logger.error(error)
+			process.exit(1)
 		}
-	} catch (error) {
-		volars.logger.error(error)
+	}
+
+	if (target === 'default' || target === undefined) {
+		if (configTargets.default) {
+			volars.target = configTargets.default
+		}
+
+		tryStart()
+	} else if (configTargets[target]) {
+		volars.target = configTargets[target]
+
+		tryStart()
+	} else {
+		volars.logger.error(
+			`Target (${target}) does not match any configured target.`,
+			'\nConfigured Targets:',
+			Object.keys(configTargets)
+		)
 		process.exit(1)
 	}
 }

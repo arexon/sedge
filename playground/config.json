@@ -2,12 +2,13 @@
 	"name": "playground",
 	"authors": ["arexon"],
 	"namespace": "playground",
-	"targetVersion": "1.19.0",
 	"packs": {
 		"behaviorPack": "./packs/BP",
 		"resourcePack": "./packs/RP"
 	},
 	"volars": {
-		"target": "build"
+		"targets": {
+			"prototype": "prototyping"
+		}
 	}
 }

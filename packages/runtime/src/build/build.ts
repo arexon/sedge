@@ -13,10 +13,10 @@ export async function build(volars: VolarsInstance): Promise<void> {
 		...modules.map(async (path) => {
 			const content: string = await loadModule(resolve(path))
 
-			await writeJson(resolve(volars.config.volars.target, path), content)
+			await writeJson(resolve(volars.target, path), content)
 		}),
 		...files.map(async (path) => {
-			fs.copySync(path, resolve(volars.config.volars.target, path))
+			fs.copySync(path, resolve(volars.target, path))
 		})
 	])
 
