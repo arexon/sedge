@@ -9,7 +9,7 @@ export async function createVolars(
 	const volars: VolarsInstance = {
 		config,
 		target: options.dev ? 'dev' : 'build',
-		logger: consola.withTag('volars'),
+		logger: consola.withTag('volars runtime'),
 		dev: options.dev
 	}
 
