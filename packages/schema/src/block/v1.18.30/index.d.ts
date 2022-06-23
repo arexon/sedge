@@ -37,6 +37,8 @@ import {
 	Loot,
 	MapColor
 } from '../v1.16.0/components'
+import { EventsFunction } from '../EventsFunction'
+import { Events } from '../v1.16.100'
 
 export type Components =
 	// 1.18.10
@@ -75,4 +77,5 @@ export type Components =
 export type Template_1_18_30 = Namespace &
 	DescriptionFunction<Description & Properties> &
 	PermutationsFunction<Components> &
-	ComponentsFunction<Components>
+	ComponentsFunction<Components> &
+	EventsFunction<Events>

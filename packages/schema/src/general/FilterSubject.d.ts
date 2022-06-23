@@ -1,0 +1,10 @@
+export type FilterSubject =
+	| 'self'
+	| 'other'
+	| 'target'
+	| 'baby'
+	| 'parent'
+	| 'holder'
+	| 'block'
+	| 'damager'
+	| 'player'

@@ -38,6 +38,25 @@ import {
 	Loot,
 	MapColor
 } from '../v1.16.0/components'
+import {
+	AddMobEffect,
+	Damage,
+	DecrementStack,
+	Die,
+	Randomize,
+	RemoveMobEffect,
+	RunCommand,
+	Sequence,
+	SetBlock,
+	SetBlockAtPos,
+	SetBlockProperty,
+	SpawnLoot,
+	Swing,
+	Teleport,
+	TransformItem,
+	TriggerBlock
+} from '../../event/v1.16.100'
+import { EventsFunction } from '../EventsFunction'
 
 type Components =
 	// 1.16.100
@@ -75,7 +94,23 @@ type Components =
 		Loot &
 		MapColor
 
+export type Events = TriggerBlock &
+	Damage &
+	DecrementStack &
+	Die &
+	AddMobEffect &
+	RemoveMobEffect &
+	RunCommand &
+	SetBlock &
+	SetBlockAtPos &
+	SetBlockProperty &
+	SpawnLoot &
+	Swing &
+	Teleport &
+	TransformItem
+
 export type Template_1_16_100 = Namespace &
 	DescriptionFunction<Description & Properties> &
 	PermutationsFunction<Components> &
-	ComponentsFunction<Components>
+	ComponentsFunction<Components> &
+	EventsFunction<Events & Randomize<Events> & Sequence<Events>>
