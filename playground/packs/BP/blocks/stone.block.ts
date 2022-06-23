@@ -2,10 +2,19 @@ import { defineBlock } from 'volars'
 
 export default defineBlock(
 	'1.19.10',
-	({ namespace, description, components }) => {
+	({ namespace, description, permutations, components }) => {
 		description({
 			identifier: `${namespace}:stone`
 		})
+
+		permutations([
+			{
+				condition: '(1.0)',
+				components: {
+					rotation: [0, 90, 0]
+				}
+			}
+		])
 
 		components({
 			unit_cube: {},
