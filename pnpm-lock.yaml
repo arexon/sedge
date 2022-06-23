@@ -25,10 +25,12 @@ importers:
 
   packages/core:
     specifiers:
+      consola: ^2.15.3
       unbuild: ^0.7.4
       volars-config: workspace:*
       volars-schema: workspace:*
     dependencies:
+      consola: 2.15.3
       volars-config: link:../config
       volars-schema: link:../schema
     devDependencies:

@@ -1,42 +1,52 @@
 import { loadConfig } from 'volars-config'
 import { BlockTemplate, FormatVersion } from 'volars-schema'
+import { prependNamespacesInArray, prependNamespacesInObject } from './utils'
+import { logger } from './logger'
 
 /**
  * # Define Block
  *
- * Creates a new block based on the given template.
+ * Generates a new block based on the given templates.
  */
 export async function defineBlock<Version extends FormatVersion>(
 	formatVersion: Version,
 	block: (template: BlockTemplate<Version>) => void
-): Promise<Object> {
+): Promise<Object | unknown> {
+	type BlockObject = Record<string, any>
 	const config = await loadConfig()
 
-	let description = {}
-	let components = {}
+	let description: BlockObject = {}
+	let components: BlockObject = {}
+	let permutations: BlockObject[] = []
 
-	block({
-		namespace: config.namespace,
-		description: (template) => (description = template),
-		components: (template) => (components = template)
-	})
+	try {
+		block({
+			namespace: config.namespace,
+			description: (template: BlockObject) => (description = template),
+			...(formatVersion !== '1.16.0' && {
+				permutations: (template: BlockObject[]) => {
+					permutations = template
+				}
+			}),
+			components: (template: BlockObject) => (components = template)
+		} as any)
 
-	return {
-		format_version: formatVersion,
-		'minecraft:block': {
-			description,
-			components: prependNamespaces(components, 'minecraft')
+		return {
+			format_version: formatVersion,
+			'minecraft:block': {
+				description,
+				...(formatVersion !== '1.16.0' && {
+					permutations: prependNamespacesInArray(
+						permutations,
+						'components',
+						'minecraft'
+					)
+				}),
+				components: prependNamespacesInObject(components, 'minecraft')
+			}
 		}
+	} catch (error) {
+		logger.error(`Failed to parse block:`, error)
+		process.exit(0)
 	}
-}
-
-function prependNamespaces(
-	object: Record<string, any>,
-	namespace: string
-): object {
-	for (const key in object) {
-		object[`${namespace}:${key}`] = object[key]
-		delete object[key]
-	}
-	return object
 }

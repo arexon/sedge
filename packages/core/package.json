@@ -35,6 +35,7 @@
 		"unbuild": "^0.7.4"
 	},
 	"dependencies": {
+		"consola": "^2.15.3",
 		"volars-config": "workspace:*",
 		"volars-schema": "workspace:*"
 	}
