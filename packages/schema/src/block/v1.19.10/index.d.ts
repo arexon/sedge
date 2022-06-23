@@ -1,3 +1,7 @@
+import { Namespace } from '../Namespace'
+import { Description, DescriptionFunction, Properties } from '../Description'
+import { PermutationsFunction } from '../Permutations'
+import { ComponentsFunction } from '../components'
 import {
 	CollisionBox,
 	CraftingTable,
@@ -34,7 +38,7 @@ import {
 	MapColor
 } from '../v1.16.0/components'
 
-export type Components_1_19_10 =
+export type Components =
 	// 1.19.10
 	CollisionBox &
 		CraftingTable &
@@ -68,3 +72,8 @@ export type Components_1_19_10 =
 		Friction &
 		Loot &
 		MapColor
+
+export type Template_1_19_10 = Namespace &
+	DescriptionFunction<Description & Properties> &
+	PermutationsFunction<Components> &
+	ComponentsFunction<Components>

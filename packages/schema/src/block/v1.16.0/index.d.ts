@@ -1,3 +1,6 @@
+import { Namespace } from '../Namespace'
+import { Description, DescriptionFunction } from '../Description'
+import { ComponentsFunction } from '../Components'
 import {
 	DestoryTime,
 	ExplosionResistance,
@@ -7,9 +10,13 @@ import {
 	MapColor
 } from './components'
 
-export type Components_1_16_0 = DestoryTime &
+type Components = DestoryTime &
 	ExplosionResistance &
 	Flammable &
 	Friction &
 	Loot &
 	MapColor
+
+export type Template_1_16_0 = Namespace &
+	DescriptionFunction<Description> &
+	ComponentsFunction<Components>

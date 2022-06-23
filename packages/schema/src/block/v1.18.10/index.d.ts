@@ -1,3 +1,7 @@
+import { Namespace } from '../Namespace'
+import { Description, DescriptionFunction, Properties } from '../Description'
+import { PermutationsFunction } from '../Permutations'
+import { ComponentsFunction } from '../components'
 import { AimCollision, BlockCollision, BlockLightFilter } from './components'
 import {
 	BreakOnPush,
@@ -34,7 +38,7 @@ import {
 	MapColor
 } from '../v1.16.0/components'
 
-export type Components_1_18_10 =
+export type Components =
 	// 1.18.10
 	AimCollision &
 		BlockCollision &
@@ -71,3 +75,8 @@ export type Components_1_18_10 =
 		Friction &
 		Loot &
 		MapColor
+
+export type Template_1_18_10 = Namespace &
+	DescriptionFunction<Description & Properties> &
+	PermutationsFunction<Components> &
+	ComponentsFunction<Components>

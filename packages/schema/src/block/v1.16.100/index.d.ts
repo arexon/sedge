@@ -1,3 +1,7 @@
+import { Namespace } from '../Namespace'
+import { Description, Properties, DescriptionFunction } from '../Description'
+import { PermutationsFunction } from '../Permutations'
+import { ComponentsFunction } from '../Components'
 import {
 	BreakOnPush,
 	Breathability,
@@ -35,7 +39,7 @@ import {
 	MapColor
 } from '../v1.16.0/components'
 
-export type Components_1_16_100 =
+type Components =
 	// 1.16.100
 	BreakOnPush &
 		Breathability &
@@ -70,3 +74,8 @@ export type Components_1_16_100 =
 		Friction &
 		Loot &
 		MapColor
+
+export type Template_1_16_100 = Namespace &
+	DescriptionFunction<Description & Properties> &
+	PermutationsFunction<Components> &
+	ComponentsFunction<Components>

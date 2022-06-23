@@ -25,3 +25,12 @@ export type Properties = {
 		[key: `${string}:${string}`]: (string | boolean | number)[]
 	}
 }
+
+export type DescriptionFunction<Type extends unknown> = {
+	/**
+	 * # Description
+	 *
+	 * The description sets required block information.
+	 */
+	description: (template: Type) => void
+}
