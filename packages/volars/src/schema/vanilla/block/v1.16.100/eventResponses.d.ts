@@ -1,6 +1,6 @@
 import type * as EventResponse_1_16_100 from '../../event/v1.16.100/responses'
 
-type EventResponses = EventResponse_1_16_100.TriggerBlock &
+type EventResponses_1_16_100 = EventResponse_1_16_100.TriggerBlock &
 	EventResponse_1_16_100.Damage &
 	EventResponse_1_16_100.DecrementStack &
 	EventResponse_1_16_100.Die &
@@ -15,4 +15,4 @@ type EventResponses = EventResponse_1_16_100.TriggerBlock &
 	EventResponse_1_16_100.Teleport &
 	EventResponse_1_16_100.TransformItem
 
-export { EventResponses }
+export { EventResponses_1_16_100 }

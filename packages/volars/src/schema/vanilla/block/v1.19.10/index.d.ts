@@ -1,19 +1,10 @@
-import type { Namespace } from '../namespace'
-import type {
-	ComponentsFunction,
-	DescriptionFunction,
-	EventsFunction,
-	PermutationsFunction
-} from '../functions'
 import type * as Compnoent_1_19_10 from './components'
 import type * as Compnoent_1_18_10 from '../v1.18.10/components'
 import type * as Compnoent_1_16_100 from '../v1.16.100/components'
 import type * as TriggerCompnoent_1_16_100 from '../v1.16.100/triggerComponents'
 import type * as Compnoent_1_16_0 from '../v1.16.0/components'
-import type { EventResponses } from '../v1.16.100/eventResponses'
-import type { Randomize, Sequence } from '../../event/common'
 
-type Components = Compnoent_1_19_10.CollisionBox &
+type Compnoents_1_19_10 = Compnoent_1_19_10.CollisionBox &
 	Compnoent_1_19_10.CraftingTable &
 	Compnoent_1_19_10.Flammable &
 	Compnoent_1_19_10.LightDampening &
@@ -43,12 +34,4 @@ type Components = Compnoent_1_19_10.CollisionBox &
 	Compnoent_1_16_0.Loot &
 	Compnoent_1_16_0.MapColor
 
-type Template_1_19_10 = Namespace &
-	DescriptionFunction<true> &
-	PermutationsFunction<Components> &
-	ComponentsFunction<Components> &
-	EventsFunction<
-		EventResponses & Randomize<EventResponses> & Sequence<EventResponses>
-	>
-
-export { Template_1_19_10 }
+export { Compnoents_1_19_10 }

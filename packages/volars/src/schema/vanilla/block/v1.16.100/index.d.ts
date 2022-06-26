@@ -1,17 +1,8 @@
-import type { Namespace } from '../namespace'
-import type {
-	ComponentsFunction,
-	DescriptionFunction,
-	EventsFunction,
-	PermutationsFunction
-} from '../functions'
 import type * as Component_1_16_100 from './components'
 import type * as TriggerComponent_1_16_100 from './triggerComponents'
 import type * as Component_1_16_0 from '../v1.16.0/components'
-import type { EventResponses } from './eventResponses'
-import type { Randomize, Sequence } from '../../event/common'
 
-type Components = Component_1_16_100.BreakOnPush &
+type Components_1_16_100 = Component_1_16_100.BreakOnPush &
 	Component_1_16_100.Breathability &
 	Component_1_16_100.CraftingTable &
 	Component_1_16_100.CreativeCategory &
@@ -44,12 +35,5 @@ type Components = Component_1_16_100.BreakOnPush &
 	Component_1_16_0.Loot &
 	Component_1_16_0.MapColor
 
-type Template_1_16_100 = Namespace &
-	DescriptionFunction<true> &
-	PermutationsFunction<Components> &
-	ComponentsFunction<Components> &
-	EventsFunction<
-		EventResponses & Randomize<EventResponses> & Sequence<EventResponses>
-	>
-
-export { Template_1_16_100 }
+export { Components_1_16_100 }
+export { EventResponses_1_16_100 } from './eventResponses'

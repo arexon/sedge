@@ -1,1 +1,1 @@
-export { defineBlock } from './volars/defineBlock'
+export { defineBlock } from './volars/block/defineBlock'

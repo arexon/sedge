@@ -1,5 +1,5 @@
-import type { FormatVersion } from '../vanilla/formatVersion'
-import type { BlockTemplate } from '../vanilla/block'
+import type { FormatVersion } from '../../vanilla/formatVersion'
+import type { BlockTemplate } from './template'
 
 /**
  * # Define Block
