@@ -3,8 +3,8 @@ import chalk from 'chalk'
 import { configSchema } from '../config'
 import { build } from './build'
 import { watch } from './watch'
-import { prepareDir } from './fs'
 import { logger } from '../logger'
+import { prepareDirectory } from './utils'
 
 export async function start(mode: 'build' | 'dev'): Promise<void> {
 	const withTarget = () => {
@@ -16,12 +16,12 @@ export async function start(mode: 'build' | 'dev'): Promise<void> {
 		)
 	}
 
-	await prepareDir('.volars')
+	await prepareDirectory('.volars')
 	await fs.writeFile(
 		'.volars/configSchema.json',
 		JSON.stringify(configSchema, null, '\t')
 	)
-	await prepareDir(global.target.path)
+	await prepareDirectory(global.target.path)
 
 	if (mode === 'build') {
 		logger.start('Building the project...')

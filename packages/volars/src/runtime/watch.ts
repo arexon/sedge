@@ -2,9 +2,9 @@ import fs from 'fs-extra'
 import { normalize, resolve } from 'pathe'
 import { watch as chokidarWatch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
-import { build } from './build'
-import { writeJson, loadModule, removeFile } from './fs'
 import { logger } from '../logger'
+import { build } from './build'
+import { writeJsonFile, tryImport } from './utils'
 
 export async function watch(): Promise<void> {
 	await build()
@@ -18,15 +18,15 @@ export async function watch(): Promise<void> {
 	const reload = debounce(async () => {
 		filesQueue.updated?.map(async (path) => {
 			if (path.endsWith('.ts')) {
-				const content: string = await loadModule(resolve(path))
-				await writeJson(resolve(global.target.path, path), content)
+				const content = await tryImport(resolve(path))
+				await writeJsonFile(resolve(global.target.path, path), content)
 			} else {
 				fs.copySync(path, resolve(global.target.path, path))
 			}
 		})
 
 		filesQueue.removed?.map(async (path) => {
-			await removeFile(resolve(global.target.path, path))
+			await fs.remove(resolve(global.target.path, path))
 		})
 
 		console.clear()
