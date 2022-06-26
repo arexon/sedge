@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import chalk from 'chalk'
-import { configSchema } from '../schema/config'
+import { configSchema } from '../config'
 import { build } from './build'
 import { watch } from './watch'
 import { prepareDir } from './fs'
