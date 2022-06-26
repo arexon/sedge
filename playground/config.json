@@ -9,7 +9,7 @@
 	},
 	"volars": {
 		"targets": {
-			"prototype": "prototyping"
+			"prototype": "./prototyping"
 		}
 	}
 }

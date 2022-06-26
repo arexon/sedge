@@ -1,1 +1,1 @@
-export * from 'volars-core'
+export * from './core/block'
