@@ -1,6 +1,0 @@
-export { DestoryTime } from './DestroyTime'
-export { ExplosionResistance } from './ExplosionResistance'
-export { Flammable } from './Flammable'
-export { Friction } from './Friction'
-export { Loot } from './Loot'
-export { MapColor } from './MapColor'

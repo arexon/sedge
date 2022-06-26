@@ -1,6 +1,6 @@
 import { logger } from '../logger'
 import { prependNamespacesInArray, prependNamespacesInObject } from './utils'
-import { BlockTemplate, FormatVersion } from '../schema'
+import type { BlockTemplate, FormatVersion } from '../schema/vanilla'
 
 /**
  * # Define Block
