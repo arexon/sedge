@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import chalk from 'chalk'
 import { normalize, resolve } from 'pathe'
 import { watch as chokidarWatch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
@@ -29,7 +30,8 @@ export async function watch(): Promise<void> {
 		})
 
 		console.clear()
-		logger.success(filesQueue)
+		logFilesQueue(filesQueue.updated ?? [], 'updated')
+		logFilesQueue(filesQueue.removed ?? [], 'removed')
 
 		filesQueue = { updated: [], removed: [] }
 	}, 100)
@@ -53,4 +55,18 @@ export async function watch(): Promise<void> {
 
 		reload()
 	})
+}
+
+function logFilesQueue(queue: string[], level: 'updated' | 'removed'): void {
+	if (queue.length === 0) return
+
+	logger.info(
+		level === 'updated' ? chalk.cyan('Updated') : chalk.magenta('Removed'),
+		queue
+			.map((path) => {
+				return chalk.blackBright(`\n- ${path}`)
+			})
+			.join('')
+			.toString()
+	)
 }
