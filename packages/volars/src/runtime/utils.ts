@@ -27,6 +27,6 @@ export async function writeJsonFile(
 	})
 }
 
-function replaceFileExtension(path: string, extension: string): string {
+export function replaceFileExtension(path: string, extension: string): string {
 	return path.replace(/\.[^/.]+$/, extension)
 }

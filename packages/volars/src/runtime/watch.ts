@@ -5,7 +5,7 @@ import { watch as chokidarWatch } from 'chokidar'
 import { debounce } from 'perfect-debounce'
 import { logger } from '../logger'
 import { build } from './build'
-import { writeJsonFile, tryImport } from './utils'
+import { writeJsonFile, tryImport, replaceFileExtension } from './utils'
 
 export async function watch(): Promise<void> {
 	await build()
@@ -21,12 +21,19 @@ export async function watch(): Promise<void> {
 				const content = await tryImport(resolve(path))
 				await writeJsonFile(resolve(global.target.path, path), content)
 			} else {
-				fs.copySync(path, resolve(global.target.path, path))
+				await fs.copy(path, resolve(global.target.path, path))
 			}
 		})
 
 		filesQueue.removed?.map(async (path) => {
-			await fs.remove(resolve(global.target.path, path))
+			await fs.remove(
+				resolve(
+					global.target.path,
+					path.endsWith('.ts')
+						? replaceFileExtension(path, '.json')
+						: path
+				)
+			)
 		})
 
 		console.clear()
