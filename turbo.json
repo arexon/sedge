@@ -5,10 +5,6 @@
 		"build": {
 			"outputs": ["dist/**"],
 			"dependsOn": ["^build"]
-		},
-		"dev": {
-			"outputs": ["dist/**"],
-			"dependsOn": ["^dev"]
 		}
 	}
 }
