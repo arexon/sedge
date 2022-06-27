@@ -60,7 +60,7 @@ type DecrementStack = {
 	 *
 	 * Decrement the item stack.
 	 */
-	decrement_stack?: {}
+	decrement_stack?: Record<string, never>
 }
 
 type Die = {
@@ -203,7 +203,7 @@ type Swing = {
 	 *
 	 * Event causes the actor to swing.
 	 */
-	swing?: {}
+	swing?: Record<string, never>
 }
 
 type Teleport = {

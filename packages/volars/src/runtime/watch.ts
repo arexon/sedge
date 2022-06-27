@@ -9,11 +9,10 @@ import { writeJsonFile, tryImport } from './utils'
 export async function watch(): Promise<void> {
 	await build()
 
-	interface FilesQueue {
+	let filesQueue: {
 		updated?: string[]
 		removed?: string[]
-	}
-	let filesQueue: FilesQueue = { updated: [], removed: [] }
+	} = { updated: [], removed: [] }
 
 	const reload = debounce(async () => {
 		filesQueue.updated?.map(async (path) => {

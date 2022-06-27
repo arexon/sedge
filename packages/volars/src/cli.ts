@@ -12,7 +12,7 @@ async function main(): Promise<void> {
 		switch (mode) {
 			case 'build':
 				await createVolars({ target: target || 'default', dev: false })
-				process.exit(0)
+				break
 
 			case 'dev':
 				await createVolars({ target: target || 'default', dev: true })
@@ -30,6 +30,8 @@ async function main(): Promise<void> {
 		logger.error(error)
 		process.exit(1)
 	}
+
+	process.exit(0)
 }
 
 main()

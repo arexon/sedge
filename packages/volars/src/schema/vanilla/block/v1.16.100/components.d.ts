@@ -422,7 +422,7 @@ type UnitCube = {
 	 *
 	 * @requires Holiday Creator Features
 	 */
-	unit_cube?: {}
+	unit_cube?: Record<string, never>
 }
 
 type Unwalkable = {

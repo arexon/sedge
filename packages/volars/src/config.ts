@@ -6,15 +6,15 @@ export interface Config {
 	name: string
 	authors?: string[]
 	namespace: string
-	packs: Packs
+	packs: {
+		[key in 'behaviorPack' | 'resourcePack']: string
+	}
 	volars?: {
 		targets: {
 			[name: string | 'default']: string
 		}
 	}
 }
-
-export type Packs = { [key in 'behaviorPack' | 'resourcePack']: string }
 
 export async function loadConfig(): Promise<Config> {
 	const path = resolve(process.cwd(), 'config.json')
@@ -27,10 +27,10 @@ export async function loadConfig(): Promise<Config> {
 
 function validateConfig(config: Config): void {
 	const requiredProperties = ['name', 'namespace', 'packs']
-	let missingProperties: string[] = []
+	const missingProperties: string[] = []
 
 	for (const property of requiredProperties) {
-		if (config.hasOwnProperty(property)) continue
+		if (Object.prototype.hasOwnProperty.call(config, property)) continue
 		missingProperties.push(property)
 	}
 

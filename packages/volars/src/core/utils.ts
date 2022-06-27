@@ -9,10 +9,7 @@ export function prependNamespacesInArray<T>(
 	return array
 }
 
-export function prependNamespacesInObject<T extends Record<string, any>>(
-	object: T,
-	namespace: string
-): object {
+export function prependNamespacesInObject<T>(object: T, namespace: string): T {
 	for (const key in object) {
 		object[`${namespace}:${key}` as keyof T] = object[key]
 		delete object[key]
