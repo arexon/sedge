@@ -17,11 +17,11 @@ interface TemplateFields {
 	events?: object
 }
 
-export async function defineBlock(
+export function defineBlock(
 	version: string,
 	block: (template: Template) => void,
 	components: object[]
-): Promise<object> {
+): object {
 	const template: TemplateFields = {
 		description: {},
 		permutations: [],

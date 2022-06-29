@@ -15,7 +15,7 @@ export async function watch(): Promise<void> {
 		removed?: string[]
 	} = { updated: [], removed: [] }
 
-	const reload = debounce(async () => {
+	const reload = debounce(() => {
 		filesQueue.updated?.map(async (path) => {
 			if (path.endsWith('.ts')) {
 				const content = await tryImport(resolve(path))
@@ -47,7 +47,7 @@ export async function watch(): Promise<void> {
 		ignoreInitial: true
 	})
 
-	watcher.on('all', async (event, path) => {
+	watcher.on('all', (event, path) => {
 		switch (event) {
 			case 'add':
 			case 'change':
