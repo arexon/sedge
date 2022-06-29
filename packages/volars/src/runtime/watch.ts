@@ -16,7 +16,15 @@ export async function watch(): Promise<void> {
 	} = { updated: [], removed: [] }
 
 	const reload = debounce(() => {
+		let forcedReload = false
+		console.clear()
+
 		filesQueue.updated?.map(async (path) => {
+			if (path.includes('/components/')) {
+				logReload()
+				forcedReload = true
+				return await build(true)
+			}
 			if (path.endsWith('.ts')) {
 				const content = await tryImport(resolve(path))
 				await writeJsonFile(resolve(global.target.path, path), content)
@@ -26,6 +34,11 @@ export async function watch(): Promise<void> {
 		})
 
 		filesQueue.removed?.map(async (path) => {
+			if (path.includes('/components/')) {
+				logReload()
+				forcedReload = true
+				return await build(true)
+			}
 			await fs.remove(
 				resolve(
 					global.target.path,
@@ -36,10 +49,14 @@ export async function watch(): Promise<void> {
 			)
 		})
 
-		console.clear()
-		logFilesQueue(filesQueue.updated ?? [], 'updated')
-		logFilesQueue(filesQueue.removed ?? [], 'removed')
+		logFilesQueue(
+			filesQueue.updated ?? [],
+			'Updated',
+			forcedReload ? 'and files depenedent on it' : ''
+		)
+		logFilesQueue(filesQueue.removed ?? [], 'Removed')
 
+		forcedReload = false
 		filesQueue = { updated: [], removed: [] }
 	}, 100)
 
@@ -64,16 +81,28 @@ export async function watch(): Promise<void> {
 	})
 }
 
-function logFilesQueue(queue: string[], level: 'updated' | 'removed'): void {
+function logFilesQueue(
+	queue: string[],
+	level: 'Updated' | 'Removed',
+	note?: string
+): void {
 	if (queue.length === 0) return
 
 	logger.info(
-		level === 'updated' ? chalk.cyan('Updated') : chalk.magenta('Removed'),
+		level === 'Updated' ? chalk.cyan(level) : chalk.magenta(level),
 		queue
 			.map((path) => {
-				return chalk.blackBright(`\n- ${path}`)
+				return (
+					chalk.blackBright(`\n- ${path}`) + (note ? ` ${note}` : '')
+				)
 			})
 			.join('')
 			.toString()
+	)
+}
+
+function logReload(): void {
+	logger.info(
+		`Changes in ${chalk.cyan('components')} folder detected. Reloading...`
 	)
 }

@@ -4,7 +4,7 @@ import { join, resolve } from 'pathe'
 import { logger } from '../logger'
 import { tryImport, writeJsonFile } from './utils'
 
-export async function build(): Promise<void> {
+export async function build(silent = false): Promise<void> {
 	const start = Date.now()
 
 	const modules = await globby(
@@ -29,6 +29,8 @@ export async function build(): Promise<void> {
 	const successResults = results.filter(
 		(result) => result.status === 'fulfilled'
 	)
+
+	if (silent) return
 
 	logger.success(
 		`Compiled ${successResults.length} files in ${Date.now() - start} ms`
