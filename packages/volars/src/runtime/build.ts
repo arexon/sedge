@@ -8,7 +8,10 @@ export async function build(): Promise<void> {
 	const start = Date.now()
 
 	const modules = await globby(
-		join(global.config.packs.behaviorPack, '*/*.ts')
+		join(global.config.packs.behaviorPack, '*/*.ts'),
+		{
+			ignore: ['**/components/**']
+		}
 	)
 	const files = await globby(join(global.config.packs.behaviorPack, '**/*'), {
 		ignore: ['**/*.ts']

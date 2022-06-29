@@ -5,7 +5,7 @@ type Description = {
 	 * The identifier for this block.
 	 * The name must include a namespace and must not use the Minecraft namespace unless overriding a Vanilla block.
 	 */
-	identifier: string
+	identifier?: string
 
 	/**
 	 * ## Is Experimental
