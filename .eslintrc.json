@@ -12,6 +12,7 @@
 	"plugins": ["@typescript-eslint"],
 	"rules": {
 		"no-mixed-spaces-and-tabs": "off",
-		"no-var": "off"
+		"no-var": "off",
+		"no-empty-pattern": "off"
 	}
 }
