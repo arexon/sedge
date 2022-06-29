@@ -1,0 +1,6 @@
+{
+	"rules": {
+		"tags": ["recommended"],
+		"exclude": ["ban-types", "no-var", "no-empty-pattern"]
+	}
+}
