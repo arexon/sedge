@@ -42,6 +42,7 @@ export async function watch(): Promise<void> {
 			await fs.remove(
 				resolve(
 					global.target.path,
+					// Ensure that '.ts' files won't be written as is
 					path.endsWith('.ts')
 						? replaceFileExtension(path, '.json')
 						: path

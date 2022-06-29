@@ -16,7 +16,6 @@ async function main(): Promise<void> {
 
 			case 'dev':
 				await createVolars({ target: target || 'default', dev: true })
-				// TODO: Implement syncing to com.mojang folder
 				return
 
 			default:

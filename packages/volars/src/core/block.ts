@@ -32,6 +32,7 @@ export function defineBlock(
 	try {
 		block(processTemplate(template, version === '1.16.0'))
 
+		// The final object that can read by minecraft.
 		return {
 			format_version: version,
 			'minecraft:block': transformTemplate(
@@ -46,6 +47,7 @@ export function defineBlock(
 	}
 }
 
+// Provides a pre-process template function for the `block` callback.
 export function processTemplate(
 	fields: TemplateFields,
 	isLegacy: boolean
@@ -71,6 +73,8 @@ export function processTemplate(
 	}
 }
 
+// Compiles the template and custom components into an object
+// ready to be injected into the 'minecraft:block' object.
 function transformTemplate(
 	fields: TemplateFields,
 	isLegacy: boolean,
@@ -85,6 +89,7 @@ function transformTemplate(
 		...(!isLegacy && { events: fields.events })
 	}
 
+	// Loads every custom component if there's any
 	if (components !== undefined) {
 		for (const component of components) {
 			template = deepMerge(template, component)

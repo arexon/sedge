@@ -27,6 +27,7 @@ export async function createVolars({
 		path: global.config.volars?.targets[target] || defaultTargetPath
 	}
 
+	// Start if there's a configured target or if the target is the default
 	if (targetIsConfigured || targetIsDefault) await start(mode)
 	else {
 		logger.error(
