@@ -13,16 +13,14 @@ export const rotateOnPlace = defineComponent(
 			}
 		})
 
-		directions.map((direction, index) => {
-			permutations([
-				{
-					condition: `q.block_property('${facingProperty}') == ${index}`,
-					components: {
-						rotation: [0, direction, 0]
-					}
+		permutations(
+			directions.map((direction, index) => ({
+				condition: `q.block_property('${facingProperty}') == ${index}`,
+				components: {
+					rotation: [0, direction, 0]
 				}
-			])
-		})
+			}))
+		)
 
 		components({
 			on_player_placing: {

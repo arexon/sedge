@@ -12,5 +12,5 @@ export default defineBlock(
 			unit_cube: {}
 		})
 	},
-	[rotateOnPlace({})]
+	[rotateOnPlace()]
 )
