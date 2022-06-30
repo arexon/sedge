@@ -5,11 +5,13 @@ importers:
   .:
     specifiers:
       '@node-rs/deno-lint': ^1.13.1
+      husky: ^8.0.1
       prettier: ^2.7.1
       turbo: ^1.3.1
       typescript: ^4.7.4
     devDependencies:
       '@node-rs/deno-lint': 1.13.1
+      husky: 8.0.1
       prettier: 2.7.1
       turbo: 1.3.1
       typescript: 4.7.4
@@ -160,6 +162,12 @@ packages:
     resolution: {integrity: sha512-v025Hz+IDQ15FpOyK8p02h5bFznMu6rLFsJSyOPR+7WrbSnZ1Ek6pblPukV7K5tC/dsWfncQPIrJ4iUy2PXkbw==}
     dependencies:
       typanion: 3.9.0
+    dev: true
+
+  /husky/8.0.1:
+    resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /prettier/2.7.1:
