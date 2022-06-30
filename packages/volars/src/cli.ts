@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
 import chalk from 'chalk'
 import { logger } from './logger'

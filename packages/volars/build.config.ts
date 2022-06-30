@@ -11,8 +11,12 @@ export default defineBuildConfig({
 		}
 	],
 	rollup: {
-		esbuild: {
-			target: 'esnext'
+		replace: {
+			delimiters: ['', ''],
+			include: ['src/cli.ts'],
+			values: {
+				'#!/usr/bin/env ts-node': '#!/usr/bin/env node'
+			}
 		}
 	}
 })
