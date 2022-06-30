@@ -1,11 +1,11 @@
-import type { ComponentFormat } from '../schema/volars/component'
 import { processTemplate } from './block'
+import type { ComponentFormat } from '../schema/volars/component'
 
 export function defineComponent(
 	format: ComponentFormat,
 	fn: (options: object, template: object) => void
-): (options: object) => object {
-	return (options: object) => {
+): (options?: object) => object {
+	return (options?: object) => {
 		const template = {}
 
 		switch (format) {

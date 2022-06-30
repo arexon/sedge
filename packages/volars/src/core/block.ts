@@ -1,12 +1,12 @@
 import { deepMerge } from '@antfu/utils'
 import { logger } from '../logger'
-import { prependWithMinecraftNamespaces } from './utils'
+import { prependWithMinecraftNamespaces, removeEmptyFields } from './utils'
 
 interface Template {
-	namespace: string
-	description: (template: object) => void
+	namespace?: string
+	description?: (template: object) => void
 	permutations?: (template: object[]) => void
-	components: (template: object) => void
+	components?: (template: object) => void
 	events?: (template: object) => void
 }
 
@@ -32,7 +32,6 @@ export function defineBlock(
 	try {
 		block(processTemplate(template, version === '1.16.0'))
 
-		// The final object that can read by minecraft.
 		return {
 			format_version: version,
 			'minecraft:block': transformTemplate(
@@ -47,20 +46,23 @@ export function defineBlock(
 	}
 }
 
-// Provides a pre-process template function for the `block` callback.
+// Provides a template pre-process function.
 export function processTemplate(
 	fields: TemplateFields,
 	isLegacy: boolean
 ): Template {
-	return {
+	const template: Template = {
 		namespace: global.config.namespace,
 		description: (template) => {
 			fields.description = { ...fields.description, ...template }
 		},
 		components: (template) => {
 			fields.components = { ...fields.components, ...template }
-		},
-		...(!isLegacy && {
+		}
+	}
+
+	if (!isLegacy) {
+		deepMerge(template, {
 			permutations: (template) => {
 				fields.permutations = fields.permutations
 					? [...fields.permutations, ...template]
@@ -71,30 +73,31 @@ export function processTemplate(
 			}
 		})
 	}
+
+	return template
 }
 
 // Compiles the template and custom components into an object
-// ready to be injected into the 'minecraft:block' object.
+// ready to be merged into the 'minecraft:block' object.
 function transformTemplate(
 	fields: TemplateFields,
 	isLegacy: boolean,
 	components?: object[]
 ): object {
-	let template: TemplateFields = {
+	const template: TemplateFields = {
 		description: fields.description,
-		...(!isLegacy && {
-			permutations: fields.permutations || []
-		}),
-		components: fields.components,
-		...(!isLegacy && { events: fields.events })
+		components: fields.components
 	}
 
-	// Loads every custom component if there's any
-	if (components !== undefined) {
-		for (const component of components) {
-			template = deepMerge(template, component)
-		}
+	if (!isLegacy) {
+		deepMerge(template, {
+			permutations: fields.permutations,
+			events: fields.events
+		})
 	}
 
-	return prependWithMinecraftNamespaces(template)
+	// Merges custom components with the template if there's any.
+	if (components) deepMerge(template, ...components)
+
+	return prependWithMinecraftNamespaces(removeEmptyFields(template))
 }
