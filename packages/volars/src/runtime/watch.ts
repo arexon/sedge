@@ -16,13 +16,11 @@ export async function watch(): Promise<void> {
 	} = { updated: [], removed: [] }
 
 	const reload = debounce(200, () => {
-		let forcedReload = false
 		console.clear()
 
 		filesQueue.updated?.map(async (path) => {
 			if (path.includes('/components/')) {
 				logReload()
-				forcedReload = true
 				return await build(true)
 			}
 			if (path.endsWith('.ts')) {
@@ -36,7 +34,6 @@ export async function watch(): Promise<void> {
 		filesQueue.removed?.map(async (path) => {
 			if (path.includes('/components/')) {
 				logReload()
-				forcedReload = true
 				return await build(true)
 			}
 			await fs.remove(
@@ -50,14 +47,9 @@ export async function watch(): Promise<void> {
 			)
 		})
 
-		logFilesQueue(
-			filesQueue.updated ?? [],
-			'Updated',
-			forcedReload ? 'and files depenedent on it' : ''
-		)
+		logFilesQueue(filesQueue.updated ?? [], 'Updated')
 		logFilesQueue(filesQueue.removed ?? [], 'Removed')
 
-		forcedReload = false
 		filesQueue = { updated: [], removed: [] }
 	})
 
@@ -82,20 +74,14 @@ export async function watch(): Promise<void> {
 	})
 }
 
-function logFilesQueue(
-	queue: string[],
-	level: 'Updated' | 'Removed',
-	note?: string
-): void {
+function logFilesQueue(queue: string[], level: 'Updated' | 'Removed'): void {
 	if (queue.length === 0) return
 
 	logger.info(
 		level === 'Updated' ? chalk.cyan(level) : chalk.magenta(level),
 		queue
 			.map((path) => {
-				return (
-					chalk.blackBright(`\n- ${path}`) + (note ? ` ${note}` : '')
-				)
+				return chalk.blackBright(`\n- ${path}`)
 			})
 			.join('')
 			.toString()
@@ -103,7 +89,5 @@ function logFilesQueue(
 }
 
 function logReload(): void {
-	logger.info(
-		`Changes in ${chalk.cyan('components')} folder detected. Reloading...`
-	)
+	logger.info(`Updated ${chalk.cyan('components')} folder. Reloading...`)
 }
