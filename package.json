@@ -4,8 +4,7 @@
 	"scripts": {
 		"build": "turbo run build --scope=\"!playground*\"",
 		"lint": "denolint -c .denolint.json",
-		"format": "prettier --write \"**/*.ts\" --ignore-path .gitignore",
-		"prepare": "husky install"
+		"format": "prettier --write \"**/*.ts\" --ignore-path .gitignore"
 	},
 	"devDependencies": {
 		"@node-rs/deno-lint": "^1.13.1",
