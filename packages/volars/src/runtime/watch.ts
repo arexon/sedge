@@ -8,7 +8,7 @@ import { build } from './build'
 import { writeJsonFile, tryImport, replaceFileExtension } from './utils'
 
 export async function watch(): Promise<void> {
-	await build()
+	await build(true)
 
 	let filesQueue: {
 		updated?: string[]
