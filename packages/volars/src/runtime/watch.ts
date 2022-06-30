@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import chalk from 'chalk'
 import { normalize, resolve } from 'pathe'
 import { watch as chokidarWatch } from 'chokidar'
-import { debounce } from 'perfect-debounce'
+import { debounce } from '@antfu/utils'
 import { logger } from '../logger'
 import { build } from './build'
 import { writeJsonFile, tryImport, replaceFileExtension } from './utils'
@@ -15,7 +15,7 @@ export async function watch(): Promise<void> {
 		removed?: string[]
 	} = { updated: [], removed: [] }
 
-	const reload = debounce(() => {
+	const reload = debounce(200, () => {
 		let forcedReload = false
 		console.clear()
 
@@ -59,7 +59,7 @@ export async function watch(): Promise<void> {
 
 		forcedReload = false
 		filesQueue = { updated: [], removed: [] }
-	}, 100)
+	})
 
 	const watcher = chokidarWatch(global.config.packs.behaviorPack, {
 		ignoreInitial: true
