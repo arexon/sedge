@@ -27,7 +27,7 @@ export function removeEmptyFields<T>(object: T): T {
 }
 
 function objectIsEmpty<T>(object: T): boolean {
-	for (const key in object) {
+	for (const _key in object) {
 		return false
 	}
 	return true
