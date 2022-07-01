@@ -14,6 +14,6 @@ declare function defineComponent<
 >(
 	format: Format,
 	fn: (options: Options, template: ComponentTemplate<Format>) => void
-): (options: Options) => object
+): (options?: Options) => object
 
 export { defineComponent, ComponentFormat }
