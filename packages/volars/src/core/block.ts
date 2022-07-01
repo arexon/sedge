@@ -1,6 +1,8 @@
 import { deepMerge } from '@antfu/utils'
 import { logger } from '../logger'
 import { prependWithMinecraftNamespaces, removeEmptyFields } from './utils'
+import type { BlockTemplate } from '../schema/volars/block/template'
+import type { FormatVersion } from '../schema/vanilla/formatVersion'
 
 interface Template {
 	namespace?: string
@@ -17,10 +19,10 @@ interface TemplateFields {
 	events?: object
 }
 
-export function defineBlock(
-	version: string,
-	block: (template: Template) => void,
-	components: object[]
+export function defineBlock<Version extends FormatVersion>(
+	version: Version,
+	block: (template: BlockTemplate<Version>) => void,
+	components?: object[]
 ): object {
 	const template: TemplateFields = {
 		description: {},
@@ -30,7 +32,12 @@ export function defineBlock(
 	}
 
 	try {
-		block(processTemplate(template, version === '1.16.0'))
+		block(
+			processTemplate(
+				template,
+				version === '1.16.0'
+			) as BlockTemplate<Version>
+		)
 
 		return {
 			format_version: version,
