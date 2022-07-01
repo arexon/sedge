@@ -89,5 +89,9 @@ function logFilesQueue(queue: string[], level: 'Updated' | 'Removed'): void {
 }
 
 function logReload(): void {
-	logger.info(`Updated ${chalk.cyan('components')} folder. Reloading...`)
+	logger.info(
+		'Changes in',
+		chalk.cyan('components'),
+		'folder were detected. Reloading...'
+	)
 }
