@@ -27,7 +27,7 @@ importers:
       fs-extra: ^10.1.0
       globby: ^13.1.2
       jiti: ^1.14.0
-      pathe: ^0.3.0
+      pathe: ^0.3.2
       unbuild: ^0.7.4
     dependencies:
       chalk: 5.0.1
@@ -603,7 +603,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001361
-      electron-to-chromium: 1.4.174
+      electron-to-chromium: 1.4.176
       node-releases: 2.0.5
       update-browserslist-db: 1.0.4_browserslist@4.21.1
     dev: true
@@ -705,8 +705,8 @@ packages:
     dependencies:
       path-type: 4.0.0
 
-  /electron-to-chromium/1.4.174:
-    resolution: {integrity: sha512-JER+w+9MV2MBVFOXxP036bLlNOnzbYAWrWU8sNUwoOO69T3w4564WhM5H5atd8VVS8U4vpi0i0kdoYzm1NPQgQ==}
+  /electron-to-chromium/1.4.176:
+    resolution: {integrity: sha512-92JdgyRlcNDwuy75MjuFSb3clt6DGJ2IXSpg0MCjKd3JV9eSmuUAIyWiGAp/EtT0z2D4rqbYqThQLV90maH3Zw==}
     dev: true
 
   /es-module-lexer/0.9.3:
