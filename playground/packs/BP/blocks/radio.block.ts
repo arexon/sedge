@@ -37,5 +37,5 @@ export default defineBlock(
 			}
 		})
 	},
-	[attributes({ name: 'radio' })]
+	[attributes({ name: 'radio', withLoot: false })]
 )
