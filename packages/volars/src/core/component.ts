@@ -1,4 +1,6 @@
+import { resolve } from 'pathe'
 import { processTemplate } from './block'
+import { writeJsonFile } from '../runtime/utils'
 import type {
 	ComponentFormat,
 	ComponentTemplate
@@ -18,10 +20,7 @@ export function defineComponent<
 			case 'block@1.16.0':
 				fn(
 					options! || {},
-					processTemplate(
-						template as never,
-						true
-					) as ComponentTemplate<Format>
+					processTemplate(template, true) as ComponentTemplate<Format>
 				)
 				break
 
@@ -29,13 +28,20 @@ export function defineComponent<
 			case 'block@1.18.10':
 			case 'block@1.18.30':
 			case 'block@1.19.10':
-				fn(
-					options! || {},
-					processTemplate(
-						template as never,
-						false
-					) as ComponentTemplate<Format>
-				)
+				// @ts-expect-error - This is a valid template
+				fn(options! || {}, {
+					...processTemplate(template, true),
+					lootTable: async (template, path) => {
+						await writeJsonFile(
+							resolve(
+								global.target.path,
+								global.config.packs.behaviorPack,
+								path
+							),
+							template
+						)
+					}
+				} as ComponentTemplate<'block@1.16.100'>)
 		}
 
 		return template
