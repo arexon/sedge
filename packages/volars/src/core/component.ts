@@ -47,6 +47,7 @@ export function defineComponent<
 	}
 }
 
+// Compiles custom component specific templates.
 function processComponentTemplate(): LootTable & Recipe {
 	return {
 		lootTable: async (template, path) => {
