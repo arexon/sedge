@@ -1,10 +1,11 @@
 import { resolve } from 'pathe'
-import { processTemplate } from './block'
+import { processTemplate as processBlockTemplate } from './block'
 import { writeJsonFile } from '../runtime/utils'
 import type {
 	ComponentFormat,
 	ComponentTemplate
 } from '../schema/volars/component'
+import type { LootTable, Recipe } from '../schema/volars/component/functions'
 
 export function defineComponent<
 	Options extends Record<string, any>,
@@ -21,7 +22,7 @@ export function defineComponent<
 				fn(
 					// @ts-expect-error - this is valid
 					options || {},
-					processTemplate(
+					processBlockTemplate(
 						template,
 						true
 					) as ComponentTemplate<'block@1.16.0'>
@@ -36,21 +37,43 @@ export function defineComponent<
 					// @ts-expect-error - this is valid
 					options || {},
 					{
-						...processTemplate(template, true),
-						lootTable: async (template, path) => {
-							await writeJsonFile(
-								resolve(
-									global.target.path,
-									global.config.packs.behaviorPack,
-									path
-								),
-								template
-							)
-						}
+						...processBlockTemplate(template, true),
+						...processComponentTemplate()
 					} as ComponentTemplate<'block@1.16.100'>
 				)
 		}
 
 		return template
+	}
+}
+
+function processComponentTemplate(): LootTable & Recipe {
+	return {
+		lootTable: async (template, path) => {
+			await writeJsonFile(
+				resolve(
+					global.target.path,
+					global.config.packs.behaviorPack,
+					path
+				),
+				template
+			)
+		},
+		recipe: async (template, path) => {
+			const key = Object.keys(template)[0]
+			// @ts-expect-error - this is valid
+			template[`minecraft:${key}`] = template[key]
+			// @ts-expect-error - this is valid
+			delete template[key]
+
+			await writeJsonFile(
+				resolve(
+					global.target.path,
+					global.config.packs.behaviorPack,
+					path
+				),
+				{ format_version: '1.12', ...template }
+			)
+		}
 	}
 }
