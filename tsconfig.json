@@ -7,7 +7,10 @@
 		"esModuleInterop": true,
 		"strict": true,
 		"strictNullChecks": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"paths": {
+			"#playground/BP/*": ["./playground/packs/BP/*"]
+		}
 	},
 	"exclude": ["**/node_modules/**", "**/dist/**", "**/playground/**"]
 }
