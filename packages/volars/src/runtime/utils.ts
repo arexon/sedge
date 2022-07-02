@@ -20,7 +20,7 @@ export async function tryImport(path: string): Promise<string> {
 
 export async function writeJsonFile(
 	path: string,
-	contents: string
+	contents: string | Record<string, any>
 ): Promise<void> {
 	await fs.outputJSON(replaceFileExtension(path, '.json'), contents, {
 		spaces: '\t'
