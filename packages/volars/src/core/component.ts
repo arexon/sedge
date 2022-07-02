@@ -5,12 +5,12 @@ import type {
 } from '../schema/volars/component'
 
 export function defineComponent<
-	Options extends Record<string, unknown>,
+	Options extends Record<string, any>,
 	Format extends ComponentFormat
 >(
 	format: Format,
 	fn: (options: Options, template: ComponentTemplate<Format>) => void
-): (options?: Options) => object {
+): (options?: Options) => Record<string, any> {
 	return (options?: Options) => {
 		const template = {}
 

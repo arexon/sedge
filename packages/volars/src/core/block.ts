@@ -6,24 +6,24 @@ import type { FormatVersion } from '../schema/vanilla/formatVersion'
 
 interface Template {
 	namespace?: string
-	description?: (template: object) => void
-	permutations?: (template: object[]) => void
-	components?: (template: object) => void
-	events?: (template: object) => void
+	description?: (template: Record<string, any>) => void
+	permutations?: (template: Record<string, any>[]) => void
+	components?: (template: Record<string, any>) => void
+	events?: (template: Record<string, any>) => void
 }
 
 interface TemplateFields {
-	description: object
-	permutations?: object[]
-	components: object
-	events?: object
+	description: Record<string, any>
+	permutations?: Record<string, any>[]
+	components: Record<string, any>
+	events?: Record<string, any>
 }
 
 export function defineBlock<Version extends FormatVersion>(
 	version: Version,
 	block: (template: BlockTemplate<Version>) => void,
-	components?: object[]
-): object {
+	components?: Record<string, any>[]
+): Record<string, any> {
 	const template: TemplateFields = {
 		description: {},
 		permutations: [],
@@ -89,8 +89,8 @@ export function processTemplate(
 function transformTemplate(
 	fields: TemplateFields,
 	isLegacy: boolean,
-	components?: object[]
-): object {
+	components?: Record<string, any>[]
+): Record<string, any> {
 	const template: TemplateFields = {
 		description: fields.description,
 		components: fields.components

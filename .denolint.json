@@ -1,6 +1,11 @@
 {
 	"rules": {
 		"tags": ["recommended"],
-		"exclude": ["ban-types", "no-var", "no-empty-pattern"]
+		"exclude": [
+			"ban-types",
+			"no-var",
+			"no-empty-pattern",
+			"no-explicit-any"
+		]
 	}
 }
