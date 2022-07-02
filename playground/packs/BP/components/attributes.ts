@@ -3,8 +3,12 @@ import { defineComponent } from 'volars'
 export const attributes = defineComponent(
 	'block@1.19.10',
 	(
-		{ name, withLoot }: { name: string; withLoot?: boolean },
-		{ namespace, description, components, lootTable }
+		{
+			name,
+			withLoot,
+			withRecipe
+		}: { name: string; withLoot?: boolean; withRecipe?: boolean },
+		{ namespace, description, components, lootTable, recipe }
 	) => {
 		description({
 			identifier: `${namespace}:${name}`
@@ -33,6 +37,25 @@ export const attributes = defineComponent(
 					]
 				},
 				`loot_tables/block/${name}.loot.json`
+			)
+		}
+
+		if (withRecipe) {
+			recipe(
+				{
+					recipe_shaped: {
+						description: {
+							identifier: `${namespace}:recipe.${name}`
+						},
+						tags: ['crafting_table'],
+						pattern: ['###', '# #', '# #'],
+						key: {
+							'#': { item: 'minecraft:planks' }
+						},
+						result: { item: `${namespace}:${name}` }
+					}
+				},
+				`recipes/block/${name}.json`
 			)
 		}
 	}

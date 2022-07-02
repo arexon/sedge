@@ -8,5 +8,5 @@ export default defineBlock(
 			unit_cube: {}
 		})
 	},
-	[attributes({ name: 'table', withLoot: true })]
+	[attributes({ name: 'table', withLoot: true, withRecipe: true })]
 )
