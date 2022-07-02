@@ -55,7 +55,7 @@ export const attributes = defineComponent(
 						result: { item: `${namespace}:${name}` }
 					}
 				},
-				`recipes/block/${name}.json`
+				`recipes/block/${name}.recipe.json`
 			)
 		}
 	}
