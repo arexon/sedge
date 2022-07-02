@@ -17,8 +17,7 @@ describe('define block', () => {
 						condition: 'q.is_sneaking',
 						event: 'test:toggle'
 					},
-					'minecraft:display_name': 'test:radio',
-					'minecraft:loot': 'loot_tables/block/radio.loot.json'
+					'minecraft:display_name': 'test:radio'
 				},
 				permutations: [
 					{
