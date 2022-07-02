@@ -4,6 +4,8 @@ import { prependWithMinecraftNamespaces, removeEmptyFields } from './utils'
 import type { BlockTemplate } from '../schema/volars/block/template'
 import type { FormatVersion } from '../schema/vanilla/formatVersion'
 
+// These are the functions and properties that are available in the template
+// in `defineBlock`. They are used to generate the block's object.
 interface Template {
 	namespace?: string
 	description?: (template: Record<string, any>) => void
@@ -12,10 +14,11 @@ interface Template {
 	events?: (template: Record<string, any>) => void
 }
 
+// The top-level fields for the block.
 interface TemplateFields {
-	description: Record<string, any>
+	description?: Record<string, any>
 	permutations?: Record<string, any>[]
-	components: Record<string, any>
+	components?: Record<string, any>
 	events?: Record<string, any>
 }
 
@@ -53,7 +56,7 @@ export function defineBlock<Version extends FormatVersion>(
 	}
 }
 
-// Provides a template pre-process function.
+// Provides a template preprocess function.
 export function processTemplate(
 	fields: TemplateFields,
 	isLegacy: boolean
@@ -102,8 +105,6 @@ function transformTemplate(
 			events: fields.events
 		})
 	}
-
-	// Merges custom components with the template if there's any.
 	if (components) deepMerge(template, ...components)
 
 	return prependWithMinecraftNamespaces(removeEmptyFields(template))
