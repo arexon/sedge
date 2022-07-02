@@ -19,8 +19,12 @@ export function defineComponent<
 		switch (format) {
 			case 'block@1.16.0':
 				fn(
-					options! || {},
-					processTemplate(template, true) as ComponentTemplate<Format>
+					// @ts-expect-error - this is valid
+					options || {},
+					processTemplate(
+						template,
+						true
+					) as ComponentTemplate<'block@1.16.0'>
 				)
 				break
 
@@ -28,20 +32,23 @@ export function defineComponent<
 			case 'block@1.18.10':
 			case 'block@1.18.30':
 			case 'block@1.19.10':
-				// @ts-expect-error - This is a valid template
-				fn(options! || {}, {
-					...processTemplate(template, true),
-					lootTable: async (template, path) => {
-						await writeJsonFile(
-							resolve(
-								global.target.path,
-								global.config.packs.behaviorPack,
-								path
-							),
-							template
-						)
-					}
-				} as ComponentTemplate<'block@1.16.100'>)
+				fn(
+					// @ts-expect-error - this is valid
+					options || {},
+					{
+						...processTemplate(template, true),
+						lootTable: async (template, path) => {
+							await writeJsonFile(
+								resolve(
+									global.target.path,
+									global.config.packs.behaviorPack,
+									path
+								),
+								template
+							)
+						}
+					} as ComponentTemplate<'block@1.16.100'>
+				)
 		}
 
 		return template
