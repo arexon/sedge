@@ -37,7 +37,7 @@ export function defineComponent<
 					// @ts-expect-error - this is valid
 					options || {},
 					{
-						...processBlockTemplate(template, true),
+						...processBlockTemplate(template, false),
 						...processComponentTemplate()
 					} as ComponentTemplate<'block@1.16.100'>
 				)
