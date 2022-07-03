@@ -17,7 +17,7 @@ export async function start(mode: 'build' | 'dev'): Promise<void> {
 
 	await prepareDirectory('.volars')
 	await fs.writeFile(
-		'.volars/configSchema.json',
+		'.volars/config-schema.json',
 		JSON.stringify(configSchema, null, '\t')
 	)
 
