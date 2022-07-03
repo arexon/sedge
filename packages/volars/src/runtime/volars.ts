@@ -18,7 +18,7 @@ export async function createVolars({
 	const defaultTargetPath = `./${mode}`
 
 	const targetIsConfigured = Object.getOwnPropertyNames(
-		global.config.volars?.targets
+		global.config.volars?.targets || {}
 	).find((key) => key === target)
 	const targetIsDefault = target === 'default'
 
