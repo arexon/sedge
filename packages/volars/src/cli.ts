@@ -2,7 +2,7 @@
 
 import chalk from 'chalk'
 import { logger } from './logger'
-import { createVolars } from './runtime/volars'
+import { createVolars } from './volars'
 
 async function main(): Promise<void> {
 	const mode = process.argv[2] as 'build' | 'dev'
@@ -11,16 +11,16 @@ async function main(): Promise<void> {
 	try {
 		switch (mode) {
 			case 'build':
-				await createVolars({ target: target || 'default', dev: false })
+				await createVolars({ target, dev: false })
 				break
 
 			case 'dev':
-				await createVolars({ target: target || 'default', dev: true })
+				await createVolars({ target, dev: true })
 				return
 
 			default:
 				logger.error(
-					`Unknown command (${chalk.blackBright(process.argv[2])}).`,
+					`Unknown command ${chalk.blackBright(process.argv[2])}.`,
 					`Usage: ${chalk.cyan('volars [build|dev] [target]')}`
 				)
 				process.exit(1)

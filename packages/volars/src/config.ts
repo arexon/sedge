@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import jiti from 'jiti'
 import { resolve } from 'pathe'
 import { logger } from './logger'
@@ -10,7 +11,7 @@ export interface Config {
 		[key in 'behaviorPack' | 'resourcePack']: string
 	}
 	volars?: {
-		targets: {
+		targets?: {
 			[name: string | 'default']: string
 		}
 	}
@@ -35,7 +36,11 @@ function validateConfig(config: Config): void {
 	}
 
 	if (missingProperties.length > 0) {
-		logger.error(`Missing required properties: ${missingProperties}`)
+		logger.error(
+			`Missing required properties: ${chalk.blackBright(
+				missingProperties
+			)}`
+		)
 		process.exit(1)
 	}
 }
@@ -96,7 +101,8 @@ export const configSchema = {
 						'Path to the pack relative to the config.json.',
 					type: 'string'
 				}
-			}
+			},
+			required: ['behaviorPack', 'resourcePack']
 		},
 		volars: {
 			description: 'Additional configurations specific to Volars.',
