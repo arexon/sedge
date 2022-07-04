@@ -3,9 +3,9 @@ import chalk from 'chalk'
 import { globby } from 'globby'
 import { debounce } from '@antfu/utils'
 import { watch as chokidarWatch } from 'chokidar'
-import { join, normalize, resolve } from 'pathe'
+import { join, normalize, resolve, extname } from 'pathe'
 import { logger } from '../logger'
-import { replaceFileExtension, tryImport, writeJsonFile } from './utils'
+import { changeExtension, tryImport, writeJsonFile } from './utils'
 
 export async function build(silent = false): Promise<void> {
 	const start = Date.now()
@@ -21,8 +21,8 @@ export async function build(silent = false): Promise<void> {
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
-			const contents = await tryImport(resolve(path))
-			await writeJsonFile(resolve(global.target.path, path), contents)
+			const content = await tryImport(resolve(path))
+			await writeJsonFile(resolve(global.target.path, path), content)
 		}),
 		...assets.map(async (path) => {
 			await fs.copy(path, resolve(global.target.path, path))
@@ -52,13 +52,13 @@ export async function watch(): Promise<void> {
 
 		filesQueue.updated?.map(async (path) => {
 			// Reload if the file is in the components folder
-			if (/\/components\//.test(path)) {
+			if (path.includes('/components/')) {
 				logReload()
 				return await build(true)
 			}
 
 			// Guard for whether the file is a module or an asset
-			if (/\.ts$/.test(path)) {
+			if (extname(path) === '.ts') {
 				const content = await tryImport(resolve(path))
 				await writeJsonFile(resolve(global.target.path, path), content)
 			} else {
@@ -68,7 +68,7 @@ export async function watch(): Promise<void> {
 
 		filesQueue.removed?.map(async (path) => {
 			// Reload if the file is in the components folder
-			if (/\/components\//.test(path)) {
+			if (path.includes('/components/')) {
 				logReload()
 				return await build(true)
 			}
@@ -77,8 +77,8 @@ export async function watch(): Promise<void> {
 				resolve(
 					global.target.path,
 					// Guard to ensure that TS files compiled to JSON will be removed
-					/\.ts$/.test(path)
-						? replaceFileExtension(path, '.json')
+					extname(path) === '.ts'
+						? changeExtension(path, '.json')
 						: path
 				)
 			)
