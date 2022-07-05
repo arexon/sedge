@@ -12,7 +12,7 @@ export async function createVolars({
 	target = 'default',
 	dev
 }: VolarsInstance): Promise<void> {
-	global.config = await loadConfig()
+	global.config = loadConfig()
 
 	const mode = dev ? 'dev' : 'build'
 	const defaultTargetPath = `./${mode}`

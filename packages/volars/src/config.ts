@@ -1,6 +1,5 @@
+import fs from 'fs-extra'
 import chalk from 'chalk'
-import jiti from 'jiti'
-import { resolve } from 'pathe'
 import { logger } from './logger'
 
 export interface Config {
@@ -17,9 +16,9 @@ export interface Config {
 	}
 }
 
-export async function loadConfig(): Promise<Config> {
-	const path = resolve(process.cwd(), 'config.json')
-	const config = await jiti('', { interopDefault: true })(path)
+export function loadConfig(): Config {
+	const json = fs.readFileSync('config.json', 'utf-8')
+	const config = JSON.parse(json) as Config
 
 	validateConfig(config)
 

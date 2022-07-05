@@ -1,31 +1,31 @@
 import fs from 'fs-extra'
 import chalk from 'chalk'
-import { globby } from 'globby'
+import { globbySync } from 'globby'
 import { debounce } from '@antfu/utils'
+import { transformFileSync } from '@swc/core'
 import { watch as chokidarWatch } from 'chokidar'
 import { join, normalize, resolve, extname } from 'pathe'
 import { logger } from '../logger'
-import { changeExtension, tryImport, writeJsonFile } from './utils'
+import { changeExt, loadModule, resolveImports, writeJsonFile } from './utils'
 
 export async function build(silent = false): Promise<void> {
 	const start = Date.now()
 
-	const modules = await globby(
+	const modules = globbySync(
 		join(global.config.packs.behaviorPack, '*/*.ts'),
 		{ ignore: ['**/components/**'] }
 	)
-	const assets = await globby(
-		join(global.config.packs.behaviorPack, '**/*'),
-		{ ignore: ['**/*.ts'] }
-	)
+	const assets = globbySync(join(global.config.packs.behaviorPack, '**/*'), {
+		ignore: ['**/*.ts']
+	})
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
-			const content = await tryImport(resolve(path))
-			await writeJsonFile(resolve(global.target.path, path), content)
+			const content = await loadModule(path)
+			writeJsonFile(resolve(global.target.path, path), content)
 		}),
-		...assets.map(async (path) => {
-			await fs.copy(path, resolve(global.target.path, path))
+		...assets.map((path) => {
+			fs.copySync(path, resolve(global.target.path, path))
 		})
 	])
 
@@ -47,6 +47,27 @@ export async function watch(): Promise<void> {
 		removed?: string[]
 	} = { updated: [], removed: [] }
 
+	const logReload = () => {
+		logger.info(
+			'Changes in',
+			chalk.cyan('components'),
+			'folder were detected. Reloading...'
+		)
+	}
+	const logQueue = (queue: string[], level: 'Updated' | 'Removed'): void => {
+		if (queue.length === 0) return
+
+		logger.info(
+			level === 'Updated' ? chalk.cyan(level) : chalk.magenta(level),
+			queue
+				.map((path) => {
+					return chalk.blackBright(`\n- ${path}`)
+				})
+				.join('')
+				.toString()
+		)
+	}
+
 	const reload = debounce(200, () => {
 		console.clear()
 
@@ -59,10 +80,10 @@ export async function watch(): Promise<void> {
 
 			// Guard for whether the file is a module or an asset
 			if (extname(path) === '.ts') {
-				const content = await tryImport(resolve(path))
-				await writeJsonFile(resolve(global.target.path, path), content)
+				const content = await loadModule(path, true)
+				writeJsonFile(resolve(global.target.path, path), content)
 			} else {
-				await fs.copy(path, resolve(global.target.path, path))
+				fs.copySync(path, resolve(global.target.path, path))
 			}
 		})
 
@@ -77,15 +98,13 @@ export async function watch(): Promise<void> {
 				resolve(
 					global.target.path,
 					// Guard to ensure that TS files compiled to JSON will be removed
-					extname(path) === '.ts'
-						? changeExtension(path, '.json')
-						: path
+					extname(path) === '.ts' ? changeExt(path, '.json') : path
 				)
 			)
 		})
 
-		logFilesQueue(filesQueue.updated ?? [], 'Updated')
-		logFilesQueue(filesQueue.removed ?? [], 'Removed')
+		logQueue(filesQueue.updated ?? [], 'Updated')
+		logQueue(filesQueue.removed ?? [], 'Removed')
 
 		filesQueue = { updated: [], removed: [] }
 	})
@@ -111,24 +130,16 @@ export async function watch(): Promise<void> {
 	})
 }
 
-function logFilesQueue(queue: string[], level: 'Updated' | 'Removed'): void {
-	if (queue.length === 0) return
+export function transpileModules(path: string): void {
+	const modules = globbySync(join(global.config.packs.behaviorPack, '*/*.ts'))
 
-	logger.info(
-		level === 'Updated' ? chalk.cyan(level) : chalk.magenta(level),
-		queue
-			.map((path) => {
-				return chalk.blackBright(`\n- ${path}`)
+	modules.map(async (modulePath) => {
+		const file = transformFileSync(modulePath)
+		fs.outputFileSync(
+			resolve(path, changeExt(modulePath, '.js')),
+			await resolveImports(file.code, {
+				url: resolve(path, modulePath)
 			})
-			.join('')
-			.toString()
-	)
-}
-
-function logReload(): void {
-	logger.info(
-		'Changes in',
-		chalk.cyan('components'),
-		'folder were detected. Reloading...'
-	)
+		)
+	})
 }
