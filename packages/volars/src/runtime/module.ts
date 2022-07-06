@@ -1,12 +1,7 @@
 import fse from 'fs-extra'
 import { transformFileSync } from '@swc/core'
 import { basename, dirname, normalize, resolve } from 'pathe'
-import {
-	resolve as urlResolve,
-	transformModule,
-	loadURL,
-	toDataURL
-} from 'mlly'
+import { resolve as urlResolve } from 'mlly'
 import { pathToFileURL } from 'url'
 import { cacheDir } from '../constants'
 import { changeExt, getHash } from './utils'
@@ -77,10 +72,6 @@ export async function resolveImports(
 				).href
 			} else {
 				url = await urlResolve(id, options)
-			}
-			if (url.endsWith('.json')) {
-				const code = await loadURL(url)
-				url = toDataURL(await transformModule(code, { url }))
 			}
 
 			resolved.set(id, normalize(url))
