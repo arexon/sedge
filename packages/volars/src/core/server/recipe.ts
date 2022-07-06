@@ -1,5 +1,5 @@
-import { logger } from '../logger'
-import type { RecipeTemplate } from '../schema/volars/recipe/template'
+import { logger } from '../../logger'
+import type { RecipeTemplate } from '../../schema/volars/recipe/template'
 
 export function defineRecipe(
 	fn: (template: RecipeTemplate) => void

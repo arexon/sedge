@@ -4,8 +4,11 @@ import { processTemplate as processBlockTemplate } from './block'
 import type {
 	ComponentFormat,
 	ComponentTemplate
-} from '../schema/volars/component'
-import type { LootTable, Recipe } from '../schema/volars/component/functions'
+} from '../../schema/volars/component'
+import type {
+	LootTableFunction,
+	RecipeFunction
+} from '../../schema/volars/component/functions'
 
 export function defineComponent<
 	Options extends Record<string, any>,
@@ -48,7 +51,7 @@ export function defineComponent<
 }
 
 // Compiles custom component specific templates
-function processComponentTemplate(): LootTable & Recipe {
+function processComponentTemplate(): LootTableFunction & RecipeFunction {
 	return {
 		lootTable: (template, path) => {
 			fse.outputJSONSync(

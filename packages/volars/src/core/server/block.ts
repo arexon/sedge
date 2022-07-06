@@ -1,8 +1,8 @@
 import { deepMerge } from '@antfu/utils'
-import { logger } from '../logger'
-import { prependWithMinecraftNamespaces, removeEmptyFields } from './utils'
-import type { BlockTemplate } from '../schema/volars/block/template'
-import type { FormatVersion } from '../schema/vanilla/formatVersion'
+import { logger } from '../../logger'
+import { prependWithMinecraftNamespaces, removeEmptyFields } from '../utils'
+import type { BlockTemplate } from '../../schema/volars/block/template'
+import type { FormatVersion } from '../../schema/vanilla/formatVersion'
 
 // These are the functions and properties that are available in the template
 // in `defineBlock`. They are used to generate the block's object
