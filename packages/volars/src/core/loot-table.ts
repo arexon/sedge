@@ -1,11 +1,10 @@
 import { logger } from '../logger'
 import type { LootTableTemplate } from '../schema/volars/loot-table'
-import type { Pools } from '../schema/vanilla/loot-table'
 
 export function defineLootTable(
 	fn: (template: LootTableTemplate) => void
 ): Record<string, any> {
-	const template: Pools[][] = []
+	const template: Record<string, any>[] = []
 
 	try {
 		fn({
