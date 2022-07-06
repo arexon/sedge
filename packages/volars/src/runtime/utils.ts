@@ -11,7 +11,7 @@ import {
 import { logger } from '../logger'
 import { cacheDir } from '../constants'
 
-export async function prepareDirectory(path: string): Promise<void> {
+export async function prepareDir(path: string): Promise<void> {
 	await fs.remove(path)
 	await fs.mkdir(path)
 }

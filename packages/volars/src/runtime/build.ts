@@ -5,8 +5,10 @@ import { debounce } from '@antfu/utils'
 import { transformFileSync } from '@swc/core'
 import { watch as chokidarWatch } from 'chokidar'
 import { join, normalize, resolve, extname } from 'pathe'
+import type { TSConfig } from 'pkg-types'
 import { logger } from '../logger'
 import { changeExt, loadModule, resolveImports, writeJsonFile } from './utils'
+import { configSchema } from '../config'
 
 export async function build(silent = false): Promise<void> {
 	const start = Date.now()
@@ -130,16 +132,49 @@ export async function watch(): Promise<void> {
 	})
 }
 
-export function transpileModules(path: string): void {
+export async function transpileModules(path: string): Promise<void> {
 	const modules = globbySync(join(global.config.packs.behaviorPack, '*/*.ts'))
 
-	modules.map(async (modulePath) => {
-		const file = transformFileSync(modulePath)
-		fs.outputFileSync(
-			resolve(path, changeExt(modulePath, '.js')),
-			await resolveImports(file.code, {
-				url: resolve(path, modulePath)
-			})
-		)
+		modules.map(async (modulePath) => {
+			const file = transformFileSync(modulePath)
+			fs.outputFileSync(
+				resolve(path, changeExt(modulePath, '.js')),
+				await resolveImports(file.code, {
+					url: resolve(path, modulePath)
+				})
+			)
+		})
+}
+
+export function generateTypes(path: string): void {
+	fs.writeJSONSync(join(path, 'config-schema.json'), configSchema, {
+		spaces: '\t'
+	})
+
+	const tsConfig: TSConfig = {
+		compilerOptions: {
+			target: 'esnext',
+			module: 'esnext',
+			lib: ['esnext', 'dom'],
+			moduleResolution: 'node',
+			esModuleInterop: true,
+			strict: true,
+			strictNullChecks: true,
+			resolveJsonModule: true,
+			paths: {
+				'#components/*': [
+					join(
+						'..',
+						global.config.packs.behaviorPack,
+						'components',
+						'*'
+					)
+				]
+			}
+		},
+		include: ['../**/*']
+	}
+	fs.writeJSONSync(join(path, 'tsconfig.json'), tsConfig, {
+		spaces: '\t'
 	})
 }
