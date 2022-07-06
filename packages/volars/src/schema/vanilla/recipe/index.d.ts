@@ -82,6 +82,61 @@ type Result = {
 	count?: number
 }
 
+type PatternResult = {
+	/**
+	 * ### Pattern
+	 *
+	 * Characters that represent a pattern to be defined by keys.
+	 */
+	pattern?: [string, string, string] | [string, string] | [string]
+
+	/**
+	 * ### Keys
+	 *
+	 * Keys to map characters to item names to be used in `pattern`.
+	 */
+	key?: {
+		[key: string]: {
+			/**
+			 * #### Item
+			 *
+			 * Provides the identifier for the result item.
+			 */
+			item: string
+
+			/**
+			 * #### Data
+			 *
+			 * Sets the result item's data value.
+			 */
+			data?: number | string
+		}
+	}
+
+	/**
+	 * ### Result
+	 *
+	 * When input items match the pattern then these items are the result.
+	 */
+	result?: Result
+}
+
+type IngredientResult = {
+	/**
+	 * ### Ingredients
+	 *
+	 * Items used as input (without a shape) for the recipe.
+	 */
+	ingredients?: Result[]
+
+	/**
+	 * ### Result
+	 *
+	 * These items are the result.
+	 */
+	result?: Result
+}
+
 type Reagent = {
 	/**
 	 * ### Reagent
@@ -104,71 +159,14 @@ type Recipe = {
 	 *
 	 * Represents a recipe that requires a dedicated pattern when using a Crafting Table.
 	 */
-	recipe_shaped?: Description &
-		Tags &
-		Group &
-		Priority & {
-			/**
-			 * ### Pattern
-			 *
-			 * Characters that represent a pattern to be defined by keys.
-			 */
-			pattern?: [string, string, string]
-
-			/**
-			 * ### Keys
-			 *
-			 * Keys to map characters to item names to be used in `pattern`.
-			 */
-			key?: {
-				[key: string]: {
-					/**
-					 * #### Item
-					 *
-					 * Provides the identifier for the result item.
-					 */
-					item: string
-
-					/**
-					 * #### Data
-					 *
-					 * Sets the result item's data value.
-					 */
-					data?: number | string
-				}
-			}
-
-			/**
-			 * ### Result
-			 *
-			 * When input items match the pattern then these items are the result.
-			 */
-			result?: Result
-		}
+	recipe_shaped?: Description & Tags & Group & Priority & PatternResult
 
 	/**
 	 * ## Recipe Shapeless
 	 *
 	 * Represents a recipe that does not require a dedicated pattern.
 	 */
-	recipe_shapeless?: Description &
-		Tags &
-		Group &
-		Priority & {
-			/**
-			 * ### Ingredients
-			 *
-			 * Items used as input (without a shape) for the recipe.
-			 */
-			ingredients?: Result[]
-
-			/**
-			 * ### Result
-			 *
-			 * These items are the result.
-			 */
-			result?: Result
-		}
+	recipe_shapeless?: Description & Tags & Group & Priority & IngredientResult
 
 	/**
 	 * ## Recipe Brewing Mix
@@ -190,4 +188,14 @@ type Recipe = {
 	recipe_material_reduction?: Description & Tags & InputAndOutput
 }
 
-export { Recipe }
+export {
+	Recipe,
+	Description,
+	Tags,
+	Group,
+	InputAndOutput,
+	Priority,
+	PatternResult,
+	IngredientResult,
+	Reagent
+}
