@@ -20,7 +20,7 @@ export const attributes = defineComponent(
 
 		if (withLoot) {
 			components({
-				loot: `loot_tables/block/${name}.loot.json`
+				loot: `loot_tables/${name}.loot.json`
 			})
 
 			lootTable(
@@ -36,7 +36,7 @@ export const attributes = defineComponent(
 						}
 					]
 				},
-				`loot_tables/block/${name}.loot.json`
+				`loot_tables/${name}.loot.json`
 			)
 		}
 
@@ -55,7 +55,7 @@ export const attributes = defineComponent(
 						result: { item: `${namespace}:${name}` }
 					}
 				},
-				`recipes/block/${name}.recipe.json`
+				`recipes/${name}.recipe.json`
 			)
 		}
 	}
