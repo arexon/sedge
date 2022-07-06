@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import { prepareDir } from './utils'
-import { build, watch, transpileModules, generateTypes } from './build'
+import { build, watch, transpileModules, generateTsConfig } from './build'
 import { logger } from '../logger'
 import { cacheDir, volarsDir } from '../constants'
 
@@ -8,7 +8,10 @@ export async function start(mode: 'build' | 'dev'): Promise<void> {
 	await prepareDir(volarsDir)
 	await transpileModules(cacheDir)
 	await prepareDir(global.target.path)
-	generateTypes(volarsDir)
+
+	if (Object.keys(global.config.volars?.aliases || {}).length > 0) {
+		generateTsConfig(volarsDir)
+	}
 
 	logger.info(
 		'Via target',

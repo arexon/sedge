@@ -1,5 +1,7 @@
 import fse from 'fs-extra'
+import chalk from 'chalk'
 import { transformFileSync } from '@swc/core'
+import { hasOwnProperty } from '@antfu/utils'
 import { basename, dirname, normalize, resolve } from 'pathe'
 import { resolve as urlResolve } from 'mlly'
 import { pathToFileURL } from 'url'
@@ -60,16 +62,24 @@ export async function resolveImports(
 
 			if (id.startsWith('#')) {
 				const aliasImport = id.split('/').shift()!
-				url = pathToFileURL(
-					id.replace(
-						aliasImport,
-						resolve(
-							cacheDir,
-							global.config.packs.behaviorPack,
-							aliasImport.replace('#', '')
-						)
-					) + '.js'
-				).href
+
+				if (
+					hasOwnProperty(global.config.volars?.aliases, aliasImport)
+				) {
+					const alias = global.config.volars!.aliases![aliasImport]
+					url = pathToFileURL(
+						id.replace(aliasImport, resolve(cacheDir, alias)) +
+							'.js'
+					).href
+				} else {
+					logger.error(
+						'Alias',
+						chalk.blackBright(aliasImport),
+						'not found in',
+						chalk.yellow('config.volars.aliases')
+					)
+					process.exit(1)
+				}
 			} else {
 				url = await urlResolve(id, options)
 			}

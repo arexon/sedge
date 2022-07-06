@@ -151,7 +151,8 @@ export async function transpileModules(path: string): Promise<void> {
 	)
 }
 
-export function generateTypes(path: string): void {
+export function generateTsConfig(path: string): void {
+	const aliases = global.config.volars!.aliases!
 	const tsConfig: TSConfig = {
 		compilerOptions: {
 			target: 'esnext',
@@ -162,16 +163,12 @@ export function generateTypes(path: string): void {
 			strict: true,
 			strictNullChecks: true,
 			resolveJsonModule: true,
-			paths: {
-				'#components/*': [
-					join(
-						'..',
-						global.config.packs.behaviorPack,
-						'components',
-						'*'
-					)
-				]
-			}
+			paths: Object.keys(aliases).reduce(
+				(_, curr) => ({
+					[`${curr}/*`]: join('..', aliases[curr], '*')
+				}),
+				{} as Record<string, string>
+			)
 		},
 		include: ['../**/*']
 	}

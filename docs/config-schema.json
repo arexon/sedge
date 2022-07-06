@@ -71,6 +71,16 @@
 							"type": "string"
 						}
 					}
+				},
+				"aliases": {
+					"description": "Defines custom path aliase that allow for importing local modules.",
+					"type": "object",
+					"additionalProperties": false,
+					"patternProperties": {
+						"^#": {
+							"type": "string"
+						}
+					}
 				}
 			}
 		}

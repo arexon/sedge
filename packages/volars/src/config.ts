@@ -13,6 +13,9 @@ export interface Config {
 		targets?: {
 			[name: string | 'default']: string
 		}
+		aliases?: {
+			[name: string]: string
+		}
 	}
 }
 
