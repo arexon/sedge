@@ -1,5 +1,5 @@
 {
-	"$schema": "./.volars/config-schema.json",
+	"$schema": "../docs/config-schema.json",
 	"name": "playground",
 	"authors": ["arexon"],
 	"namespace": "playground",

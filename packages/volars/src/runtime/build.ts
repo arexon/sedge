@@ -9,7 +9,6 @@ import type { TSConfig } from 'pkg-types'
 import { logger } from '../logger'
 import { changeExt } from './utils'
 import { loadModule, resolveImports } from './module'
-import { configSchema } from '../config'
 
 export async function build(silent = false): Promise<void> {
 	const start = Date.now()
@@ -153,10 +152,6 @@ export async function transpileModules(path: string): Promise<void> {
 }
 
 export function generateTypes(path: string): void {
-	fse.writeJSONSync(join(path, 'config-schema.json'), configSchema, {
-		spaces: '\t'
-	})
-
 	const tsConfig: TSConfig = {
 		compilerOptions: {
 			target: 'esnext',
