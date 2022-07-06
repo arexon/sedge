@@ -26,7 +26,8 @@ export async function build(silent = false): Promise<void> {
 			const content = await loadModule(path)
 			fse.outputJSONSync(
 				resolve(global.target.path, changeExt(path, '.json')),
-				content
+				content,
+				{ spaces: '\t' }
 			)
 		}),
 		...assets.map((path) => {
@@ -86,7 +87,9 @@ export async function watch(): Promise<void> {
 			// Guard for whether the file is a module or an asset
 			if (extname(path) === '.ts') {
 				const content = await loadModule(path, true)
-				fse.outputJSONSync(resolve(global.target.path, path), content)
+				fse.outputJSONSync(resolve(global.target.path, path), content, {
+					spaces: '\t'
+				})
 			} else {
 				fse.copySync(path, resolve(global.target.path, path))
 			}

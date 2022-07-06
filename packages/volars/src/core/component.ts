@@ -57,7 +57,8 @@ function processComponentTemplate(): LootTable & Recipe {
 					global.config.packs.behaviorPack,
 					path
 				),
-				template
+				template,
+				{ spaces: '\t' }
 			)
 		},
 		recipe: (template, path) => {
@@ -73,7 +74,8 @@ function processComponentTemplate(): LootTable & Recipe {
 					global.config.packs.behaviorPack,
 					path
 				),
-				{ format_version: '1.12', ...template }
+				{ format_version: '1.12', ...template },
+				{ spaces: '\t' }
 			)
 		}
 	}
