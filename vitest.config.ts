@@ -4,7 +4,8 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			volars: '/packages/volars/src',
-			'#playground/BP': '../playground/packs/BP'
+			'#playground/BP': '../playground/packs/BP',
+			'#components': '/playground/packs/BP/components'
 		}
 	},
 	define: {

@@ -1,5 +1,5 @@
 import { defineBlock } from 'volars'
-import { attributes } from '../components/attributes'
+import { attributes } from '#components/attributes'
 
 export default defineBlock(
 	'1.19.10',
