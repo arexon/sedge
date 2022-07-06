@@ -135,6 +135,7 @@ export async function watch(): Promise<void> {
 export async function transpileModules(path: string): Promise<void> {
 	const modules = globbySync(join(global.config.packs.behaviorPack, '*/*.ts'))
 
+	await Promise.all(
 		modules.map(async (modulePath) => {
 			const file = transformFileSync(modulePath)
 			fs.outputFileSync(
@@ -144,6 +145,7 @@ export async function transpileModules(path: string): Promise<void> {
 				})
 			)
 		})
+	)
 }
 
 export function generateTypes(path: string): void {
