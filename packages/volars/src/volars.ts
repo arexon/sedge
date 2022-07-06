@@ -31,7 +31,10 @@ export async function createVolars({
 	if (targetIsConfigured || targetIsDefault) await start(mode)
 	else {
 		logger.error(
-			`Target ${chalk.cyan(target)} does not match any configured target.`
+			'Target',
+			chalk.yellow(target),
+			'does not match any target in',
+			chalk.blackBright('config.volars.targets')
 		)
 		process.exit(1)
 	}

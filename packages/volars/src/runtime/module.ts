@@ -74,9 +74,9 @@ export async function resolveImports(
 				} else {
 					logger.error(
 						'Alias',
-						chalk.blackBright(aliasImport),
+						chalk.yellow(aliasImport),
 						'not found in',
-						chalk.yellow('config.volars.aliases')
+						chalk.blackBright('config.volars.aliases')
 					)
 					process.exit(1)
 				}
