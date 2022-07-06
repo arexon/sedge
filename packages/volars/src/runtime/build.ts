@@ -169,10 +169,10 @@ export function generateTsConfig(path: string): void {
 			strictNullChecks: true,
 			resolveJsonModule: true,
 			paths: Object.keys(aliases).reduce(
-				(_, curr) => ({
-					[`${curr}/*`]: join('..', aliases[curr], '*')
+				(_, key) => ({
+					[`${key}/*`]: [join('..', aliases[key], '*')]
 				}),
-				{} as Record<string, string>
+				{} as Record<string, string[]>
 			)
 		},
 		include: ['../**/*']
