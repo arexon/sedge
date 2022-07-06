@@ -1,6 +1,6 @@
+import fse from 'fs-extra'
 import { resolve } from 'pathe'
 import { processTemplate as processBlockTemplate } from './block'
-import { writeJsonFile } from '../runtime/utils'
 import type {
 	ComponentFormat,
 	ComponentTemplate
@@ -47,11 +47,11 @@ export function defineComponent<
 	}
 }
 
-// Compiles custom component specific templates.
+// Compiles custom component specific templates
 function processComponentTemplate(): LootTable & Recipe {
 	return {
-		lootTable: async (template, path) => {
-			await writeJsonFile(
+		lootTable: (template, path) => {
+			fse.outputJSONSync(
 				resolve(
 					global.target.path,
 					global.config.packs.behaviorPack,
@@ -60,14 +60,14 @@ function processComponentTemplate(): LootTable & Recipe {
 				template
 			)
 		},
-		recipe: async (template, path) => {
+		recipe: (template, path) => {
 			const key = Object.keys(template)[0]
 			// @ts-expect-error - this is valid
 			template[`minecraft:${key}`] = template[key]
 			// @ts-expect-error - this is valid
 			delete template[key]
 
-			await writeJsonFile(
+			fse.outputJSONSync(
 				resolve(
 					global.target.path,
 					global.config.packs.behaviorPack,

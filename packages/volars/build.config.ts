@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import fse from 'fs-extra'
 import { defineBuildConfig } from 'unbuild'
 
 export default defineBuildConfig({
@@ -10,10 +10,10 @@ export default defineBuildConfig({
 	],
 	externals: ['@antfu/utils'],
 	hooks: {
-		'build:done': async () => {
-			let source = await fs.readFile('./dist/cli.mjs', 'utf8')
+		'build:done': () => {
+			let source = fse.readFileSync('./dist/cli.mjs', 'utf8')
 			source = source.replace('ts-node', 'node')
-			await fs.writeFile('./dist/cli.mjs', source)
+			fse.writeFileSync('./dist/cli.mjs', source)
 		}
 	}
 })

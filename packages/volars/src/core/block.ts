@@ -5,7 +5,7 @@ import type { BlockTemplate } from '../schema/volars/block/template'
 import type { FormatVersion } from '../schema/vanilla/formatVersion'
 
 // These are the functions and properties that are available in the template
-// in `defineBlock`. They are used to generate the block's object.
+// in `defineBlock`. They are used to generate the block's object
 interface Template {
 	namespace?: string
 	description?: (template: Record<string, any>) => void
@@ -14,7 +14,7 @@ interface Template {
 	events?: (template: Record<string, any>) => void
 }
 
-// The top-level fields for the block.
+// The top-level fields for the block
 interface TemplateFields {
 	description?: Record<string, any>
 	permutations?: Record<string, any>[]
@@ -56,7 +56,7 @@ export function defineBlock<Version extends FormatVersion>(
 	}
 }
 
-// Provides a template preprocess function.
+// Provides a template preprocess function
 export function processTemplate(
 	fields: TemplateFields,
 	isLegacy: boolean
@@ -87,8 +87,8 @@ export function processTemplate(
 	return template
 }
 
-// Compiles the template and custom components into an object
-// ready to be merged into the 'minecraft:block' object.
+// Compiles the template and custom components into an object,
+// ready to be merged into the 'minecraft:block' object
 function transformTemplate(
 	fields: TemplateFields,
 	isLegacy: boolean,

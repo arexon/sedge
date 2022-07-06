@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import fse from 'fs-extra'
 import chalk from 'chalk'
 import { globbySync } from 'globby'
 import { debounce } from '@antfu/utils'
@@ -7,7 +7,8 @@ import { watch as chokidarWatch } from 'chokidar'
 import { join, normalize, resolve, extname } from 'pathe'
 import type { TSConfig } from 'pkg-types'
 import { logger } from '../logger'
-import { changeExt, loadModule, resolveImports, writeJsonFile } from './utils'
+import { changeExt } from './utils'
+import { loadModule, resolveImports } from './module'
 import { configSchema } from '../config'
 
 export async function build(silent = false): Promise<void> {
@@ -24,10 +25,13 @@ export async function build(silent = false): Promise<void> {
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
 			const content = await loadModule(path)
-			writeJsonFile(resolve(global.target.path, path), content)
+			fse.outputJSONSync(
+				resolve(global.target.path, changeExt(path, '.json')),
+				content
+			)
 		}),
 		...assets.map((path) => {
-			fs.copySync(path, resolve(global.target.path, path))
+			fse.copySync(path, resolve(global.target.path, path))
 		})
 	])
 
@@ -83,9 +87,9 @@ export async function watch(): Promise<void> {
 			// Guard for whether the file is a module or an asset
 			if (extname(path) === '.ts') {
 				const content = await loadModule(path, true)
-				writeJsonFile(resolve(global.target.path, path), content)
+				fse.outputJSONSync(resolve(global.target.path, path), content)
 			} else {
-				fs.copySync(path, resolve(global.target.path, path))
+				fse.copySync(path, resolve(global.target.path, path))
 			}
 		})
 
@@ -96,7 +100,7 @@ export async function watch(): Promise<void> {
 				return await build(true)
 			}
 
-			await fs.remove(
+			await fse.remove(
 				resolve(
 					global.target.path,
 					// Guard to ensure that TS files compiled to JSON will be removed
@@ -138,7 +142,7 @@ export async function transpileModules(path: string): Promise<void> {
 	await Promise.all(
 		modules.map(async (modulePath) => {
 			const file = transformFileSync(modulePath)
-			fs.outputFileSync(
+			fse.outputFileSync(
 				resolve(path, changeExt(modulePath, '.js')),
 				await resolveImports(file.code, {
 					url: resolve(path, modulePath)
@@ -149,7 +153,7 @@ export async function transpileModules(path: string): Promise<void> {
 }
 
 export function generateTypes(path: string): void {
-	fs.writeJSONSync(join(path, 'config-schema.json'), configSchema, {
+	fse.writeJSONSync(join(path, 'config-schema.json'), configSchema, {
 		spaces: '\t'
 	})
 
@@ -176,7 +180,7 @@ export function generateTypes(path: string): void {
 		},
 		include: ['../**/*']
 	}
-	fs.writeJSONSync(join(path, 'tsconfig.json'), tsConfig, {
+	fse.writeJSONSync(join(path, 'tsconfig.json'), tsConfig, {
 		spaces: '\t'
 	})
 }

@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import fse from 'fs-extra'
 import chalk from 'chalk'
 import { logger } from './logger'
 
@@ -17,7 +17,7 @@ export interface Config {
 }
 
 export function loadConfig(): Config {
-	const json = fs.readFileSync('config.json', 'utf-8')
+	const json = fse.readFileSync('config.json', 'utf-8')
 	const config = JSON.parse(json) as Config
 
 	validateConfig(config)
