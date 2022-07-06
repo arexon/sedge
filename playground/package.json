@@ -3,7 +3,8 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "volars dev prototype",
+		"dev:mojang": "volars dev",
+		"dev:local": "volars dev prototype",
 		"build": "volars build"
 	},
 	"devDependencies": {

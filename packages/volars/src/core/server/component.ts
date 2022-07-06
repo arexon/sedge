@@ -1,6 +1,7 @@
 import fse from 'fs-extra'
-import { resolve } from 'pathe'
+import { join } from 'pathe'
 import { processTemplate as processBlockTemplate } from './block'
+import { getPath } from '../../runtime/utils'
 import type {
 	ComponentFormat,
 	ComponentTemplate
@@ -52,13 +53,14 @@ export function defineComponent<
 
 // Compiles custom component specific templates
 function processComponentTemplate(): LootTableFunction & RecipeFunction {
+	const isComMojang = global.target.name === 'com.mojang'
+
 	return {
 		lootTable: (template, path) => {
 			fse.outputJSONSync(
-				resolve(
-					global.target.path,
-					global.config.packs.behaviorPack,
-					path
+				getPath(
+					join(global.config.packs.behaviorPack, path),
+					isComMojang
 				),
 				template,
 				{ spaces: '\t' }
@@ -72,10 +74,9 @@ function processComponentTemplate(): LootTableFunction & RecipeFunction {
 			delete template[key]
 
 			fse.outputJSONSync(
-				resolve(
-					global.target.path,
-					global.config.packs.behaviorPack,
-					path
+				getPath(
+					join(global.config.packs.behaviorPack, path),
+					isComMojang
 				),
 				{ format_version: '1.12', ...template },
 				{ spaces: '\t' }

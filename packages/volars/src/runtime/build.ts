@@ -7,7 +7,7 @@ import { watch as chokidarWatch } from 'chokidar'
 import { join, normalize, resolve, extname } from 'pathe'
 import type { TSConfig } from 'pkg-types'
 import { logger } from '../logger'
-import { changeExt } from './utils'
+import { changeExt, getPath } from './utils'
 import { loadModule, resolveImports } from './module'
 
 export async function build(silent = false): Promise<void> {
@@ -20,18 +20,19 @@ export async function build(silent = false): Promise<void> {
 	const assets = globbySync(join(global.config.packs.behaviorPack, '**/*'), {
 		ignore: ['**/*.ts']
 	})
+	const isComMojang = global.target.name === 'com.mojang'
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
 			const content = await loadModule(path)
 			fse.outputJSONSync(
-				resolve(global.target.path, changeExt(path, '.json')),
+				getPath(changeExt(path, '.json'), isComMojang),
 				content,
 				{ spaces: '\t' }
 			)
 		}),
 		...assets.map((path) => {
-			fse.copySync(path, resolve(global.target.path, path))
+			fse.copySync(path, getPath(path, isComMojang))
 		})
 	])
 
@@ -77,6 +78,8 @@ export async function watch(): Promise<void> {
 	const reload = debounce(200, () => {
 		console.clear()
 
+		const isComMojang = global.target.name === 'com.mojang'
+
 		filesQueue.updated?.map(async (path) => {
 			// Reload if the file is in the components folder
 			if (path.includes('/components/')) {
@@ -88,12 +91,12 @@ export async function watch(): Promise<void> {
 			if (extname(path) === '.ts') {
 				const content = await loadModule(path, true)
 				fse.outputJSONSync(
-					resolve(global.target.path, changeExt(path, '.json')),
+					getPath(changeExt(path, '.json'), isComMojang),
 					content,
 					{ spaces: '\t' }
 				)
 			} else {
-				fse.copySync(path, resolve(global.target.path, path))
+				fse.copySync(path, getPath(path, isComMojang))
 			}
 		})
 
@@ -108,7 +111,9 @@ export async function watch(): Promise<void> {
 				resolve(
 					global.target.path,
 					// Guard to ensure that TS files compiled to JSON will be removed
-					extname(path) === '.ts' ? changeExt(path, '.json') : path
+					extname(path) === '.ts'
+						? changeExt(getPath(path, isComMojang), '.json')
+						: getPath(path, isComMojang)
 				)
 			)
 		})
