@@ -129,7 +129,7 @@ type Pools = {
 	entries?: Entries
 }
 
-type Loot = {
+type LootTable = {
 	/**
 	 * ## Pools
 	 *
@@ -138,4 +138,4 @@ type Loot = {
 	pools?: Pools[]
 }
 
-export { Loot }
+export { LootTable, Pools }

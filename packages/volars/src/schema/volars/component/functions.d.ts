@@ -1,4 +1,4 @@
-import type { Loot as LootTemplate } from '../../vanilla/loot'
+import type { LootTable as LootTableTemplate } from '../../vanilla/loot-table'
 import type { Recipe as RecipeTemplate } from '../../vanilla/recipe'
 
 type LootTable = {
@@ -7,7 +7,7 @@ type LootTable = {
 	 *
 	 * Defines a loot table that is generated with the provided template at build time.
 	 */
-	lootTable: (template: LootTemplate, path: string) => void
+	lootTable: (template: LootTableTemplate, path: string) => void
 }
 
 type Recipe = {
