@@ -1,5 +1,5 @@
 import { logger } from '../../logger'
-import type { LootTableTemplate } from '../../schema/volars/loot-table'
+import type { LootTableTemplate } from '../../schema/volars/server/loot-table'
 
 export function defineLootTable(
 	fn: (template: LootTableTemplate) => void

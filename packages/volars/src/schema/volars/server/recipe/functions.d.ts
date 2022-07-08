@@ -7,7 +7,7 @@ import type {
 	Priority,
 	Reagent,
 	Tags
-} from '../../vanilla/recipe'
+} from '../../../vanilla/recipe'
 
 type FurnaceFunction = {
 	/**

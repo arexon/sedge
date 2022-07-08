@@ -1,14 +1,4 @@
-import type { Pools } from '../../vanilla/loot-table'
-import type { Namespace } from '../namespace'
-
-type LootTableTemplate = Namespace & {
-	/**
-	 * ## Pools
-	 *
-	 * Lists the loot pools for this loot table.
-	 */
-	pools: (template: Pools[]) => void
-}
+import type { LootTableTemplate } from './template'
 
 /**
  * # Define Loot Table

@@ -1,20 +1,20 @@
-import type { Namespace } from '../namespace'
-import type { FormatVersion } from '../../vanilla/formatVersion'
+import type { Namespace } from '../../namespace'
+import type { FormatVersion } from '../../../vanilla/formatVersion'
 import type {
 	ComponentsFunction,
 	DescriptionFunction,
 	EventsFunction,
 	PermutationsFunction
 } from './functions'
-import type { Components_1_16_0 } from '../../vanilla/block/v1.16.0'
+import type { Components_1_16_0 } from '../../../vanilla/block/v1.16.0'
 import type {
 	Components_1_16_100,
 	EventResponses_1_16_100
-} from '../../vanilla/block/v1.16.100'
-import type { Compnoents_1_18_10 } from '../../vanilla/block/v1.18.10'
-import type { Compnoents_1_18_30 } from '../../vanilla/block/v1.18.30'
-import type { Compnoents_1_19_10 } from '../../vanilla/block/v1.19.10'
-import type { Randomize, Sequence } from '../../vanilla/event/common'
+} from '../../../vanilla/block/v1.16.100'
+import type { Compnoents_1_18_10 } from '../../../vanilla/block/v1.18.10'
+import type { Compnoents_1_18_30 } from '../../../vanilla/block/v1.18.30'
+import type { Compnoents_1_19_10 } from '../../../vanilla/block/v1.19.10'
+import type { Randomize, Sequence } from '../../../vanilla/event/common'
 
 type Template_1_16_0 = Namespace &
 	DescriptionFunction<false> &

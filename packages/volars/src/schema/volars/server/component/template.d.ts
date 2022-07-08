@@ -1,4 +1,4 @@
-import type { FormatVersion } from '../../vanilla/formatVersion'
+import type { FormatVersion } from '../../../vanilla/formatVersion'
 import type { BlockTemplate } from '../block/template'
 import type { LootTableFunction, RecipeFunction } from './functions'
 

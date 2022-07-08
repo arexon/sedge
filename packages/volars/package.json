@@ -15,15 +15,15 @@
 	},
 	"type": "module",
 	"exports": {
-		".": {
-			"types": "./dist/schema/index.d.ts",
-			"import": "./dist/index.mjs",
-			"default": "./dist/index.mjs"
+		"./server": "./dist/server.mjs"
+	},
+	"typesVersions": {
+		"*": {
+			"server": [
+				"dist/schema/volars/server/index.d.ts"
+			]
 		}
 	},
-	"main": "./dist/index.mjs",
-	"module": "./dist/index.mjs",
-	"types": "./dist/schema/index.d.ts",
 	"bin": {
 		"volars": "./dist/cli.mjs"
 	},

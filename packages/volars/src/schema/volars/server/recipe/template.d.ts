@@ -1,4 +1,4 @@
-import type { Namespace } from '../namespace'
+import type { Namespace } from '../../namespace'
 import type {
 	FurnaceFunction,
 	ShapedFunction,

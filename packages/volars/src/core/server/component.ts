@@ -5,11 +5,11 @@ import { getPath } from '../../runtime/utils'
 import type {
 	ComponentFormat,
 	ComponentTemplate
-} from '../../schema/volars/component'
+} from '../../schema/volars/server/component'
 import type {
 	LootTableFunction,
 	RecipeFunction
-} from '../../schema/volars/component/functions'
+} from '../../schema/volars/server/component/functions'
 
 export function defineComponent<
 	Options extends Record<string, any>,

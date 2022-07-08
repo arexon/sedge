@@ -1,5 +1,5 @@
-import type { LootTable as LootTableTemplate } from '../../vanilla/loot-table'
-import type { Recipe as RecipeTemplate } from '../../vanilla/recipe'
+import type { LootTable as LootTableTemplate } from '../../../vanilla/loot-table'
+import type { Recipe as RecipeTemplate } from '../../../vanilla/recipe'
 
 type LootTableFunction = {
 	/**
