@@ -3,6 +3,49 @@ import block from '#playground/BP/blocks/radio.block'
 
 describe('define block', () => {
 	it('returns a valid block object', () => {
-		expect(block).toMatchSnapshot()
+		expect(block).toMatchInlineSnapshot(`
+			{
+			  "format_version": "1.19.10",
+			  "minecraft:block": {
+			    "components": {
+			      "minecraft:display_name": "test:radio",
+			      "minecraft:on_interact": {
+			        "condition": "q.is_sneaking",
+			        "event": "test:toggle",
+			      },
+			    },
+			    "description": {
+			      "identifier": "test:radio",
+			      "properties": {
+			        "test:is_on": [
+			          false,
+			          true,
+			        ],
+			      },
+			    },
+			    "events": {
+			      "test:toggle": {
+			        "set_block_property": {
+			          "test:is_on": "!q.block_property('test:is_on')",
+			        },
+			      },
+			    },
+			    "permutations": [
+			      {
+			        "components": {
+			          "minecraft:geometry": "geometry.radio.off",
+			        },
+			        "condition": "q.block_property('test:is_on') == false",
+			      },
+			      {
+			        "components": {
+			          "minecraft:geometry": "geometry.radio.on",
+			        },
+			        "condition": "q.block_property('test:is_on') == true",
+			      },
+			    ],
+			  },
+			}
+		`)
 	})
 })

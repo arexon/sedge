@@ -3,6 +3,19 @@ import lootTable from '#playground/BP/loot_tables/radio.loot'
 
 describe('define loot table', () => {
 	it('returns a valid loot table object', () => {
-		expect(lootTable).toMatchSnapshot()
+		expect(lootTable).toMatchInlineSnapshot(`
+			{
+			  "pools": [
+			    {
+			      "entries": {
+			        "name": "test:table",
+			        "type": "item",
+			        "weight": 1,
+			      },
+			      "rolls": 1,
+			    },
+			  ],
+			}
+		`)
 	})
 })
