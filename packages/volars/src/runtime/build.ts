@@ -7,19 +7,16 @@ import { watch as chokidarWatch } from 'chokidar'
 import { join, normalize, resolve, extname } from 'pathe'
 import type { TSConfig } from 'pkg-types'
 import { logger } from '../logger'
-import { changeExt, getPath } from './utils'
+import { changeExt, getPath, scanPaths } from './utils'
 import { loadModule, resolveImports } from './module'
 
 export async function build(silent = false): Promise<void> {
 	const start = Date.now()
 
-	const modules = globbySync(
-		join(global.config.packs.behaviorPack, '*/*.ts'),
-		{ ignore: ['**/components/**'] }
+	const { modules, assets } = scanPaths(
+		global.config.packs.behaviorPack,
+		global.config.packs.resourcePack
 	)
-	const assets = globbySync(join(global.config.packs.behaviorPack, '**/*'), {
-		ignore: ['**/*.ts']
-	})
 	const isComMojang = global.target.name === 'com.mojang'
 
 	const results = await Promise.allSettled([

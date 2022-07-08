@@ -1,8 +1,9 @@
 import fse from 'fs-extra'
+import chalk from 'chalk'
+import { globbySync } from 'globby'
 import { extname, join, resolve } from 'pathe'
 import { type BinaryLike, createHash } from 'crypto'
 import { logger } from '../logger'
-import chalk from 'chalk'
 
 export async function prepareDir(path: string): Promise<void> {
 	await fse.remove(path)
@@ -62,4 +63,21 @@ export function getPath(path: string, isInComMojang: boolean): string {
 			return resolve(global.target.path, path)
 		} else throw error()
 	}
+}
+
+export function scanPaths(...paths: string[]): {
+	modules: string[]
+	assets: string[]
+} {
+	const joinPaths = (pattern: string): string[] => {
+		return paths.map((path) => join(path, pattern))
+	}
+	const modules = globbySync(joinPaths('*/*.ts'), {
+		ignore: ['**/components/**']
+	})
+	const assets = globbySync(joinPaths('**/*'), {
+		ignore: ['**/*.ts']
+	})
+
+	return { modules, assets }
 }
