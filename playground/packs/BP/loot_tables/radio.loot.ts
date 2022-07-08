@@ -1,4 +1,4 @@
-import { defineLootTable } from 'volars'
+import { defineLootTable } from 'volars/server'
 
 export default defineLootTable(({ namespace, pools }) => {
 	pools([

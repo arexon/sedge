@@ -1,4 +1,4 @@
-import { defineBlock } from 'volars'
+import { defineBlock } from 'volars/server'
 import { attributes } from '#components/attributes'
 
 export default defineBlock(

@@ -1,4 +1,4 @@
-import { defineRecipe } from 'volars'
+import { defineRecipe } from 'volars/server'
 
 export default defineRecipe(({ namespace, shaped }) => {
 	shaped({

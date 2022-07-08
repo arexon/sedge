@@ -1,4 +1,4 @@
-import { defineComponent } from 'volars'
+import { defineComponent } from 'volars/server'
 
 export const attributes = defineComponent(
 	'block@1.19.10',
