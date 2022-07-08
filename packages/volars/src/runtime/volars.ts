@@ -1,8 +1,8 @@
 import chalk from 'chalk'
-import { loadConfig } from './config'
-import { comMojangDir } from './constants'
-import { logger } from './logger'
-import { start } from './runtime'
+import { loadConfig } from '../config'
+import { comMojangDir } from '../constants'
+import { logger } from '../logger'
+import { start } from './start'
 
 interface VolarsInstance {
 	target: string

@@ -3,6 +3,7 @@ node_modules
 .pnpm-debug.log*
 .turbo
 dist
+bin
 playground/.volars
 playground/build
 playground/dev

@@ -5,15 +5,18 @@ export default defineBuildConfig({
 	clean: true,
 	entries: [
 		'src/core/server',
-		'src/cli',
+		'src/runtime',
 		{ input: 'src/schema/', outDir: 'dist/schema' }
 	],
 	externals: ['@antfu/utils'],
 	hooks: {
 		'build:done': () => {
-			let source = fse.readFileSync('./dist/cli.mjs', 'utf8')
-			source = source.replace('ts-node', 'node')
-			fse.writeFileSync('./dist/cli.mjs', source)
+			const cliContent = [
+				'#!/usr/bin/env node',
+				'import main from "../dist/runtime.mjs"',
+				'main()'
+			]
+			fse.outputFileSync('./bin/volars.mjs', cliContent.join('\n'))
 		}
 	}
 })

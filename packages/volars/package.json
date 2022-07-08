@@ -25,7 +25,7 @@
 		}
 	},
 	"bin": {
-		"volars": "./dist/cli.mjs"
+		"volars": "./bin/volars.mjs"
 	},
 	"files": [
 		"dist"
