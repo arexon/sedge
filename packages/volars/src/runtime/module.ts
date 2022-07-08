@@ -1,9 +1,8 @@
 import fse from 'fs-extra'
 import chalk from 'chalk'
 import { transformFileSync } from '@swc/core'
-import { hasOwnProperty } from '@antfu/utils'
-import { basename, dirname, normalize, resolve } from 'pathe'
-import { resolve as urlResolve } from 'mlly'
+import { basename, dirname, resolve } from 'pathe'
+import { resolve as metaResolve } from 'mlly'
 import { pathToFileURL } from 'url'
 import { cacheDir } from '../constants'
 import { changeExt, getHash } from './utils'
@@ -58,33 +57,30 @@ export async function resolveImports(
 
 	await Promise.all(
 		uniqueImports.map(async (id) => {
-			let url: string
+			let url = ''
 
-			if (id.startsWith('#')) {
-				const aliasImport = id.split('/').shift()!
-
-				if (
-					hasOwnProperty(global.config.volars?.aliases, aliasImport)
-				) {
-					const alias = global.config.volars!.aliases![aliasImport]
-					url = pathToFileURL(
-						id.replace(aliasImport, resolve(cacheDir, alias)) +
-							'.js'
-					).href
-				} else {
+			try {
+				url = await metaResolve(`${id}.js`, {
+					conditions: ['import'],
+					url: options.url
+				})
+			} catch {
+				url = await metaResolve(id, {
+					conditions: ['node'],
+					url: options.url
+				})
+			} finally {
+				if (!url) {
 					logger.error(
-						'Alias',
-						chalk.yellow(aliasImport),
-						'not found in',
-						chalk.blackBright('config.volars.aliases')
+						`Could not resolve import ${chalk.blackBright(
+							id
+						)} in ${chalk.blackBright(options.url)}`
 					)
 					process.exit(1)
 				}
-			} else {
-				url = await urlResolve(id, options)
 			}
 
-			resolved.set(id, normalize(url))
+			resolved.set(id, url)
 		})
 	)
 

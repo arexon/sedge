@@ -1,11 +1,9 @@
 import fse from 'fs-extra'
 import chalk from 'chalk'
-import { globbySync } from 'globby'
 import { debounce } from '@antfu/utils'
 import { transformFileSync } from '@swc/core'
 import { watch as chokidarWatch } from 'chokidar'
 import { join, normalize, resolve, extname } from 'pathe'
-import type { TSConfig } from 'pkg-types'
 import { logger } from '../logger'
 import { changeExt, getPath, scanPaths } from './utils'
 import { loadModule, resolveImports } from './module'
@@ -13,10 +11,12 @@ import { loadModule, resolveImports } from './module'
 export async function build(silent = false): Promise<void> {
 	const start = Date.now()
 
-	const { modules, assets } = scanPaths(
-		global.config.packs.behaviorPack,
-		global.config.packs.resourcePack
-	)
+	const { modules, assets } = scanPaths({
+		paths: [
+			global.config.packs.behaviorPack,
+			global.config.packs.resourcePack
+		]
+	})
 	const isComMojang = global.target.name === 'com.mojang'
 
 	const results = await Promise.allSettled([
@@ -143,43 +143,34 @@ export async function watch(): Promise<void> {
 }
 
 export async function transpileModules(path: string): Promise<void> {
-	const modules = globbySync(join(global.config.packs.behaviorPack, '*/*.ts'))
+	const { modules } = scanPaths({
+		paths: [
+			global.config.packs.behaviorPack,
+			global.config.packs.resourcePack
+		],
+		ignoreComponents: false
+	})
 
+	// Transpile modules
 	await Promise.all(
-		modules.map(async (modulePath) => {
+		modules.map((modulePath) => {
 			const file = transformFileSync(modulePath)
 			fse.outputFileSync(
 				resolve(path, changeExt(modulePath, '.js')),
-				await resolveImports(file.code, {
-					url: resolve(path, modulePath)
+				file.code
+			)
+		})
+	)
+	// Resolve imports in modules
+	await Promise.all(
+		modules.map(async (modulePath) => {
+			const fullPath = join(path, changeExt(modulePath, '.js'))
+			fse.writeFileSync(
+				fullPath,
+				await resolveImports(fse.readFileSync(fullPath, 'utf8'), {
+					url: resolve(fullPath)
 				})
 			)
 		})
 	)
-}
-
-export function generateTsConfig(path: string): void {
-	const aliases = global.config.volars!.aliases!
-	const tsConfig: TSConfig = {
-		compilerOptions: {
-			target: 'esnext',
-			module: 'esnext',
-			lib: ['esnext', 'dom'],
-			moduleResolution: 'node',
-			esModuleInterop: true,
-			strict: true,
-			strictNullChecks: true,
-			resolveJsonModule: true,
-			paths: Object.keys(aliases).reduce(
-				(_, key) => ({
-					[`${key}/*`]: [join('..', aliases[key], '*')]
-				}),
-				{} as Record<string, string[]>
-			)
-		},
-		include: ['../**/*']
-	}
-	fse.writeJSONSync(join(path, 'tsconfig.json'), tsConfig, {
-		spaces: '\t'
-	})
 }

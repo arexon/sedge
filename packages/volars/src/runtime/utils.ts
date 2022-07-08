@@ -65,15 +65,25 @@ export function getPath(path: string, isInComMojang: boolean): string {
 	}
 }
 
-export function scanPaths(...paths: string[]): {
+interface ScanPathsOptions {
+	paths: string[]
+	ignoreComponents?: boolean
+}
+export function scanPaths(options: ScanPathsOptions): {
 	modules: string[]
 	assets: string[]
 } {
-	const joinPaths = (pattern: string): string[] => {
-		return paths.map((path) => join(path, pattern))
+	options = {
+		ignoreComponents: true,
+		...options
 	}
-	const modules = globbySync(joinPaths('*/*.ts'), {
-		ignore: ['**/components/**']
+	const joinPaths = (pattern: string): string[] => {
+		return options.paths.map((path) => join(path, pattern))
+	}
+	const modules = globbySync(joinPaths('**/*.ts'), {
+		...(options.ignoreComponents && {
+			ignore: ['**/components/**/*.ts']
+		})
 	})
 	const assets = globbySync(joinPaths('**/*'), {
 		ignore: ['**/*.ts']

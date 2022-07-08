@@ -10,9 +10,6 @@
 	"volars": {
 		"targets": {
 			"prototype": "./prototyping"
-		},
-		"aliases": {
-			"#components": "./packs/BP/components"
 		}
 	}
 }

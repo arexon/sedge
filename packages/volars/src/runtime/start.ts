@@ -1,9 +1,9 @@
 import chalk from 'chalk'
+import { join } from 'pathe'
 import { prepareDir } from './utils'
-import { build, watch, transpileModules, generateTsConfig } from './build'
+import { build, watch, transpileModules } from './build'
 import { logger } from '../logger'
 import { cacheDir, volarsDir } from '../constants'
-import { join } from 'pathe'
 
 export async function start(mode: 'build' | 'dev'): Promise<void> {
 	await prepareDir(volarsDir)
@@ -26,10 +26,6 @@ export async function start(mode: 'build' | 'dev'): Promise<void> {
 				`${global.config.name} RP`
 			)
 		)
-	}
-
-	if (Object.keys(global.config.volars?.aliases || {}).length > 0) {
-		generateTsConfig(volarsDir)
 	}
 
 	logger.info(
