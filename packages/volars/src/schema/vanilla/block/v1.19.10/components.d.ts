@@ -1,4 +1,4 @@
-type CollisionBox = {
+interface CollisionBox {
 	/**
 	 * ## Collision Box
 	 *
@@ -30,7 +30,7 @@ type CollisionBox = {
 		| false
 }
 
-type CraftingTable = {
+interface CraftingTable {
 	/**
 	 * ## Crafting Table
 	 *
@@ -69,7 +69,7 @@ type CraftingTable = {
 	}
 }
 
-type Flammable = {
+interface Flammable {
 	/**
 	 * ## Flammable
 	 *
@@ -103,7 +103,7 @@ type Flammable = {
 		| boolean
 }
 
-type LightDampening = {
+interface LightDampening {
 	/**
 	 * ## Light Dampening
 	 *
@@ -115,7 +115,7 @@ type LightDampening = {
 	light_dampening?: number
 }
 
-type PartVisibility = {
+interface PartVisibility {
 	/**
 	 * ## Part Visibility
 	 *
@@ -137,7 +137,7 @@ type PartVisibility = {
 	}
 }
 
-type QueuedTicking = {
+interface QueuedTicking {
 	/**
 	 * ## Queued Ticking
 	 *

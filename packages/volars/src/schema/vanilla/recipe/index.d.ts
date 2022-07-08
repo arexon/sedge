@@ -1,6 +1,6 @@
 import type { TagTypes } from './general'
 
-type Description = {
+interface Description {
 	/**
 	 * ### Description
 	 *
@@ -16,7 +16,7 @@ type Description = {
 	}
 }
 
-type Tags = {
+interface Tags {
 	/**
 	 * ### Tags
 	 *
@@ -25,7 +25,7 @@ type Tags = {
 	tags?: TagTypes[]
 }
 
-type Group = {
+interface Group {
 	/**
 	 * ### Group
 	 *
@@ -34,7 +34,7 @@ type Group = {
 	group?: string
 }
 
-type InputAndOutput = {
+interface InputAndOutput {
 	/**
 	 * ### Input
 	 *
@@ -50,7 +50,7 @@ type InputAndOutput = {
 	output?: string
 }
 
-type Priority = {
+interface Priority {
 	/**
 	 * ### Priority
 	 *
@@ -59,7 +59,7 @@ type Priority = {
 	priority?: number
 }
 
-type Result = {
+interface Result {
 	/**
 	 * #### Item
 	 *
@@ -82,7 +82,7 @@ type Result = {
 	count?: number
 }
 
-type PatternResult = {
+interface PatternResult {
 	/**
 	 * ### Pattern
 	 *
@@ -121,7 +121,7 @@ type PatternResult = {
 	result?: Result
 }
 
-type IngredientResult = {
+interface IngredientResult {
 	/**
 	 * ### Ingredients
 	 *
@@ -137,7 +137,7 @@ type IngredientResult = {
 	result?: Result
 }
 
-type Reagent = {
+interface Reagent {
 	/**
 	 * ### Reagent
 	 *
@@ -146,56 +146,75 @@ type Reagent = {
 	reagent?: string
 }
 
-type Recipe = {
+interface RecipeFurnace extends Description, Tags, Group, InputAndOutput {}
+interface RecipeShaped
+	extends Description,
+		Tags,
+		Group,
+		Priority,
+		PatternResult {}
+interface RecipeShapeless
+	extends Description,
+		Tags,
+		Group,
+		Priority,
+		IngredientResult {}
+interface RecipeBrewingMix extends Description, Tags, InputAndOutput, Reagent {}
+interface RecipeBrewingContainer
+	extends Description,
+		Tags,
+		InputAndOutput,
+		Reagent {}
+interface RecipeMaterialReduction extends Description, Tags, InputAndOutput {}
+
+interface Recipe {
 	/**
 	 * ## Recipe Furnace
 	 *
 	 * Represents a recipe for use with a Furnace.
 	 */
-	recipe_furnace?: Description & Tags & Group & InputAndOutput
+	recipe_furnace?: RecipeFurnace
 
 	/**
 	 * ## Recipe Shaped
 	 *
 	 * Represents a recipe that requires a dedicated pattern when using a Crafting Table.
 	 */
-	recipe_shaped?: Description & Tags & Group & Priority & PatternResult
+	recipe_shaped?: RecipeShaped
 
 	/**
 	 * ## Recipe Shapeless
 	 *
 	 * Represents a recipe that does not require a dedicated pattern.
 	 */
-	recipe_shapeless?: Description & Tags & Group & Priority & IngredientResult
+	recipe_shapeless?: RecipeShapeless
 
 	/**
 	 * ## Recipe Brewing Mix
 	 *
 	 * Represents a recipe that for use with a Potion Brewing station.
 	 */
-	recipe_brewing_mix?: Description & Tags & InputAndOutput & Reagent
+	recipe_brewing_mix?: RecipeBrewingMix
 
 	/**
 	 * ## Recipe Brewing Container
 	 *
 	 * Represents a recipe that for use with a Potion Brewing station.
 	 */
-	recipe_brewing_container?: Description & Tags & InputAndOutput & Reagent
+	recipe_brewing_container?: RecipeBrewingContainer
 
 	/**
 	 * ## Recipe Material Reduction
 	 */
-	recipe_material_reduction?: Description & Tags & InputAndOutput
+	recipe_material_reduction?: RecipeMaterialReduction
 }
 
 export {
 	Recipe,
-	Description,
-	Tags,
-	Group,
-	InputAndOutput,
-	Priority,
-	PatternResult,
-	IngredientResult,
-	Reagent
+	RecipeFurnace,
+	RecipeShaped,
+	RecipeShapeless,
+	RecipeBrewingMix,
+	RecipeBrewingContainer,
+	RecipeMaterialReduction
 }

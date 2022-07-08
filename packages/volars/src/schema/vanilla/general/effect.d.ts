@@ -31,7 +31,7 @@ type EffectNames =
 	| 'weakness'
 	| 'wither'
 
-type Effect = {
+interface Effect {
 	/**
 	 * ### Amplifier
 	 *

@@ -1,12 +1,10 @@
 import type {
-	Description,
-	Group,
-	IngredientResult,
-	InputAndOutput,
-	PatternResult,
-	Priority,
-	Reagent,
-	Tags
+	RecipeBrewingContainer,
+	RecipeBrewingMix,
+	RecipeMaterialReduction,
+	RecipeShaped,
+	RecipeShapeless,
+	RecipeFurnace
 } from '../../../vanilla/recipe'
 
 type FurnaceFunction = {
@@ -15,7 +13,7 @@ type FurnaceFunction = {
 	 *
 	 * Represents a recipe for use with a Furnace.
 	 */
-	furnace: (template: Description & Tags & Group & InputAndOutput) => void
+	furnace: (template: RecipeFurnace) => void
 }
 
 type ShapedFunction = {
@@ -24,9 +22,7 @@ type ShapedFunction = {
 	 *
 	 * Represents a recipe that requires a dedicated pattern when using a Crafting Table.
 	 */
-	shaped: (
-		template: Description & Tags & Group & Priority & PatternResult
-	) => void
+	shaped: (template: RecipeShaped) => void
 }
 
 type ShapelessFunction = {
@@ -35,9 +31,7 @@ type ShapelessFunction = {
 	 *
 	 * Represents a recipe that does not require a dedicated pattern.
 	 */
-	shapeless: (
-		template: Description & Tags & Group & Priority & IngredientResult
-	) => void
+	shapeless: (template: RecipeShapeless) => void
 }
 
 type BrewingMixFunction = {
@@ -46,9 +40,7 @@ type BrewingMixFunction = {
 	 *
 	 * Represents a recipe that for use with a Potion Brewing station.
 	 */
-	brewingMix: (
-		template: Description & Tags & InputAndOutput & Reagent
-	) => void
+	brewingMix: (template: RecipeBrewingMix) => void
 }
 
 type BrewingContainerFunction = {
@@ -57,16 +49,14 @@ type BrewingContainerFunction = {
 	 *
 	 * Represents a recipe that for use with a Potion Brewing station.
 	 */
-	brewingContainer: (
-		template: Description & Tags & InputAndOutput & Reagent
-	) => void
+	brewingContainer: (template: RecipeBrewingContainer) => void
 }
 
 type MaterialReductionFunction = {
 	/**
 	 * ## Recipe Material Reduction
 	 */
-	materialReduction: (template: Description & Tags & InputAndOutput) => void
+	materialReduction: (template: RecipeMaterialReduction) => void
 }
 
 export {

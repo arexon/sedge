@@ -1,4 +1,4 @@
-type Randomize<T extends object> = {
+interface Randomize<Type extends object> {
 	/**
 	 * ## Randomize
 	 *
@@ -18,10 +18,10 @@ type Randomize<T extends object> = {
 		 * A MoLang that when evaluated to true will cause the event to run.
 		 */
 		condition?: string
-	} & T)[]
+	} & Type)[]
 }
 
-type Sequence<T extends object> = {
+interface Sequence<T extends object> {
 	/**
 	 * ## Sequence
 	 *

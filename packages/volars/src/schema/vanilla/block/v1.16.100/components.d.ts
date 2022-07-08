@@ -1,7 +1,7 @@
 import type { CreativeGroup, ItemGroup } from '../../general/inventory'
 import type { EventTrigger } from '../../event/v1.16.100/triggers'
 
-type BreakOnPush = {
+interface BreakOnPush {
 	/**
 	 * ## Break On Push
 	 *
@@ -10,7 +10,7 @@ type BreakOnPush = {
 	breakonpush?: boolean
 }
 
-type Breathability = {
+interface Breathability {
 	/**
 	 * ## Breathability
 	 *
@@ -22,7 +22,7 @@ type Breathability = {
 	breathability?: 'solid' | 'air'
 }
 
-type CraftingTable = {
+interface CraftingTable {
 	/**
 	 * ## Crafting Table
 	 *
@@ -61,7 +61,7 @@ type CraftingTable = {
 	}
 }
 
-type CreativeCategory = {
+interface CreativeCategory {
 	/**
 	 * ## Creative Category
 	 *
@@ -90,7 +90,7 @@ type CreativeCategory = {
 	}
 }
 
-type DisplayName = {
+interface DisplayName {
 	/**
 	 * ## Display Name
 	 *
@@ -102,7 +102,7 @@ type DisplayName = {
 	display_name?: string
 }
 
-type EntityCollision = {
+interface EntityCollision {
 	/**
 	 * ## Entity Collision
 	 *
@@ -137,7 +137,7 @@ type EntityCollision = {
 		| false
 }
 
-type Geometry = {
+interface Geometry {
 	/**
 	 * ## Geometry
 	 *
@@ -149,7 +149,7 @@ type Geometry = {
 	geometry?: string
 }
 
-type Immovable = {
+interface Immovable {
 	/**
 	 * ## Immovable
 	 *
@@ -158,7 +158,7 @@ type Immovable = {
 	immovable?: boolean
 }
 
-type MaterialInstances = {
+interface MaterialInstances {
 	/**
 	 * ## Material Instances
 	 *
@@ -225,7 +225,7 @@ type MaterialInstances = {
 	}
 }
 
-type OnlyPistonPush = {
+interface OnlyPistonPush {
 	/**
 	 * ## Only Piston Push
 	 *
@@ -234,7 +234,7 @@ type OnlyPistonPush = {
 	only_piston_push?: boolean
 }
 
-type PartVisibility = {
+interface PartVisibility {
 	/**
 	 * ## Part Visibility
 	 *
@@ -256,7 +256,7 @@ type PartVisibility = {
 	}
 }
 
-type PickCollision = {
+interface PickCollision {
 	/**
 	 * ## Pick Collision
 	 *
@@ -291,7 +291,7 @@ type PickCollision = {
 		| false
 }
 
-type PlacementRules = {
+interface PlacementRules {
 	/**
 	 * ### Placement Rules
 	 *
@@ -324,7 +324,7 @@ type PlacementRules = {
 	}
 }
 
-type PlacementFilter = {
+interface PlacementFilter {
 	/**
 	 * ## Placement Filter
 	 *
@@ -335,7 +335,7 @@ type PlacementFilter = {
 	placement_filter?: PlacementRules | PlacementRules[]
 }
 
-type PreventJumping = {
+interface PreventJumping {
 	/**
 	 * ## Prevent Jumping
 	 *
@@ -344,7 +344,7 @@ type PreventJumping = {
 	prevent_jumping?: boolean
 }
 
-type RandomTicking = {
+interface RandomTicking {
 	/**
 	 * ## Random Ticking
 	 *
@@ -363,7 +363,7 @@ type RandomTicking = {
 	}
 }
 
-type Rotation = {
+interface Rotation {
 	/**
 	 * ## Rotation
 	 *
@@ -376,7 +376,7 @@ type Rotation = {
 	rotation?: [number, number, number]
 }
 
-type Ticking = {
+interface Ticking {
 	/**
 	 * ## Ticking
 	 *
@@ -414,7 +414,7 @@ type Ticking = {
 	}
 }
 
-type UnitCube = {
+interface UnitCube {
 	/**
 	 * ## Unit Cube
 	 *
@@ -425,7 +425,7 @@ type UnitCube = {
 	unit_cube?: Record<string, never>
 }
 
-type Unwalkable = {
+interface Unwalkable {
 	/**
 	 * ## Unwalkable
 	 *

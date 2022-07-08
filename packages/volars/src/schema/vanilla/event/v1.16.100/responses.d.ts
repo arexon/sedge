@@ -2,7 +2,7 @@ import type { Subject } from '../../general/filter'
 import type { Effect, EffectNames } from '../../general/effect'
 import type { DamageTypes } from '../../general/damage'
 
-type AddMobEffect = {
+interface AddMobEffect {
 	/**
 	 * ## Add Mob Effect
 	 *
@@ -20,7 +20,7 @@ type AddMobEffect = {
 	} & Effect
 }
 
-type Damage = {
+interface Damage {
 	/**
 	 * ## Damage
 	 *
@@ -54,7 +54,7 @@ type Damage = {
 	}
 }
 
-type DecrementStack = {
+interface DecrementStack {
 	/**
 	 * ## Decrement Stack
 	 *
@@ -63,7 +63,7 @@ type DecrementStack = {
 	decrement_stack?: Record<string, never>
 }
 
-type Die = {
+interface Die {
 	/**
 	 * ## Die
 	 *
@@ -74,7 +74,7 @@ type Die = {
 	die?: Subject
 }
 
-type RemoveMobEffect = {
+interface RemoveMobEffect {
 	/**
 	 * ## Remove Mob Effect
 	 *
@@ -99,7 +99,7 @@ type RemoveMobEffect = {
 	}
 }
 
-type RunCommand = {
+interface RunCommand {
 	/**
 	 * ## Run Command
 	 *
@@ -124,7 +124,7 @@ type RunCommand = {
 	}
 }
 
-type SetBlock = {
+interface SetBlock {
 	/**
 	 * ## Set Block
 	 *
@@ -140,7 +140,7 @@ type SetBlock = {
 	}
 }
 
-type SetBlockAtPos = {
+interface SetBlockAtPos {
 	/**
 	 * ## Set Block At Pos
 	 *
@@ -165,7 +165,7 @@ type SetBlockAtPos = {
 	}
 }
 
-type SetBlockProperty = {
+interface SetBlockProperty {
 	/**
 	 * ## Set Block Property
 	 *
@@ -181,7 +181,7 @@ type SetBlockProperty = {
 	}
 }
 
-type SpawnLoot = {
+interface SpawnLoot {
 	/**
 	 * ## Spawn Loot
 	 *
@@ -197,7 +197,7 @@ type SpawnLoot = {
 	}
 }
 
-type Swing = {
+interface Swing {
 	/**
 	 * ## Swing
 	 *
@@ -206,7 +206,7 @@ type Swing = {
 	swing?: Record<string, never>
 }
 
-type Teleport = {
+interface Teleport {
 	/**
 	 * ## Teleport
 	 *
@@ -258,7 +258,7 @@ type Teleport = {
 	}
 }
 
-type TransformItem = {
+interface TransformItem {
 	/**
 	 * ## Transform Item
 	 *
@@ -274,7 +274,7 @@ type TransformItem = {
 	}
 }
 
-type TriggerBlock = {
+interface TriggerBlock {
 	/**
 	 * ## Trigger
 	 *

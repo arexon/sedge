@@ -1,4 +1,4 @@
-type Range = {
+interface Range {
 	min?: number
 	max?: number
 }

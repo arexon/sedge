@@ -1,6 +1,6 @@
 import type { EventTrigger } from '../../event/v1.16.100/triggers'
 
-type OnFallOn = {
+interface OnFallOn {
 	/**
 	 * ## On Fall On
 	 *
@@ -16,7 +16,7 @@ type OnFallOn = {
 	} & EventTrigger
 }
 
-type OnInteract = {
+interface OnInteract {
 	/**
 	 * ## On Interact
 	 *
@@ -25,7 +25,7 @@ type OnInteract = {
 	on_interact?: EventTrigger
 }
 
-type OnPlaced = {
+interface OnPlaced {
 	/**
 	 * ## On Placed
 	 *
@@ -34,7 +34,7 @@ type OnPlaced = {
 	on_placed?: EventTrigger
 }
 
-type OnPlayerDestroyed = {
+interface OnPlayerDestroyed {
 	/**
 	 * ## On Player Destroyed
 	 *
@@ -43,7 +43,7 @@ type OnPlayerDestroyed = {
 	on_player_destroyed?: EventTrigger
 }
 
-type OnPlayerPlacing = {
+interface OnPlayerPlacing {
 	/**
 	 * ## On Player Placing
 	 *
@@ -52,7 +52,7 @@ type OnPlayerPlacing = {
 	on_player_placing?: EventTrigger
 }
 
-type OnPlayerStepOff = {
+interface OnPlayerStepOff {
 	/**
 	 * ## On Player Step Off
 	 *
@@ -61,7 +61,7 @@ type OnPlayerStepOff = {
 	on_player_step_off?: EventTrigger
 }
 
-type OnPlayerStepOn = {
+interface OnPlayerStepOn {
 	/**
 	 * ## On Player Step Off
 	 *

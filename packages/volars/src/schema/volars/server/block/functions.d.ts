@@ -1,4 +1,4 @@
-type Description = {
+interface Description {
 	/**
 	 * ## Identifier
 	 *
@@ -15,7 +15,7 @@ type Description = {
 	is_experimental?: boolean
 }
 
-type DescriptionProperties = {
+interface DescriptionProperties {
 	/**
 	 * ## Properties
 	 *
@@ -26,7 +26,7 @@ type DescriptionProperties = {
 	}
 }
 
-type DescriptionFunction<WithProperties extends boolean> = {
+interface DescriptionFunction<WithProperties extends boolean> {
 	/**
 	 * # Description
 	 *
@@ -39,7 +39,7 @@ type DescriptionFunction<WithProperties extends boolean> = {
 	) => void
 }
 
-type Permutation<T extends object> = {
+interface Permutation<T extends object> {
 	/**
 	 * ## Condition
 	 *
@@ -55,7 +55,7 @@ type Permutation<T extends object> = {
 	components?: T
 }
 
-type PermutationsFunction<T extends object> = {
+interface PermutationsFunction<T extends object> {
 	/**
 	 * # Permutations
 	 *
@@ -64,7 +64,7 @@ type PermutationsFunction<T extends object> = {
 	permutations: (template: Permutation<T>[]) => void
 }
 
-type ComponentsFunction<T extends object> = {
+interface ComponentsFunction<T extends object> {
 	/**
 	 * # Compnoents
 	 *
@@ -73,7 +73,7 @@ type ComponentsFunction<T extends object> = {
 	components: (template: T) => void
 }
 
-type EventsFunction<T extends object> = {
+interface EventsFunction<T extends object> {
 	/**
 	 * # Events
 	 *

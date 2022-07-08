@@ -1,7 +1,7 @@
 import type { LootTable as LootTableTemplate } from '../../../vanilla/loot-table'
 import type { Recipe as RecipeTemplate } from '../../../vanilla/recipe'
 
-type LootTableFunction = {
+interface LootTableFunction {
 	/**
 	 * # Loot Table
 	 *
@@ -10,7 +10,7 @@ type LootTableFunction = {
 	lootTable: (template: LootTableTemplate, path: string) => void
 }
 
-type RecipeFunction = {
+interface RecipeFunction {
 	/**
 	 * # Recipe
 	 *

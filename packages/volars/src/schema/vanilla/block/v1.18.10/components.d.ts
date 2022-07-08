@@ -1,4 +1,4 @@
-type AimCollision = {
+interface AimCollision {
 	/**
 	 * ## Aim Collision
 	 *
@@ -33,7 +33,7 @@ type AimCollision = {
 		| false
 }
 
-type BlockCollision = {
+interface BlockCollision {
 	/**
 	 * ## Block Collision
 	 *
@@ -68,7 +68,7 @@ type BlockCollision = {
 		| boolean
 }
 
-type BlockLightFilter = {
+interface BlockLightFilter {
 	/**
 	 * ## Block Light Filter
 	 *

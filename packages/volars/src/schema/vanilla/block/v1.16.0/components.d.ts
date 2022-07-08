@@ -1,4 +1,4 @@
-type DestoryTime = {
+interface DestoryTime {
 	/**
 	 * ## Destroy Time
 	 *
@@ -11,7 +11,7 @@ type DestoryTime = {
 	destroy_time?: number
 }
 
-type ExplosionResistance = {
+interface ExplosionResistance {
 	/**
 	 * ## Explosion Resistance
 	 *
@@ -22,7 +22,7 @@ type ExplosionResistance = {
 	explosion_resistance?: number
 }
 
-type Flammable = {
+interface Flammable {
 	/**
 	 * ## Flammable
 	 *
@@ -51,7 +51,7 @@ type Flammable = {
 	}
 }
 
-type Friction = {
+interface Friction {
 	/**
 	 * ## Friction
 	 *
@@ -64,7 +64,7 @@ type Friction = {
 	friction?: number
 }
 
-type Loot = {
+interface Loot {
 	/**
 	 * ## Loot
 	 *
@@ -73,7 +73,7 @@ type Loot = {
 	loot?: string
 }
 
-type MapColor = {
+interface MapColor {
 	/**
 	 * ## Map Color
 	 *

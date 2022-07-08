@@ -1,4 +1,4 @@
-type EventTrigger = {
+interface EventTrigger {
 	/**
 	 * ## Condition
 	 *

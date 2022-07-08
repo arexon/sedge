@@ -1,7 +1,7 @@
 import type { Pools } from '../../../vanilla/loot-table'
 import type { Namespace } from '../../namespace'
 
-type LootTableTemplate = Namespace & {
+interface LootTableTemplate extends Namespace {
 	/**
 	 * ## Pools
 	 *

@@ -95,7 +95,7 @@ type Entries =
 			weight?: number
 	  }
 
-type Pools = {
+interface Pools {
 	/**
 	 * ## Condition
 	 *
@@ -129,7 +129,7 @@ type Pools = {
 	entries?: Entries
 }
 
-type LootTable = {
+interface LootTable {
 	/**
 	 * ## Pools
 	 *
