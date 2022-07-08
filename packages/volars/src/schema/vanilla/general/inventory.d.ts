@@ -8,4 +8,4 @@ type CreativeGroup =
 	| 'none'
 	| 'commands'
 
-export { ItemGroup, CreativeGroup }
+export type { ItemGroup, CreativeGroup }

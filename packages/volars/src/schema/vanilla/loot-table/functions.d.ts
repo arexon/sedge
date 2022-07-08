@@ -94,4 +94,4 @@ type Functions =
 			}[]
 	  }
 
-export { Functions }
+export type { Functions }

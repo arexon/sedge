@@ -19,4 +19,4 @@ interface RecipeFunction {
 	recipe: (template: RecipeTemplate, path: string) => void
 }
 
-export { LootTableFunction, RecipeFunction }
+export type { LootTableFunction, RecipeFunction }

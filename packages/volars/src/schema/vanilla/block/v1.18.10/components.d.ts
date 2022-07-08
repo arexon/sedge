@@ -80,4 +80,4 @@ interface BlockLightFilter {
 	block_light_filter?: number
 }
 
-export { BlockCollision, BlockLightFilter, AimCollision }
+export type { BlockCollision, BlockLightFilter, AimCollision }

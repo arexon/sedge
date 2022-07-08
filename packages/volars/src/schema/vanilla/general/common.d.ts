@@ -3,4 +3,4 @@ interface Range {
 	max?: number
 }
 
-export { Range }
+export type { Range }

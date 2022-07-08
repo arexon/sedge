@@ -82,7 +82,7 @@ interface EventsFunction<T extends object> {
 	events: (template: Record<string, T>) => void
 }
 
-export {
+export type {
 	DescriptionFunction,
 	PermutationsFunction,
 	ComponentsFunction,

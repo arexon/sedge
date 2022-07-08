@@ -36,5 +36,5 @@ interface Components_1_16_100
 		Component_1_16_0.Loot,
 		Component_1_16_0.MapColor {}
 
-export { Components_1_16_100 }
-export { EventResponses_1_16_100 } from './eventResponses'
+export type { Components_1_16_100 }
+export type { EventResponses_1_16_100 } from './eventResponses'

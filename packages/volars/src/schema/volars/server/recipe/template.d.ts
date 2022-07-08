@@ -16,4 +16,4 @@ type RecipeTemplate = Namespace &
 	BrewingContainerFunction &
 	MaterialReductionFunction
 
-export { RecipeTemplate }
+export type { RecipeTemplate }

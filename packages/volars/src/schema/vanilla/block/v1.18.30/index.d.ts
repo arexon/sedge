@@ -34,4 +34,4 @@ interface Compnoents_1_18_30
 		Compnoent_1_16_0.Loot,
 		Compnoent_1_16_0.MapColor {}
 
-export { Compnoents_1_18_30 }
+export type { Compnoents_1_18_30 }

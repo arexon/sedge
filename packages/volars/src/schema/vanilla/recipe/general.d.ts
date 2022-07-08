@@ -11,4 +11,4 @@ type TagTypes =
 	| 'material_reducer'
 	| 'smithing_table'
 
-export { TagTypes }
+export type { TagTypes }

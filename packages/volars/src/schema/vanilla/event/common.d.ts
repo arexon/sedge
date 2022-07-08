@@ -37,4 +37,4 @@ interface Sequence<T extends object> {
 	} & T)[]
 }
 
-export { Randomize, Sequence }
+export type { Randomize, Sequence }

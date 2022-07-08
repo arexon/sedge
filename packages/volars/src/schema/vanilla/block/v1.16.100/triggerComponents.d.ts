@@ -70,7 +70,7 @@ interface OnPlayerStepOn {
 	on_player_step_on?: EventTrigger
 }
 
-export {
+export type {
 	OnFallOn,
 	OnInteract,
 	OnPlaced,

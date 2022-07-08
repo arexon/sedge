@@ -138,4 +138,4 @@ interface LootTable {
 	pools?: Pools[]
 }
 
-export { LootTable, Pools }
+export type { LootTable, Pools }

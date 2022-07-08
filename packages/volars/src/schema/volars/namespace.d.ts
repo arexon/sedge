@@ -7,4 +7,4 @@ type Namespace = {
 	namespace: string
 }
 
-export { Namespace }
+export type { Namespace }

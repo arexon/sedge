@@ -21,4 +21,4 @@ interface EventTrigger {
 	target?: 'self' | 'other' | 'target' | 'parent' | 'baby'
 }
 
-export { EventTrigger }
+export type { EventTrigger }

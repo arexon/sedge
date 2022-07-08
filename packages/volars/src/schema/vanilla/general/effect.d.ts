@@ -74,4 +74,4 @@ interface Effect {
 	display_on_screen_animation?: boolean
 }
 
-export { Effect, EffectNames }
+export type { Effect, EffectNames }

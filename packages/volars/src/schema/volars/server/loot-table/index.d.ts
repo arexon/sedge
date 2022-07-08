@@ -11,4 +11,4 @@ declare function defineLootTable(
 	fn: (template: LootTableTemplate) => void
 ): Record<string, any>
 
-export { defineLootTable, LootTableTemplate }
+export { defineLootTable, type LootTableTemplate }

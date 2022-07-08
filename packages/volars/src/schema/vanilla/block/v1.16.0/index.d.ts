@@ -8,4 +8,4 @@ interface Components_1_16_0
 		Component_1_16_0.Loot,
 		Component_1_16_0.MapColor {}
 
-export { Components_1_16_0 }
+export type { Components_1_16_0 }

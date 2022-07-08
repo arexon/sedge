@@ -209,7 +209,7 @@ interface Recipe {
 	recipe_material_reduction?: RecipeMaterialReduction
 }
 
-export {
+export type {
 	Recipe,
 	RecipeFurnace,
 	RecipeShaped,

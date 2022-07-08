@@ -32,4 +32,4 @@ type DamageTypes =
 	| 'void'
 	| 'wither'
 
-export { DamageTypes }
+export type { DamageTypes }

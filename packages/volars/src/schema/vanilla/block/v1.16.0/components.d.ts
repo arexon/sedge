@@ -86,4 +86,11 @@ interface MapColor {
 	map_color?: string
 }
 
-export { DestoryTime, ExplosionResistance, Flammable, Friction, Loot, MapColor }
+export type {
+	DestoryTime,
+	ExplosionResistance,
+	Flammable,
+	Friction,
+	Loot,
+	MapColor
+}

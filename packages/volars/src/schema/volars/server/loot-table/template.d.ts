@@ -10,4 +10,4 @@ interface LootTableTemplate extends Namespace {
 	pools: (template: Pools[]) => void
 }
 
-export { LootTableTemplate }
+export type { LootTableTemplate }

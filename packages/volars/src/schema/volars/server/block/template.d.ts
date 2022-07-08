@@ -74,4 +74,4 @@ type BlockTemplate<Version extends FormatVersion> = Version extends '1.16.0'
 	? Template_1_19_10
 	: never
 
-export { BlockTemplate }
+export type { BlockTemplate }

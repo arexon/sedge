@@ -113,4 +113,4 @@ type PatternTypes =
 	| 'triangles_top'
 	| 'triangles_bottom'
 
-export { Structures, EnchantmentNames, Colors, PatternTypes }
+export type { Structures, EnchantmentNames, Colors, PatternTypes }

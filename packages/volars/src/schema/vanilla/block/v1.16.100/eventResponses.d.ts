@@ -16,4 +16,4 @@ interface EventResponses_1_16_100
 		EventResponse_1_16_100.Teleport,
 		EventResponse_1_16_100.TransformItem {}
 
-export { EventResponses_1_16_100 }
+export type { EventResponses_1_16_100 }

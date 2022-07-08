@@ -283,7 +283,7 @@ interface TriggerBlock {
 	trigger?: string
 }
 
-export {
+export type {
 	AddMobEffect,
 	Damage,
 	DecrementStack,

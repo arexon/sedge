@@ -437,7 +437,7 @@ interface Unwalkable {
 	unwalkable?: boolean
 }
 
-export {
+export type {
 	BreakOnPush,
 	Breathability,
 	CraftingTable,

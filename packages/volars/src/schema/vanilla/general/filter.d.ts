@@ -9,4 +9,4 @@ type Subject =
 	| 'damager'
 	| 'player'
 
-export { Subject }
+export type { Subject }

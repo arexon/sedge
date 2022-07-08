@@ -173,7 +173,7 @@ interface QueuedTicking {
 	}
 }
 
-export {
+export type {
 	CollisionBox,
 	CraftingTable,
 	Flammable,

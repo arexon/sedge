@@ -17,4 +17,4 @@ type ComponentTemplate<Format extends ComponentFormat> =
 		? BlockTemplate<'1.19.10'> & LootTableFunction & RecipeFunction
 		: never
 
-export { ComponentFormat, ComponentTemplate }
+export type { ComponentFormat, ComponentTemplate }

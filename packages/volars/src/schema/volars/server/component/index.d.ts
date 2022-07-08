@@ -16,4 +16,4 @@ declare function defineComponent<
 	fn: (options: Options, template: ComponentTemplate<Format>) => void
 ): (options?: Options) => object
 
-export { defineComponent, ComponentFormat, ComponentTemplate }
+export { defineComponent, type ComponentFormat, type ComponentTemplate }

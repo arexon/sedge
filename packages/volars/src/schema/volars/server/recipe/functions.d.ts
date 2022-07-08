@@ -59,7 +59,7 @@ type MaterialReductionFunction = {
 	materialReduction: (template: RecipeMaterialReduction) => void
 }
 
-export {
+export type {
 	FurnaceFunction,
 	ShapedFunction,
 	ShapelessFunction,
