@@ -1,12 +1,10 @@
 import fse from 'fs-extra'
 import chalk from 'chalk'
 import { debounce } from '@antfu/utils'
-import { transformFileSync } from '@swc/core'
 import { watch as chokidarWatch } from 'chokidar'
-import { join, normalize, resolve, extname } from 'pathe'
+import { normalize, resolve, extname } from 'pathe'
 import { logger } from '../logger'
-import { changeExt, getPath, scanPaths } from './utils'
-import { loadModule, resolveImports } from './module'
+import { changeExt, getPath, scanPaths, loadModule } from './utils'
 
 export async function build(silent = false): Promise<void> {
 	const start = Date.now()
@@ -86,7 +84,7 @@ export async function watch(): Promise<void> {
 
 			// Guard for whether the file is a module or an asset
 			if (extname(path) === '.ts') {
-				const content = await loadModule(path, true)
+				const content = await loadModule(path, false)
 				fse.outputJSONSync(
 					getPath(changeExt(path, '.json'), isComMojang),
 					content,
@@ -140,37 +138,4 @@ export async function watch(): Promise<void> {
 
 		reload()
 	})
-}
-
-export async function transpileModules(path: string): Promise<void> {
-	const { modules } = scanPaths({
-		paths: [
-			global.config.packs.behaviorPack,
-			global.config.packs.resourcePack
-		],
-		ignoreComponents: false
-	})
-
-	// Transpile modules
-	await Promise.all(
-		modules.map((modulePath) => {
-			const file = transformFileSync(modulePath)
-			fse.outputFileSync(
-				resolve(path, changeExt(modulePath, '.js')),
-				file.code
-			)
-		})
-	)
-	// Resolve imports in modules
-	await Promise.all(
-		modules.map(async (modulePath) => {
-			const fullPath = join(path, changeExt(modulePath, '.js'))
-			fse.writeFileSync(
-				fullPath,
-				await resolveImports(fse.readFileSync(fullPath, 'utf8'), {
-					url: resolve(fullPath)
-				})
-			)
-		})
-	)
 }

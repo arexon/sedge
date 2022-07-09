@@ -1,13 +1,12 @@
 import chalk from 'chalk'
 import { join } from 'pathe'
 import { prepareDir } from './utils'
-import { build, watch, transpileModules } from './build'
+import { build, watch } from './build'
 import { logger } from '../logger'
-import { cacheDir, volarsDir } from '../constants'
+import { volarsDir } from '../constants'
 
 export async function start(mode: 'build' | 'dev'): Promise<void> {
 	await prepareDir(volarsDir)
-	await transpileModules(cacheDir)
 
 	if (global.target.name !== 'com.mojang') {
 		await prepareDir(global.target.path)

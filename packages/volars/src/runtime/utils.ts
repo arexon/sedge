@@ -1,9 +1,10 @@
 import fse from 'fs-extra'
 import chalk from 'chalk'
 import glob from 'fast-glob'
+import createJITI from 'jiti'
 import { extname, join, resolve } from 'pathe'
-import { type BinaryLike, createHash } from 'crypto'
 import { logger } from '../logger'
+import { volarsCacheDir } from '../constants'
 
 export async function prepareDir(path: string): Promise<void> {
 	await fse.remove(path)
@@ -12,10 +13,6 @@ export async function prepareDir(path: string): Promise<void> {
 
 export function changeExt(path: string, extension: string): string {
 	return path.replace(extname(path), extension)
-}
-
-export function getHash(source: BinaryLike): string {
-	return createHash('sha256').update(source).digest('hex').slice(0, 8)
 }
 
 export function getPath(path: string, isInComMojang: boolean): string {
@@ -65,10 +62,25 @@ export function getPath(path: string, isInComMojang: boolean): string {
 	}
 }
 
+export async function loadModule(path: string, cache = false): Promise<any> {
+	const jiti = createJITI('', {
+		cache: volarsCacheDir,
+		requireCache: cache,
+		interopDefault: true,
+		sourceMaps: true,
+		onError: (error) => {
+			logger.error(error.message)
+			process.exit(1)
+		}
+	})
+	return await jiti(resolve(path))
+}
+
 interface ScanPathsOptions {
 	paths: string[]
 	ignoreComponents?: boolean
 }
+
 export function scanPaths(options: ScanPathsOptions): {
 	modules: string[]
 	assets: string[]
