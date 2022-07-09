@@ -41,7 +41,7 @@
 		"unbuild": "^0.7.4"
 	},
 	"dependencies": {
-		"@swc/core": "^1.2.208",
+		"@swc/core": "^1.2.210",
 		"chalk": "^5.0.1",
 		"chokidar": "^3.5.3",
 		"consola": "^2.15.3",
