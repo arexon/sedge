@@ -1,6 +1,6 @@
 import fse from 'fs-extra'
 import chalk from 'chalk'
-import { globbySync } from 'globby'
+import glob from 'fast-glob'
 import { extname, join, resolve } from 'pathe'
 import { type BinaryLike, createHash } from 'crypto'
 import { logger } from '../logger'
@@ -80,12 +80,12 @@ export function scanPaths(options: ScanPathsOptions): {
 	const joinPaths = (pattern: string): string[] => {
 		return options.paths.map((path) => join(path, pattern))
 	}
-	const modules = globbySync(joinPaths('**/*.ts'), {
+	const modules = glob.sync(joinPaths('**/*.ts'), {
 		...(options.ignoreComponents && {
 			ignore: ['**/components/**/*.ts']
 		})
 	})
-	const assets = globbySync(joinPaths('**/*'), {
+	const assets = glob.sync(joinPaths('**/*'), {
 		ignore: ['**/*.ts']
 	})
 
