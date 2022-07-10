@@ -15,7 +15,8 @@
 	},
 	"type": "module",
 	"exports": {
-		"./server": "./dist/server.mjs"
+		"./server": "./dist/server.mjs",
+		"./compiler": "./dist/compiler.mjs"
 	},
 	"typesVersions": {
 		"*": {
@@ -25,10 +26,12 @@
 		}
 	},
 	"bin": {
-		"atropa": "./bin/atropa.mjs"
+		"atropa": "./bin/atropa.mjs",
+		"sedge": "./bin/atropa.mjs"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"bin"
 	],
 	"scripts": {
 		"build": "unbuild",
@@ -47,6 +50,7 @@
 		"fast-glob": "^3.2.11",
 		"fs-extra": "^10.1.0",
 		"jiti": "^1.14.0",
-		"pathe": "^0.3.2"
+		"pathe": "^0.3.2",
+		"sedge": "workspace:*"
 	}
 }

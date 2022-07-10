@@ -3,9 +3,9 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev:mojang": "atropa dev",
-		"dev:local": "atropa dev prototype",
-		"build": "atropa build"
+		"dev:mojang": "sedge dev",
+		"dev:local": "sedge dev --target=prototype",
+		"build": "sedge build"
 	},
 	"devDependencies": {
 		"atropa": "workspace:*"

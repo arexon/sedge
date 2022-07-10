@@ -1,0 +1,40 @@
+{
+	"name": "sedge",
+	"version": "0.1.0",
+	"description": "Atropa Command Line Interface",
+	"author": "Arexon <me@arexon.me>",
+	"license": "MIT",
+	"homepage": "https://github.com/arexon/atropa/packages/sedge",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/arexon/atropa.git",
+		"directory": "packages/sedge"
+	},
+	"bugs": {
+		"url": "https://github.com/arexon/atropa/issues"
+	},
+	"type": "module",
+	"main": "./dist/index.mjs",
+	"bin": {
+		"sedge": "./bin/sedge.mjs"
+	},
+	"files": [
+		"dist",
+		"bin"
+	],
+	"scripts": {
+		"build": "unbuild",
+		"dev": "unbuild --stub"
+	},
+	"devDependencies": {
+		"@types/node": "^17.0.45",
+		"unbuild": "^0.7.4"
+	},
+	"dependencies": {
+		"colorette": "^2.0.19",
+		"consola": "^2.15.3",
+		"mlly": "^0.5.4",
+		"mri": "^1.2.0",
+		"pathe": "^0.3.2"
+	}
+}

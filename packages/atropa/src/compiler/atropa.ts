@@ -10,7 +10,7 @@ interface AtropaInstance {
 }
 
 export async function createAtropa({
-	target = 'default',
+	target,
 	dev
 }: AtropaInstance): Promise<void> {
 	global.config = loadConfig()

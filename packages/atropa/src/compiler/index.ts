@@ -1,1 +1,1 @@
-export { main as default } from './main'
+export { createAtropa } from './atropa'

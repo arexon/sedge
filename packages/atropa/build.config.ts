@@ -1,4 +1,3 @@
-import fse from 'fs-extra'
 import { defineBuildConfig } from 'unbuild'
 
 export default defineBuildConfig({
@@ -8,15 +7,5 @@ export default defineBuildConfig({
 		'src/compiler',
 		{ input: 'src/schema/', outDir: 'dist/schema' }
 	],
-	externals: ['@antfu/utils'],
-	hooks: {
-		'build:done': () => {
-			const cliContent = [
-				'#!/usr/bin/env node',
-				'import main from "../dist/runtime.mjs"',
-				'main()'
-			]
-			fse.outputFileSync('./bin/atropa.mjs', cliContent.join('\n'))
-		}
-	}
+	externals: ['@antfu/utils']
 })

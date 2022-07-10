@@ -3,7 +3,6 @@ node_modules
 .pnpm-debug.log*
 .turbo
 dist
-bin
 playground/.atropa
 playground/build
 playground/dev
