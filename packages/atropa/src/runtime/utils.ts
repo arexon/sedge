@@ -4,7 +4,7 @@ import glob from 'fast-glob'
 import createJITI from 'jiti'
 import { extname, join, resolve } from 'pathe'
 import { logger } from '../logger'
-import { volarsCacheDir } from '../constants'
+import { atropaCacheDir } from '../constants'
 
 export async function prepareDir(path: string): Promise<void> {
 	await fse.remove(path)
@@ -64,7 +64,7 @@ export function getPath(path: string, isInComMojang: boolean): string {
 
 export async function loadModule(path: string, cache = false): Promise<any> {
 	const jiti = createJITI('', {
-		cache: volarsCacheDir,
+		cache: atropaCacheDir,
 		requireCache: cache,
 		interopDefault: true,
 		sourceMaps: true,

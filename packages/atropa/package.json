@@ -1,17 +1,17 @@
 {
-	"name": "volars",
-	"version": "0.0.1",
+	"name": "atropa",
+	"version": "0.1.0",
 	"description": "The framework for supercharged Minecraft Add-On development.",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
-	"homepage": "https://github.com/arexon/volars/packages/volars",
+	"homepage": "https://github.com/arexon/atropa/packages/atropa",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/arexon/volars.git",
-		"directory": "packages/volars"
+		"url": "git+https://github.com/arexon/atropa.git",
+		"directory": "packages/atropa"
 	},
 	"bugs": {
-		"url": "https://github.com/arexon/volars/issues"
+		"url": "https://github.com/arexon/atropa/issues"
 	},
 	"type": "module",
 	"exports": {
@@ -20,12 +20,12 @@
 	"typesVersions": {
 		"*": {
 			"server": [
-				"dist/schema/volars/server/index.d.ts"
+				"dist/schema/atropa/server/index.d.ts"
 			]
 		}
 	},
 	"bin": {
-		"volars": "./bin/volars.mjs"
+		"atropa": "./bin/atropa.mjs"
 	},
 	"files": [
 		"dist"

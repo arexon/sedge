@@ -1,5 +1,5 @@
 {
-	"name": "volars-monorepo",
+	"name": "atropa-monorepo",
 	"private": true,
 	"scripts": {
 		"build": "turbo run build --scope=\"!playground*\"",

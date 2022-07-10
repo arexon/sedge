@@ -16,7 +16,7 @@ export default defineBuildConfig({
 				'import main from "../dist/runtime.mjs"',
 				'main()'
 			]
-			fse.outputFileSync('./bin/volars.mjs', cliContent.join('\n'))
+			fse.outputFileSync('./bin/atropa.mjs', cliContent.join('\n'))
 		}
 	}
 })

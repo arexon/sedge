@@ -1,7 +1,7 @@
 import { join } from 'pathe'
 
-export const volarsDir = '.volars'
-export const volarsCacheDir = join(volarsDir, 'cache')
+export const atropaDir = '.atropa'
+export const atropaCacheDir = join(atropaDir, 'cache')
 
 const localAppDataDir = process.env.LOCALAPPDATA
 export const comMojangDir = localAppDataDir

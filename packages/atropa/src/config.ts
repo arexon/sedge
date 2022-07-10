@@ -9,7 +9,7 @@ export interface Config {
 	packs: {
 		[key in 'behaviorPack' | 'resourcePack']: string
 	}
-	volars?: {
+	atropa?: {
 		targets?: {
 			[name: string | 'default']: string
 		}

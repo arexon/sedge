@@ -18,7 +18,7 @@ importers:
       typescript: 4.7.4
       vitest: 0.18.0
 
-  packages/volars:
+  packages/atropa:
     specifiers:
       '@antfu/utils': ^0.5.2
       '@types/fs-extra': ^9.0.13
@@ -47,9 +47,9 @@ importers:
 
   playground:
     specifiers:
-      volars: workspace:*
+      atropa: workspace:*
     devDependencies:
-      volars: link:../packages/volars
+      atropa: link:../packages/atropa
 
 packages:
 

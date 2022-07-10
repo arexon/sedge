@@ -1,4 +1,4 @@
-# Volars
+# Atropa
 
 > ⚡ The framework for supercharged Minecraft Add-On development.
 

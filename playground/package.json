@@ -3,11 +3,11 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev:mojang": "volars dev",
-		"dev:local": "volars dev prototype",
-		"build": "volars build"
+		"dev:mojang": "atropa dev",
+		"dev:local": "atropa dev prototype",
+		"build": "atropa build"
 	},
 	"devDependencies": {
-		"volars": "workspace:*"
+		"atropa": "workspace:*"
 	}
 }

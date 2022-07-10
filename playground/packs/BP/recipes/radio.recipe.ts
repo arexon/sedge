@@ -1,4 +1,4 @@
-import { defineRecipe } from 'volars/server'
+import { defineRecipe } from 'atropa/server'
 
 export default defineRecipe(({ namespace, shaped }) => {
 	shaped({

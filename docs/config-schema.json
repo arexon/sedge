@@ -58,8 +58,8 @@
 			},
 			"required": ["behaviorPack", "resourcePack"]
 		},
-		"volars": {
-			"description": "Additional configurations specific to Volars.",
+		"atropa": {
+			"description": "Additional configurations specific to Atropa.",
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {

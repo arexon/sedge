@@ -5,11 +5,11 @@ import { getPath } from '../../runtime/utils'
 import type {
 	ComponentFormat,
 	ComponentTemplate
-} from '../../schema/volars/server/component'
+} from '../../schema/atropa/server/component'
 import type {
 	LootTableFunction,
 	RecipeFunction
-} from '../../schema/volars/server/component/functions'
+} from '../../schema/atropa/server/component/functions'
 
 export function defineComponent<
 	Options extends Record<string, any>,

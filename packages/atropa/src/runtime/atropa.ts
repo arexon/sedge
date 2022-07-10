@@ -4,15 +4,15 @@ import { comMojangDir } from '../constants'
 import { logger } from '../logger'
 import { start } from './start'
 
-interface VolarsInstance {
+interface AtropaInstance {
 	target: string
 	dev: boolean
 }
 
-export async function createVolars({
+export async function createAtropa({
 	target = 'default',
 	dev
-}: VolarsInstance): Promise<void> {
+}: AtropaInstance): Promise<void> {
 	global.config = loadConfig()
 
 	const targetIsDefault = target === 'default'
@@ -29,13 +29,13 @@ export async function createVolars({
 	}
 
 	const targetIsConfigured = Object.getOwnPropertyNames(
-		global.config.volars?.targets || {}
+		global.config.atropa?.targets || {}
 	).find((key) => key === target)
 	const targetIsInComMojang = defaultTargetPath === comMojangDir
 
 	global.target = {
 		name: targetIsInComMojang ? 'com.mojang' : target,
-		path: global.config.volars?.targets?.[target] || defaultTargetPath!
+		path: global.config.atropa?.targets?.[target] || defaultTargetPath!
 	}
 
 	// Start if there's a configured target or if the target is the default
@@ -46,7 +46,7 @@ export async function createVolars({
 			'Target',
 			chalk.yellow(target),
 			'does not match any target in',
-			chalk.blackBright('config.volars.targets')
+			chalk.blackBright('config.atropa.targets')
 		)
 		process.exit(1)
 	}

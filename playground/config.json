@@ -7,7 +7,7 @@
 		"behaviorPack": "./packs/BP",
 		"resourcePack": "./packs/RP"
 	},
-	"volars": {
+	"atropa": {
 		"targets": {
 			"prototype": "./prototyping"
 		}
