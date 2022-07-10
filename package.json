@@ -3,8 +3,7 @@
 	"private": true,
 	"scripts": {
 		"build": "turbo run build --scope=\"!playground*\"",
-		"test": "pnpm run pretest & vitest run",
-		"pretest": "pnpm run build",
+		"test": "pnpm run build & vitest run",
 		"lint": "denolint -c .denolint.json",
 		"format": "prettier --write \"**/*.ts\" --ignore-path .gitignore"
 	},
