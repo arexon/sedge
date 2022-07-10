@@ -1,7 +1,7 @@
 import mri from 'mri'
 import { blue } from 'colorette'
 import { commands, type CommandName } from './commands'
-import { logger, showBanner, showHelp } from './utils'
+import { logger, logBanner, logHelp } from './utils'
 
 export default async function (): Promise<void> {
 	try {
@@ -23,11 +23,11 @@ export default async function (): Promise<void> {
 			throw new Error(`Unknown command: ${blue(commandName)}`)
 		}
 
-		showBanner()
+		logBanner()
 
 		const command = await commands[commandName as CommandName]()
 		if (args.help) {
-			showHelp(command.meta)
+			logHelp(command.meta)
 		} else {
 			await command.run(args)
 		}

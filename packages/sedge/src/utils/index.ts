@@ -1,3 +1,2 @@
-export { logger } from './logger'
+export { logger, logBanner, logHelp } from './logs'
 export { importModule } from './module'
-export { showBanner, showHelp } from './show'

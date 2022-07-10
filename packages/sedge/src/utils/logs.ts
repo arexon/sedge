@@ -1,9 +1,11 @@
+import consola from 'consola'
 import { blue, cyan } from 'colorette'
-import { logger } from './logger'
 import { version } from '../../package.json'
 import type { CommandMeta } from '../commands'
 
-export function showHelp(meta?: CommandMeta): void {
+export const logger = consola.withTag('sedge')
+
+export function logHelp(meta?: CommandMeta): void {
 	const sections: string[] = []
 
 	if (meta?.usage) {
@@ -23,6 +25,6 @@ export function showHelp(meta?: CommandMeta): void {
 	logger.info(sections.join('\n\n') + '\n')
 }
 
-export function showBanner() {
+export function logBanner() {
 	logger.start(blue(`Atropa CLI v${version}`))
 }

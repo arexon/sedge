@@ -1,5 +1,5 @@
 import { blue } from 'colorette'
-import { showHelp } from '../utils'
+import { logHelp } from '../utils'
 import { commands, defineCommand } from './index'
 
 export default defineCommand({
@@ -17,6 +17,6 @@ export default defineCommand({
 			)}`
 		)
 
-		showHelp()
+		logHelp()
 	}
 })

@@ -5,7 +5,7 @@ import { defineCommand } from './index'
 export default defineCommand({
 	meta: {
 		name: 'build',
-		usage: 'npx sedge build [target]',
+		usage: 'npx sedge build [--target=<name>]',
 		description: 'Builds the project for production'
 	},
 	run: async (args) => {
