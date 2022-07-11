@@ -4,7 +4,8 @@ import { debounce } from '@antfu/utils'
 import { watch as chokidarWatch } from 'chokidar'
 import { normalize, resolve, extname } from 'pathe'
 import { logger } from '../logger'
-import { changeExt, getPath, scanPaths, loadModule } from './utils'
+import { loadModule } from '../loader'
+import { changeExt, getPath, scanPaths } from './utils'
 
 export async function build(silent = false): Promise<void> {
 	const start = Date.now()

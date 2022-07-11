@@ -55,8 +55,7 @@
 					"description": "Path to the pack relative to the config.json.",
 					"type": "string"
 				}
-			},
-			"required": ["behaviorPack", "resourcePack"]
+			}
 		},
 		"atropa": {
 			"description": "Additional configurations specific to Atropa.",
@@ -74,6 +73,5 @@
 				}
 			}
 		}
-	},
-	"required": ["name", "namespace", "packs"]
+	}
 }

@@ -3,10 +3,6 @@
 	"name": "playground",
 	"authors": ["arexon"],
 	"namespace": "playground",
-	"packs": {
-		"behaviorPack": "./packs/BP",
-		"resourcePack": "./packs/RP"
-	},
 	"atropa": {
 		"targets": {
 			"prototype": "./prototyping"

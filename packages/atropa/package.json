@@ -44,6 +44,7 @@
 		"unbuild": "^0.7.4"
 	},
 	"dependencies": {
+		"c12": "^0.2.8",
 		"chalk": "^5.0.1",
 		"chokidar": "^3.5.3",
 		"consola": "^2.15.3",

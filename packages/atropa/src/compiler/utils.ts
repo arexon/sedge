@@ -1,10 +1,8 @@
 import fse from 'fs-extra'
 import chalk from 'chalk'
 import glob from 'fast-glob'
-import createJITI from 'jiti'
 import { extname, join, resolve } from 'pathe'
 import { logger } from '../logger'
-import { atropaCacheDir } from '../constants'
 
 export async function prepareDir(path: string): Promise<void> {
 	await fse.remove(path)
@@ -60,20 +58,6 @@ export function getPath(path: string, isInComMojang: boolean): string {
 			return resolve(global.target.path, path)
 		} else throw error()
 	}
-}
-
-export async function loadModule(path: string, cache = false): Promise<any> {
-	const jiti = createJITI('', {
-		cache: atropaCacheDir,
-		requireCache: cache,
-		interopDefault: true,
-		sourceMaps: true,
-		onError: (error) => {
-			logger.error(error.message)
-			process.exit(1)
-		}
-	})
-	return await jiti(resolve(path))
 }
 
 interface ScanPathsOptions {

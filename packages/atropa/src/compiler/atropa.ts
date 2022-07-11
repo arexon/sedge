@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import { loadConfig } from '../config'
+import { loadConfig } from '../loader/config'
 import { comMojangDir } from '../constants'
 import { logger } from '../logger'
 import { start } from './start'
@@ -13,7 +13,7 @@ export async function createAtropa({
 	target,
 	dev
 }: AtropaInstance): Promise<void> {
-	global.config = loadConfig()
+	global.config = await loadConfig()
 
 	const targetIsDefault = target === 'default'
 	const defaultTargetPath = dev && targetIsDefault ? comMojangDir : './build'
