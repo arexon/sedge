@@ -1,5 +1,5 @@
 import { blue } from 'colorette'
-import { importModule } from '../utils/module'
+import { importModule } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({

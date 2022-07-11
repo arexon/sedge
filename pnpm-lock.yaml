@@ -52,7 +52,6 @@ importers:
   packages/sedge:
     specifiers:
       '@types/node': ^17.0.45
-      c12: ^0.2.8
       colorette: ^2.0.19
       consola: ^2.15.3
       mlly: ^0.5.4
@@ -60,7 +59,6 @@ importers:
       pathe: ^0.3.2
       unbuild: ^0.7.4
     dependencies:
-      c12: 0.2.8
       colorette: 2.0.19
       consola: 2.15.3
       mlly: 0.5.4
