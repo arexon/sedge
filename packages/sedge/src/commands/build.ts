@@ -1,5 +1,5 @@
 import { blue } from 'colorette'
-import { importModule } from '../utils'
+import { importAtropa } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -10,7 +10,7 @@ export default defineCommand({
 	},
 	run: async (args) => {
 		try {
-			const { createAtropa } = await importModule('atropa/compiler')
+			const { createAtropa } = await importAtropa()
 			await createAtropa({
 				target: args.target,
 				mode: 'build'
