@@ -8,7 +8,7 @@ import { atropaDir } from '../constants'
 export async function start(mode: 'build' | 'dev'): Promise<void> {
 	await prepareDir(atropaDir)
 
-	if (global.target.name !== 'com.mojang') {
+	if (!global.isComMojang) {
 		await prepareDir(global.target.path)
 	} else {
 		await prepareDir(
@@ -37,7 +37,7 @@ export async function start(mode: 'build' | 'dev'): Promise<void> {
 	if (mode === 'build') {
 		logger.start('Building the project...')
 		return await build()
-	} else {
+	} else if (mode === 'dev') {
 		logger.start('Watching the project...')
 		return await watch()
 	}

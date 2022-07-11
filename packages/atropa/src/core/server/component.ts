@@ -53,15 +53,10 @@ export function defineComponent<
 
 // Compiles custom component specific templates
 function processComponentTemplate(): LootTableFunction & RecipeFunction {
-	const isComMojang = global.target.name === 'com.mojang'
-
 	return {
 		lootTable: (template, path) => {
 			fse.outputJSONSync(
-				getPath(
-					join(global.config.packs.behaviorPack, path),
-					isComMojang
-				),
+				getPath(join(global.config.packs.behaviorPack, path)),
 				template,
 				{ spaces: '\t' }
 			)
@@ -74,10 +69,7 @@ function processComponentTemplate(): LootTableFunction & RecipeFunction {
 			delete template[key]
 
 			fse.outputJSONSync(
-				getPath(
-					join(global.config.packs.behaviorPack, path),
-					isComMojang
-				),
+				getPath(join(global.config.packs.behaviorPack, path)),
 				{ format_version: '1.12', ...template },
 				{ spaces: '\t' }
 			)

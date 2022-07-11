@@ -1,1 +1,1 @@
-export { createAtropa } from './atropa'
+export * from './atropa'

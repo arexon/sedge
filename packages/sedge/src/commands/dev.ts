@@ -13,7 +13,7 @@ export default defineCommand({
 			const { createAtropa } = await importModule('atropa/compiler')
 			await createAtropa({
 				target: args.target,
-				dev: true
+				mode: 'dev'
 			})
 		} catch (error) {
 			throw new Error(

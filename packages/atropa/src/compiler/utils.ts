@@ -13,7 +13,7 @@ export function changeExt(path: string, extension: string): string {
 	return path.replace(extname(path), extension)
 }
 
-export function getPath(path: string, isInComMojang: boolean): string {
+export function getPath(path: string): string {
 	const removeRelative = (path: string): string => {
 		return path.replace(/^\.\//, '')
 	}
@@ -28,7 +28,7 @@ export function getPath(path: string, isInComMojang: boolean): string {
 		process.exit(1)
 	}
 
-	if (isInComMojang) {
+	if (global.isComMojang) {
 		const comMojangBP = join(
 			global.target.path,
 			'development_behavior_packs',

@@ -16,19 +16,16 @@ export async function build(silent = false): Promise<void> {
 			global.config.packs.resourcePack
 		]
 	})
-	const isComMojang = global.target.name === 'com.mojang'
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
 			const content = await loadModule(path)
-			fse.outputJSONSync(
-				getPath(changeExt(path, '.json'), isComMojang),
-				content,
-				{ spaces: '\t' }
-			)
+			fse.outputJSONSync(getPath(changeExt(path, '.json')), content, {
+				spaces: '\t'
+			})
 		}),
 		...assets.map((path) => {
-			fse.copySync(path, getPath(path, isComMojang))
+			fse.copySync(path, getPath(path))
 		})
 	])
 
@@ -74,8 +71,6 @@ export async function watch(): Promise<void> {
 	const reload = debounce(200, () => {
 		console.clear()
 
-		const isComMojang = global.target.name === 'com.mojang'
-
 		filesQueue.updated?.map(async (path) => {
 			// Reload if the file is in the components folder
 			if (path.includes('/components/')) {
@@ -86,13 +81,11 @@ export async function watch(): Promise<void> {
 			// Guard for whether the file is a module or an asset
 			if (extname(path) === '.ts') {
 				const content = await loadModule(path, false)
-				fse.outputJSONSync(
-					getPath(changeExt(path, '.json'), isComMojang),
-					content,
-					{ spaces: '\t' }
-				)
+				fse.outputJSONSync(getPath(changeExt(path, '.json')), content, {
+					spaces: '\t'
+				})
 			} else {
-				fse.copySync(path, getPath(path, isComMojang))
+				fse.copySync(path, getPath(path))
 			}
 		})
 
@@ -108,8 +101,8 @@ export async function watch(): Promise<void> {
 					global.target.path,
 					// Guard to ensure that TS files compiled to JSON will be removed
 					extname(path) === '.ts'
-						? changeExt(getPath(path, isComMojang), '.json')
-						: getPath(path, isComMojang)
+						? changeExt(getPath(path), '.json')
+						: getPath(path)
 				)
 			)
 		})

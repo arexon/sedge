@@ -6,4 +6,5 @@ declare global {
 		name: string
 		path: string
 	}
+	var isComMojang: boolean
 }

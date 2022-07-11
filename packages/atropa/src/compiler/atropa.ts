@@ -1,53 +1,65 @@
 import chalk from 'chalk'
+import { hasOwnProperty } from '@antfu/utils'
 import { loadConfig } from '../loader/config'
 import { comMojangDir } from '../constants'
 import { logger } from '../logger'
 import { start } from './start'
 
-interface AtropaInstance {
+interface AtropaOptions {
 	target: string
-	dev: boolean
+	mode: 'build' | 'dev'
 }
 
-export async function createAtropa({
-	target,
-	dev
-}: AtropaInstance): Promise<void> {
-	global.config = await loadConfig()
+export async function createAtropa(options: AtropaOptions): Promise<void> {
+	try {
+		global.config = await loadConfig()
 
-	const targetIsDefault = target === 'default'
-	const defaultTargetPath = dev && targetIsDefault ? comMojangDir : './build'
+		const targetIsDefault = options.target === 'default'
+		const modeIsDev = options.mode === 'dev'
+		const defaultTargetPath =
+			modeIsDev && targetIsDefault ? comMojangDir : './build'
 
-	if (defaultTargetPath === null && dev) {
-		logger.error(
-			'Could not find com.mojang directory.',
-			`Please set the ${chalk.yellow(
-				'LOCALAPPDATA'
-			)} environment variable, or ensure that Minecraft is properly installed.`
+		if (defaultTargetPath === comMojangDir && modeIsDev) {
+			global.isComMojang = true
+		} else if (defaultTargetPath === null && modeIsDev) {
+			throw new Error(
+				[
+					`Could not find ${chalk.blue('com.mojang')} folder`,
+					`Please set the ${chalk.blue(
+						'LOCALAPPDATA'
+					)} environment variable, or ensure that Minecraft is properly installed`
+				].join('\n')
+			)
+		} else {
+			global.isComMojang = false
+		}
+
+		const targetIsConfigured = hasOwnProperty(
+			global.config.atropa?.targets || {},
+			options.target
 		)
-		process.exit(1)
-	}
 
-	const targetIsConfigured = Object.getOwnPropertyNames(
-		global.config.atropa?.targets || {}
-	).find((key) => key === target)
-	const targetIsInComMojang = defaultTargetPath === comMojangDir
+		global.target = {
+			name: options.target,
+			path:
+				global.config.atropa?.targets?.[options.target] ||
+				defaultTargetPath!
+		}
 
-	global.target = {
-		name: targetIsInComMojang ? 'com.mojang' : target,
-		path: global.config.atropa?.targets?.[target] || defaultTargetPath!
-	}
-
-	// Start if there's a configured target or if the target is the default
-	if (targetIsConfigured || targetIsDefault) {
-		await start(dev ? 'dev' : 'build')
-	} else {
-		logger.error(
-			'Target',
-			chalk.yellow(target),
-			'does not match any target in',
-			chalk.blackBright('config.atropa.targets')
-		)
+		// Start if there's a configured target or if the target is the default
+		if (targetIsConfigured || targetIsDefault) {
+			await start(options.mode)
+		} else {
+			throw new Error(
+				`Target ${chalk.yellow(
+					target
+				)} does not match any target in ${chalk.blackBright(
+					'config.atropa.targets'
+				)}`
+			)
+		}
+	} catch (error) {
+		logger.error(error)
 		process.exit(1)
 	}
 }

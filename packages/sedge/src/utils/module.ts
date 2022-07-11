@@ -2,7 +2,10 @@ import { pathToFileURL } from 'url'
 import { normalize } from 'pathe'
 import { resolvePath } from 'mlly'
 
-type CreateAtropa = (options: { target: string; dev: boolean }) => Promise<void>
+type CreateAtropa = (options: {
+	target: string
+	mode: 'build' | 'dev'
+}) => Promise<void>
 
 export async function importModule(
 	path: string
