@@ -2,11 +2,11 @@ import { pathToFileURL } from 'url'
 import { normalize } from 'pathe'
 import { resolvePath } from 'mlly'
 
-type createAtropa = (options: { target: string; dev: boolean }) => Promise<void>
+type CreateAtropa = (options: { target: string; dev: boolean }) => Promise<void>
 
 export async function importModule(
 	path: string
-): Promise<Record<string, createAtropa>> {
+): Promise<Record<string, CreateAtropa>> {
 	const resolvedPath = await resolveModule(path)
 	return import(pathToFileURL(resolvedPath).href)
 }
