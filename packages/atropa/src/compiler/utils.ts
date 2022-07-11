@@ -1,5 +1,5 @@
 import fse from 'fs-extra'
-import chalk from 'chalk'
+import { blackBright } from 'colorette'
 import glob from 'fast-glob'
 import { extname, join, resolve } from 'pathe'
 import { logger } from '../logger'
@@ -22,9 +22,7 @@ export function getPath(path: string): string {
 	const isRP = path.includes(removeRelative(global.config.packs.resourcePack))
 
 	const error = (): void => {
-		logger.error(
-			`Path ${chalk.blackBright(path)} is not in the correct folder.`
-		)
+		logger.error(`Path ${blackBright(path)} is not in the correct folder.`)
 		process.exit(1)
 	}
 

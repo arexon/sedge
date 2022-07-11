@@ -24,8 +24,8 @@ importers:
       '@types/fs-extra': ^9.0.13
       '@types/node': ^17.0.45
       c12: ^0.2.8
-      chalk: ^5.0.1
       chokidar: ^3.5.3
+      colorette: ^2.0.19
       consola: ^2.15.3
       fast-glob: ^3.2.11
       fs-extra: ^10.1.0
@@ -35,8 +35,8 @@ importers:
       unbuild: ^0.7.4
     dependencies:
       c12: 0.2.8
-      chalk: 5.0.1
       chokidar: 3.5.3
+      colorette: 2.0.19
       consola: 2.15.3
       fast-glob: 3.2.11
       fs-extra: 10.1.0
@@ -693,6 +693,7 @@ packages:
   /chalk/5.0.1:
     resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: true
 
   /check-error/1.0.2:
     resolution: {integrity: sha512-BrgHpW9NURQgzoNyjfq0Wu6VFO6D7IZEmJNdtgNqpzGG8RuNFHt2jQxWlAs4HMe119chBnv+34syEZtc6IhLtA==}

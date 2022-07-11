@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import { blue, yellow, blackBright } from 'colorette'
 import { hasOwnProperty } from '@antfu/utils'
 import { loadConfig } from '../loader/config'
 import { comMojangDir } from '../constants'
@@ -24,8 +24,8 @@ export async function createAtropa(options: AtropaOptions): Promise<void> {
 		} else if (defaultTargetPath === null && modeIsDev) {
 			throw new Error(
 				[
-					`Could not find ${chalk.blue('com.mojang')} folder`,
-					`Please set the ${chalk.blue(
+					`Could not find ${blue('com.mojang')} folder`,
+					`Please set the ${blue(
 						'LOCALAPPDATA'
 					)} environment variable, or ensure that Minecraft is properly installed`
 				].join('\n')
@@ -51,9 +51,9 @@ export async function createAtropa(options: AtropaOptions): Promise<void> {
 			await start(options.mode)
 		} else {
 			throw new Error(
-				`Target ${chalk.yellow(
-					target
-				)} does not match any target in ${chalk.blackBright(
+				`Target ${yellow(
+					options.target
+				)} does not match any target in ${blackBright(
 					'config.atropa.targets'
 				)}`
 			)

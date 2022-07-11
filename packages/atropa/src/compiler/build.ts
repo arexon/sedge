@@ -1,5 +1,5 @@
 import fse from 'fs-extra'
-import chalk from 'chalk'
+import { cyan, magenta, blackBright } from 'colorette'
 import { debounce } from '@antfu/utils'
 import { watch as chokidarWatch } from 'chokidar'
 import { normalize, resolve, extname } from 'pathe'
@@ -50,7 +50,7 @@ export async function watch(): Promise<void> {
 	const logReload = () => {
 		logger.info(
 			'Changes in',
-			chalk.cyan('components'),
+			cyan('components'),
 			'folder were detected. Reloading...'
 		)
 	}
@@ -58,10 +58,10 @@ export async function watch(): Promise<void> {
 		if (queue.length === 0) return
 
 		logger.info(
-			level === 'Updated' ? chalk.cyan(level) : chalk.magenta(level),
+			level === 'Updated' ? cyan(level) : magenta(level),
 			queue
 				.map((path) => {
-					return chalk.blackBright(`\n- ${path}`)
+					return blackBright(`\n- ${path}`)
 				})
 				.join('')
 				.toString()

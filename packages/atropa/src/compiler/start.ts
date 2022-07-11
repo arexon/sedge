@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import { magenta, blackBright } from 'colorette'
 import { join } from 'pathe'
 import { prepareDir } from './utils'
 import { build, watch } from './build'
@@ -29,9 +29,9 @@ export async function start(mode: 'build' | 'dev'): Promise<void> {
 
 	logger.info(
 		'Via target',
-		chalk.magenta(global.target.name),
+		magenta(global.target.name),
 		'at',
-		chalk.blackBright(global.target.path)
+		blackBright(global.target.path)
 	)
 
 	if (mode === 'build') {
