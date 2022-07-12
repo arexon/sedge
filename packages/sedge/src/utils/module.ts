@@ -8,7 +8,26 @@ type CreateAtropa = (options: {
 	mode: 'build' | 'dev'
 }) => Promise<void>
 
-export async function importAtropa(): Promise<Record<string, CreateAtropa>> {
+interface Config {
+	name: string
+	authors?: string[]
+	namespace: string
+	packs: {
+		[key in 'behaviorPack' | 'resourcePack']: string
+	}
+	atropa?: {
+		targets?: {
+			[name: string | 'default']: string
+		}
+	}
+}
+
+type LoadConfig = () => Promise<Config>
+
+export async function importAtropa(): Promise<{
+	createAtropa: CreateAtropa
+	loadConfig: LoadConfig
+}> {
 	try {
 		const resolvedPath = normalize(await resolvePath('atropa/compiler'))
 		return import(pathToFileURL(resolvedPath).href)

@@ -1,4 +1,5 @@
 export const commands = {
+	add: async () => (await import('./add')).default,
 	build: async () => (await import('./build')).default,
 	dev: async () => (await import('./dev')).default,
 	help: async () => (await import('./help')).default
