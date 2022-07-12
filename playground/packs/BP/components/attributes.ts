@@ -28,11 +28,13 @@ export const attributes = defineComponent(
 					pools: [
 						{
 							rolls: 1,
-							entries: {
-								type: 'item',
-								name: `${namespace}:${name}`,
-								weight: 1
-							}
+							entries: [
+								{
+									type: 'item',
+									name: `${namespace}:${name}`,
+									weight: 1
+								}
+							]
 						}
 					]
 				},

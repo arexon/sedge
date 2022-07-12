@@ -126,7 +126,7 @@ interface Pools {
 	 *
 	 * Lists the entries of the loot table to be chosen from.
 	 */
-	entries?: Entries
+	entries?: Entries[]
 }
 
 interface LootTable {
