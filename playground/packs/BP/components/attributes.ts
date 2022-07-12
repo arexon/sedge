@@ -38,7 +38,7 @@ export const attributes = defineComponent(
 						}
 					]
 				},
-				`loot_tables/${name}.loot.json`
+				`loot_tables/${name}.json`
 			)
 		}
 
@@ -57,7 +57,7 @@ export const attributes = defineComponent(
 						result: { item: `${namespace}:${name}` }
 					}
 				},
-				`recipes/${name}.recipe.json`
+				`recipes/${name}.json`
 			)
 		}
 	}
