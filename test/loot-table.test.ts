@@ -7,11 +7,13 @@ describe('define loot table', () => {
 			{
 			  "pools": [
 			    {
-			      "entries": {
-			        "name": "test:table",
-			        "type": "item",
-			        "weight": 1,
-			      },
+			      "entries": [
+			        {
+			          "name": "test:table",
+			          "type": "item",
+			          "weight": 1,
+			        },
+			      ],
 			      "rolls": 1,
 			    },
 			  ],
