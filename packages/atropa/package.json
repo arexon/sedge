@@ -15,13 +15,24 @@
 	},
 	"type": "module",
 	"exports": {
+		"./loader": "./dist/loader.mjs",
+		"./compiler": "./dist/compiler.mjs",
 		"./server": "./dist/server.mjs",
-		"./compiler": "./dist/compiler.mjs"
+		"./api": "./dist/api.mjs"
 	},
 	"typesVersions": {
 		"*": {
+			"loader": [
+				"dist/loader.d.ts"
+			],
+			"compiler": [
+				"dist/compiler.d.ts"
+			],
 			"server": [
-				"dist/schema/atropa/server/index.d.ts"
+				"dist/server.d.ts"
+			],
+			"api": [
+				"dist/api.d.ts"
 			]
 		}
 	},

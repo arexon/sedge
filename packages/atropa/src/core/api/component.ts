@@ -1,6 +1,6 @@
 import fse from 'fs-extra'
 import { join } from 'pathe'
-import { processTemplate as processBlockTemplate } from './block'
+import { processTemplate as processBlockTemplate } from '../server/block'
 import { getPath } from '../../compiler/utils'
 import type {
 	ComponentFormat,

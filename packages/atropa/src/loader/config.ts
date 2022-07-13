@@ -1,4 +1,4 @@
-import { loadConfig as createLoadConfig } from 'c12'
+import { loadConfig as loadC12Config } from 'c12'
 
 export interface Config {
 	name: string
@@ -23,7 +23,7 @@ export async function loadConfig(): Promise<Config> {
 			resourcePack: './packs/RP'
 		}
 	}
-	const { config } = await createLoadConfig<Config>({
+	const { config } = await loadC12Config<Config>({
 		defaults
 	})
 

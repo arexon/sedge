@@ -1,7 +1,7 @@
 import { deepMerge } from '@antfu/utils'
 import { logger } from '../../logger'
 import { prependWithMinecraftNamespaces, removeEmptyFields } from '../utils'
-import type { BlockTemplate } from '../../schema/atropa/server/block/template'
+import type { BlockTemplate } from '../../schema/atropa/server/block'
 import type { FormatVersion } from '../../schema/vanilla/formatVersion'
 
 // These are the functions and properties that are available in the template
@@ -22,6 +22,15 @@ interface TemplateFields {
 	events?: Record<string, any>
 }
 
+/**
+ * # Define Block
+ *
+ * Generates a new block based on the given templates.
+ * @param version The format version of the block.
+ * @param block A callback function with function parameters used to define the block.
+ * @param components A list of reusable components that will be applied to the block.
+ * @returns An object representation of the block.
+ */
 export function defineBlock<Version extends FormatVersion>(
 	version: Version,
 	block: (template: BlockTemplate<Version>) => void,

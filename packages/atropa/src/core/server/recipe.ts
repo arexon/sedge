@@ -1,6 +1,13 @@
 import { logger } from '../../logger'
-import type { RecipeTemplate } from '../../schema/atropa/server/recipe/template'
+import type { RecipeTemplate } from '../../schema/atropa/server/recipe'
 
+/**
+ * # Define Recipe
+ *
+ * Generates a recipe from the given template.
+ * @param fn A callback function with function parameters used to define the recipe.
+ * @returns An object representation of the recipe.
+ */
 export function defineRecipe(
 	fn: (template: RecipeTemplate) => void
 ): Record<string, any> {
