@@ -1,8 +1,7 @@
-import type { FormatVersion } from '../../../vanilla/formatVersion'
-import type { BlockTemplate } from '../block/template'
+import type { BlockTemplate, BlockFormatVersion } from '../block'
 import type { LootTableFunction, RecipeFunction } from './functions'
 
-type ComponentFormat = `${'block'}@${FormatVersion}`
+type ComponentFormat = `${'block'}@${BlockFormatVersion}`
 
 type ComponentTemplate<Format extends ComponentFormat> =
 	Format extends 'block@1.16.0'

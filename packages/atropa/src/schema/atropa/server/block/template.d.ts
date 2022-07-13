@@ -1,5 +1,4 @@
 import type { Namespace } from '../../namespace'
-import type { FormatVersion } from '../../../vanilla/formatVersion'
 import type {
 	ComponentsFunction,
 	DescriptionFunction,
@@ -62,16 +61,24 @@ interface Template_1_19_10
 				Sequence<EventResponses_1_16_100>
 		> {}
 
-type BlockTemplate<Version extends FormatVersion> = Version extends '1.16.0'
-	? Template_1_16_0
-	: Version extends '1.16.100'
-	? Template_1_16_100
-	: Version extends '1.18.10'
-	? Template_1_18_10
-	: Version extends '1.18.30'
-	? Template_1_18_30
-	: Version extends '1.19.10'
-	? Template_1_19_10
-	: never
+type BlockFormatVersion =
+	| '1.16.0'
+	| '1.16.100'
+	| '1.18.10'
+	| '1.18.30'
+	| '1.19.10'
 
-export type { BlockTemplate }
+type BlockTemplate<Version extends BlockFormatVersion> =
+	Version extends '1.16.0'
+		? Template_1_16_0
+		: Version extends '1.16.100'
+		? Template_1_16_100
+		: Version extends '1.18.10'
+		? Template_1_18_10
+		: Version extends '1.18.30'
+		? Template_1_18_30
+		: Version extends '1.19.10'
+		? Template_1_19_10
+		: never
+
+export type { BlockTemplate, BlockFormatVersion }

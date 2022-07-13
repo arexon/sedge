@@ -1,1 +1,1 @@
-export type { BlockTemplate } from './template'
+export type { BlockTemplate, BlockFormatVersion } from './template'
