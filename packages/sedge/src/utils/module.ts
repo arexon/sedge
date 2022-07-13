@@ -2,34 +2,20 @@ import { pathToFileURL } from 'url'
 import { normalize } from 'pathe'
 import { resolvePath } from 'mlly'
 import { blue } from 'colorette'
+import type { createAtropa } from '../../../atropa/src/compiler'
+import type { loadConfig } from '../../../atropa/src/loader'
 
-type CreateAtropa = (options: {
-	target: string
-	mode: 'build' | 'dev'
-}) => Promise<void>
-
-interface Config {
-	name: string
-	authors?: string[]
-	namespace: string
-	packs: {
-		[key in 'behaviorPack' | 'resourcePack']: string
-	}
-	atropa?: {
-		targets?: {
-			[name: string | 'default']: string
-		}
-	}
-}
-
-type LoadConfig = () => Promise<Config>
-
-export async function importAtropa(): Promise<{
-	createAtropa: CreateAtropa
-	loadConfig: LoadConfig
-}> {
+export async function importAtropa<Submodule extends 'compiler' | 'loader'>(
+	submodule: Submodule
+): Promise<
+	Submodule extends 'compiler'
+		? { createAtropa: typeof createAtropa }
+		: Submodule extends 'loader'
+		? { loadConfig: typeof loadConfig }
+		: never
+> {
 	try {
-		const resolvedPath = normalize(await resolvePath('atropa/compiler'))
+		const resolvedPath = normalize(await resolvePath(`atropa/${submodule}`))
 		return import(pathToFileURL(resolvedPath).href)
 	} catch (error) {
 		throw new Error(

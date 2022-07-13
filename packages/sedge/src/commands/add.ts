@@ -19,7 +19,7 @@ export default defineCommand({
 		description: 'Adds a module template to your project'
 	},
 	run: async () => {
-		const { loadConfig } = await importAtropa()
+		const { loadConfig } = await importAtropa('loader')
 		const config = await loadConfig()
 
 		const { module, identifier } = await prompts([

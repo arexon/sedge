@@ -10,7 +10,7 @@ export default defineCommand({
 	},
 	run: async (args) => {
 		try {
-			const { createAtropa } = await importAtropa()
+			const { createAtropa } = await importAtropa('compiler')
 			await createAtropa({
 				target: args.target,
 				mode: 'dev'
