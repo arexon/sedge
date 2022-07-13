@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import recipe from '#playground/BP/recipes/radio.recipe'
+import recipe from '#playground/BP/recipes/radio'
 
 describe('define recipe', () => {
 	it('returns a valid recipe object', () => {

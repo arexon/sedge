@@ -4,6 +4,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'atropa/server': '/packages/atropa/src/core/server',
+			'atropa/api': '/packages/atropa/src/core/api',
 			'#playground/BP': '../playground/packs/BP'
 		}
 	},
