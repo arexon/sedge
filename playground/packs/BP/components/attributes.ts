@@ -1,4 +1,4 @@
-import { defineComponent } from 'atropa/server'
+import { defineComponent } from 'atropa/api'
 
 export const attributes = defineComponent(
 	'block@1.19.10',
