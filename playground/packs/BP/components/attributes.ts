@@ -1,6 +1,6 @@
 import { defineComponent } from 'atropa/api'
 
-export const attributes = defineComponent(
+export default defineComponent(
 	'block@1.19.10',
 	(
 		{

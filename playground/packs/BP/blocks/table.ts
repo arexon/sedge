@@ -1,5 +1,5 @@
 import { defineBlock } from 'atropa/server'
-import { attributes } from '../components/attributes'
+import Attributes from '../components/attributes'
 
 export default defineBlock(
 	'1.19.10',
@@ -8,5 +8,5 @@ export default defineBlock(
 			unit_cube: {}
 		})
 	},
-	[attributes({ name: 'table', withLoot: true, withRecipe: true })]
+	[Attributes({ name: 'table', withLoot: true, withRecipe: true })]
 )

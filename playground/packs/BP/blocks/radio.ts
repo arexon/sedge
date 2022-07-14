@@ -1,5 +1,5 @@
 import { defineBlock } from 'atropa/server'
-import { attributes } from '../components/attributes'
+import Attributes from '../components/attributes'
 
 export default defineBlock(
 	'1.19.10',
@@ -37,5 +37,5 @@ export default defineBlock(
 			}
 		})
 	},
-	[attributes({ name: 'radio', withLoot: false, withRecipe: false })]
+	[Attributes({ name: 'radio', withLoot: false, withRecipe: false })]
 )
