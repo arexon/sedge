@@ -6,14 +6,14 @@ import type { RecipeTemplate } from '../../schema/atropa/server/recipe'
  *
  * Generates a recipe from the given template.
  * @param fn A callback function with function parameters used to define the recipe.
- * @returns An object representation of the recipe.
+ * @returns A recipe.
  */
 export function defineRecipe(
 	fn: (template: RecipeTemplate) => void
 ): Record<string, any> {
-	let template: Record<string, any> = {}
-
 	try {
+		let template: Record<string, any> = {}
+
 		fn({
 			namespace: global.config.namespace,
 			shaped: (_template) => {
@@ -38,9 +38,9 @@ export function defineRecipe(
 			}
 		})
 
-		return { format_version: '1.12', ...template }
+		return { format_version: '1.12.0', ...template }
 	} catch (error) {
 		logger.error(`Failed to parse recipe:`, error)
-		process.exit(0)
+		process.exit(1)
 	}
 }

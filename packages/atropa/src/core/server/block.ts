@@ -1,14 +1,11 @@
 import { deepMerge } from '@antfu/utils'
-import { logger } from '../../logger'
 import { prependWithMinecraftNamespaces, removeEmptyFields } from '../utils'
 import type {
 	BlockTemplate,
 	BlockFormatVersion
 } from '../../schema/atropa/server/block'
 
-// These are the functions and properties that are available in the template
-// in `defineBlock`. They are used to generate the block's object
-interface Template {
+interface CustomTemplate {
 	namespace?: string
 	description?: (template: Record<string, any>) => void
 	permutations?: (template: Record<string, any>[]) => void
@@ -16,8 +13,7 @@ interface Template {
 	events?: (template: Record<string, any>) => void
 }
 
-// The top-level fields for the block
-interface TemplateFields {
+interface VanillaTemplate {
 	description?: Record<string, any>
 	permutations?: Record<string, any>[]
 	components?: Record<string, any>
@@ -31,14 +27,15 @@ interface TemplateFields {
  * @param version The format version of the block.
  * @param block A callback function with function parameters used to define the block.
  * @param components A list of reusable components that will be applied to the block.
- * @returns An object representation of the block.
+ * @returns A block.
  */
 export function defineBlock<Version extends BlockFormatVersion>(
 	version: Version,
 	block: (template: BlockTemplate<Version>) => void,
 	components?: Record<string, any>[]
 ): Record<string, any> {
-	const template: TemplateFields = {
+	const isLegacy = version === '1.16.0'
+	const template: VanillaTemplate = {
 		description: {},
 		permutations: [],
 		components: {},
@@ -46,33 +43,22 @@ export function defineBlock<Version extends BlockFormatVersion>(
 	}
 
 	try {
-		block(
-			processTemplate(
-				template,
-				version === '1.16.0'
-			) as BlockTemplate<Version>
-		)
+		block(processTemplate(template, isLegacy) as BlockTemplate<Version>)
 
 		return {
 			format_version: version,
-			'minecraft:block': transformTemplate(
-				template,
-				version === '1.16.0',
-				components
-			)
+			'minecraft:block': transformTemplate(template, isLegacy, components)
 		}
 	} catch (error) {
-		logger.error(`Failed to parse block:`, error)
-		process.exit(0)
+		throw new Error(`Failed to parse block template`, error as Error)
 	}
 }
 
-// Provides a template preprocess function
 export function processTemplate(
-	fields: TemplateFields,
+	fields: VanillaTemplate,
 	isLegacy: boolean
-): Template {
-	const template: Template = {
+): CustomTemplate {
+	const template: CustomTemplate = {
 		namespace: global.config.namespace,
 		description: (template) => {
 			fields.description = { ...fields.description, ...template }
@@ -98,14 +84,12 @@ export function processTemplate(
 	return template
 }
 
-// Compiles the template and custom components into an object,
-// ready to be merged into the 'minecraft:block' object
 function transformTemplate(
-	fields: TemplateFields,
+	fields: VanillaTemplate,
 	isLegacy: boolean,
 	components?: Record<string, any>[]
 ): Record<string, any> {
-	const template: TemplateFields = {
+	const template: VanillaTemplate = {
 		description: fields.description,
 		components: fields.components
 	}

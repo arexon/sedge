@@ -14,5 +14,10 @@ export async function loadModule(path: string, cache = false): Promise<any> {
 			process.exit(1)
 		}
 	})
-	return await jiti(resolve(path))
+	try {
+		return await jiti(resolve(path))
+	} catch (error) {
+		logger.error(error)
+		process.exit(1)
+	}
 }
