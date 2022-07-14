@@ -3,11 +3,8 @@ import { join } from 'pathe'
 import { prepareDir } from './utils'
 import { build, watch } from './build'
 import { logger } from '../logger'
-import { atropaDir } from '../constants'
 
 export async function start(mode: 'build' | 'dev'): Promise<void> {
-	await prepareDir(atropaDir)
-
 	if (!global.isComMojang) {
 		await prepareDir(global.target.path)
 	} else {
