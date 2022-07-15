@@ -1,9 +1,9 @@
 import fse from 'fs-extra'
 import { normalize } from 'pathe'
 import { getPath } from '../../compiler/utils'
-import { Config } from '../../loader'
 import { logger } from '../../logger'
-import { Namespace } from '../../schema/atropa/namespace'
+import type { Namespace } from '../../schema/atropa/namespace'
+import type { Config } from '../../loader'
 
 type ValueOf<T> = T[keyof T]
 interface Template extends Namespace {
