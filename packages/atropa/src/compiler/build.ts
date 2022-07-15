@@ -1,13 +1,21 @@
 import fse from 'fs-extra'
-import { cyan, magenta, blackBright } from 'colorette'
+import { cyan, magenta, blackBright, green } from 'colorette'
 import { debounce } from '@antfu/utils'
 import { watch as chokidarWatch } from 'chokidar'
 import { normalize, resolve, extname } from 'pathe'
 import { logger } from '../logger'
 import { loadModule } from '../loader'
 import { changeExt, getPath, scanPaths } from './utils'
+import { hooks } from '../core/api/hooks'
 
-export async function build(silent = false): Promise<void> {
+interface BuildOptions {
+	silent?: boolean
+	callHook?: boolean
+}
+
+export async function build(options?: BuildOptions): Promise<void> {
+	options = { ...{ silent: false, callHook: true }, ...options }
+
 	const start = Date.now()
 
 	const { modules, assets } = scanPaths({
@@ -26,10 +34,11 @@ export async function build(silent = false): Promise<void> {
 		}),
 		...assets.map((path) => {
 			fse.copySync(path, getPath(path))
-		})
+		}),
+		options.callHook && (await hooks.callHook('on:build'))
 	])
 
-	if (silent) return
+	if (options.silent) return
 
 	const successResults = results.filter(
 		(result) => result.status === 'fulfilled'
@@ -40,20 +49,26 @@ export async function build(silent = false): Promise<void> {
 }
 
 export async function watch(): Promise<void> {
-	await build(true)
+	const buildOptions: BuildOptions = {
+		silent: true,
+		callHook: false
+	}
+	await build(buildOptions)
+	await hooks.callHook('on:dev@initial')
 
 	let filesQueue: {
 		updated?: string[]
 		removed?: string[]
 	} = { updated: [], removed: [] }
 
-	const logReload = () => {
+	const forceReload = async (folder: string): Promise<void> => {
 		logger.info(
-			'Changes in',
-			cyan('components'),
-			'folder were detected. Reloading...'
+			`Changes in ${green(folder)} folder were detected. Reloading...`
 		)
+		await build(buildOptions)
+		return await hooks.callHook('on:dev@reload')
 	}
+
 	const logQueue = (queue: string[], level: 'Updated' | 'Removed'): void => {
 		if (queue.length === 0) return
 
@@ -72,11 +87,8 @@ export async function watch(): Promise<void> {
 		console.clear()
 
 		filesQueue.updated?.map(async (path) => {
-			// Reload if the file is in the components folder
-			if (path.includes('/components/')) {
-				logReload()
-				return await build(true)
-			}
+			if (path.includes('components')) return forceReload('components')
+			if (path.includes('collections')) return forceReload('collections')
 
 			// Guard for whether the file is a module or an asset
 			if (extname(path) === '.ts') {
@@ -87,14 +99,12 @@ export async function watch(): Promise<void> {
 			} else {
 				fse.copySync(path, getPath(path))
 			}
+			await hooks.callHook('on:dev@reload')
 		})
 
 		filesQueue.removed?.map(async (path) => {
-			// Reload if the file is in the components folder
-			if (path.includes('/components/')) {
-				logReload()
-				return await build(true)
-			}
+			if (path.includes('components')) return forceReload('components')
+			if (path.includes('collections')) return forceReload('collections')
 
 			await fse.remove(
 				resolve(
@@ -105,6 +115,7 @@ export async function watch(): Promise<void> {
 						: getPath(path)
 				)
 			)
+			await hooks.callHook('on:dev@reload')
 		})
 
 		logQueue(filesQueue.updated ?? [], 'Updated')

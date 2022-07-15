@@ -3,7 +3,6 @@ import { join } from 'pathe'
 import { prepareDir } from './utils'
 import { build, watch } from './build'
 import { logger } from '../logger'
-import { hooks } from '../core/api/hooks'
 
 export async function start(mode: 'build' | 'dev'): Promise<void> {
 	if (!global.isComMojang) {
@@ -35,10 +34,8 @@ export async function start(mode: 'build' | 'dev'): Promise<void> {
 	if (mode === 'build') {
 		logger.start('Building the project...')
 		await build()
-		hooks.callHook('on:build')
 	} else if (mode === 'dev') {
 		logger.start('Watching the project...')
 		await watch()
-		hooks.callHook('on:dev')
 	}
 }
