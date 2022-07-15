@@ -3,10 +3,11 @@ import Attributes from '../components/Attributes'
 
 export default defineBlock(
 	'1.19.10',
-	({ namespace, description, components, permutations, events }) => {
+	({ namespace, description, components, permutations, events, use }) => {
 		const isOn = `${namespace}:is_on`
 		const toggle = `${namespace}:toggle`
 
+		use(Attributes({ name: 'radio', withLoot: false, withRecipe: false }))
 		description({
 			properties: { [isOn]: [false, true] }
 		})
@@ -36,6 +37,5 @@ export default defineBlock(
 				}
 			}
 		})
-	},
-	[Attributes({ name: 'radio', withLoot: false, withRecipe: false })]
+	}
 )
