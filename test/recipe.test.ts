@@ -5,7 +5,7 @@ describe('define recipe', () => {
 	it('returns a valid recipe object', () => {
 		expect(recipe).toMatchInlineSnapshot(`
 			{
-			  "format_version": "1.12",
+			  "format_version": "1.12.0",
 			  "minecraft:recipe_shaped": {
 			    "description": {
 			      "identifier": "test:recipe.radio",

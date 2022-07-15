@@ -78,7 +78,7 @@ function processComponentTemplate(): LootTableFunction & RecipeFunction {
 
 			fse.outputJSONSync(
 				getPath(join(global.config.packs.behaviorPack, path)),
-				{ format_version: '1.12', ...template },
+				{ format_version: '1.12.0', ...template },
 				{ spaces: '\t' }
 			)
 		}
