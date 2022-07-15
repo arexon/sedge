@@ -3,7 +3,7 @@ import type { LootTableFunction, RecipeFunction } from './functions'
 
 type ComponentFormat = `${'block'}@${BlockFormatVersion}`
 
-type ComponentTemplate<Format extends ComponentFormat> =
+type ComponentTemplate<Format extends ComponentFormat> = Omit<
 	Format extends 'block@1.16.0'
 		? BlockTemplate<'1.16.0'>
 		: Format extends 'block@1.16.100'
@@ -14,6 +14,8 @@ type ComponentTemplate<Format extends ComponentFormat> =
 		? BlockTemplate<'1.18.30'> & LootTableFunction & RecipeFunction
 		: Format extends 'block@1.19.10'
 		? BlockTemplate<'1.19.10'> & LootTableFunction & RecipeFunction
-		: never
+		: never,
+	'use'
+>
 
 export type { ComponentFormat, ComponentTemplate }

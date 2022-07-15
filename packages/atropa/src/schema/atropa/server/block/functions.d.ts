@@ -82,9 +82,19 @@ interface EventsFunction<T extends object> {
 	events: (template: Record<string, T>) => void
 }
 
+interface UseFunction {
+	/**
+	 * # Use
+	 *
+	 * Applies custom component(s) to the block.
+	 */
+	use: (...components: Record<string, any>[]) => void
+}
+
 export type {
 	DescriptionFunction,
 	PermutationsFunction,
 	ComponentsFunction,
-	EventsFunction
+	EventsFunction,
+	UseFunction
 }

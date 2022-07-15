@@ -48,7 +48,7 @@ export function defineComponent<
 					fn(options || ({} as Options), {
 						...processBlockTemplate(template, false),
 						...processComponentTemplate()
-					} as ComponentTemplate<Format>)
+					} as unknown as ComponentTemplate<Format>)
 			}
 
 			return template
