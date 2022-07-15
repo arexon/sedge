@@ -1,5 +1,5 @@
 import { defineBlock } from 'atropa/server'
-import Attributes from '../components/attributes'
+import Attributes from '../components/Attributes'
 
 export default defineBlock(
 	'1.19.10',
