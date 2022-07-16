@@ -7,7 +7,7 @@ export default defineBlock(
 		const isOn = `${namespace}:is_on`
 		const toggle = `${namespace}:toggle`
 
-		use(Attributes({ name: 'radio', withLoot: false, withRecipe: false }))
+		use(Attributes({ name: 'radio' }))
 		description({
 			properties: { [isOn]: [false, true] }
 		})

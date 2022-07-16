@@ -2,63 +2,14 @@ import { defineComponent } from 'atropa/api'
 
 export default defineComponent(
 	'block@1.19.10',
-	(
-		{
-			name,
-			withLoot,
-			withRecipe
-		}: { name: string; withLoot?: boolean; withRecipe?: boolean },
-		{ namespace, description, components, lootTable, recipe }
-	) => {
+	({ name }: { name: string }, { namespace, description, components }) => {
 		description({
 			identifier: `${namespace}:${name}`
 		})
 
 		components({
-			display_name: `${namespace}:${name}`
+			display_name: `${namespace}:${name}`,
+			loot: `loot_tables/${name}.loot.json`
 		})
-
-		if (withLoot) {
-			components({
-				loot: `loot_tables/${name}.loot.json`
-			})
-
-			lootTable(
-				{
-					pools: [
-						{
-							rolls: 1,
-							entries: [
-								{
-									type: 'item',
-									name: `${namespace}:${name}`,
-									weight: 1
-								}
-							]
-						}
-					]
-				},
-				`loot_tables/${name}.json`
-			)
-		}
-
-		if (withRecipe) {
-			recipe(
-				{
-					recipe_shaped: {
-						description: {
-							identifier: `${namespace}:recipe.${name}`
-						},
-						tags: ['crafting_table'],
-						pattern: ['###', '# #', '# #'],
-						key: {
-							'#': { item: 'minecraft:planks' }
-						},
-						result: { item: `${namespace}:${name}` }
-					}
-				},
-				`recipes/${name}.json`
-			)
-		}
 	}
 )

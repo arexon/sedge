@@ -7,7 +7,7 @@ export default defineLootTable(({ namespace, pools }) => {
 			entries: [
 				{
 					type: 'item',
-					name: `${namespace}:table`,
+					name: `${namespace}:radio`,
 					weight: 1
 				}
 			]

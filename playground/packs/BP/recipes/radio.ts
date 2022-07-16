@@ -6,10 +6,9 @@ export default defineRecipe(({ namespace, shaped }) => {
 			identifier: `${namespace}:recipe.radio`
 		},
 		tags: ['crafting_table'],
-		pattern: ['A', 'B'],
+		pattern: ['###', '# #', '# #'],
 		key: {
-			A: { item: 'minecraft:planks' },
-			B: { item: 'minecraft:note' }
+			'#': { item: 'minecraft:planks' }
 		},
 		result: { item: `${namespace}:radio` }
 	})
