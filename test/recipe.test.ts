@@ -11,16 +11,14 @@ describe('define recipe', () => {
 			      "identifier": "test:recipe.radio",
 			    },
 			    "key": {
-			      "A": {
+			      "#": {
 			        "item": "minecraft:planks",
-			      },
-			      "B": {
-			        "item": "minecraft:note",
 			      },
 			    },
 			    "pattern": [
-			      "A",
-			      "B",
+			      "###",
+			      "# #",
+			      "# #",
 			    ],
 			    "result": {
 			      "item": "test:radio",

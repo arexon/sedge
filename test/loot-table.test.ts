@@ -9,7 +9,7 @@ describe('define loot table', () => {
 			    {
 			      "entries": [
 			        {
-			          "name": "test:table",
+			          "name": "test:radio",
 			          "type": "item",
 			          "weight": 1,
 			        },

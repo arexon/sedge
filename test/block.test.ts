@@ -9,6 +9,7 @@ describe('define block', () => {
 			  "minecraft:block": {
 			    "components": {
 			      "minecraft:display_name": "test:radio",
+			      "minecraft:loot": "loot_tables/radio.loot.json",
 			      "minecraft:on_interact": {
 			        "condition": "q.is_sneaking",
 			        "event": "test:toggle",
