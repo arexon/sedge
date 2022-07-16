@@ -1,6 +1,6 @@
 export function getComponent(identifier: string): string {
 	return [
-		`import { defineComponent } from 'atropa/server'`,
+		`import { defineComponent } from 'atropa/api'`,
 		``,
 		`export const ${identifier} = defineComponent(`,
 		`    'block@1.19.10',`,
