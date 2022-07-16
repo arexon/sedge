@@ -8,6 +8,7 @@ import {
 	getLootTable,
 	getRecipe,
 	importAtropa,
+	getCollection,
 	logger,
 	type Config
 } from '../utils'
@@ -21,7 +22,12 @@ export default defineCommand({
 	},
 	run: async () => {
 		interface Module {
-			type: 'components' | 'blocks' | 'recipes' | 'loot_tables'
+			type:
+				| 'components'
+				| 'collections'
+				| 'blocks'
+				| 'recipes'
+				| 'loot_tables'
 			pack: 'server' | 'client'
 		}
 
@@ -37,6 +43,10 @@ export default defineCommand({
 					{
 						title: 'Custom Component',
 						value: { type: 'components', pack: 'server' }
+					},
+					{
+						title: 'Collection',
+						value: { type: 'collections', pack: 'server' }
 					},
 					{
 						title: 'Server Block',
@@ -95,6 +105,9 @@ export default defineCommand({
 			switch (module.type) {
 				case 'components':
 					fse.outputFileSync(path, getComponent(identifier))
+					break
+				case 'collections':
+					fse.outputFileSync(path, getCollection())
 					break
 				case 'blocks':
 					fse.outputFileSync(path, getServerBlock(identifier))

@@ -13,6 +13,16 @@ export function getComponent(identifier: string): string {
 	].join('\n')
 }
 
+export function getCollection(): string {
+	return [
+		`import { defineCollection } from 'atropa/api'`,
+		``,
+		`export default defineCollection(({ add, packs }) => {`,
+		`	add(\`\${packs.behaviorPack}/functions/say_hello.mcfunction\`, 'say hello')`,
+		`})`
+	].join('\n')
+}
+
 export function getServerBlock(identifier: string): string {
 	return [
 		`import { defineBlock } from 'atropa/server'`,
