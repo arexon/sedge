@@ -1,6 +1,10 @@
 import { logger } from '../../logger'
 import type { LootTableTemplate } from '../../schema/atropa/server/loot-table'
 
+interface VanillaTemplate {
+	pools?: Record<string, any>[]
+}
+
 /**
  * # Define Loot Table
  *
@@ -12,18 +16,22 @@ export function defineLootTable(
 	fn: (template: LootTableTemplate) => void
 ): Record<string, any> {
 	try {
-		let template: Record<string, any>[] = []
+		const template: VanillaTemplate = {}
 
-		fn({
-			namespace: global.config.namespace,
-			pools: (_template) => {
-				template = [..._template, ...template]
-			}
-		})
+		fn(processTemplate(template))
 
-		return { pools: template }
+		return template
 	} catch (error) {
 		logger.error('Failed to parse loot table:', error)
 		process.exit(1)
+	}
+}
+
+function processTemplate(fields: VanillaTemplate): LootTableTemplate {
+	return {
+		namespace: global.config.namespace,
+		pools: (_template) => {
+			fields.pools = [..._template, ...(fields.pools || [])]
+		}
 	}
 }

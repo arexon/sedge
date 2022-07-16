@@ -1,6 +1,10 @@
 import { logger } from '../../logger'
 import type { RecipeTemplate } from '../../schema/atropa/server/recipe'
 
+interface VanillaTemplate {
+	recipe?: Record<string, any>
+}
+
 /**
  * # Define Recipe
  *
@@ -12,35 +16,40 @@ export function defineRecipe(
 	fn: (template: RecipeTemplate) => void
 ): Record<string, any> {
 	try {
-		let template: Record<string, any> = {}
+		const template: VanillaTemplate = {}
 
-		fn({
-			namespace: global.config.namespace,
-			shaped: (_template) => {
-				template = { [`minecraft:recipe_shaped`]: _template }
-			},
-			shapeless: (_template) => {
-				template = { [`minecraft:recipe_shapeless`]: _template }
-			},
-			furnace: (_template) => {
-				template = { [`minecraft:recipe_furnace`]: _template }
-			},
-			brewingContainer: (_template) => {
-				template = { [`minecraft:recipe_brewing_container`]: _template }
-			},
-			brewingMix: (_template) => {
-				template = { [`minecraft:recipe_brewing_mix`]: _template }
-			},
-			materialReduction: (_template) => {
-				template = {
-					[`minecraft:recipe_material_reduction`]: _template
-				}
-			}
-		})
+		fn(processTemplate(template))
 
-		return { format_version: '1.12.0', ...template }
+		return { format_version: '1.12.0', ...template.recipe }
 	} catch (error) {
 		logger.error(`Failed to parse recipe:`, error)
 		process.exit(1)
+	}
+}
+
+function processTemplate(fields: VanillaTemplate): RecipeTemplate {
+	const getObject = (name: string, template: Record<string, any>) => {
+		return { [`minecraft:recipe_${name}`]: template }
+	}
+	return {
+		namespace: global.config.namespace,
+		shaped: (template) => {
+			fields.recipe = getObject('shaped', template)
+		},
+		shapeless: (template) => {
+			fields.recipe = getObject('shapeless', template)
+		},
+		furnace: (template) => {
+			fields.recipe = getObject('furnace', template)
+		},
+		brewingContainer: (template) => {
+			fields.recipe = getObject('brewing_container', template)
+		},
+		brewingMix: (template) => {
+			fields.recipe = getObject('brewing_mix', template)
+		},
+		materialReduction: (template) => {
+			fields.recipe = getObject('material_reduction', template)
+		}
 	}
 }

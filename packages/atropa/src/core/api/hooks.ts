@@ -9,7 +9,7 @@ export const hooks = createHooks<{
 export function useHook(hook: Hook | Hook[], fn: () => void): void {
 	if (Array.isArray(hook)) {
 		hook.map((hook) => hooks.hookOnce(hook, fn))
-	} else {
-		hooks.hookOnce(hook, fn)
+		return
 	}
+	hooks.hookOnce(hook, fn)
 }
