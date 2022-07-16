@@ -1,4 +1,5 @@
 import fse from 'fs-extra'
+import { isObject } from '@antfu/utils'
 import { normalize } from 'pathe'
 import { getPath } from '../../compiler/utils'
 import { logger } from '../../logger'
@@ -8,7 +9,7 @@ import type { Config } from '../../loader'
 type ValueOf<T> = T[keyof T]
 interface Template extends Namespace {
 	packs: ValueOf<Pick<Config, 'packs'>>
-	add: (path: string, content: Record<string, any>) => void
+	add: (path: string, content: any) => void
 }
 
 /**
@@ -24,9 +25,14 @@ export function defineCollection(fn: (template: Template) => void): void {
 			namespace: global.config.namespace,
 			packs: global.config.packs,
 			add: (path, content) => {
-				fse.outputJSONSync(normalize(getPath(path)), content, {
-					spaces: '\t'
-				})
+				if (isObject(content)) {
+					fse.outputJSONSync(normalize(getPath(path)), content, {
+						spaces: '\t'
+					})
+					return
+				}
+
+				fse.outputFileSync(normalize(getPath(path)), content)
 			}
 		})
 	} catch (error) {
