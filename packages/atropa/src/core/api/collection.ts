@@ -11,6 +11,13 @@ interface Template extends Namespace {
 	add: (path: string, content: Record<string, any>) => void
 }
 
+/**
+ * # Define Collection
+ *
+ * Collections are a way to organize a feature set into a single group.
+ * They allow to import files or create templates within and define the export location of said files/templates.
+ * @param fn A callback function with function parameters used to define the collection.
+ */
 export function defineCollection(fn: (template: Template) => void): void {
 	try {
 		fn({
