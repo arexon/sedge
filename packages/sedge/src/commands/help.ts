@@ -1,5 +1,5 @@
 import { blue } from 'colorette'
-import { logHelp } from '../utils'
+import { logger, logHelp } from '../utils'
 import { commands, defineCommand } from './index'
 
 export default defineCommand({
@@ -9,12 +9,10 @@ export default defineCommand({
 		description: 'Shows help'
 	},
 	run: () => {
-		const sections: string[] = []
-
-		sections.push(
+		logger.info(
 			`Usage: ${blue(
 				`npx sedge ${Object.keys(commands).join('|')} [args]`
-			)}`
+			)}\n`
 		)
 
 		logHelp()
