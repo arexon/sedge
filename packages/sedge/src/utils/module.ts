@@ -3,7 +3,7 @@ import { normalize } from 'pathe'
 import { resolvePath } from 'mlly'
 import { blue } from 'colorette'
 import type { createAtropa } from '../../../atropa/src/compiler'
-import type { loadConfig } from '../../../atropa/src/loader'
+import type { loadConfig, Config } from '../../../atropa/src/loader'
 
 export async function importAtropa<Submodule extends 'compiler' | 'loader'>(
 	submodule: Submodule
@@ -26,3 +26,4 @@ export async function importAtropa<Submodule extends 'compiler' | 'loader'>(
 		)
 	}
 }
+export type { Config }
