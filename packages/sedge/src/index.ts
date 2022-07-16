@@ -20,18 +20,15 @@ export default async function (): Promise<void> {
 
 		const commandName = args._[0]
 
-		if (!(commandName in commands)) {
+		if (commandName === undefined || args.help) {
+			return logHelp()
+		} else if (!(commandName in commands)) {
 			throw new Error(`Unknown command: ${blue(commandName)}`)
 		}
 
 		logBanner()
-
 		const command = await commands[commandName as CommandName]()
-		if (args.help) {
-			logHelp(command.meta)
-		} else {
-			await command.run(args)
-		}
+		await command.run(args)
 	} catch (error) {
 		logger.error(error)
 		process.exit(1)
