@@ -74,13 +74,14 @@ export function scanPaths(options: ScanPathsOptions): {
 	const joinPaths = (pattern: string): string[] => {
 		return options.paths.map((path) => join(path, pattern))
 	}
+	const configIgnoredPaths = global.config.atropa?.ignorePaths || []
 	const modules = glob.sync(joinPaths('**/*.ts'), {
 		...(options.ignoreComponents && {
-			ignore: ['**/components/**/*.ts']
+			ignore: ['**/components/**/*.ts', ...configIgnoredPaths]
 		})
 	})
 	const assets = glob.sync(joinPaths('**/*'), {
-		ignore: ['**/*.ts']
+		ignore: ['**/*.ts', ...configIgnoredPaths]
 	})
 
 	return { modules, assets }

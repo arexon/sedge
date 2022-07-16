@@ -70,6 +70,13 @@
 							"type": "string"
 						}
 					}
+				},
+				"ignorePaths": {
+					"description": "Defines glob patterns to ignore when compiling the project.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
 				}
 			}
 		}

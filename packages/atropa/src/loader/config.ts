@@ -11,6 +11,7 @@ export interface Config {
 		targets?: {
 			[name: string | 'default']: string
 		}
+		ignorePaths?: string[]
 	}
 }
 
