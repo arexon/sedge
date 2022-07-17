@@ -1,60 +1,31 @@
-export function prependWithMinecraftNamespaces<
-	Object extends Record<string, any>
->(object: Object): Object {
-	const namespace = 'minecraft'
+import { objectMap } from '@antfu/utils'
+
+export function removeEmptyProperties<T extends Record<string, any>>(
+	object: T
+): T {
 	for (const key in object) {
-		if (key === 'components') {
-			object[key] = prependNamespacesInObject(object[key], namespace)
-		}
-		if (key === 'permutations') {
-			object[key] = prependNamespacesInArray(
-				object[key],
-				'components',
-				namespace
-			) as Object[Extract<keyof Object, string>]
-		}
+		if (objectIsEmpty(object[key])) delete object[key]
 	}
 	return object
 }
 
-export function removeEmptyFields<Object extends Record<string, any>>(
-	object: Object
-): Object {
-	for (const key in object) {
-		if (objectIsEmpty(object[key])) {
-			delete object[key]
-		}
-	}
-	return object
+export function ensureNamespaces<K extends string, V>(
+	object: Record<K, V>,
+	namespace: string
+): Record<K, V> {
+	return objectMap<K, V>(object, (key, value) => {
+		return [ensureNamespace(namespace, key) as K, value]
+	})
 }
 
-function objectIsEmpty<Object extends Record<string, any>>(
-	object: Object
-): boolean {
-	for (const _key in object) {
+function ensureNamespace(namespace: string, str: string) {
+	if (!str.startsWith(namespace)) return `${namespace}:${str}`
+	return str
+}
+
+function objectIsEmpty<T extends Record<string, any>>(object: T): boolean {
+	for (const _ in object) {
 		return false
 	}
 	return true
-}
-
-function prependNamespacesInArray<Object extends Record<string, any>>(
-	array: Object[],
-	target: keyof Object,
-	namespace: string
-): Object[] {
-	for (const object of array) {
-		prependNamespacesInObject(object[target], namespace)
-	}
-	return array
-}
-
-function prependNamespacesInObject<T extends Record<string, any>>(
-	object: T,
-	namespace: string
-): T {
-	for (const key in object) {
-		object[`${namespace}:${key}` as keyof T] = object[key]
-		delete object[key]
-	}
-	return object
 }

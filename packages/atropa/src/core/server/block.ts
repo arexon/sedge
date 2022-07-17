@@ -1,5 +1,5 @@
-import { deepMerge } from '@antfu/utils'
-import { prependWithMinecraftNamespaces, removeEmptyFields } from '../utils'
+import { deepMerge, objectMap } from '@antfu/utils'
+import { ensureNamespaces, removeEmptyProperties } from '../utils'
 import type {
 	BlockTemplate,
 	BlockFormatVersion
@@ -52,7 +52,7 @@ export function defineBlock<Version extends BlockFormatVersion>(
 export function processTemplate(
 	fields: OutputTemplate,
 	isLegacy: boolean
-): InputTemplate {
+): Object {
 	const template: InputTemplate = {
 		namespace: global.config.namespace,
 		description: (template) => {
@@ -82,11 +82,8 @@ export function processTemplate(
 	return template
 }
 
-function transformTemplate(
-	fields: OutputTemplate,
-	isLegacy: boolean
-): Record<string, any> {
-	const template: OutputTemplate = {
+function transformTemplate(fields: OutputTemplate, isLegacy: boolean): Object {
+	const template: Object = {
 		description: fields.description,
 		components: fields.components
 	}
@@ -99,5 +96,20 @@ function transformTemplate(
 	}
 	if (fields.use) deepMerge(template, ...fields.use)
 
-	return prependWithMinecraftNamespaces(removeEmptyFields(template))
+	return objectMap(removeEmptyProperties(template), (key, value) => {
+		if (key === 'components') {
+			return [key, ensureNamespaces(value, 'minecraft')]
+		}
+		if (key === 'permutations') {
+			for (const permutation of value) {
+				if (permutation.components !== undefined) {
+					permutation.components = ensureNamespaces(
+						permutation.components,
+						'minecraft'
+					)
+				}
+			}
+		}
+		return [key, value]
+	})
 }
