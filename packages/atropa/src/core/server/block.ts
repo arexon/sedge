@@ -27,18 +27,18 @@ interface OutputTemplate {
  *
  * Generates a new block based on the given templates.
  * @param version The format version of the block.
- * @param block A callback function with function parameters used to define the block.
+ * @param fn A callback function with function parameters used to define the block.
  * @returns A block.
  */
 export function defineBlock<Version extends BlockFormatVersion>(
 	version: Version,
-	block: (template: BlockTemplate<Version>) => void
+	fn: (template: BlockTemplate<Version>) => void
 ): Record<string, any> {
 	try {
 		const isLegacy = version === '1.16.0'
 		const template: OutputTemplate = {}
 
-		block(processTemplate(template, isLegacy) as BlockTemplate<Version>)
+		fn(processTemplate(template, isLegacy) as BlockTemplate<Version>)
 
 		return {
 			format_version: version,
