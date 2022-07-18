@@ -53,7 +53,7 @@ type Structures =
 	| 'temple'
 	| 'village'
 
-type Colors =
+type ColorPalette =
 	| 'white'
 	| 'light_green'
 	| 'orange'
@@ -113,4 +113,4 @@ type PatternTypes =
 	| 'triangles_top'
 	| 'triangles_bottom'
 
-export type { Structures, EnchantmentNames, Colors, PatternTypes }
+export type { Structures, EnchantmentNames, ColorPalette, PatternTypes }

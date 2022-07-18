@@ -1,5 +1,5 @@
 import type {
-	Colors,
+	ColorPalette,
 	EnchantmentNames,
 	Structures,
 	PatternTypes
@@ -54,10 +54,10 @@ type Functions =
 	| {
 			function: 'set_banner_details'
 			type?: 'default' | 'illager_captain'
-			base_color?: Colors
+			base_color?: ColorPalette
 			patterns?: {
 				pattern?: PatternTypes
-				color?: Colors
+				color?: ColorPalette
 			}
 	  }
 	| {
