@@ -46,3 +46,4 @@ interface ItemComponents_1_16_100
 		Components_1_10_0.Foil {}
 
 export type { ItemComponents_1_16_100 }
+export type { ItemEventResponses_1_16_100 } from './events-responses'

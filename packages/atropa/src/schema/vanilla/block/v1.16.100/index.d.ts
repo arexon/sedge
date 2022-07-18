@@ -1,40 +1,40 @@
-import type * as Component_1_16_100 from './components'
-import type * as TriggerComponent_1_16_100 from './triggerComponents'
-import type * as Component_1_16_0 from '../v1.16.0/components'
+import type * as Components_1_16_100 from './components'
+import type * as TriggerComponents_1_16_100 from './trigger-components'
+import type * as Components_1_16_0 from '../v1.16.0/components'
 
-interface Components_1_16_100
-	extends Component_1_16_100.BreakOnPush,
-		Component_1_16_100.Breathability,
-		Component_1_16_100.CraftingTable,
-		Component_1_16_100.CreativeCategory,
-		Component_1_16_100.DisplayName,
-		Component_1_16_100.EntityCollision,
-		Component_1_16_100.Geometry,
-		Component_1_16_100.Immovable,
-		Component_1_16_100.MaterialInstances,
-		Component_1_16_100.OnlyPistonPush,
-		Component_1_16_100.PartVisibility,
-		Component_1_16_100.PickCollision,
-		Component_1_16_100.PlacementFilter,
-		Component_1_16_100.PreventJumping,
-		Component_1_16_100.RandomTicking,
-		Component_1_16_100.Rotation,
-		Component_1_16_100.Ticking,
-		Component_1_16_100.UnitCube,
-		Component_1_16_100.Unwalkable,
-		TriggerComponent_1_16_100.OnFallOn,
-		TriggerComponent_1_16_100.OnInteract,
-		TriggerComponent_1_16_100.OnPlaced,
-		TriggerComponent_1_16_100.OnPlayerDestroyed,
-		TriggerComponent_1_16_100.OnPlayerPlacing,
-		TriggerComponent_1_16_100.OnPlayerStepOff,
-		TriggerComponent_1_16_100.OnPlayerStepOn,
-		Component_1_16_0.DestoryTime,
-		Component_1_16_0.ExplosionResistance,
-		Component_1_16_0.Flammable,
-		Component_1_16_0.Friction,
-		Component_1_16_0.Loot,
-		Component_1_16_0.MapColor {}
+interface BlockComponents_1_16_100
+	extends Components_1_16_100.BreakOnPush,
+		Components_1_16_100.Breathability,
+		Components_1_16_100.CraftingTable,
+		Components_1_16_100.CreativeCategory,
+		Components_1_16_100.DisplayName,
+		Components_1_16_100.EntityCollision,
+		Components_1_16_100.Geometry,
+		Components_1_16_100.Immovable,
+		Components_1_16_100.MaterialInstances,
+		Components_1_16_100.OnlyPistonPush,
+		Components_1_16_100.PartVisibility,
+		Components_1_16_100.PickCollision,
+		Components_1_16_100.PlacementFilter,
+		Components_1_16_100.PreventJumping,
+		Components_1_16_100.RandomTicking,
+		Components_1_16_100.Rotation,
+		Components_1_16_100.Ticking,
+		Components_1_16_100.UnitCube,
+		Components_1_16_100.Unwalkable,
+		TriggerComponents_1_16_100.OnFallOn,
+		TriggerComponents_1_16_100.OnInteract,
+		TriggerComponents_1_16_100.OnPlaced,
+		TriggerComponents_1_16_100.OnPlayerDestroyed,
+		TriggerComponents_1_16_100.OnPlayerPlacing,
+		TriggerComponents_1_16_100.OnPlayerStepOff,
+		TriggerComponents_1_16_100.OnPlayerStepOn,
+		Components_1_16_0.DestoryTime,
+		Components_1_16_0.ExplosionResistance,
+		Components_1_16_0.Flammable,
+		Components_1_16_0.Friction,
+		Components_1_16_0.Loot,
+		Components_1_16_0.MapColor {}
 
-export type { Components_1_16_100 }
-export type { EventResponses_1_16_100 } from './eventResponses'
+export type { BlockComponents_1_16_100 }
+export type { BlockEventResponses_1_16_100 } from './events-responses'
