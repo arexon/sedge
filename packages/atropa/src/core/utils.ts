@@ -14,18 +14,16 @@ export function ensureNamespaces<K extends string, V>(
 	namespace: string
 ): Record<K, V> {
 	return objectMap<K, V>(object, (key, value) => {
-		return [ensureNamespace(namespace, key) as K, value]
+		return [ensurePrefix(namespace, key), value]
 	})
 }
 
-function ensureNamespace(namespace: string, str: string) {
-	if (!str.startsWith(namespace)) return `${namespace}:${str}`
-	return str
+function ensurePrefix<T extends string>(prefix: string, string: T): T {
+	if (!string.startsWith(prefix)) return `${prefix}:${string}` as T
+	return string
 }
 
 function objectIsEmpty<T extends Record<string, any>>(object: T): boolean {
-	for (const _ in object) {
-		return false
-	}
+	for (const _ in object) return false
 	return true
 }
