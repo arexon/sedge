@@ -4,7 +4,6 @@ import type { Namespace } from '../../namespace'
 interface LootTableTemplate extends Namespace {
 	/**
 	 * ## Pools
-	 *
 	 * Lists the loot pools for this loot table.
 	 */
 	pools: (template: Pools[]) => void

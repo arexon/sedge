@@ -10,7 +10,6 @@ import type {
 type FurnaceFunction = {
 	/**
 	 * ## Recipe Furnace
-	 *
 	 * Represents a recipe for use with a Furnace.
 	 */
 	furnace: (template: RecipeFurnace) => void
@@ -19,7 +18,6 @@ type FurnaceFunction = {
 type ShapedFunction = {
 	/**
 	 * ## Recipe Shaped
-	 *
 	 * Represents a recipe that requires a dedicated pattern when using a Crafting Table.
 	 */
 	shaped: (template: RecipeShaped) => void
@@ -28,7 +26,6 @@ type ShapedFunction = {
 type ShapelessFunction = {
 	/**
 	 * ## Recipe Shapeless
-	 *
 	 * Represents a recipe that does not require a dedicated pattern.
 	 */
 	shapeless: (template: RecipeShapeless) => void
@@ -37,7 +34,6 @@ type ShapelessFunction = {
 type BrewingMixFunction = {
 	/**
 	 * ## Recipe Brewing Mix
-	 *
 	 * Represents a recipe that for use with a Potion Brewing station.
 	 */
 	brewingMix: (template: RecipeBrewingMix) => void
@@ -46,7 +42,6 @@ type BrewingMixFunction = {
 type BrewingContainerFunction = {
 	/**
 	 * ## Recipe Brewing Container
-	 *
 	 * Represents a recipe that for use with a Potion Brewing station.
 	 */
 	brewingContainer: (template: RecipeBrewingContainer) => void
