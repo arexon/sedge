@@ -1,4 +1,4 @@
-import type { Namespace } from '../../namespace'
+import type { Namespace } from '../../common/template'
 import type {
 	FurnaceFunction,
 	ShapedFunction,
@@ -8,12 +8,13 @@ import type {
 	MaterialReductionFunction
 } from './functions'
 
-type RecipeTemplate = Namespace &
-	FurnaceFunction &
-	ShapedFunction &
-	ShapelessFunction &
-	BrewingMixFunction &
-	BrewingContainerFunction &
-	MaterialReductionFunction
+interface RecipeTemplate
+	extends Namespace,
+		FurnaceFunction,
+		ShapedFunction,
+		ShapelessFunction,
+		BrewingMixFunction,
+		BrewingContainerFunction,
+		MaterialReductionFunction {}
 
 export type { RecipeTemplate }

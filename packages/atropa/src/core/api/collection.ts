@@ -3,8 +3,8 @@ import { isObject } from '@antfu/utils'
 import { normalize } from 'pathe'
 import { getPath } from '../../compiler/utils'
 import { logger } from '../../logger'
-import type { Namespace } from '../../schema/atropa/namespace'
 import type { Config } from '../../loader'
+import type { Namespace } from '../../schema/atropa/common/template'
 
 type ValueOf<T> = T[keyof T]
 interface Template extends Namespace {

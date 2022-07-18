@@ -1,40 +1,26 @@
-interface Description {
-	/**
-	 * ## Identifier
-	 * The identifier for this block.
-	 * The name must include a namespace and must not use the Minecraft namespace unless overriding a Vanilla block.
-	 */
-	identifier?: string
-	/**
-	 * ## Is Experimental
-	 * If this block is experimental, it will only be registered if the world is marked as experimental.
-	 */
-	is_experimental?: boolean
-}
+import type { Description } from '../../common/template'
 
-interface DescriptionProperties {
-	/**
-	 * ## Properties
-	 * Defines block properties and their possible values.
-	 */
-	properties?: {
-		[key: `${string}:${string}`]: string[] | boolean[] | number[]
-	}
-}
+type BlockDescription<WithProps extends boolean> = WithProps extends true
+	? Description & {
+			/**
+			 * ## Properties
+			 * Defines block properties and their possible values.
+			 */
+			properties?: {
+				[key: `${string}:${string}`]: string[] | boolean[] | number[]
+			}
+	  }
+	: Description
 
-interface DescriptionFunction<WithProperties extends boolean> {
+interface BlockDescriptionFunction<WithProps extends boolean> {
 	/**
 	 * # Description
 	 * The description sets required block information.
 	 */
-	description: (
-		template: WithProperties extends true
-			? Description & DescriptionProperties
-			: Description
-	) => void
+	description: (template: BlockDescription<WithProps>) => void
 }
 
-interface Permutation<T extends object> {
+interface BlockPermutation<Components extends Record<string, any>> {
 	/**
 	 * ## Condition
 	 * A MoLang condition.
@@ -44,45 +30,36 @@ interface Permutation<T extends object> {
 	 * ## Components
 	 * Components to add when the condition evaluates to `true`.
 	 */
-	components?: T
+	components?: Components
 }
 
-interface PermutationsFunction<T extends object> {
+interface BlockPermutationsFunction<Components extends Record<string, any>> {
 	/**
 	 * # Permutations
 	 * List of block permutations based on MoLang queries.
 	 */
-	permutations: (template: Permutation<T>[]) => void
+	permutations: (template: BlockPermutation<Components>[]) => void
 }
 
-interface ComponentsFunction<T extends object> {
+interface BlockComponentsFunction<Components extends Record<string, any>> {
 	/**
 	 * # Compnoents
 	 * Components are used to describe the block's attributes and behavior.
 	 */
-	components: (template: T) => void
+	components: (template: Components) => void
 }
 
-interface EventsFunction<T extends object> {
+interface BlockEventsFunction<Events extends Record<string, any>> {
 	/**
 	 * # Events
 	 * The events function defines the events that can be triggered by this block.
 	 */
-	events: (template: Record<string, T>) => void
-}
-
-interface UseFunction {
-	/**
-	 * # Use
-	 * Applies custom component(s) to the block.
-	 */
-	use: (...components: Record<string, any>[]) => void
+	events: (template: Record<string, Events>) => void
 }
 
 export type {
-	DescriptionFunction,
-	PermutationsFunction,
-	ComponentsFunction,
-	EventsFunction,
-	UseFunction
+	BlockDescriptionFunction,
+	BlockPermutationsFunction,
+	BlockComponentsFunction,
+	BlockEventsFunction
 }
