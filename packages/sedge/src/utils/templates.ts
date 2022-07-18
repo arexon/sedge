@@ -1,14 +1,10 @@
-export function getComponent(identifier: string): string {
+export function getComponent(): string {
 	return [
 		`import { defineComponent } from 'atropa/api'`,
 		``,
-		`export const ${identifier} = defineComponent(`,
+		`export default defineComponent(`,
 		`    'block@1.19.10',`,
-		`	({}, { namespace, description }) => {`,
-		`		description({`,
-		`			identifier: \`\${namespace}:${identifier}\``,
-		`		})`,
-		`	}`,
+		`	({}, { namespace }) => {}`,
 		`)`
 	].join('\n')
 }

@@ -104,7 +104,7 @@ export default defineCommand({
 			checkIfAlreadyExists()
 			switch (module.type) {
 				case 'components':
-					fse.outputFileSync(path, getComponent(identifier))
+					fse.outputFileSync(path, getComponent())
 					break
 				case 'collections':
 					fse.outputFileSync(path, getCollection())
