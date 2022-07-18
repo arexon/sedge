@@ -47,25 +47,21 @@ type Entries =
 			type?: 'item'
 			/**
 			 * ### Weight
-			 *
 			 * How likely it is that this entry will be chosen.
 			 */
 			weight?: number
 			/**
 			 * ### Name
-			 *
 			 * An item identifier to be chosen.
 			 */
 			name?: string
 			/**
 			 * ### Pools
-			 *
 			 * The pools that this entry can spawn.
 			 */
 			pools?: Pools[]
 			/**
 			 * ### Functions
-			 *
 			 * Functions that can be called on this entry.
 			 */
 			functions?: Functions
@@ -74,13 +70,11 @@ type Entries =
 			type?: 'loot_table'
 			/**
 			 * ### Weight
-			 *
 			 * How likely it is that this entry will be chosen.
 			 */
 			weight?: number
 			/**
 			 * ### Name
-			 *
 			 * Path to a loot table to be chosen.
 			 */
 			name?: string
@@ -89,7 +83,6 @@ type Entries =
 			type?: 'empty'
 			/**
 			 * ### Weight
-			 *
 			 * How likely it is that this entry will be chosen.
 			 */
 			weight?: number
@@ -98,14 +91,11 @@ type Entries =
 interface Pools {
 	/**
 	 * ## Condition
-	 *
 	 * A list of conditions for the pool to pass.
 	 */
 	conditions?: Conditions[]
-
 	/**
 	 * ## Tiers
-	 *
 	 * The tiers that this pool can spawn.
 	 */
 	tiers?: {
@@ -113,17 +103,13 @@ interface Pools {
 		bonus_rolls?: number
 		bonus_chance?: number
 	}
-
 	/**
 	 * ## Rolls
-	 *
 	 * The amount of times that this pool will roll.
 	 */
 	rolls?: Range | number
-
 	/**
 	 * ## Entries
-	 *
 	 * Lists the entries of the loot table to be chosen from.
 	 */
 	entries?: Entries[]
@@ -132,7 +118,6 @@ interface Pools {
 interface LootTable {
 	/**
 	 * ## Pools
-	 *
 	 * Lists the loot pools for this loot table.
 	 */
 	pools?: Pools[]
