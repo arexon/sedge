@@ -1,6 +1,7 @@
 import type { Subject } from '../../general/filter'
 import type { Effect, EffectNames } from '../../general/effect'
 import type { DamageTypes } from '../../general/damage'
+import type { EventTrigger } from './triggers'
 
 interface AddMobEffect {
 	/**
@@ -197,6 +198,35 @@ interface SpawnLoot {
 	}
 }
 
+interface Shoot {
+	/**
+	 * ## Shoot
+	 * Shoot a projectile.
+	 */
+	shoot?: {
+		/**
+		 * #### Target
+		 * The target context to execute against.
+		 */
+		target: Subject
+		/**
+		 * #### Projectile
+		 * The projectile to shoot.
+		 */
+		projectile: string
+		/**
+		 * #### Launch Power
+		 * The launch power of the projectile.
+		 */
+		launch_power: number
+		/**
+		 * #### Angle Offset
+		 * The angle offset of the projectile.
+		 */
+		angle_offset: number | string
+	}
+}
+
 interface Swing {
 	/**
 	 * ## Swing
@@ -276,11 +306,19 @@ interface TransformItem {
 
 interface TriggerBlock {
 	/**
-	 * ## Trigger
+	 * ## Trigger Block
 	 *
 	 * Trigger an event.
 	 */
-	trigger?: string
+	trigger?: EventTrigger
+}
+
+interface TriggerItem {
+	/**
+	 * ## Trigger Item
+	 * Trigger an event.
+	 */
+	trigger?: EventTrigger
 }
 
 export type {
@@ -294,8 +332,10 @@ export type {
 	SetBlockAtPos,
 	SetBlockProperty,
 	SpawnLoot,
+	Shoot,
 	Swing,
 	Teleport,
 	TransformItem,
-	TriggerBlock
+	TriggerBlock,
+	TriggerItem
 }

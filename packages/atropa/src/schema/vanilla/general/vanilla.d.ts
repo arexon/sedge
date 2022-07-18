@@ -71,6 +71,25 @@ type ColorPalette =
 	| 'red'
 	| 'black'
 
+type Colors =
+	| 'dark_red'
+	| 'red'
+	| 'gold'
+	| 'yellow'
+	| 'dark_green'
+	| 'green'
+	| 'aqua'
+	| 'dark_aqua'
+	| 'dark_blue'
+	| 'blue'
+	| 'light_purple'
+	| 'dark_purple'
+	| 'white'
+	| 'gray'
+	| 'dark_gray'
+	| 'black'
+	| 'minecoin_gold'
+
 type PatternTypes =
 	| 'base'
 	| 'border'
@@ -113,4 +132,42 @@ type PatternTypes =
 	| 'triangles_top'
 	| 'triangles_bottom'
 
-export type { Structures, EnchantmentNames, ColorPalette, PatternTypes }
+type MusicDiscs =
+	| '13'
+	| 'cat'
+	| 'blocks'
+	| 'chirp'
+	| 'far'
+	| 'mall'
+	| 'mellohi'
+	| 'stal'
+	| 'strad'
+	| 'ward'
+	| '11'
+	| 'wait'
+	| 'pigstep'
+
+type SlotTypes =
+	| 'slot.armor'
+	| 'slot.armor.chest'
+	| 'slot.armor.feet'
+	| 'slot.armor.head'
+	| 'slot.armor.legs'
+	| 'slot.chest'
+	| 'slot.enderchest'
+	| 'slot.hotbar'
+	| 'slot.inventory'
+	| 'slot.saddle'
+	| 'slot.weapon.mainhand'
+	| 'slot.weapon.offhand'
+	| 'slot.equippable'
+
+export type {
+	Structures,
+	EnchantmentNames,
+	ColorPalette,
+	PatternTypes,
+	Colors,
+	MusicDiscs,
+	SlotTypes
+}
