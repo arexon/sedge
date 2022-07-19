@@ -1,8 +1,18 @@
+import { objectMap } from '@antfu/utils'
 import { logger } from '../../logger'
 import type { RecipeTemplate } from '../../schema/atropa/server/recipe'
 
 interface VanillaTemplate {
 	recipe?: Record<string, any>
+}
+interface RecipeObject {
+	format_version: string
+	'minecraft:recipe_shaped'?: VanillaTemplate
+	'minecraft:recipe_shapeless'?: VanillaTemplate
+	'minecraft:recipe_furnace'?: VanillaTemplate
+	'minecraft:recipe_brewing_container'?: VanillaTemplate
+	'minecraft:recipe_brewing_mix'?: VanillaTemplate
+	'minecraft:recipe_material_reduction'?: VanillaTemplate
 }
 
 /**
@@ -19,37 +29,50 @@ export function defineRecipe(
 		const template: VanillaTemplate = {}
 
 		fn(processTemplate(template))
-
-		return { format_version: '1.12.0', ...template.recipe }
+		return transformTemplate(template, '1.12.0')
 	} catch (error) {
-		logger.error(`Failed to parse recipe:`, error)
+		logger.error(`Failed to transform recipe:`, error)
 		process.exit(1)
 	}
 }
 
-function processTemplate(fields: VanillaTemplate): RecipeTemplate {
-	const getObject = (name: string, template: Record<string, any>) => {
-		return { [`minecraft:recipe_${name}`]: template }
-	}
+function processTemplate(template: VanillaTemplate): RecipeTemplate {
 	return {
 		namespace: global.config.namespace,
-		shaped: (template) => {
-			fields.recipe = getObject('shaped', template)
+		shaped: (_template) => {
+			template.recipe = { shaped: _template }
 		},
-		shapeless: (template) => {
-			fields.recipe = getObject('shapeless', template)
+		shapeless: (_template) => {
+			template.recipe = { shapeless: _template }
 		},
-		furnace: (template) => {
-			fields.recipe = getObject('furnace', template)
+		furnace: (_template) => {
+			template.recipe = { furnace: _template }
 		},
-		brewingContainer: (template) => {
-			fields.recipe = getObject('brewing_container', template)
+		brewingContainer: (_template) => {
+			template.recipe = { brewing_container: _template }
 		},
-		brewingMix: (template) => {
-			fields.recipe = getObject('brewing_mix', template)
+		brewingMix: (_template) => {
+			template.recipe = { brewing_mix: _template }
 		},
-		materialReduction: (template) => {
-			fields.recipe = getObject('material_reduction', template)
+		materialReduction: (_template) => {
+			template.recipe = { material_reduction: _template }
 		}
+	}
+}
+
+function transformTemplate(
+	template: VanillaTemplate,
+	version: string
+): RecipeObject {
+	const transformedTemplate = objectMap(
+		template.recipe as Required<VanillaTemplate>,
+		(key, value) => {
+			return [`minecraft:recipe_${key}`, value]
+		}
+	)
+
+	return {
+		format_version: version,
+		...transformedTemplate
 	}
 }

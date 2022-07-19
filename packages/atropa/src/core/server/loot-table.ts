@@ -22,16 +22,16 @@ export function defineLootTable(
 
 		return template
 	} catch (error) {
-		logger.error('Failed to parse loot table:', error)
+		logger.error('Failed to transform loot table:', error)
 		process.exit(1)
 	}
 }
 
-function processTemplate(fields: VanillaTemplate): LootTableTemplate {
+function processTemplate(template: VanillaTemplate): LootTableTemplate {
 	return {
 		namespace: global.config.namespace,
 		pools: (_template) => {
-			fields.pools = [..._template, ...(fields.pools || [])]
+			template.pools = [..._template, ...(template.pools || [])]
 		}
 	}
 }
