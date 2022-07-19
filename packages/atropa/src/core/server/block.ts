@@ -1,25 +1,27 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import { ensureNamespaces, removeEmptyProperties } from '../utils'
+import { ensureNamespaces } from '../utils'
 import type {
 	BlockTemplate,
 	BlockFormatVersion
 } from '../../schema/atropa/server/block'
 
-type Object = Record<string, any>
-interface InputTemplate {
+interface UserTemplate {
 	namespace?: string
-	description?: (template: Object) => void
-	permutations?: (template: Object[]) => void
-	components?: (template: Object) => void
-	events?: (template: Object) => void
-	use?: (...components: Object[]) => void
+	description?: (template: Record<string, any>) => void
+	permutations?: (template: Record<string, any>[]) => void
+	components?: (template: Record<string, any>) => void
+	events?: (template: Record<string, any>) => void
+	use?: (...components: Record<string, any>[]) => void
 }
-interface OutputTemplate {
-	description?: Object
-	permutations?: Object[]
-	components?: Object
-	events?: Object
-	use?: Object[]
+interface VanillaTemplate {
+	description?: Record<string, any>
+	permutations?: Record<string, any>[]
+	components?: Record<string, any>
+	events?: Record<string, any>
+}
+interface BlockObject {
+	format_version: string
+	'minecraft:block': VanillaTemplate
 }
 
 /**
@@ -35,81 +37,63 @@ export function defineBlock<Version extends BlockFormatVersion>(
 	fn: (template: BlockTemplate<Version>) => void
 ): Record<string, any> {
 	try {
-		const isLegacy = version === '1.16.0'
-		const template: OutputTemplate = {}
+		const template: VanillaTemplate = {}
 
-		fn(processTemplate(template, isLegacy) as BlockTemplate<Version>)
-
-		return {
-			format_version: version,
-			'minecraft:block': transformTemplate(template, isLegacy)
-		}
+		fn(processTemplate(template) as BlockTemplate<Version>)
+		return transformTemplate(template, version)
 	} catch (error) {
-		throw new Error(`Failed to parse block template`, error as Error)
+		throw new Error(`Failed to transform block template`, error as Error)
 	}
 }
 
-export function processTemplate(
-	fields: OutputTemplate,
-	isLegacy: boolean
-): Object {
-	const template: InputTemplate = {
+export function processTemplate(template: VanillaTemplate): UserTemplate {
+	return {
 		namespace: global.config.namespace,
-		description: (template) => {
-			fields.description = { ...fields.description, ...template }
+		description: (_template) => {
+			template.description = { ...template.description, ..._template }
 		},
-		components: (template) => {
-			fields.components = { ...fields.components, ...template }
+		components: (_template) => {
+			template.components = { ...template.components, ..._template }
+		},
+		permutations: (_template) => {
+			template.permutations = [
+				...(template.permutations || []),
+				..._template
+			]
+		},
+		events: (_template) => {
+			template.events = { ...template.events, ..._template }
 		},
 		use: (...components) => {
-			fields.use = [...(fields.use || []), ...components]
+			deepMerge(template, ...components)
 		}
 	}
-
-	if (!isLegacy) {
-		deepMerge(template, {
-			permutations: (template) => {
-				fields.permutations = fields.permutations
-					? [...fields.permutations, ...template]
-					: template
-			},
-			events: (template) => {
-				fields.events = { ...fields.events, ...template }
-			}
-		})
-	}
-
-	return template
 }
 
-function transformTemplate(fields: OutputTemplate, isLegacy: boolean): Object {
-	const template: Object = {
-		description: fields.description,
-		components: fields.components
-	}
-
-	if (!isLegacy) {
-		deepMerge(template, {
-			permutations: fields.permutations,
-			events: fields.events
-		})
-	}
-	if (fields.use) deepMerge(template, ...fields.use)
-
-	return objectMap(removeEmptyProperties(template), (key, value) => {
-		if (key === 'components') {
-			return [key, ensureNamespaces(value, 'minecraft')]
-		}
-		if (key === 'permutations') {
-			for (const permutation of value) {
-				if (permutation.components !== undefined) {
+function transformTemplate(
+	template: VanillaTemplate,
+	version: string
+): BlockObject {
+	const transformedTemplate = objectMap(
+		template as Required<VanillaTemplate>,
+		(key, value) => {
+			if (key === 'components') {
+				return [key, ensureNamespaces(value, 'minecraft')]
+			}
+			if (key === 'permutations' && Array.isArray(value)) {
+				for (const permutation of value) {
 					permutation.components = ensureNamespaces(
 						permutation.components,
 						'minecraft'
 					)
 				}
 			}
+			return [key, value]
 		}
-		return [key, value]
-	})
+	) as VanillaTemplate
+
+	return {
+		format_version: version,
+		'minecraft:block': transformedTemplate
+	}
 }

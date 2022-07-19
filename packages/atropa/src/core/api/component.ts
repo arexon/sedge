@@ -28,14 +28,6 @@ export function defineComponent<
 
 			switch (format) {
 				case 'block@1.16.0':
-					fn(
-						options || ({} as Options),
-						processBlockTemplate(
-							template,
-							true
-						) as ComponentTemplate<Format>
-					)
-					break
 				case 'block@1.16.100':
 				case 'block@1.18.10':
 				case 'block@1.18.30':
@@ -43,8 +35,7 @@ export function defineComponent<
 					fn(
 						options || ({} as Options),
 						processBlockTemplate(
-							template,
-							false
+							template
 						) as ComponentTemplate<Format>
 					)
 					break
