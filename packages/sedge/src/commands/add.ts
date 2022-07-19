@@ -3,15 +3,15 @@ import prompts from 'prompts'
 import { join } from 'pathe'
 import { blackBright, blue } from 'colorette'
 import {
-	getServerBlock,
-	getComponent,
-	getLootTable,
-	getRecipe,
+	getServerBlockTemplate,
+	getComponentTemplate,
+	getLootTableTemplate,
+	getRecipeTemplate,
 	importAtropa,
-	getCollection,
+	getCollectionTemplate,
+	getServerItemTemplate,
 	logger,
-	type Config,
-	getServerItem
+	type Config
 } from '../utils'
 import { defineCommand } from './index'
 
@@ -110,22 +110,22 @@ export default defineCommand({
 			checkIfAlreadyExists()
 			switch (module.type) {
 				case 'components':
-					fse.outputFileSync(path, getComponent())
+					fse.outputFileSync(path, getComponentTemplate())
 					break
 				case 'collections':
-					fse.outputFileSync(path, getCollection())
+					fse.outputFileSync(path, getCollectionTemplate())
 					break
 				case 'blocks':
-					fse.outputFileSync(path, getServerBlock(identifier))
+					fse.outputFileSync(path, getServerBlockTemplate(identifier))
 					break
 				case 'items':
-					fse.outputFileSync(path, getServerItem(identifier))
+					fse.outputFileSync(path, getServerItemTemplate(identifier))
 					break
 				case 'loot_tables':
-					fse.outputFileSync(path, getLootTable(identifier))
+					fse.outputFileSync(path, getLootTableTemplate(identifier))
 					break
 				case 'recipes':
-					fse.outputFileSync(path, getRecipe(identifier))
+					fse.outputFileSync(path, getRecipeTemplate(identifier))
 			}
 			logger.success(
 				`Added module ${blue(identifier)} at ${blackBright(path)}`

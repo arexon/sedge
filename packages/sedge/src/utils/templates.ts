@@ -1,4 +1,4 @@
-export function getComponent(): string {
+export function getComponentTemplate(): string {
 	return [
 		`import { defineComponent } from 'atropa/api'`,
 		``,
@@ -9,7 +9,7 @@ export function getComponent(): string {
 	].join('\n')
 }
 
-export function getCollection(): string {
+export function getCollectionTemplate(): string {
 	return [
 		`import { defineCollection } from 'atropa/api'`,
 		``,
@@ -19,7 +19,7 @@ export function getCollection(): string {
 	].join('\n')
 }
 
-export function getServerBlock(identifier: string): string {
+export function getServerBlockTemplate(identifier: string): string {
 	return [
 		`import { defineBlock } from 'atropa/server'`,
 		``,
@@ -31,7 +31,7 @@ export function getServerBlock(identifier: string): string {
 	].join('\n')
 }
 
-export function getServerItem(identifier: string): string {
+export function getServerItemTemplate(identifier: string): string {
 	return [
 		`import { defineItem } from 'atropa/server'`,
 		``,
@@ -43,7 +43,7 @@ export function getServerItem(identifier: string): string {
 	].join('\n')
 }
 
-export function getLootTable(identifier: string): string {
+export function getLootTableTemplate(identifier: string): string {
 	return [
 		`import { defineLootTable } from 'atropa/server'`,
 		``,
@@ -62,7 +62,7 @@ export function getLootTable(identifier: string): string {
 	].join('\n')
 }
 
-export function getRecipe(identifier: string): string {
+export function getRecipeTemplate(identifier: string): string {
 	return [
 		`import { defineRecipe } from 'atropa/server'`,
 		``,
