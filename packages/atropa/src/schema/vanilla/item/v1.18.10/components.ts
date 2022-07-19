@@ -15,7 +15,6 @@ interface Food {
 		/**
 		 * ### Can Always Eat
 		 * If true, the player can always eat this item (even when not hungry).
-		 *
 		 * @default false
 		 */
 		can_always_eat?: boolean

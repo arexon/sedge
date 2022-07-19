@@ -86,7 +86,6 @@ interface PatternResult {
 			 * Provides the identifier for the result item.
 			 */
 			item: string
-
 			/**
 			 * #### Data
 			 * Sets the result item's data value.
@@ -94,7 +93,6 @@ interface PatternResult {
 			data?: number | string
 		}
 	}
-
 	/**
 	 * ### Result
 	 * When input items match the pattern then these items are the result.
@@ -108,7 +106,6 @@ interface IngredientResult {
 	 * Items used as input (without a shape) for the recipe.
 	 */
 	ingredients?: Result[]
-
 	/**
 	 * ### Result
 	 * These items are the result.

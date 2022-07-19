@@ -56,7 +56,6 @@ interface CreativeCategory {
 	 * ## Creative Category
 	 * Specifies the menu category and group for the block, which determine where this block is placed in the inventory and crafting table container screens.
 	 * If this component is omitted, the block will not appear in the inventory or crafting table container screens.
-	 *
 	 * @requires Holiday Creator Features
 	 */
 	creative_category?: {
@@ -81,7 +80,6 @@ interface DisplayName {
 	 * ## Display Name
 	 * Specifies the language file key that maps to what text will be displayed when you hover over the block.
 	 * Key is limited to 256 characters.
-	 *
 	 * @requires Holiday Creator Features
 	 */
 	display_name?: string
@@ -93,7 +91,6 @@ interface EntityCollision {
 	 * Describes the collision of the block with entities and actors.
 	 * If set to false, it disables the collision of the block with entities.
 	 * An origin of `[-8.0, 0.0, -8.0]` with a size of `[16, 16, 16]` is a unit cube.
-	 *
 	 * @requires Holiday Creator Features
 	 */
 	entity_collision?:
@@ -102,16 +99,13 @@ interface EntityCollision {
 				 * ### Origin
 				 * Minimal position Bounds of the collision box.
 				 * Origin is specified as `[x, y, z]` and must be in the range `(-8, 0, -8)` to `(8, 16, 8)`, inclusive.
-				 *
 				 * @default [-8.0, 0.0, -8.0]
 				 */
 				origin?: [number, number, number]
-
 				/**
 				 * ### Size
 				 * Size of each side of the collision box.
 				 * Size is specified as `[x, y, z]`. Origin + size must be in the range `(-8, 0, -8)` to `(8, 16, 8)`, inclusive.
-				 *
 				 * @default [16.0, 16.0, 16.0]
 				 */
 				size?: [number, number, number]
@@ -353,7 +347,6 @@ interface UnitCube {
 	/**
 	 * ## Unit Cube
 	 * Specifies that a unit cube is to be used with tessellation.
-	 *
 	 * @requires Holiday Creator Features
 	 */
 	unit_cube?: Record<string, never>
