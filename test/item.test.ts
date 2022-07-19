@@ -8,11 +8,11 @@ describe('define item', () => {
 			  "format_version": "1.19.0",
 			  "minecraft:item": {
 			    "components": {
-			      "allow_off_hand": true,
-			      "display_name": {
+			      "minecraft:allow_off_hand": true,
+			      "minecraft:display_name": {
 			        "value": "key",
 			      },
-			      "on_use_on": {
+			      "minecraft:on_use_on": {
 			        "event": "test:say_hi",
 			      },
 			    },

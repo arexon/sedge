@@ -1,26 +1,25 @@
 import { deepMerge, objectMap } from '@antfu/utils'
+import { ensureNamespaces } from '../utils'
 import type {
 	ItemFormatVersion,
 	ItemTemplate
 } from '../../schema/atropa/server/item'
-import { ensureNamespaces } from '../utils'
 
-interface OutputTemplate {
+interface UserTemplate {
 	namespace?: string
 	description?: (template: Record<string, any>) => void
 	components?: (template: Record<string, any>) => void
 	events?: (template: Record<string, any>) => void
 	use?: (...components: Record<string, any>[]) => void
 }
-interface InputTemplate {
+interface VanillaTemplate {
 	description?: Record<string, any>
 	components?: Record<string, any>
 	events?: Record<string, any>
-	use?: Record<string, any>[]
 }
-interface Item {
+interface ItemObject {
 	format_version: string
-	'minecraft:item': Omit<InputTemplate, 'use'>
+	'minecraft:item': VanillaTemplate
 }
 
 /**
@@ -36,16 +35,16 @@ export function defineItem<Version extends ItemFormatVersion>(
 	fn: (template: ItemTemplate<Version>) => void
 ): Object {
 	try {
-		const template: InputTemplate = {}
+		const template: VanillaTemplate = {}
 
 		fn(processTemplate(template) as ItemTemplate<Version>)
 		return transformTemplate(template, version)
 	} catch (error) {
-		throw new Error(`Failed to parse item template`, error as Error)
+		throw new Error(`Failed to transform item template`, error as Error)
 	}
 }
 
-export function processTemplate(template: InputTemplate): OutputTemplate {
+export function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
 		namespace: global.config.namespace,
 		description: (_template) => {
@@ -58,26 +57,27 @@ export function processTemplate(template: InputTemplate): OutputTemplate {
 			template.events = { ...template.events, ..._template }
 		},
 		use: (...components) => {
-			template.use = [...(template.use || []), ...components]
+			deepMerge(template, ...components)
 		}
 	}
 }
 
-function transformTemplate(template: InputTemplate, version: string): Item {
-	if (template.use) {
-		deepMerge(template, ...template.use)
-		delete template.use
-	}
-
-	objectMap(template as Required<InputTemplate>, (key, value) => {
-		if (key === 'components' && value) {
-			return [key, ensureNamespaces(value, 'minecraft')]
+function transformTemplate(
+	template: VanillaTemplate,
+	version: string
+): ItemObject {
+	const transformedTemplate = objectMap(
+		template as Required<VanillaTemplate>,
+		(key, value) => {
+			if (key === 'components') {
+				return [key, ensureNamespaces(value, 'minecraft')]
+			}
+			return [key, value]
 		}
-		return [key, value]
-	})
+	) as VanillaTemplate
 
 	return {
 		format_version: version,
-		'minecraft:item': template
+		'minecraft:item': transformedTemplate
 	}
 }
