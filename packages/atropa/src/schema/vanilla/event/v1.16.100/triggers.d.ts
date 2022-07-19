@@ -1,3 +1,5 @@
+import type { Subject } from '../../general/filter'
+
 interface EventTrigger {
 	/**
 	 * ## Condition
@@ -14,8 +16,9 @@ interface EventTrigger {
 	/**
 	 * ## Target
 	 * Target to trigger the event on.
+	 * @default 'self'
 	 */
-	target?: 'self' | 'other' | 'target' | 'parent' | 'baby'
+	target?: Subject
 }
 
 export type { EventTrigger }

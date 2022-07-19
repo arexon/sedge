@@ -1,4 +1,5 @@
 import { processTemplate as processBlockTemplate } from '../server/block'
+import { processTemplate as processItemTemplate } from '../server/item'
 import { logger } from '../../logger'
 import type {
 	ComponentFormat,
@@ -44,6 +45,19 @@ export function defineComponent<
 						processBlockTemplate(
 							template,
 							false
+						) as ComponentTemplate<Format>
+					)
+					break
+
+				case 'item@1.10.0':
+				case 'item@1.16.100':
+				case 'item@1.17.20':
+				case 'item@1.18.10':
+				case 'item@1.19.0':
+					fn(
+						options || ({} as Options),
+						processItemTemplate(
+							template
 						) as ComponentTemplate<Format>
 					)
 			}

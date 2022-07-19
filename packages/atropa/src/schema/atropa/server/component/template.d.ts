@@ -1,6 +1,9 @@
 import type { BlockTemplate, BlockFormatVersion } from '../block'
+import type { ItemTemplate, ItemFormatVersion } from '../item'
 
-type ComponentFormat = `${'block'}@${BlockFormatVersion}`
+type ComponentBlockFormat = `block@${BlockFormatVersion}`
+type ComponentItemFormat = `item@${ItemFormatVersion}`
+type ComponentFormat = ComponentBlockFormat | ComponentItemFormat
 
 type ComponentTemplate<Format extends ComponentFormat> = Omit<
 	Format extends 'block@1.16.0'
@@ -13,6 +16,16 @@ type ComponentTemplate<Format extends ComponentFormat> = Omit<
 		? BlockTemplate<'1.18.30'>
 		: Format extends 'block@1.19.10'
 		? BlockTemplate<'1.19.10'>
+		: Format extends 'item@1.10.0'
+		? ItemTemplate<'1.10.0'>
+		: Format extends 'item@1.16.100'
+		? ItemTemplate<'1.16.100'>
+		: Format extends 'item@1.17.20'
+		? ItemTemplate<'1.17.20'>
+		: Format extends 'item@1.18.10'
+		? ItemTemplate<'1.18.10'>
+		: Format extends 'item@1.19.0'
+		? ItemTemplate<'1.19.0'>
 		: never,
 	'use'
 >

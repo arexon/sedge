@@ -43,3 +43,5 @@ interface LegacyFoodEffects {
 	 */
 	ambient?: 0 | 1
 }
+
+export type { LegacyFoodEffects }
