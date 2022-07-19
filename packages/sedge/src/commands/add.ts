@@ -10,7 +10,8 @@ import {
 	importAtropa,
 	getCollection,
 	logger,
-	type Config
+	type Config,
+	getServerItem
 } from '../utils'
 import { defineCommand } from './index'
 
@@ -26,6 +27,7 @@ export default defineCommand({
 				| 'components'
 				| 'collections'
 				| 'blocks'
+				| 'items'
 				| 'recipes'
 				| 'loot_tables'
 			pack: 'server' | 'client'
@@ -51,6 +53,10 @@ export default defineCommand({
 					{
 						title: 'Server Block',
 						value: { type: 'blocks', pack: 'server' }
+					},
+					{
+						title: 'Server Item',
+						value: { type: 'items', pack: 'server' }
 					},
 					{
 						title: 'Recipe',
@@ -111,6 +117,9 @@ export default defineCommand({
 					break
 				case 'blocks':
 					fse.outputFileSync(path, getServerBlock(identifier))
+					break
+				case 'items':
+					fse.outputFileSync(path, getServerItem(identifier))
 					break
 				case 'loot_tables':
 					fse.outputFileSync(path, getLootTable(identifier))

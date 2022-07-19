@@ -31,6 +31,18 @@ export function getServerBlock(identifier: string): string {
 	].join('\n')
 }
 
+export function getServerItem(identifier: string): string {
+	return [
+		`import { defineItem } from 'atropa/server'`,
+		``,
+		`export default defineItem('1.19.0', ({ namespace, description }) => {`,
+		`	description({`,
+		`		identifier: \`\${namespace}:${identifier}\``,
+		`	})`,
+		`})`
+	].join('\n')
+}
+
 export function getLootTable(identifier: string): string {
 	return [
 		`import { defineLootTable } from 'atropa/server'`,
