@@ -86,6 +86,11 @@
 					"items": {
 						"type": "string"
 					}
+				},
+				"minify": {
+					"description": "Whether to minify JSON, MoLang, and TypeScript in build mode.",
+					"type": "boolean",
+					"default": false
 				}
 			}
 		}
