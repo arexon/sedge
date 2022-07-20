@@ -12,6 +12,7 @@ export interface Config {
 		targets: {
 			[name: string | 'default']: string
 		}
+		minify: boolean
 		ignorePaths?: string[]
 	}
 }
@@ -28,7 +29,8 @@ export async function loadConfig(): Promise<Config> {
 		atropa: {
 			targets: {
 				default: './build'
-			}
+			},
+			minify: false
 		}
 	}
 

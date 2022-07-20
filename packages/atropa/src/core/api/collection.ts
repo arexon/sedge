@@ -21,14 +21,17 @@ interface Template extends Namespace {
  */
 export function defineCollection(fn: (template: Template) => void): void {
 	try {
+		const minify = global.mode === 'build' && global.config.atropa.minify
 		fn({
 			namespace: global.config.namespace,
 			packs: global.config.packs,
 			add: (path, content) => {
 				if (isObject(content)) {
-					fse.outputJSONSync(normalize(getPath(path)), content, {
-						spaces: '\t'
-					})
+					fse.outputJSONSync(
+						normalize(getPath(path)),
+						content,
+						minify ? undefined : { spaces: '\t' }
+					)
 					return
 				}
 

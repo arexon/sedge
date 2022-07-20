@@ -12,11 +12,11 @@ interface BuildOptions {
 	callHook: boolean
 }
 
-export async function build(options?: BuildOptions): Promise<void> {
+export async function build(options: BuildOptions): Promise<void> {
 	options = { ...{ callHook: true }, ...options }
 
 	const start = Date.now()
-
+	const minify = global.mode === 'build' && global.config.atropa.minify
 	const { modules, assets } = scanPaths({
 		paths: [
 			global.config.packs.behaviorPack,
@@ -27,9 +27,11 @@ export async function build(options?: BuildOptions): Promise<void> {
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
 			const content = await loadModule(path)
-			fse.outputJSONSync(getPath(changeExt(path, '.json')), content, {
-				spaces: '\t'
-			})
+			fse.outputJSONSync(
+				getPath(changeExt(path, '.json')),
+				content,
+				minify ? undefined : { spaces: '\t' }
+			)
 		}),
 		...assets.map((path) => {
 			fse.copySync(path, getPath(path))
