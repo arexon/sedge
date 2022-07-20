@@ -16,7 +16,9 @@ export default defineBlock(
 		modes.map((mode) => {
 			permutations([
 				{
-					condition: `q.block_property('${isOn}') == ${mode}`,
+					condition: `q.block_property('${isOn}') == ${
+						mode === 'on' ? true : false
+					}`,
 					components: { geometry: `geometry.radio.${mode}` }
 				}
 			])
