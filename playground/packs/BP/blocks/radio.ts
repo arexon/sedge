@@ -6,22 +6,21 @@ export default defineBlock(
 	({ namespace, description, components, permutations, events, use }) => {
 		const isOn = `${namespace}:is_on`
 		const toggle = `${namespace}:toggle`
+		const modes = ['off', 'on']
 
 		use(Attributes({ name: 'radio' }))
 		description({
 			properties: { [isOn]: [false, true] }
 		})
 
-		permutations([
-			{
-				condition: `q.block_property('${isOn}') == false`,
-				components: { geometry: 'geometry.radio.off' }
-			},
-			{
-				condition: `q.block_property('${isOn}') == true`,
-				components: { geometry: 'geometry.radio.on' }
-			}
-		])
+		modes.map((mode) => {
+			permutations([
+				{
+					condition: `q.block_property('${isOn}') == ${mode}`,
+					components: { geometry: `geometry.radio.${mode}` }
+				}
+			])
+		})
 
 		components({
 			on_interact: {
