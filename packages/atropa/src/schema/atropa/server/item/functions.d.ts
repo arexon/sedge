@@ -10,7 +10,7 @@ interface ItemDescriptionFunction {
 
 interface ItemComponentsFunction<Components extends Record<string, any>> {
 	/**
-	 * # Compnoents
+	 * # Components
 	 * Components are used to describe the item's attributes and behavior.
 	 */
 	components: (template: Components) => void

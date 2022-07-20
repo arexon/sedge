@@ -11,9 +11,9 @@ import type {
 	BlockComponents_1_16_100,
 	BlockEventResponses_1_16_100
 } from '../../../vanilla/block/v1.16.100'
-import type { BlockCompnoents_1_18_10 } from '../../../vanilla/block/v1.18.10'
-import type { BlockCompnoents_1_18_30 } from '../../../vanilla/block/v1.18.30'
-import type { BlockCompnoents_1_19_10 } from '../../../vanilla/block/v1.19.10'
+import type { BlockComponents_1_18_10 } from '../../../vanilla/block/v1.18.10'
+import type { BlockComponents_1_18_30 } from '../../../vanilla/block/v1.18.30'
+import type { BlockComponents_1_19_10 } from '../../../vanilla/block/v1.19.10'
 import type { Randomize, Sequence } from '../../../vanilla/event/common'
 
 interface BlockTemplate_1_16_0
@@ -32,8 +32,8 @@ interface BlockTemplate_1_16_100
 
 interface BlockTemplate_1_18_10
 	extends BlockDescriptionFunction<true>,
-		BlockPermutationsFunction<BlockCompnoents_1_18_10>,
-		BlockComponentsFunction<BlockCompnoents_1_18_10>,
+		BlockPermutationsFunction<BlockComponents_1_18_10>,
+		BlockComponentsFunction<BlockComponents_1_18_10>,
 		BlockEventsFunction<
 			BlockEventResponses_1_16_100 &
 				Randomize<BlockEventResponses_1_16_100> &
@@ -41,8 +41,8 @@ interface BlockTemplate_1_18_10
 		> {}
 interface BlockTemplate_1_18_30
 	extends BlockDescriptionFunction<true>,
-		BlockPermutationsFunction<BlockCompnoents_1_18_30>,
-		BlockComponentsFunction<BlockCompnoents_1_18_30>,
+		BlockPermutationsFunction<BlockComponents_1_18_30>,
+		BlockComponentsFunction<BlockComponents_1_18_30>,
 		BlockEventsFunction<
 			BlockEventResponses_1_16_100 &
 				Randomize<BlockEventResponses_1_16_100> &
@@ -50,8 +50,8 @@ interface BlockTemplate_1_18_30
 		> {}
 interface BlockTemplate_1_19_10
 	extends BlockDescriptionFunction<true>,
-		BlockPermutationsFunction<BlockCompnoents_1_19_10>,
-		BlockComponentsFunction<BlockCompnoents_1_19_10>,
+		BlockPermutationsFunction<BlockComponents_1_19_10>,
+		BlockComponentsFunction<BlockComponents_1_19_10>,
 		BlockEventsFunction<
 			BlockEventResponses_1_16_100 &
 				Randomize<BlockEventResponses_1_16_100> &

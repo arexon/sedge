@@ -1,37 +1,37 @@
-import type * as Compnoents_1_18_10 from '../v1.18.10/components'
-import type * as Compnoents_1_16_100 from '../v1.16.100/components'
-import type * as TriggerCompnoents_1_16_100 from '../v1.16.100/trigger-components'
-import type * as Compnoents_1_16_0 from '../v1.16.0/components'
+import type * as Components_1_18_10 from '../v1.18.10/components'
+import type * as Components_1_16_100 from '../v1.16.100/components'
+import type * as TriggerComponents_1_16_100 from '../v1.16.100/trigger-components'
+import type * as Components_1_16_0 from '../v1.16.0/components'
 
-interface BlockCompnoents_1_18_30
-	extends Compnoents_1_18_10.AimCollision,
-		Compnoents_1_18_10.BlockCollision,
-		Compnoents_1_18_10.BlockLightFilter,
-		Compnoents_1_16_100.Breathability,
-		Compnoents_1_16_100.CraftingTable,
-		Compnoents_1_16_100.CreativeCategory,
-		Compnoents_1_16_100.DisplayName,
-		Compnoents_1_16_100.Geometry,
-		Compnoents_1_16_100.MaterialInstances,
-		Compnoents_1_16_100.PartVisibility,
-		Compnoents_1_16_100.PlacementFilter,
-		Compnoents_1_16_100.RandomTicking,
-		Compnoents_1_16_100.Rotation,
-		Compnoents_1_16_100.Ticking,
-		Compnoents_1_16_100.UnitCube,
-		Compnoents_1_16_100.Unwalkable,
-		TriggerCompnoents_1_16_100.OnFallOn,
-		TriggerCompnoents_1_16_100.OnInteract,
-		TriggerCompnoents_1_16_100.OnPlaced,
-		TriggerCompnoents_1_16_100.OnPlayerDestroyed,
-		TriggerCompnoents_1_16_100.OnPlayerPlacing,
-		TriggerCompnoents_1_16_100.OnPlayerStepOff,
-		TriggerCompnoents_1_16_100.OnPlayerStepOn,
-		Compnoents_1_16_0.DestoryTime,
-		Compnoents_1_16_0.ExplosionResistance,
-		Compnoents_1_16_0.Flammable,
-		Compnoents_1_16_0.Friction,
-		Compnoents_1_16_0.Loot,
-		Compnoents_1_16_0.MapColor {}
+interface BlockComponents_1_18_30
+	extends Components_1_18_10.AimCollision,
+		Components_1_18_10.BlockCollision,
+		Components_1_18_10.BlockLightFilter,
+		Components_1_16_100.Breathability,
+		Components_1_16_100.CraftingTable,
+		Components_1_16_100.CreativeCategory,
+		Components_1_16_100.DisplayName,
+		Components_1_16_100.Geometry,
+		Components_1_16_100.MaterialInstances,
+		Components_1_16_100.PartVisibility,
+		Components_1_16_100.PlacementFilter,
+		Components_1_16_100.RandomTicking,
+		Components_1_16_100.Rotation,
+		Components_1_16_100.Ticking,
+		Components_1_16_100.UnitCube,
+		Components_1_16_100.Unwalkable,
+		TriggerComponents_1_16_100.OnFallOn,
+		TriggerComponents_1_16_100.OnInteract,
+		TriggerComponents_1_16_100.OnPlaced,
+		TriggerComponents_1_16_100.OnPlayerDestroyed,
+		TriggerComponents_1_16_100.OnPlayerPlacing,
+		TriggerComponents_1_16_100.OnPlayerStepOff,
+		TriggerComponents_1_16_100.OnPlayerStepOn,
+		Components_1_16_0.DestoryTime,
+		Components_1_16_0.ExplosionResistance,
+		Components_1_16_0.Flammable,
+		Components_1_16_0.Friction,
+		Components_1_16_0.Loot,
+		Components_1_16_0.MapColor {}
 
-export type { BlockCompnoents_1_18_30 }
+export type { BlockComponents_1_18_30 }

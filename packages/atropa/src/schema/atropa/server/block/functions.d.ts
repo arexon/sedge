@@ -43,7 +43,7 @@ interface BlockPermutationsFunction<Components extends Record<string, any>> {
 
 interface BlockComponentsFunction<Components extends Record<string, any>> {
 	/**
-	 * # Compnoents
+	 * # Components
 	 * Components are used to describe the block's attributes and behavior.
 	 */
 	components: (template: Components) => void
