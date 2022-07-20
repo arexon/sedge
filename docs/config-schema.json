@@ -4,7 +4,7 @@
 	"type": "object",
 	"properties": {
 		"name": {
-			"description": "The name of the project. This is used in the exported project file name.",
+			"description": "The name of the project. This is used in the compiled project name.",
 			"type": "string"
 		},
 		"description": {
@@ -12,7 +12,7 @@
 			"type": "string"
 		},
 		"authors": {
-			"description": "Creators of the project.",
+			"description": "Creator(s) of the project.",
 			"type": "array",
 			"items": {
 				"anyOf": [
@@ -37,7 +37,10 @@
 		},
 		"namespace": {
 			"description": "The namespace used for the project. The namespace 'minecraft' is not a valid string for this field.",
-			"type": "string"
+			"type": "string",
+			"not": {
+				"pattern": "minecraft"
+			}
 		},
 		"packs": {
 			"description": "Stores the list of paths to the project's packs.",
@@ -55,6 +58,12 @@
 					"description": "Path to the pack relative to the config.json.",
 					"type": "string"
 				}
+			},
+			"default": {
+				"behaviorPack": "./packs/BP",
+				"resourcePack": "./packs/RP",
+				"skinPack": "./packs/SP",
+				"worldTemplate": "./packs/WT"
 			}
 		},
 		"atropa": {
@@ -63,7 +72,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"targets": {
-					"description": "Defines the compiled project output location. The key is the target id, and the value is the target path.",
+					"description": "Defines the project output location. The key is the target id, and the value is the target path.",
 					"type": "object",
 					"patternProperties": {
 						".*": {
@@ -72,7 +81,7 @@
 					}
 				},
 				"ignorePaths": {
-					"description": "Defines glob patterns to ignore when compiling the project.",
+					"description": "Additional glob patterns to ignore when building the project.",
 					"type": "array",
 					"items": {
 						"type": "string"
