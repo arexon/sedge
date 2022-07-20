@@ -1,4 +1,4 @@
-import { loadConfig as loadC12Config } from 'c12'
+import fse from 'fs-extra'
 
 export interface Config {
 	name: string
@@ -16,7 +16,8 @@ export interface Config {
 }
 
 export async function loadConfig(): Promise<Config> {
-	const defaults: Config = {
+	let config: Config
+	const configDefaults: Config = {
 		name: 'atropa',
 		namespace: 'atropa',
 		packs: {
@@ -24,11 +25,12 @@ export async function loadConfig(): Promise<Config> {
 			resourcePack: './packs/RP'
 		}
 	}
-	const { config } = await loadC12Config<Config>({
-		defaults
-	})
 
-	if (!config) return defaults
+	try {
+		config = (await fse.readJson('./config.json')) as Config
+	} catch (_) {
+		config = configDefaults
+	}
 
-	return config
+	return { ...config, ...configDefaults }
 }

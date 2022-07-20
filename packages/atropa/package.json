@@ -55,7 +55,6 @@
 		"unbuild": "^0.7.4"
 	},
 	"dependencies": {
-		"c12": "^0.2.8",
 		"chokidar": "^3.5.3",
 		"colorette": "^2.0.19",
 		"consola": "^2.15.3",
