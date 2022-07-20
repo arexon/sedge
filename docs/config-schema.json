@@ -36,7 +36,7 @@
 			}
 		},
 		"namespace": {
-			"description": "The namespace used for the project. The namespace 'minecraft' is not a valid string for this field. This will be used in functions such as 'defineBlock'.",
+			"description": "The namespace used for the project. The namespace 'minecraft' is not a valid string for this field.",
 			"type": "string"
 		},
 		"packs": {
@@ -63,7 +63,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"targets": {
-					"description": "Defines the compiled project output location. The key can be used by the Volar's CLI to specify the target. The value will be the output path.",
+					"description": "Defines the compiled project output location. The key is the target id, and the value is the target path.",
 					"type": "object",
 					"patternProperties": {
 						".*": {
