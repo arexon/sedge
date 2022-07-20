@@ -13,6 +13,7 @@ interface AtropaOptions {
 export async function createAtropa(options: AtropaOptions): Promise<void> {
 	try {
 		global.config = await loadConfig()
+		global.mode = options.mode
 
 		const modeIsDev = options.mode === 'dev'
 		const targetIsDefault = options.target === 'default'

@@ -9,12 +9,11 @@ import { changeExt, getPath, scanPaths } from './utils'
 import { hooks } from '../core/api/hooks'
 
 interface BuildOptions {
-	silent?: boolean
-	callHook?: boolean
+	callHook: boolean
 }
 
 export async function build(options?: BuildOptions): Promise<void> {
-	options = { ...{ silent: false, callHook: true }, ...options }
+	options = { ...{ callHook: true }, ...options }
 
 	const start = Date.now()
 
@@ -38,7 +37,7 @@ export async function build(options?: BuildOptions): Promise<void> {
 		options.callHook && (await hooks.callHook('on:build'))
 	])
 
-	if (options.silent) return
+	if (global.mode === 'dev') return
 
 	const successResults = results.filter(
 		(result) => result.status === 'fulfilled'
@@ -50,7 +49,6 @@ export async function build(options?: BuildOptions): Promise<void> {
 
 export async function watch(): Promise<void> {
 	const buildOptions: BuildOptions = {
-		silent: true,
 		callHook: false
 	}
 	await build(buildOptions)
