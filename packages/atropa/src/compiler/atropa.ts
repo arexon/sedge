@@ -14,10 +14,12 @@ export async function createAtropa(options: AtropaOptions): Promise<void> {
 	try {
 		global.config = await loadConfig()
 
-		const targetIsDefault = options.target === 'default'
 		const modeIsDev = options.mode === 'dev'
+		const targetIsDefault = options.target === 'default'
 		const defaultTargetPath =
-			modeIsDev && targetIsDefault ? comMojangDir : './build'
+			modeIsDev && targetIsDefault
+				? comMojangDir
+				: global.config.atropa.targets.default
 
 		if (defaultTargetPath === comMojangDir && modeIsDev) {
 			global.isComMojang = true
@@ -35,14 +37,14 @@ export async function createAtropa(options: AtropaOptions): Promise<void> {
 		}
 
 		const targetIsConfigured = hasOwnProperty(
-			global.config.atropa?.targets || {},
+			global.config.atropa.targets,
 			options.target
 		)
 
 		global.target = {
 			name: options.target,
 			path:
-				global.config.atropa?.targets?.[options.target] ||
+				global.config.atropa.targets[options.target] ||
 				defaultTargetPath!
 		}
 
