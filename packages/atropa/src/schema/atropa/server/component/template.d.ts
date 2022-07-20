@@ -16,6 +16,8 @@ type ComponentTemplate<Format extends ComponentFormat> = Omit<
 		? BlockTemplate<'1.18.30'>
 		: Format extends 'block@1.19.10'
 		? BlockTemplate<'1.19.10'>
+		: Format extends 'block@1.19.20'
+		? BlockTemplate<'1.19.20'>
 		: Format extends 'item@1.10.0'
 		? ItemTemplate<'1.10.0'>
 		: Format extends 'item@1.16.100'
