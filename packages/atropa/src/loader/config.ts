@@ -1,5 +1,5 @@
-import fse from 'fs-extra'
 import { deepMerge } from '@antfu/utils'
+import { importModule } from '../compiler/utils/module'
 
 export interface Config {
 	name: string
@@ -35,7 +35,7 @@ export async function loadConfig(): Promise<Config> {
 	}
 
 	try {
-		config = await fse.readJson('./config.json')
+		config = await importModule('./config.json')
 	} catch (_) {
 		config = configDefaults
 	}

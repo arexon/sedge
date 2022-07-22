@@ -1,29 +1,46 @@
-import { blue, yellow, blackBright } from 'colorette'
+import { blue, yellow, blackBright, magenta } from 'colorette'
 import { hasOwnProperty } from '@antfu/utils'
-import { loadConfig } from '../loader/config'
-import { comMojangDir } from '../constants'
+import { loadConfig, type Config } from '../loader/config'
+import { build, dev } from './modes'
+import { prepareFolder } from './utils/fs'
+import { getComMojangPath } from './utils/path'
 import { logger } from '../logger'
-import { start } from './start'
+import { comMojangDir } from '../constants'
 
-interface AtropaOptions {
-	target: string
-	mode: 'build' | 'dev'
+export interface Atropa {
+	config: Config
+	mode: 'dev' | 'build'
+	target: {
+		name: string
+		path: string
+	}
+	isComMojang: boolean
 }
 
-export async function createAtropa(options: AtropaOptions): Promise<void> {
+export async function createAtropa(options: {
+	mode: 'dev' | 'build'
+	target: string
+}): Promise<void> {
 	try {
-		global.config = await loadConfig()
-		global.mode = options.mode
+		const atropa: Atropa = {
+			config: await loadConfig(),
+			mode: options.mode,
+			target: {
+				name: options.target,
+				path: ''
+			},
+			isComMojang: false
+		}
 
-		const modeIsDev = options.mode === 'dev'
-		const targetIsDefault = options.target === 'default'
+		const modeIsDev = atropa.mode === 'dev'
+		const targetIsDefault = atropa.target.name === 'default'
 		const defaultTargetPath =
 			modeIsDev && targetIsDefault
 				? comMojangDir
-				: global.config.atropa.targets.default
+				: atropa.config.atropa.targets.default
 
 		if (defaultTargetPath === comMojangDir && modeIsDev) {
-			global.isComMojang = true
+			atropa.isComMojang = true
 		} else if (defaultTargetPath === null && modeIsDev) {
 			throw new Error(
 				[
@@ -33,25 +50,19 @@ export async function createAtropa(options: AtropaOptions): Promise<void> {
 					)} environment variable, or ensure that Minecraft is properly installed`
 				].join('\n')
 			)
-		} else {
-			global.isComMojang = false
 		}
 
 		const targetIsConfigured = hasOwnProperty(
-			global.config.atropa.targets,
-			options.target
+			atropa.config.atropa.targets,
+			atropa.target.name
 		)
 
-		global.target = {
-			name: options.target,
-			path:
-				global.config.atropa.targets[options.target] ||
-				defaultTargetPath!
-		}
+		atropa.target.path =
+			atropa.config.atropa.targets[atropa.target.name] ||
+			defaultTargetPath!
 
-		// Start if there's a configured target or if the target is the default
 		if (targetIsConfigured || targetIsDefault) {
-			await start(options.mode)
+			await runWithMode(atropa)
 		} else {
 			throw new Error(
 				`Target ${yellow(
@@ -64,5 +75,44 @@ export async function createAtropa(options: AtropaOptions): Promise<void> {
 	} catch (error) {
 		logger.error(error)
 		process.exit(1)
+	}
+}
+
+async function runWithMode(atropa: Atropa): Promise<void> {
+	logger.info(
+		`Via target ${magenta(atropa.target.name)} @ ${blackBright(
+			atropa.target.path
+		)}`
+	)
+
+	await prepare(atropa)
+	switch (atropa.mode) {
+		case 'build':
+			await build(atropa, true)
+			break
+		case 'dev':
+			await dev(atropa)
+			break
+	}
+}
+
+async function prepare(atropa: Atropa): Promise<void> {
+	if (atropa.isComMojang) {
+		await prepareFolder(
+			getComMojangPath({
+				packType: 'BP',
+				projectName: atropa.config.name,
+				targetPath: atropa.target.path
+			})
+		)
+		await prepareFolder(
+			getComMojangPath({
+				packType: 'RP',
+				projectName: atropa.config.name,
+				targetPath: atropa.target.path
+			})
+		)
+	} else {
+		await prepareFolder(atropa.target.path)
 	}
 }
