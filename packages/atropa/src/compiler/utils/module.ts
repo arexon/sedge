@@ -1,11 +1,11 @@
 import createJITI from 'jiti'
 import { resolve } from 'pathe'
-import { atropaCacheDir } from '../../constants'
 import { logger } from '../../logger'
+import { atropaCacheFolder } from '../constants'
 
 export async function importModule(path: string, cache = false): Promise<any> {
 	const jiti = createJITI('', {
-		cache: atropaCacheDir,
+		cache: atropaCacheFolder,
 		requireCache: cache,
 		interopDefault: true,
 		sourceMaps: true,

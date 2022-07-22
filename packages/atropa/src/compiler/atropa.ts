@@ -5,7 +5,7 @@ import { build, dev } from './modes'
 import { prepareFolder } from './utils/fs'
 import { getComMojangPath } from './utils/path'
 import { logger } from '../logger'
-import { comMojangDir } from '../constants'
+import { comMojangFolder } from './constants'
 
 export interface Atropa {
 	config: Config
@@ -31,15 +31,14 @@ export async function createAtropa(options: {
 			},
 			isComMojang: false
 		}
-
 		const modeIsDev = atropa.mode === 'dev'
 		const targetIsDefault = atropa.target.name === 'default'
 		const defaultTargetPath =
 			modeIsDev && targetIsDefault
-				? comMojangDir
+				? comMojangFolder
 				: atropa.config.atropa.targets.default
 
-		if (defaultTargetPath === comMojangDir && modeIsDev) {
+		if (defaultTargetPath === comMojangFolder && modeIsDev) {
 			atropa.isComMojang = true
 		} else if (defaultTargetPath === null && modeIsDev) {
 			throw new Error(
