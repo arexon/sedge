@@ -1,5 +1,5 @@
 import { deepMerge } from '@antfu/utils'
-import { importModule } from '../compiler/utils/module'
+import { resolve } from 'pathe'
 
 export interface Config {
 	name: string
@@ -35,7 +35,7 @@ export async function loadConfig(): Promise<Config> {
 	}
 
 	try {
-		config = await importModule('./config.json')
+		config = await import(resolve('./config.json'))
 	} catch (_) {
 		config = configDefaults
 	}
