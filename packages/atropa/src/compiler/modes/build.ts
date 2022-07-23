@@ -1,15 +1,14 @@
 import fse from 'fs-extra'
-import type { Atropa } from '../atropa'
-import {
-	scanForPaths,
-	resolveToTargetPath,
-	replaceExt,
-	importModule
-} from '../utils'
+import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
-import { hooks } from '../../core/api/hooks'
+import {
+	importModule,
+	replaceExt,
+	resolveToTargetPath,
+	scanForPaths
+} from '../utils'
 
-export async function build(atropa: Atropa, callHook: boolean): Promise<void> {
+export async function build(callHook: boolean): Promise<void> {
 	const startTime = Date.now()
 	const minify = atropa.mode === 'build' && atropa.config.atropa.minify
 	const { assets, modules } = scanForPaths({
@@ -24,13 +23,13 @@ export async function build(atropa: Atropa, callHook: boolean): Promise<void> {
 		...modules.map(async (path) => {
 			const content = await importModule(path)
 			fse.outputJSONSync(
-				resolveToTargetPath(replaceExt(path, '.json'), atropa),
+				resolveToTargetPath(replaceExt(path, '.json')),
 				content,
 				minify ? undefined : { spaces: '\t' }
 			)
 		}),
 		...assets.map((path) => {
-			fse.copySync(path, resolveToTargetPath(path, atropa))
+			fse.copySync(path, resolveToTargetPath(path))
 		}),
 		callHook && (await hooks.callHook('on:build'))
 	])

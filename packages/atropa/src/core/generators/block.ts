@@ -1,9 +1,9 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import { ensureNamespaces } from '../utils'
 import type {
-	BlockTemplate,
-	BlockFormatVersion
+	BlockFormatVersion,
+	BlockTemplate
 } from '../../schema/atropa/server/block'
+import { ensureNamespaces } from '../utils'
 
 interface UserTemplate {
 	namespace?: string
@@ -48,7 +48,7 @@ export function defineBlock<Version extends BlockFormatVersion>(
 
 export function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
-		namespace: process._namespace,
+		namespace: atropa.config.namespace,
 		description: (_template) => {
 			template.description = { ...template.description, ..._template }
 		},

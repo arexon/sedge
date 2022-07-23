@@ -1,9 +1,9 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import { ensureNamespaces } from '../utils'
 import type {
 	ItemFormatVersion,
 	ItemTemplate
 } from '../../schema/atropa/server/item'
+import { ensureNamespaces } from '../utils'
 
 interface UserTemplate {
 	namespace?: string
@@ -46,7 +46,7 @@ export function defineItem<Version extends ItemFormatVersion>(
 
 export function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
-		namespace: process._namespace,
+		namespace: atropa.config.namespace,
 		description: (_template) => {
 			template.description = { ...template.description, ..._template }
 		},

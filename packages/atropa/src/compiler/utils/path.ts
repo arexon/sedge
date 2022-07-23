@@ -2,7 +2,6 @@ import { blackBright } from 'colorette'
 import glob from 'fast-glob'
 import { extname, join, resolve } from 'pathe'
 import { logger } from '../../logger'
-import type { Atropa } from '../atropa'
 
 export function replaceExt(path: string, newExt: string): string {
 	return path.replace(extname(path), newExt)
@@ -27,7 +26,7 @@ export function scanForPaths(options: {
 	return { modules, assets }
 }
 
-export function resolveToTargetPath(path: string, atropa: Atropa): string {
+export function resolveToTargetPath(path: string): string {
 	const pathToBP = atropa.config.packs.behaviorPack
 	const pathToRP = atropa.config.packs.resourcePack
 	const isBP = path.endsWith(pathToBP)
@@ -39,18 +38,9 @@ export function resolveToTargetPath(path: string, atropa: Atropa): string {
 	}
 
 	if (atropa.isComMojang) {
-		const getPath = (pathToPack: string, packType: 'BP' | 'RP'): string => {
-			return path.replace(
-				pathToPack,
-				getComMojangPath({
-					packType,
-					targetPath: atropa.target.path,
-					projectName: atropa.config.name
-				})
-			)
-		}
-		if (isBP) return getPath(pathToBP, 'BP')
-		else if (isRP) return getPath(pathToRP, 'RP')
+		if (isBP) return path.replace(pathToBP, getComMojangPathByPack('BP'))
+		else if (isRP)
+			return path.replace(pathToRP, getComMojangPathByPack('RP'))
 		else throw error()
 	}
 
@@ -59,16 +49,10 @@ export function resolveToTargetPath(path: string, atropa: Atropa): string {
 	else throw error()
 }
 
-export function getComMojangPath(options: {
-	targetPath: string
-	packType: 'BP' | 'RP'
-	projectName: string
-}): string {
+export function getComMojangPathByPack(packType: 'BP' | 'RP'): string {
 	return join(
-		options.targetPath,
-		`development_${
-			options.packType === 'BP' ? 'behavior' : 'resource'
-		}_packs`,
-		`${options.projectName} ${options.packType}`
+		atropa.target.path,
+		`development_${packType === 'BP' ? 'behavior' : 'resource'}_packs`,
+		`${atropa.config.name} ${packType}`
 	)
 }

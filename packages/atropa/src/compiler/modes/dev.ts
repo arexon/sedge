@@ -1,16 +1,15 @@
 import { debounce } from '@antfu/utils'
-import { blackBright, cyan, green, magenta } from 'colorette'
 import { watch } from 'chokidar'
-import { extname, normalize, resolve } from 'pathe'
+import { blackBright, cyan, green, magenta } from 'colorette'
 import fse from 'fs-extra'
-import { hooks } from '../../core/api/hooks'
+import { extname, normalize, resolve } from 'pathe'
+import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
-import type { Atropa } from '../atropa'
-import { replaceExt, resolveToTargetPath, importModule } from '../utils'
+import { importModule, replaceExt, resolveToTargetPath } from '../utils'
 import { build } from './build'
 
-export async function dev(atropa: Atropa): Promise<void> {
-	await build(atropa, false)
+export async function dev(): Promise<void> {
+	await build(false)
 	await hooks.callHook('on:dev@initial')
 
 	const updatedFiles = new Set<string>()
@@ -19,7 +18,7 @@ export async function dev(atropa: Atropa): Promise<void> {
 	const isModule = (path: string): boolean => extname(path) === '.ts'
 	const forceReload = async (folder: string): Promise<void> => {
 		logger.info(`Changes in ${green(folder)} folder, reloading...`)
-		await build(atropa, false)
+		await build(false)
 		return await hooks.callHook('on:dev@reload')
 	}
 
@@ -33,12 +32,12 @@ export async function dev(atropa: Atropa): Promise<void> {
 			if (isModule(path)) {
 				const content = await importModule(path, false)
 				fse.outputJSONSync(
-					resolveToTargetPath(replaceExt(path, '.json'), atropa),
+					resolveToTargetPath(replaceExt(path, '.json')),
 					content,
 					{ spaces: '\t' }
 				)
 			} else {
-				fse.copySync(path, resolveToTargetPath(path, atropa))
+				fse.copySync(path, resolveToTargetPath(path))
 			}
 		}
 
@@ -50,8 +49,8 @@ export async function dev(atropa: Atropa): Promise<void> {
 				resolve(
 					atropa.target.path,
 					isModule(path)
-						? replaceExt(resolveToTargetPath(path, atropa), '.json')
-						: resolveToTargetPath(path, atropa)
+						? replaceExt(resolveToTargetPath(path), '.json')
+						: resolveToTargetPath(path)
 				)
 			)
 		}

@@ -45,7 +45,7 @@ export function defineRecipe(
 
 function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
-		namespace: process._namespace,
+		namespace: atropa.config.namespace,
 		shaped: (_template) => {
 			template.recipe = { shaped: _template }
 		},
