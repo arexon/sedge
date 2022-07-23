@@ -3,17 +3,14 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
 	resolve: {
 		alias: {
-			'atropa/server': '/packages/atropa/src/core/server',
-			'atropa/api': '/packages/atropa/src/core/api',
+			'atropa/core': '/packages/atropa/src/core',
 			'#playground/BP': '../playground/packs/BP'
 		}
 	},
 	define: {
-		config: {
-			namespace: 'test'
-		},
-		target: {
-			name: 'test'
+		atropa: {
+			config: { namespace: 'test' },
+			target: { name: 'test' }
 		}
 	}
 })
