@@ -1,5 +1,9 @@
 import { deepMerge, objectMap } from '@antfu/utils'
 import { ensureNamespaces } from '../utils'
+import type {
+	ItemFormatVersion,
+	ItemTemplate
+} from '../../schema/atropa/server/item'
 
 interface UserTemplate {
 	namespace?: string
@@ -13,9 +17,31 @@ interface VanillaTemplate {
 	components?: Record<string, any>
 	events?: Record<string, any>
 }
-interface ItemObject {
+interface Item {
 	format_version: string
 	'minecraft:item': VanillaTemplate
+}
+
+/**
+ * # Define Item
+ *
+ * Generates a new item based on the given templates.
+ * @param version The format version of the item.
+ * @param fn A callback function with function parameters used to define the item.
+ * @returns An item.
+ */
+export function defineItem<Version extends ItemFormatVersion>(
+	version: Version,
+	fn: (template: ItemTemplate<Version>) => void
+): Object {
+	try {
+		const template = {}
+
+		fn(processTemplate(template) as ItemTemplate<Version>)
+		return transformTemplate(template, version)
+	} catch (error) {
+		throw new Error(`Failed to transform item template`, error as Error)
+	}
 }
 
 export function processTemplate(template: VanillaTemplate): UserTemplate {
@@ -36,10 +62,7 @@ export function processTemplate(template: VanillaTemplate): UserTemplate {
 	}
 }
 
-export function transformTemplate(
-	template: VanillaTemplate,
-	version: string
-): ItemObject {
+function transformTemplate(template: VanillaTemplate, version: string): Item {
 	const transformedTemplate = objectMap(
 		template as Required<VanillaTemplate>,
 		(key, value) => {

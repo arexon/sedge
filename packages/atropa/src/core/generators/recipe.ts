@@ -1,4 +1,5 @@
 import { objectMap } from '@antfu/utils'
+import type { RecipeTemplate } from '../../schema/atropa/server/recipe'
 
 interface UserTemplate {
 	namespace: string
@@ -9,11 +10,10 @@ interface UserTemplate {
 	brewingMix: (template: Record<string, any>) => void
 	materialReduction: (template: Record<string, any>) => void
 }
-
 interface VanillaTemplate {
 	recipe?: Record<string, any>
 }
-interface RecipeObject {
+interface Recipe {
 	format_version: string
 	'minecraft:recipe_shaped'?: VanillaTemplate
 	'minecraft:recipe_shapeless'?: VanillaTemplate
@@ -23,7 +23,27 @@ interface RecipeObject {
 	'minecraft:recipe_material_reduction'?: VanillaTemplate
 }
 
-export function processTemplate(template: VanillaTemplate): UserTemplate {
+/**
+ * # Define Recipe
+ *
+ * Generates a recipe from the given template.
+ * @param fn A callback function with function parameters used to define the recipe.
+ * @returns A recipe.
+ */
+export function defineRecipe(
+	fn: (template: RecipeTemplate) => void
+): Record<string, any> {
+	try {
+		const template = {}
+
+		fn(processTemplate(template))
+		return transformTemplate(template, '1.12.0')
+	} catch (error) {
+		throw new Error(`Failed to transform recipe:`, error as Error)
+	}
+}
+
+function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
 		namespace: process._namespace,
 		shaped: (_template) => {
@@ -47,10 +67,7 @@ export function processTemplate(template: VanillaTemplate): UserTemplate {
 	}
 }
 
-export function transformTemplate(
-	template: VanillaTemplate,
-	version: string
-): RecipeObject {
+function transformTemplate(template: VanillaTemplate, version: string): Recipe {
 	const transformedTemplate = objectMap(
 		template.recipe as Required<VanillaTemplate>,
 		(key, value) => {

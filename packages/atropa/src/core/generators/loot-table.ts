@@ -1,5 +1,12 @@
-import { processTemplate } from '../compiler/transformers/loot-table'
-import type { LootTableTemplate } from '../schema/atropa/server/loot-table'
+import type { LootTableTemplate } from '../../schema/atropa/server/loot-table'
+
+interface UserTemplate {
+	namespace: string
+	pools: (template: Record<string, any>[]) => void
+}
+interface VanillaTemplate {
+	pools?: Record<string, any>[]
+}
 
 /**
  * # Define Loot Table
@@ -18,5 +25,14 @@ export function defineLootTable(
 		return template
 	} catch (error) {
 		throw new Error('Failed to transform loot table:', error as Error)
+	}
+}
+
+function processTemplate(template: VanillaTemplate): UserTemplate {
+	return {
+		namespace: process._namespace,
+		pools: (_template) => {
+			template.pools = [..._template, ...(template.pools || [])]
+		}
 	}
 }
