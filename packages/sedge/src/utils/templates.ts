@@ -1,6 +1,6 @@
 export function getComponentTemplate(): string {
 	return [
-		`import { defineComponent } from 'atropa/api'`,
+		`import { defineComponent } from 'atropa/core'`,
 		``,
 		`export default defineComponent(`,
 		`    'block@1.19.10',`,
@@ -11,7 +11,7 @@ export function getComponentTemplate(): string {
 
 export function getCollectionTemplate(): string {
 	return [
-		`import { defineCollection } from 'atropa/api'`,
+		`import { defineCollection } from 'atropa/core'`,
 		``,
 		`export default defineCollection(({ add, packs }) => {`,
 		`	add(\`\${packs.behaviorPack}/functions/say_hello.mcfunction\`, 'say hello')`,
@@ -19,9 +19,9 @@ export function getCollectionTemplate(): string {
 	].join('\n')
 }
 
-export function getServerBlockTemplate(identifier: string): string {
+export function getBlockTemplate(identifier: string): string {
 	return [
-		`import { defineBlock } from 'atropa/server'`,
+		`import { defineBlock } from 'atropa/core'`,
 		``,
 		`export default defineBlock('1.19.10', ({ namespace, description }) => {`,
 		`	description({`,
@@ -31,9 +31,9 @@ export function getServerBlockTemplate(identifier: string): string {
 	].join('\n')
 }
 
-export function getServerItemTemplate(identifier: string): string {
+export function getItemTemplate(identifier: string): string {
 	return [
-		`import { defineItem } from 'atropa/server'`,
+		`import { defineItem } from 'atropa/core'`,
 		``,
 		`export default defineItem('1.19.0', ({ namespace, description }) => {`,
 		`	description({`,
@@ -45,7 +45,7 @@ export function getServerItemTemplate(identifier: string): string {
 
 export function getLootTableTemplate(identifier: string): string {
 	return [
-		`import { defineLootTable } from 'atropa/server'`,
+		`import { defineLootTable } from 'atropa/core'`,
 		``,
 		`export default defineLootTable(({ namespace, pools }) => {`,
 		`	pools([`,
@@ -64,7 +64,7 @@ export function getLootTableTemplate(identifier: string): string {
 
 export function getRecipeTemplate(identifier: string): string {
 	return [
-		`import { defineRecipe } from 'atropa/server'`,
+		`import { defineRecipe } from 'atropa/core'`,
 		``,
 		`export default defineRecipe(({ namespace, shaped }) => {`,
 		`	shaped({`,
