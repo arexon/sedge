@@ -1,4 +1,4 @@
-import { defineLootTable } from 'atropa/server'
+import { defineLootTable } from 'atropa/core'
 
 export default defineLootTable(({ namespace, pools }) => {
 	pools([
