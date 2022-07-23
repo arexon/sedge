@@ -56,6 +56,9 @@ export async function createAtropa(options: {
 			atropa.target.name
 		)
 
+		process._namespace = atropa.config.name
+		process._packs = atropa.config.packs
+		process._minify = atropa.mode === 'build' && atropa.config.atropa.minify
 		atropa.target.path =
 			atropa.config.atropa.targets[atropa.target.name] ||
 			defaultTargetPath!
