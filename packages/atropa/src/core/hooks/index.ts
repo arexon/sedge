@@ -7,7 +7,9 @@ export const hooks = createHooks<{
 }>()
 
 /**
- * Hooks allow to run code at specific event, such as `on:build` or `on:dev@initial`.
+ * # Use Hook
+ *
+ * Hooks allow to run code at a specific event, such as `on:build` or `on:dev@initial`.
  * @param hook The hook to hook into.
  * @param fn The function to invoke when the hook is called.
  */
