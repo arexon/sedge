@@ -1,5 +1,5 @@
 import { objectMap } from '@antfu/utils'
-import type { RecipeTemplate } from '../../schema/atropa/server/recipe'
+import type { RecipeTemplate } from '../../schema/atropa/recipe'
 
 interface UserTemplate {
 	namespace: string

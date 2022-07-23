@@ -1,4 +1,4 @@
-import type { LootTableTemplate } from '../../schema/atropa/server/loot-table'
+import type { LootTableTemplate } from '../../schema/atropa/loot-table'
 
 interface UserTemplate {
 	namespace: string

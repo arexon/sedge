@@ -1,8 +1,5 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import type {
-	ItemFormatVersion,
-	ItemTemplate
-} from '../../schema/atropa/server/item'
+import type { ItemFormatVersion, ItemTemplate } from '../../schema/atropa/item'
 import { ensureNamespaces } from '../utils'
 
 interface UserTemplate {

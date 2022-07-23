@@ -1,7 +1,7 @@
 import type {
 	ComponentFormat,
 	ComponentTemplate
-} from '../../schema/atropa/server/component'
+} from '../../schema/atropa/component'
 import { processTemplate as processBlockTemplate } from './block'
 import { processTemplate as processItemTemplate } from './item'
 
