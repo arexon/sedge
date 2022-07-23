@@ -19,10 +19,10 @@ export default defineCommand({
 	meta: {
 		name: 'add',
 		usage: 'npx sedge add',
-		description: 'Adds a module template to your project'
+		description: 'Adds a file template to your project'
 	},
 	run: async () => {
-		interface Module {
+		interface File {
 			type:
 				| 'components'
 				| 'collections'
@@ -36,11 +36,11 @@ export default defineCommand({
 		const { loadConfig } = await importAtropa('loader')
 		const config = await loadConfig()
 
-		const modulePrompt = async (): Promise<{ module: Module }> => {
+		const filePrompt = async (): Promise<{ file: File }> => {
 			return await prompts({
-				name: 'module',
+				name: 'file',
 				type: 'select',
-				message: 'What kind of module do you want to add?',
+				message: 'What kind of file do you want to add?',
 				choices: [
 					{
 						title: 'Custom Component',
@@ -73,18 +73,18 @@ export default defineCommand({
 			return await prompts({
 				name: 'identifier',
 				type: 'text',
-				message: 'What is the identifier of your module?'
+				message: 'What is the identifier of your file?'
 			})
 		}
 		const locationPrompt = async (
 			identifier: string,
-			module: Module,
+			module: File,
 			config: Config
 		): Promise<{ path: string }> => {
 			return await prompts({
 				name: 'path',
 				type: 'text',
-				message: 'Where do you want to add your module?',
+				message: 'Where do you want to add your file?',
 				initial: join(
 					module.pack === 'server'
 						? config.packs.behaviorPack
@@ -95,20 +95,20 @@ export default defineCommand({
 			})
 		}
 
-		const { module } = await modulePrompt()
+		const { file } = await filePrompt()
 		const { identifier } = await identifierPrompt()
-		const { path } = await locationPrompt(identifier, module, config)
+		const { path } = await locationPrompt(identifier, file, config)
 
 		const checkIfAlreadyExists = (): void => {
 			if (fse.existsSync(path)) {
-				logger.error(`Module at ${blackBright(path)} already exists`)
+				logger.error(`File at ${blackBright(path)} already exists`)
 				process.exit(1)
 			}
 		}
 
-		if (module.pack === 'server') {
+		if (file.pack === 'server') {
 			checkIfAlreadyExists()
-			switch (module.type) {
+			switch (file.type) {
 				case 'components':
 					fse.outputFileSync(path, getComponentTemplate())
 					break
@@ -128,7 +128,7 @@ export default defineCommand({
 					fse.outputFileSync(path, getRecipeTemplate(identifier))
 			}
 			logger.success(
-				`Added module ${blue(identifier)} at ${blackBright(path)}`
+				`Added file ${blue(identifier)} @ ${blackBright(path)}`
 			)
 		}
 	}
