@@ -1,5 +1,5 @@
-import fse from 'fs-extra'
 import { isObject } from '@antfu/utils'
+import fse from 'fs-extra'
 import { normalize } from 'pathe'
 import { resolveToTargetPath } from '../../compiler/utils'
 import type { Config } from '../../loader'
@@ -20,15 +20,16 @@ interface Template extends Namespace {
  */
 export function defineCollection(fn: (template: Template) => void): void {
 	try {
+		const minify = atropa.mode === 'build' && atropa.config.atropa.minify
 		fn({
-			namespace: process._namespace,
-			packs: process._packs,
+			namespace: atropa.config.namespace,
+			packs: atropa.config.packs,
 			add: (path, content) => {
 				if (isObject(content)) {
 					fse.outputJSONSync(
 						normalize(resolveToTargetPath(path)),
 						content,
-						process._minify ? undefined : { spaces: '\t' }
+						minify ? undefined : { spaces: '\t' }
 					)
 					return
 				}
@@ -40,6 +41,6 @@ export function defineCollection(fn: (template: Template) => void): void {
 			}
 		})
 	} catch (error) {
-		throw new Error('Failed to compile collection:', error as Error)
+		throw new Error('Failed to build collection:', error as Error)
 	}
 }

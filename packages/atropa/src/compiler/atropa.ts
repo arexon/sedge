@@ -1,28 +1,18 @@
-import { blue, yellow, blackBright, magenta } from 'colorette'
 import { hasOwnProperty } from '@antfu/utils'
-import { loadConfig, type Config } from '../loader/config'
-import { build, dev } from './modes'
-import { prepareFolder } from './utils/fs'
-import { getComMojangPath } from './utils/path'
+import { blackBright, blue, magenta, yellow } from 'colorette'
+import { loadConfig } from '../loader/config'
 import { logger } from '../logger'
 import { comMojangFolder } from './constants'
-
-export interface Atropa {
-	config: Config
-	mode: 'dev' | 'build'
-	target: {
-		name: string
-		path: string
-	}
-	isComMojang: boolean
-}
+import { build, dev } from './modes'
+import { prepareFolder } from './utils/fs'
+import { getComMojangPathByPack } from './utils/path'
 
 export async function createAtropa(options: {
 	mode: 'dev' | 'build'
 	target: string
 }): Promise<void> {
 	try {
-		const atropa: Atropa = {
+		atropa = {
 			config: await loadConfig(),
 			mode: options.mode,
 			target: {
@@ -56,15 +46,12 @@ export async function createAtropa(options: {
 			atropa.target.name
 		)
 
-		process._namespace = atropa.config.name
-		process._packs = atropa.config.packs
-		process._minify = atropa.mode === 'build' && atropa.config.atropa.minify
 		atropa.target.path =
 			atropa.config.atropa.targets[atropa.target.name] ||
 			defaultTargetPath!
 
 		if (targetIsConfigured || targetIsDefault) {
-			await runWithMode(atropa)
+			await runWithMode()
 		} else {
 			throw new Error(
 				`Target ${yellow(
@@ -80,40 +67,28 @@ export async function createAtropa(options: {
 	}
 }
 
-async function runWithMode(atropa: Atropa): Promise<void> {
+async function runWithMode(): Promise<void> {
 	logger.info(
 		`Via target ${magenta(atropa.target.name)} @ ${blackBright(
 			atropa.target.path
 		)}`
 	)
 
-	await prepare(atropa)
+	await prepare()
 	switch (atropa.mode) {
 		case 'build':
-			await build(atropa, true)
+			await build(true)
 			break
 		case 'dev':
-			await dev(atropa)
+			await dev()
 			break
 	}
 }
 
-async function prepare(atropa: Atropa): Promise<void> {
+async function prepare(): Promise<void> {
 	if (atropa.isComMojang) {
-		await prepareFolder(
-			getComMojangPath({
-				packType: 'BP',
-				projectName: atropa.config.name,
-				targetPath: atropa.target.path
-			})
-		)
-		await prepareFolder(
-			getComMojangPath({
-				packType: 'RP',
-				projectName: atropa.config.name,
-				targetPath: atropa.target.path
-			})
-		)
+		await prepareFolder(getComMojangPathByPack('BP'))
+		await prepareFolder(getComMojangPathByPack('RP'))
 	} else {
 		await prepareFolder(atropa.target.path)
 	}

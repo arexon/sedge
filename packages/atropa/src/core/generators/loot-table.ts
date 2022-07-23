@@ -30,7 +30,7 @@ export function defineLootTable(
 
 function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
-		namespace: process._namespace,
+		namespace: atropa.config.namespace,
 		pools: (_template) => {
 			template.pools = [..._template, ...(template.pools || [])]
 		}
