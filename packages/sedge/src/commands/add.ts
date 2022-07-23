@@ -3,13 +3,13 @@ import prompts from 'prompts'
 import { join } from 'pathe'
 import { blackBright, blue } from 'colorette'
 import {
-	getServerBlockTemplate,
+	getBlockTemplate,
 	getComponentTemplate,
 	getLootTableTemplate,
 	getRecipeTemplate,
 	importAtropa,
 	getCollectionTemplate,
-	getServerItemTemplate,
+	getItemTemplate,
 	logger,
 	type Config
 } from '../utils'
@@ -116,10 +116,10 @@ export default defineCommand({
 					fse.outputFileSync(path, getCollectionTemplate())
 					break
 				case 'blocks':
-					fse.outputFileSync(path, getServerBlockTemplate(identifier))
+					fse.outputFileSync(path, getBlockTemplate(identifier))
 					break
 				case 'items':
-					fse.outputFileSync(path, getServerItemTemplate(identifier))
+					fse.outputFileSync(path, getItemTemplate(identifier))
 					break
 				case 'loot_tables':
 					fse.outputFileSync(path, getLootTableTemplate(identifier))
