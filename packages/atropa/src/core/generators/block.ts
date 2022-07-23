@@ -2,7 +2,7 @@ import { deepMerge, objectMap } from '@antfu/utils'
 import type {
 	BlockFormatVersion,
 	BlockTemplate
-} from '../../schema/atropa/server/block'
+} from '../../schema/atropa/block'
 import { ensureNamespaces } from '../utils'
 
 interface UserTemplate {
