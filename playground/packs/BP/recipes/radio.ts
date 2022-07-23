@@ -1,4 +1,4 @@
-import { defineRecipe } from 'atropa/server'
+import { defineRecipe } from 'atropa/core'
 
 export default defineRecipe(({ namespace, shaped }) => {
 	shaped({

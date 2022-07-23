@@ -1,4 +1,4 @@
-import { defineComponent } from 'atropa/api'
+import { defineComponent } from 'atropa/core'
 
 export default defineComponent(
 	'block@1.19.10',

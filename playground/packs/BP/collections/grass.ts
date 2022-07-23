@@ -1,5 +1,4 @@
-import { defineBlock } from 'atropa/server'
-import { defineCollection, useHook } from 'atropa/api'
+import { defineBlock, defineCollection, useHook } from 'atropa/core'
 import Attributes from '../components/Attributes'
 
 export default defineCollection(({ add, packs }) => {

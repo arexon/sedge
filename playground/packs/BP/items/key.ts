@@ -1,4 +1,4 @@
-import { defineItem } from 'atropa/server'
+import { defineItem } from 'atropa/core'
 
 export default defineItem(
 	'1.19.0',

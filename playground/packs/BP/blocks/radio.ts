@@ -1,4 +1,4 @@
-import { defineBlock } from 'atropa/server'
+import { defineBlock } from 'atropa/core'
 import Attributes from '../components/Attributes'
 
 export default defineBlock(
