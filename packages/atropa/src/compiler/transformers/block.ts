@@ -1,9 +1,5 @@
 import { deepMerge, objectMap } from '@antfu/utils'
 import { ensureNamespaces } from '../utils'
-import type {
-	BlockTemplate,
-	BlockFormatVersion
-} from '../../schema/atropa/server/block'
 
 interface UserTemplate {
 	namespace?: string
@@ -24,31 +20,9 @@ interface BlockObject {
 	'minecraft:block': VanillaTemplate
 }
 
-/**
- * # Define Block
- *
- * Generates a new block based on the given templates.
- * @param version The format version of the block.
- * @param fn A callback function with function parameters used to define the block.
- * @returns A block.
- */
-export function defineBlock<Version extends BlockFormatVersion>(
-	version: Version,
-	fn: (template: BlockTemplate<Version>) => void
-): Record<string, any> {
-	try {
-		const template: VanillaTemplate = {}
-
-		fn(processTemplate(template) as BlockTemplate<Version>)
-		return transformTemplate(template, version)
-	} catch (error) {
-		throw new Error(`Failed to transform block template`, error as Error)
-	}
-}
-
 export function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
-		namespace: global.config.namespace,
+		namespace: process._namespace,
 		description: (_template) => {
 			template.description = { ...template.description, ..._template }
 		},
@@ -70,7 +44,7 @@ export function processTemplate(template: VanillaTemplate): UserTemplate {
 	}
 }
 
-function transformTemplate(
+export function transformTemplate(
 	template: VanillaTemplate,
 	version: string
 ): BlockObject {

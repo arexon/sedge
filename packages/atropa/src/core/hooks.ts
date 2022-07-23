@@ -7,9 +7,9 @@ export const hooks = createHooks<{
 }>()
 
 /**
- * Hooks allow to run code at specific event point, such as `on:build` or `on:dev@initial`.
+ * Hooks allow to run code at specific event, such as `on:build` or `on:dev@initial`.
  * @param hook The hook to hook into.
- * @param fn The function to run when the hook is called.
+ * @param fn The function to invoke when the hook is called.
  */
 export function useHook(hook: Hook | Hook[], fn: () => void): void {
 	if (Array.isArray(hook)) {

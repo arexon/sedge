@@ -17,8 +17,7 @@
 	"exports": {
 		"./loader": "./dist/loader.mjs",
 		"./compiler": "./dist/compiler.mjs",
-		"./server": "./dist/server.mjs",
-		"./api": "./dist/api.mjs"
+		"./core": "./dist/core.mjs"
 	},
 	"typesVersions": {
 		"*": {
@@ -28,11 +27,8 @@
 			"compiler": [
 				"dist/compiler.d.ts"
 			],
-			"server": [
-				"dist/server.d.ts"
-			],
-			"api": [
-				"dist/api.d.ts"
+			"core": [
+				"dist/core.d.ts"
 			]
 		}
 	},

@@ -1,10 +1,9 @@
-import { processTemplate as processBlockTemplate } from '../server/block'
-import { processTemplate as processItemTemplate } from '../server/item'
-import { logger } from '../../logger'
+import { processTemplate as processBlockTemplate } from '../compiler/transformers/block'
+import { processTemplate as processItemTemplate } from '../compiler/transformers/item'
 import type {
 	ComponentFormat,
 	ComponentTemplate
-} from '../../schema/atropa/server/component'
+} from '../schema/atropa/server/component'
 
 /**
  * # Define Component
@@ -52,11 +51,9 @@ export function defineComponent<
 						) as ComponentTemplate<Format>
 					)
 			}
-
 			return template
 		} catch (error) {
-			logger.error('Failed to parse component:', error)
-			process.exit(1)
+			throw new Error('Failed to parse component:', error as Error)
 		}
 	}
 }

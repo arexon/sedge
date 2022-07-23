@@ -6,8 +6,7 @@ export default defineBuildConfig({
 	entries: [
 		{ input: 'src/loader/index', name: 'loader' },
 		{ input: 'src/compiler/index', name: 'compiler' },
-		{ input: 'src/core/server/index', name: 'server' },
-		{ input: 'src/core/api/index', name: 'api' }
+		{ input: 'src/core/index', name: 'core' }
 	],
 	externals: ['@antfu/utils']
 })
