@@ -12,7 +12,7 @@ export async function createAtropa(options: {
 	target: string
 }): Promise<void> {
 	try {
-		atropa = {
+		global.atropa = {
 			config: await loadConfig(),
 			mode: options.mode,
 			target: {
