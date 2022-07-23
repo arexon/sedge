@@ -1,9 +1,9 @@
-import { processTemplate as processBlockTemplate } from '../compiler/transformers/block'
-import { processTemplate as processItemTemplate } from '../compiler/transformers/item'
 import type {
 	ComponentFormat,
 	ComponentTemplate
-} from '../schema/atropa/server/component'
+} from '../../schema/atropa/server/component'
+import { processTemplate as processBlockTemplate } from './block'
+import { processTemplate as processItemTemplate } from './item'
 
 /**
  * # Define Component
