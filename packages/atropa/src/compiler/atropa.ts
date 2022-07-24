@@ -4,8 +4,7 @@ import { loadConfig } from '../loader/config'
 import { logger } from '../logger'
 import { comMojangFolder } from './constants'
 import { build, dev } from './modes'
-import { prepareFolder } from './utils/fs'
-import { getComMojangPathByPack } from './utils/path'
+import { getComMojangPathByPack, prepareFolder } from './utils'
 
 export async function createAtropa(options: {
 	mode: 'dev' | 'build'
