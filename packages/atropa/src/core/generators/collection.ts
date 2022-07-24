@@ -1,7 +1,5 @@
 import { isObject } from '@antfu/utils'
-import fse from 'fs-extra'
-import { normalize } from 'pathe'
-import { resolveToTargetPath } from '../../compiler/utils'
+import { writeFileToTarget, writeJsonFileToTarget } from '../../compiler/utils'
 import type { Config } from '../../loader'
 import type { Namespace } from '../../schema/atropa/common/template'
 
@@ -20,24 +18,16 @@ interface Template extends Namespace {
  */
 export function defineCollection(fn: (template: Template) => void): void {
 	try {
-		const minify = atropa.mode === 'build' && atropa.config.atropa.minify
 		fn({
 			namespace: atropa.config.namespace,
 			packs: atropa.config.packs,
 			add: (path, content) => {
 				if (isObject(content)) {
-					fse.outputJSONSync(
-						normalize(resolveToTargetPath(path)),
-						content,
-						minify ? undefined : { spaces: '\t' }
-					)
+					writeJsonFileToTarget(path, content)
 					return
 				}
 
-				fse.outputFileSync(
-					normalize(resolveToTargetPath(path)),
-					content
-				)
+				writeFileToTarget(path, content)
 			}
 		})
 	} catch (error) {
