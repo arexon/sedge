@@ -20,18 +20,20 @@ export async function dev(): Promise<void> {
 	const updatedFiles = new Set<string>()
 	const removedFiles = new Set<string>()
 
-	const forceReload = async (folder: string): Promise<void> => {
-		logger.info(`Changes in ${green(folder)} folder, reloading...`)
-		await build(false)
-		return await hooks.callHook('on:dev@reload')
-	}
-
 	const reload = debounce(200, async () => {
 		console.clear()
 
 		for (const path of updatedFiles) {
-			if (path.includes('components')) return forceReload('components')
-			if (path.includes('collections')) return forceReload('collections')
+			if (path.includes('components')) {
+				clearSets(updatedFiles, removedFiles)
+				forceReload('components')
+				return
+			}
+			if (path.includes('collections')) {
+				clearSets(updatedFiles, removedFiles)
+				forceReload('collections')
+				return
+			}
 
 			if (isModule(path)) {
 				const content = await importModule(path, false)
@@ -42,16 +44,23 @@ export async function dev(): Promise<void> {
 		}
 
 		for (const path of removedFiles) {
-			if (path.includes('components')) return forceReload('components')
-			if (path.includes('collections')) return forceReload('collections')
+			if (path.includes('components')) {
+				clearSets(updatedFiles, removedFiles)
+				forceReload('components')
+				return
+			}
+			if (path.includes('collections')) {
+				clearSets(updatedFiles, removedFiles)
+				forceReload('collections')
+				return
+			}
 
 			removeFileFromTarget(path)
 		}
 
 		logChanges(Array.from(updatedFiles), 'Updated', 'cyan')
 		logChanges(Array.from(removedFiles), 'Removed', 'magenta')
-		updatedFiles.clear()
-		removedFiles.clear()
+		clearSets(updatedFiles, removedFiles)
 
 		await hooks.callHook('on:dev@reload')
 	})
@@ -75,6 +84,17 @@ export async function dev(): Promise<void> {
 		}
 		reload()
 	})
+}
+
+async function forceReload(folder: string): Promise<void> {
+	logger.info(`Changes in ${green(folder)} folder, reloading...`)
+	await build(false)
+	await hooks.callHook('on:dev@reload')
+	logger.info(`Reload complete`)
+}
+
+function clearSets(...sets: Set<string>[]): void {
+	sets.forEach((set) => set.clear())
 }
 
 function logChanges(
