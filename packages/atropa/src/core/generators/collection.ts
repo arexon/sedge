@@ -1,13 +1,10 @@
 import { isObject } from '@antfu/utils'
-import { writeFileToTarget, writeJsonFileToTarget } from '../../compiler/utils'
-import type { Config } from '../../loader'
-import type { Namespace } from '../../schema/atropa/common/template'
-
-type ValueOf<T> = T[keyof T]
-interface Template extends Namespace {
-	packs: ValueOf<Pick<Config, 'packs'>>
-	add: (path: string, content: any) => void
-}
+import {
+	removeFileFromTarget,
+	writeFileToTarget,
+	writeJsonFileToTarget
+} from '../../compiler/utils'
+import type { CollectionTemplate } from '../../schema/atropa/collection/template'
 
 /**
  * # Define Collection
@@ -16,21 +13,29 @@ interface Template extends Namespace {
  * They allow to import files or create templates within and define the export location of said files.
  * @param fn A callback function with function parameters used to define the collection.
  */
-export function defineCollection(fn: (template: Template) => void): void {
+export function defineCollection(
+	fn: (template: CollectionTemplate) => void
+): void {
 	try {
-		fn({
-			namespace: atropa.config.namespace,
-			packs: atropa.config.packs,
-			add: (path, content) => {
-				if (isObject(content)) {
-					writeJsonFileToTarget(path, content)
-					return
-				}
-
-				writeFileToTarget(path, content)
-			}
-		})
+		fn(processTemplate())
 	} catch (error) {
 		throw new Error('Failed to build collection:', error as Error)
+	}
+}
+
+function processTemplate(): CollectionTemplate {
+	return {
+		namespace: atropa.config.namespace,
+		packs: atropa.config.packs,
+		add: (path, content) => {
+			if (isObject(content)) {
+				writeJsonFileToTarget(path, content)
+				return
+			}
+			writeFileToTarget(path, content)
+		},
+		remove: (path) => {
+			removeFileFromTarget(path)
+		}
 	}
 }
