@@ -16,8 +16,9 @@ interface BlockDescriptionFunction<WithProps extends boolean> {
 	/**
 	 * # Description
 	 * The description sets required block information.
+	 * @param template The description template.
 	 */
-	description: (template: BlockDescription<WithProps>) => void
+	description(template: BlockDescription<WithProps>): void
 }
 
 interface BlockPermutation<Components extends Record<string, any>> {
@@ -37,24 +38,27 @@ interface BlockPermutationsFunction<Components extends Record<string, any>> {
 	/**
 	 * # Permutations
 	 * List of block permutations based on MoLang queries.
+	 * @param template The permutations to add to the block.
 	 */
-	permutations: (template: BlockPermutation<Components>[]) => void
+	permutations(template: BlockPermutation<Components>[]): void
 }
 
 interface BlockComponentsFunction<Components extends Record<string, any>> {
 	/**
 	 * # Components
 	 * Components are used to describe the block's attributes and behavior.
+	 * @param template The components to add to the block.
 	 */
-	components: (template: Components) => void
+	components(template: Components): void
 }
 
 interface BlockEventsFunction<Events extends Record<string, any>> {
 	/**
 	 * # Events
 	 * The events function defines the events that can be triggered by this block.
+	 * @param template The events to add to the block.
 	 */
-	events: (template: Record<string, Events>) => void
+	events(template: Record<string, Events>): void
 }
 
 export type {

@@ -5,8 +5,9 @@ interface LootTableTemplate extends Namespace {
 	/**
 	 * ## Pools
 	 * Lists the loot pools for this loot table.
+	 * @param template The pools to add to the loot table.
 	 */
-	pools: (template: Pools[]) => void
+	pools(template: Pools[]): void
 }
 
 export type { LootTableTemplate }
