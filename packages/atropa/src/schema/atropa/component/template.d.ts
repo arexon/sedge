@@ -1,5 +1,5 @@
-import type { BlockTemplate, BlockFormatVersion } from '../block'
-import type { ItemTemplate, ItemFormatVersion } from '../item'
+import type { BlockFormatVersion, BlockTemplate } from '../block'
+import type { ItemFormatVersion, ItemTemplate } from '../item'
 
 type ComponentBlockFormat = `block@${BlockFormatVersion}`
 type ComponentItemFormat = `item@${ItemFormatVersion}`

@@ -1,6 +1,6 @@
-import type { Subject } from '../../general/filter'
-import type { Effect, EffectNames } from '../../general/effect'
 import type { DamageTypes } from '../../general/damage'
+import type { Effect, EffectNames } from '../../general/effect'
+import type { Subject } from '../../general/filter'
 import type { EventTrigger } from './triggers'
 
 interface AddMobEffect {

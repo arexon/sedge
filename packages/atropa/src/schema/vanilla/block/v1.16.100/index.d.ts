@@ -1,6 +1,6 @@
+import type * as Components_1_16_0 from '../v1.16.0/components'
 import type * as Components_1_16_100 from './components'
 import type * as TriggerComponents_1_16_100 from './trigger-components'
-import type * as Components_1_16_0 from '../v1.16.0/components'
 
 interface BlockComponents_1_16_100
 	extends Components_1_16_100.BreakOnPush,
@@ -36,5 +36,5 @@ interface BlockComponents_1_16_100
 		Components_1_16_0.Loot,
 		Components_1_16_0.MapColor {}
 
-export type { BlockComponents_1_16_100 }
 export type { BlockEventResponses_1_16_100 } from './events-responses'
+export type { BlockComponents_1_16_100 }

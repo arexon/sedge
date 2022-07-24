@@ -1,6 +1,6 @@
-import type { CreativeGroup, ItemGroup } from '../../general/inventory'
 import type { EventTrigger } from '../../event/v1.16.100/triggers'
 import type { Range } from '../../general/common'
+import type { CreativeGroup, ItemGroup } from '../../general/inventory'
 import type { Colors, MusicDiscs, SlotTypes } from '../../general/vanilla'
 
 interface AllowOffHand {

@@ -1,6 +1,6 @@
-import type * as Components_1_18_10 from './components'
-import type * as Components_1_16_100 from '../v1.16.100/components'
 import type * as Components_1_10_0 from '../v1.10.0/components'
+import type * as Components_1_16_100 from '../v1.16.100/components'
+import type * as Components_1_18_10 from './components'
 
 interface ItemComponents_1_18_10
 	extends Components_1_18_10.Food,

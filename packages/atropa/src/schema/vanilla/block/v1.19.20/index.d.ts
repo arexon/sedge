@@ -1,8 +1,8 @@
-import type * as Components_1_19_20 from './components'
-import type * as Components_1_19_10 from '../v1.19.10/components'
+import type * as Components_1_16_0 from '../v1.16.0/components'
 import type * as Components_1_16_100 from '../v1.16.100/components'
 import type * as TriggerComponents_1_16_100 from '../v1.16.100/trigger-components'
-import type * as Components_1_16_0 from '../v1.16.0/components'
+import type * as Components_1_19_10 from '../v1.19.10/components'
+import type * as Components_1_19_20 from './components'
 
 interface BlockComponents_1_19_20
 	extends Components_1_19_20.DestructibleByMining,

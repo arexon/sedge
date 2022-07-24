@@ -1,10 +1,10 @@
+import type { Range } from '../general/common'
 import type {
 	ColorPalette,
 	EnchantmentNames,
-	Structures,
-	PatternTypes
+	PatternTypes,
+	Structures
 } from '../general/vanilla'
-import type { Range } from '../general/common'
 
 type Functions =
 	| {

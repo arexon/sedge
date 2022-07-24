@@ -1,4 +1,4 @@
-import type { Description } from '../../common/template'
+import type { Description } from '../common/template'
 
 interface ItemDescriptionFunction {
 	/**

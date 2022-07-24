@@ -1,5 +1,5 @@
-import type { CreativeGroup, ItemGroup } from '../../general/inventory'
 import type { EventTrigger } from '../../event/v1.16.100/triggers'
+import type { CreativeGroup, ItemGroup } from '../../general/inventory'
 
 interface BreakOnPush {
 	/**

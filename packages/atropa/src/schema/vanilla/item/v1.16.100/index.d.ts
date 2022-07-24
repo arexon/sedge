@@ -1,5 +1,5 @@
-import type * as Components_1_16_100 from './components'
 import type * as Components_1_10_0 from '../v1.10.0/components'
+import type * as Components_1_16_100 from './components'
 
 interface ItemComponents_1_16_100
 	extends Components_1_16_100.AllowOffHand,
@@ -45,5 +45,5 @@ interface ItemComponents_1_16_100
 		Components_1_10_0.StackedByData,
 		Components_1_10_0.Foil {}
 
-export type { ItemComponents_1_16_100 }
 export type { ItemEventResponses_1_16_100 } from './events-responses'
+export type { ItemComponents_1_16_100 }

@@ -1,11 +1,11 @@
 import type {
 	RecipeBrewingContainer,
 	RecipeBrewingMix,
+	RecipeFurnace,
 	RecipeMaterialReduction,
 	RecipeShaped,
-	RecipeShapeless,
-	RecipeFurnace
-} from '../../../vanilla/recipe'
+	RecipeShapeless
+} from '../../vanilla/recipe'
 
 type FurnaceFunction = {
 	/**

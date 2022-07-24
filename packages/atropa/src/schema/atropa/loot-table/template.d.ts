@@ -1,5 +1,5 @@
-import type { Pools } from '../../../vanilla/loot-table'
-import type { Namespace } from '../../common/template'
+import type { Pools } from '../../vanilla/loot-table'
+import type { Namespace } from '../common/template'
 
 interface LootTableTemplate extends Namespace {
 	/**

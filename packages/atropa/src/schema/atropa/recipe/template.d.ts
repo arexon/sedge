@@ -1,11 +1,11 @@
-import type { Namespace } from '../../common/template'
+import type { Namespace } from '../common/template'
 import type {
-	FurnaceFunction,
-	ShapedFunction,
-	ShapelessFunction,
-	BrewingMixFunction,
 	BrewingContainerFunction,
-	MaterialReductionFunction
+	BrewingMixFunction,
+	FurnaceFunction,
+	MaterialReductionFunction,
+	ShapedFunction,
+	ShapelessFunction
 } from './functions'
 
 interface RecipeTemplate
