@@ -29,7 +29,7 @@ export async function dev(): Promise<void> {
 	const reload = debounce(200, async () => {
 		console.clear()
 
-		for (const path in updatedFiles) {
+		for (const path of updatedFiles) {
 			if (path.includes('components')) return forceReload('components')
 			if (path.includes('collections')) return forceReload('collections')
 
@@ -41,7 +41,7 @@ export async function dev(): Promise<void> {
 			}
 		}
 
-		for (const path in removedFiles) {
+		for (const path of removedFiles) {
 			if (path.includes('components')) return forceReload('components')
 			if (path.includes('collections')) return forceReload('collections')
 
