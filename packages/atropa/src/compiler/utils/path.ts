@@ -46,6 +46,10 @@ export function getComMojangPathByPack(packType: 'BP' | 'RP'): string {
 	)
 }
 
+export function isModule(path: string): boolean {
+	return extname(path) === '.ts'
+}
+
 function makePathAbsolute(path: string): string {
 	return path.replace(/^\.\//, '')
 }

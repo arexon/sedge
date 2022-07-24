@@ -1,11 +1,16 @@
 import { debounce } from '@antfu/utils'
 import { watch } from 'chokidar'
 import { blackBright, cyan, green, magenta } from 'colorette'
-import fse from 'fs-extra'
-import { extname, normalize, resolve } from 'pathe'
+import { normalize } from 'pathe'
 import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
-import { importModule, replaceExt, resolveToTargetPath } from '../utils'
+import {
+	copyFileToTarget,
+	importModule,
+	isModule,
+	removeFileFromTarget,
+	writeJsonFileToTarget
+} from '../utils'
 import { build } from './build'
 
 export async function dev(): Promise<void> {
@@ -15,7 +20,6 @@ export async function dev(): Promise<void> {
 	const updatedFiles = new Set<string>()
 	const removedFiles = new Set<string>()
 
-	const isModule = (path: string): boolean => extname(path) === '.ts'
 	const forceReload = async (folder: string): Promise<void> => {
 		logger.info(`Changes in ${green(folder)} folder, reloading...`)
 		await build(false)
@@ -31,13 +35,9 @@ export async function dev(): Promise<void> {
 
 			if (isModule(path)) {
 				const content = await importModule(path, false)
-				fse.outputJSONSync(
-					resolveToTargetPath(replaceExt(path, '.json')),
-					content,
-					{ spaces: '\t' }
-				)
+				writeJsonFileToTarget(path, content)
 			} else {
-				fse.copySync(path, resolveToTargetPath(path))
+				copyFileToTarget(path)
 			}
 		}
 
@@ -45,14 +45,7 @@ export async function dev(): Promise<void> {
 			if (path.includes('components')) return forceReload('components')
 			if (path.includes('collections')) return forceReload('collections')
 
-			await fse.remove(
-				resolve(
-					atropa.target.path,
-					isModule(path)
-						? replaceExt(resolveToTargetPath(path), '.json')
-						: resolveToTargetPath(path)
-				)
-			)
+			removeFileFromTarget(path)
 		}
 
 		logger.success(
