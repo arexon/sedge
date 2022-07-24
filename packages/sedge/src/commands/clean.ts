@@ -11,12 +11,13 @@ export default defineCommand({
 	},
 	run: async () => {
 		try {
-			if (!(await fse.pathExists('.atropa'))) {
+			const cacheFolder = '.atropa/cache'
+			if (!(await fse.pathExists(cacheFolder))) {
 				logger.info(`Looks like there's nothing to clean!`)
 				return
 			}
 
-			await fse.remove('.atropa')
+			await fse.remove(cacheFolder)
 			logger.success('Cleaned Atropa build cache!')
 		} catch (error) {
 			throw new Error(
