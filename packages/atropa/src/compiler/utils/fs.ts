@@ -17,6 +17,10 @@ export function writeJsonFileToTarget(path: string, content: any): void {
 	)
 }
 
+export function writeFileToTarget(path: string, content: any): void {
+	fse.outputFileSync(resolveToTargetPath(path), content)
+}
+
 export function copyFileToTarget(path: string): void {
 	fse.copySync(path, resolveToTargetPath(path))
 }
