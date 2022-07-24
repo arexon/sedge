@@ -48,20 +48,8 @@ export async function dev(): Promise<void> {
 			removeFileFromTarget(path)
 		}
 
-		logger.success(
-			prettyPrintChanges({
-				paths: Array.from(updatedFiles),
-				level: 'Updated',
-				color: 'cyan'
-			})
-		)
-		logger.success(
-			prettyPrintChanges({
-				paths: Array.from(removedFiles),
-				level: 'Removed',
-				color: 'magenta'
-			})
-		)
+		logChanges(Array.from(updatedFiles), 'Updated', 'cyan')
+		logChanges(Array.from(removedFiles), 'Removed', 'magenta')
 		updatedFiles.clear()
 		removedFiles.clear()
 
@@ -89,18 +77,20 @@ export async function dev(): Promise<void> {
 	})
 }
 
-function prettyPrintChanges(options: {
-	paths: string[]
-	level: string
+function logChanges(
+	paths: string[],
+	level: string,
 	color: 'cyan' | 'magenta'
-}): string[] {
-	return [
-		options.color === 'cyan' ? cyan(options.level) : magenta(options.level),
-		options.paths
+): void {
+	if (paths.length === 0) return
+
+	logger.success(
+		color === 'cyan' ? cyan(level) : magenta(level),
+		paths
 			.map((path) => {
 				return blackBright(`\n- ${path}`)
 			})
 			.join('')
 			.toString()
-	]
+	)
 }
