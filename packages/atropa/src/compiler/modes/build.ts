@@ -2,7 +2,7 @@ import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
 import {
 	copyFileToTarget,
-	importModule,
+	evalModule,
 	scanForPaths,
 	writeJsonFileToTarget
 } from '../utils'
@@ -19,7 +19,7 @@ export async function build(callHook: boolean): Promise<void> {
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
-			const content = await importModule(path)
+			const content = await evalModule(path, false)
 			writeJsonFileToTarget(path, content)
 		}),
 		...assets.map((path) => {

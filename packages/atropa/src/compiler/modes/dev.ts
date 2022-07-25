@@ -6,7 +6,7 @@ import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
 import {
 	copyFileToTarget,
-	importModule,
+	evalModule,
 	isModule,
 	removeFileFromTarget,
 	writeJsonFileToTarget
@@ -36,7 +36,7 @@ export async function dev(): Promise<void> {
 			}
 
 			if (isModule(path)) {
-				const content = await importModule(path, false)
+				const content = await evalModule(path, true)
 				writeJsonFileToTarget(path, content)
 			} else {
 				copyFileToTarget(path)

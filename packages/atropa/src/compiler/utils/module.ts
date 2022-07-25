@@ -3,10 +3,13 @@ import { resolve } from 'pathe'
 import { logger } from '../../logger'
 import { atropaCacheFolder } from '../constants'
 
-export async function importModule(path: string, cache = false): Promise<any> {
+export async function evalModule(
+	path: string,
+	allowHMR: boolean
+): Promise<any> {
 	const jiti = createJITI('', {
 		cache: atropaCacheFolder,
-		requireCache: cache,
+		requireCache: !allowHMR,
 		interopDefault: true,
 		onError: (error) => {
 			logger.error(error.message)
