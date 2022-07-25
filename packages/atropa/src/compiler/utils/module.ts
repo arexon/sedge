@@ -8,7 +8,6 @@ export async function importModule(path: string, cache = false): Promise<any> {
 		cache: atropaCacheFolder,
 		requireCache: cache,
 		interopDefault: true,
-		sourceMaps: true,
 		onError: (error) => {
 			logger.error(error.message)
 			process.exit(1)
