@@ -9,6 +9,10 @@ type Hook = 'on:build' | 'on:dev'
 export function useHook(hook: Hook | Hook[], fn: () => void): void {
 	if (Array.isArray(hook)) hook.map((hook) => useHook(hook, fn))
 
-	if (hook === 'on:build' && atropa.mode === 'build') fn()
-	else if (hook === 'on:dev' && atropa.mode === 'dev') fn()
+	if (
+		(hook === 'on:build' && atropa.mode === 'build') ||
+		(hook === 'on:dev' && atropa.mode === 'dev')
+	) {
+		fn()
+	}
 }
