@@ -3,7 +3,7 @@ import recipe from '#playground/BP/recipes/radio'
 
 describe('define recipe', () => {
 	it('returns a valid recipe object', () => {
-		expect(recipe).toMatchInlineSnapshot(`
+		expect(recipe.data).toMatchInlineSnapshot(`
 			{
 			  "format_version": "1.12.0",
 			  "minecraft:recipe_shaped": {

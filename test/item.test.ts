@@ -3,7 +3,7 @@ import item from '#playground/BP/items/key'
 
 describe('define item', () => {
 	it('returns a valid item object', () => {
-		expect(item).toMatchInlineSnapshot(`
+		expect(item.data).toMatchInlineSnapshot(`
 			{
 			  "format_version": "1.19.0",
 			  "minecraft:item": {

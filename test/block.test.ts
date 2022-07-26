@@ -3,7 +3,7 @@ import block from '#playground/BP/blocks/radio'
 
 describe('define block', () => {
 	it('returns a valid block object', () => {
-		expect(block).toMatchInlineSnapshot(`
+		expect(block.data).toMatchInlineSnapshot(`
 			{
 			  "format_version": "1.19.10",
 			  "minecraft:block": {
