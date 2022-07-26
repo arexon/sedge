@@ -1,4 +1,5 @@
 import type { CollectionTemplate } from '../../schema/atropa/collection/template'
+import { tryCatch } from '../utils'
 
 interface CollectionResult {
 	type: 'collection'
@@ -14,17 +15,16 @@ interface CollectionResult {
 export function defineCollection(
 	fn: (template: CollectionTemplate) => void
 ): CollectionResult {
-	try {
+	return tryCatch(() => {
 		const template: CollectionResult = {
 			type: 'collection',
 			data: new Map<string, any>([])
 		}
 
 		fn(processTemplate(template))
+
 		return template
-	} catch (error) {
-		throw new Error(`Failed to build collection: ${error}`)
-	}
+	}, 'Failed to compile collection')
 }
 
 function processTemplate(template: CollectionResult): CollectionTemplate {
