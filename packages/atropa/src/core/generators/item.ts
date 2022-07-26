@@ -12,10 +12,6 @@ interface Item {
 	format_version: string
 	'minecraft:item': VanillaTemplate
 }
-interface ItemResult {
-	type: 'file'
-	data: Item
-}
 
 /**
  * # Define Item
@@ -27,16 +23,13 @@ interface ItemResult {
 export function defineItem<Version extends ItemFormatVersion>(
 	version: Version,
 	fn: (template: ItemTemplate<Version>) => void
-): ItemResult {
+): Item {
 	return tryCatch(() => {
 		const template = {}
 
 		fn(processTemplate(template) as ItemTemplate<Version>)
 
-		return {
-			type: 'file',
-			data: transformTemplate(template, version)
-		}
+		return transformTemplate(template, version)
 	}, 'Failed to transform item template')
 }
 

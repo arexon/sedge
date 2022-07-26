@@ -16,10 +16,6 @@ interface Block {
 	format_version: string
 	'minecraft:block': VanillaTemplate
 }
-interface BLockResult {
-	type: 'file'
-	data: Block
-}
 
 /**
  * # Define Block
@@ -31,16 +27,13 @@ interface BLockResult {
 export function defineBlock<Version extends BlockFormatVersion>(
 	version: Version,
 	fn: (template: BlockTemplate<Version>) => void
-): BLockResult {
+): Block {
 	return tryCatch(() => {
 		const template = {}
 
 		fn(processTemplate(template) as BlockTemplate<Version>)
 
-		return {
-			type: 'file',
-			data: transformTemplate(template, version)
-		}
+		return transformTemplate(template, version)
 	}, 'Failed to transform block template')
 }
 

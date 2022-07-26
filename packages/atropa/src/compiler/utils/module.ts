@@ -26,9 +26,6 @@ export async function compileModule(
 				writeFileToTarget(path, content)
 			}
 			break
-		case 'file':
-			writeJsonFileToTarget(path, result.data)
-			break
 		default:
 			if (isObject(result)) writeJsonFileToTarget(path, result)
 			else writeFileToTarget(path, result)
