@@ -18,7 +18,7 @@ export async function compileModule(
 
 	switch (result.type) {
 		case 'collection':
-			for (const [path, content] of result.data) {
+			for (const [path, content] of await result.data) {
 				if (isObject(content)) {
 					writeJsonFileToTarget(path, content)
 					continue
@@ -32,7 +32,7 @@ export async function compileModule(
 	}
 }
 
-async function evalModule(
+export async function evalModule(
 	path: string,
 	options: { allowHMR: boolean }
 ): Promise<ModuleResult> {
