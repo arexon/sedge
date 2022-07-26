@@ -7,10 +7,9 @@ interface CollectionResult {
 
 /**
  * # Define Collection
- *
  * Collections are a way to group related files and/or further transform already existing files.
  * They allow to import files or create templates within and define the export location of said files.
- * @param fn A callback function with function parameters used to define the collection.
+ * @param fn A callback function with parameters to define the collection.
  */
 export function defineCollection(
 	fn: (template: CollectionTemplate) => void

@@ -1,11 +1,3 @@
-import type {
-	BlockComponentsFunction,
-	BlockDescriptionFunction,
-	BlockEventsFunction,
-	BlockPermutationsFunction
-} from './functions'
-import type { Namespace } from '../common/template'
-import type { UseFunction } from '../common/functions'
 import type { BlockComponents_1_16_0 } from '../../vanilla/block/v1.16.0'
 import type {
 	BlockComponents_1_16_100,
@@ -16,6 +8,14 @@ import type { BlockComponents_1_18_30 } from '../../vanilla/block/v1.18.30'
 import type { BlockComponents_1_19_10 } from '../../vanilla/block/v1.19.10'
 import type { BlockComponents_1_19_20 } from '../../vanilla/block/v1.19.20'
 import type { Randomize, Sequence } from '../../vanilla/event/common'
+import type { UseFunction } from '../common/functions'
+import type { Namespace } from '../common/template'
+import type {
+	BlockComponentsFunction,
+	BlockDescriptionFunction,
+	BlockEventsFunction,
+	BlockPermutationsFunction
+} from './functions'
 
 interface BlockTemplate_1_16_0
 	extends BlockDescriptionFunction<false>,

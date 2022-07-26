@@ -11,15 +11,15 @@ interface CollectionTemplate extends Namespace {
 	packs: ValueOf<Pick<Config, 'packs'>>
 	/**
 	 * # Add
-	 * Adds a file to the collection and writes it to the target.
-	 * @param path The path to write to. Must be within the packs.
-	 * @param content The content of the file. If the content is an object, it will be written as JSON. Otherwise, it will be written as a string.
+	 * Adds a file to the collection.
+	 * @param path The path to write to. You can use `pack` to construct a path.
+	 * @param content The content of the file.
 	 */
 	add(path: string, content: any): void
 	/**
 	 * # Remove
-	 * Remove any file in target output.
-	 * @param path The path to remove. Must be within the packs.
+	 * Remove a file from the collection.
+	 * @param path The path to remove. Must match a file in the collection.
 	 */
 	remove(path: string): void
 }

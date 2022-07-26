@@ -7,11 +7,9 @@ import { processTemplate as processItemTemplate } from './item'
 
 /**
  * # Define Component
- *
- * Allows to abstract away complex logic into smaller, composables, and reusable components.
- * @param format The format of the component.
- * The first part is for which element, second is for the format version for said element.
- * @param fn A callback function with function parameters used to define the component.
+ * A Custom Component allows to abstract away complex logic into smaller, composables, and reusable chunks.
+ * @param format The format of the component. The first part is for the type of file, second is for the format version for said file.
+ * @param fn A callback function with parameters to define the component.
  * @returns A component function with the provided options as parameters.
  */
 export function defineComponent<
