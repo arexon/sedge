@@ -1,10 +1,9 @@
-import { isObject } from '@antfu/utils'
-import {
-	removeFileFromTarget,
-	writeFileToTarget,
-	writeJsonFileToTarget
-} from '../../compiler/utils'
 import type { CollectionTemplate } from '../../schema/atropa/collection/template'
+
+interface CollectionResult {
+	type: 'collection'
+	data: Map<string, any>
+}
 
 /**
  * # Define Collection
@@ -15,27 +14,29 @@ import type { CollectionTemplate } from '../../schema/atropa/collection/template
  */
 export function defineCollection(
 	fn: (template: CollectionTemplate) => void
-): void {
+): CollectionResult {
 	try {
-		fn(processTemplate())
+		const template: CollectionResult = {
+			type: 'collection',
+			data: new Map<string, any>([])
+		}
+
+		fn(processTemplate(template))
+		return template
 	} catch (error) {
-		throw new Error('Failed to build collection:', error as Error)
+		throw new Error(`Failed to build collection: ${error}`)
 	}
 }
 
-function processTemplate(): CollectionTemplate {
+function processTemplate(template: CollectionResult): CollectionTemplate {
 	return {
 		namespace: atropa.config.namespace,
 		packs: atropa.config.packs,
 		add: (path, content) => {
-			if (isObject(content)) {
-				writeJsonFileToTarget(path, content)
-				return
-			}
-			writeFileToTarget(path, content)
+			template.data.set(path, content)
 		},
 		remove: (path) => {
-			removeFileFromTarget(path)
+			template.data.delete(path)
 		}
 	}
 }
