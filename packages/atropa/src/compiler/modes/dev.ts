@@ -5,11 +5,10 @@ import { normalize } from 'pathe'
 import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
 import {
+	compileModule,
 	copyFileToTarget,
-	evalModule,
 	isModule,
-	removeFileFromTarget,
-	writeJsonFileToTarget
+	removeFileFromTarget
 } from '../utils'
 import { build } from './build'
 
@@ -36,8 +35,7 @@ export async function dev(): Promise<void> {
 			}
 
 			if (isModule(path)) {
-				const content = await evalModule(path, true)
-				writeJsonFileToTarget(path, content)
+				await compileModule(path, { allowHMR: true })
 			} else {
 				copyFileToTarget(path)
 			}

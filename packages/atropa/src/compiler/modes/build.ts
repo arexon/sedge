@@ -1,11 +1,6 @@
 import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
-import {
-	copyFileToTarget,
-	evalModule,
-	scanForPaths,
-	writeJsonFileToTarget
-} from '../utils'
+import { compileModule, copyFileToTarget, scanForPaths } from '../utils'
 
 export async function build(callHook: boolean): Promise<void> {
 	const startTime = Date.now()
@@ -19,8 +14,7 @@ export async function build(callHook: boolean): Promise<void> {
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
-			const content = await evalModule(path, false)
-			writeJsonFileToTarget(path, content)
+			await compileModule(path, { allowHMR: false })
 		}),
 		...assets.map((path) => {
 			copyFileToTarget(path)
