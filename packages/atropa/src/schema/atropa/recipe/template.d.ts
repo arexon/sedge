@@ -1,3 +1,4 @@
+import { UseFunction } from '../common/functions'
 import type { Namespace } from '../common/template'
 import type {
 	BrewingContainerFunction,
@@ -15,6 +16,7 @@ interface RecipeTemplate
 		ShapelessFunction,
 		BrewingMixFunction,
 		BrewingContainerFunction,
-		MaterialReductionFunction {}
+		MaterialReductionFunction,
+		UseFunction {}
 
 export type { RecipeTemplate }

@@ -2,8 +2,11 @@ import type {
 	ComponentFormat,
 	ComponentTemplate
 } from '../../schema/atropa/component'
+import { tryCatch } from '../utils'
 import { processTemplate as processBlockTemplate } from './block'
 import { processTemplate as processItemTemplate } from './item'
+import { processTemplate as processLootTableTemplate } from './loot-table'
+import { processTemplate as processRecipeTemplate } from './recipe'
 
 /**
  * # Define Component
@@ -20,7 +23,7 @@ export function defineComponent<
 	fn: (options: Options, template: ComponentTemplate<Format>) => void
 ): (options?: Options) => Record<string, any> {
 	return (options?: Options) => {
-		try {
+		return tryCatch(() => {
 			const template: Record<string, any> = {}
 
 			switch (format) {
@@ -36,7 +39,6 @@ export function defineComponent<
 						) as ComponentTemplate<Format>
 					)
 					break
-
 				case 'item@1.10.0':
 				case 'item@1.16.100':
 				case 'item@1.17.20':
@@ -48,10 +50,24 @@ export function defineComponent<
 							template
 						) as ComponentTemplate<Format>
 					)
+					break
+				case 'lootTable':
+					fn(
+						options || ({} as Options),
+						processLootTableTemplate(
+							template
+						) as ComponentTemplate<Format>
+					)
+					break
+				case 'recipe':
+					fn(
+						options || ({} as Options),
+						processRecipeTemplate(
+							template
+						) as ComponentTemplate<Format>
+					)
 			}
 			return template
-		} catch (error) {
-			throw new Error('Failed to parse component:', error as Error)
-		}
+		}, 'Failed to transform component')
 	}
 }

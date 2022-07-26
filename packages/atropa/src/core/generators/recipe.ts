@@ -1,8 +1,8 @@
-import { objectMap } from '@antfu/utils'
+import { deepMerge, objectMap } from '@antfu/utils'
 import type { RecipeTemplate } from '../../schema/atropa/recipe'
 import { tryCatch } from '../utils'
 
-type UserTemplate = RecipeTemplate
+type UserTemplate = Partial<RecipeTemplate>
 interface VanillaTemplate {
 	recipe?: Record<string, any>
 }
@@ -32,7 +32,7 @@ export function defineRecipe(
 	return tryCatch(() => {
 		const template = {}
 
-		fn(processTemplate(template))
+		fn(processTemplate(template) as RecipeTemplate)
 
 		return {
 			type: 'file',
@@ -41,26 +41,59 @@ export function defineRecipe(
 	}, 'Failed to transform recipe')
 }
 
-function processTemplate(template: VanillaTemplate): UserTemplate {
+export function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
 		namespace: atropa.config.namespace,
 		shaped: (_template) => {
-			template.recipe = { shaped: _template }
+			template.recipe = {
+				shaped: {
+					...template.recipe?.shaped,
+					..._template
+				}
+			}
 		},
 		shapeless: (_template) => {
-			template.recipe = { shapeless: _template }
+			template.recipe = {
+				shapeless: {
+					...template.recipe?.shapeless,
+					..._template
+				}
+			}
 		},
 		furnace: (_template) => {
-			template.recipe = { furnace: _template }
+			template.recipe = {
+				furnace: {
+					...template.recipe?.furnace,
+					..._template
+				}
+			}
 		},
 		brewingContainer: (_template) => {
-			template.recipe = { brewing_container: _template }
+			template.recipe = {
+				brewing_container: {
+					...template.recipe?.brewing_container,
+					..._template
+				}
+			}
 		},
 		brewingMix: (_template) => {
-			template.recipe = { brewing_mix: _template }
+			template.recipe = {
+				brewing_mix: {
+					...template.recipe?.brewing_mix,
+					..._template
+				}
+			}
 		},
 		materialReduction: (_template) => {
-			template.recipe = { material_reduction: _template }
+			template.recipe = {
+				material_reduction: {
+					...template.recipe?.material_reduction,
+					..._template
+				}
+			}
+		},
+		use: (...components) => {
+			deepMerge(template, ...components)
 		}
 	}
 }
