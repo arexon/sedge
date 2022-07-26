@@ -28,7 +28,6 @@ importers:
       consola: ^2.15.3
       fast-glob: ^3.2.11
       fs-extra: ^10.1.0
-      hookable: ^5.1.1
       jiti: ^1.14.0
       pathe: ^0.3.2
       sedge: workspace:*
@@ -39,7 +38,6 @@ importers:
       consola: 2.15.3
       fast-glob: 3.2.11
       fs-extra: 10.1.0
-      hookable: 5.1.1
       jiti: 1.14.0
       pathe: 0.3.2
       sedge: link:../sedge
@@ -1126,6 +1124,7 @@ packages:
 
   /hookable/5.1.1:
     resolution: {integrity: sha512-7qam9XBFb+DijNBthaL1k/7lHU2TEMZkWSyuqmU3sCQze1wFm5w9AlEx30PD7a+QVAjOy6Ec2goFwe1YVyk2uA==}
+    dev: true
 
   /husky/8.0.1:
     resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}

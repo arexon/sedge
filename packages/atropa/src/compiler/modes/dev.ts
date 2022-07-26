@@ -2,7 +2,6 @@ import { debounce } from '@antfu/utils'
 import { watch } from 'chokidar'
 import { blackBright, cyan, green, magenta } from 'colorette'
 import { normalize } from 'pathe'
-import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
 import {
 	compileModule,
@@ -14,7 +13,6 @@ import { build } from './build'
 
 export async function dev(): Promise<void> {
 	await build(false)
-	await hooks.callHook('on:dev@initial')
 
 	const updatedFiles = new Set<string>()
 	const removedFiles = new Set<string>()
@@ -59,8 +57,6 @@ export async function dev(): Promise<void> {
 		logChanges(Array.from(updatedFiles), 'Updated', 'cyan')
 		logChanges(Array.from(removedFiles), 'Removed', 'magenta')
 		clearSets(updatedFiles, removedFiles)
-
-		await hooks.callHook('on:dev@reload')
 	})
 
 	const watcher = watch(
@@ -86,8 +82,7 @@ export async function dev(): Promise<void> {
 
 async function forceReload(folder: string): Promise<void> {
 	logger.info(`Changes in ${green(folder)} folder, reloading...`)
-	await build(false)
-	await hooks.callHook('on:dev@reload')
+	await build(true)
 	logger.info(`Reload complete`)
 }
 

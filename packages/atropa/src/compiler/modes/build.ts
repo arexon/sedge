@@ -1,8 +1,7 @@
-import { hooks } from '../../core/hooks'
 import { logger } from '../../logger'
 import { compileModule, copyFileToTarget, scanForPaths } from '../utils'
 
-export async function build(callHook: boolean): Promise<void> {
+export async function build(allowHMR: boolean): Promise<void> {
 	const startTime = Date.now()
 	const { assets, modules } = scanForPaths({
 		paths: [
@@ -14,12 +13,11 @@ export async function build(callHook: boolean): Promise<void> {
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
-			await compileModule(path, { allowHMR: false })
+			await compileModule(path, { allowHMR })
 		}),
 		...assets.map((path) => {
 			copyFileToTarget(path)
-		}),
-		callHook && (await hooks.callHook('on:build'))
+		})
 	])
 
 	if (atropa.mode === 'build') {
