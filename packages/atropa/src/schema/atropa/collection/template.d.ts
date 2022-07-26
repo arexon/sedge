@@ -22,6 +22,18 @@ interface CollectionTemplate extends Namespace {
 	 * @param path The path to remove. Must match a file in the collection.
 	 */
 	remove(path: string): void
+	/**
+	 * # Has
+	 * Checks if a file is in the collection.
+	 * @param path The path to the file.
+	 */
+	has(path: string): boolean
+	/**
+	 * # Get
+	 * Gets *compiled* file content from the collection.
+	 * @param path The path to the file.
+	 */
+	get(path: string): any
 }
 
 export type { CollectionTemplate }

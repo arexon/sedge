@@ -31,11 +31,9 @@ function processTemplate(template: CollectionResult): CollectionTemplate {
 	return {
 		namespace: atropa.config.namespace,
 		packs: atropa.config.packs,
-		add: (path, content) => {
-			template.data.set(path, content)
-		},
-		remove: (path) => {
-			template.data.delete(path)
-		}
+		add: (path, content) => template.data.set(path, content),
+		remove: (path) => template.data.delete(path),
+		has: (path) => template.data.has(path),
+		get: (path) => template.data.get(path).data
 	}
 }
