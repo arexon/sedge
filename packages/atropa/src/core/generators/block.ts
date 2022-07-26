@@ -3,47 +3,45 @@ import type {
 	BlockFormatVersion,
 	BlockTemplate
 } from '../../schema/atropa/block'
-import { ensureNamespaces } from '../utils'
+import { ensureNamespaces, tryCatch } from '../utils'
 
-interface UserTemplate {
-	namespace?: string
-	description?: (template: Record<string, any>) => void
-	permutations?: (template: Record<string, any>[]) => void
-	components?: (template: Record<string, any>) => void
-	events?: (template: Record<string, any>) => void
-	use?: (...components: Record<string, any>[]) => void
-}
+type UserTemplate = Partial<BlockTemplate<'1.19.20'>>
 interface VanillaTemplate {
 	description?: Record<string, any>
-	permutations?: Record<string, any>[]
 	components?: Record<string, any>
+	permutations?: Record<string, any>[]
 	events?: Record<string, any>
 }
 interface Block {
 	format_version: string
 	'minecraft:block': VanillaTemplate
 }
+interface BLockResult {
+	type: 'file'
+	data: Block
+}
 
 /**
  * # Define Block
- *
  * Generates a new block based on the given templates.
  * @param version The format version of the block.
- * @param fn A callback function with function parameters used to define the block.
- * @returns A block.
+ * @param fn A callback function with parameters to define the block.
+ * @returns A module result.
  */
 export function defineBlock<Version extends BlockFormatVersion>(
 	version: Version,
 	fn: (template: BlockTemplate<Version>) => void
-): Record<string, any> {
-	try {
+): BLockResult {
+	return tryCatch(() => {
 		const template = {}
 
 		fn(processTemplate(template) as BlockTemplate<Version>)
-		return transformTemplate(template, version)
-	} catch (error) {
-		throw new Error(`Failed to transform block template`, error as Error)
-	}
+
+		return {
+			type: 'file',
+			data: transformTemplate(template, version)
+		}
+	}, 'Failed to transform block template')
 }
 
 export function processTemplate(template: VanillaTemplate): UserTemplate {

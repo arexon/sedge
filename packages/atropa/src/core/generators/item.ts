@@ -1,14 +1,8 @@
 import { deepMerge, objectMap } from '@antfu/utils'
 import type { ItemFormatVersion, ItemTemplate } from '../../schema/atropa/item'
-import { ensureNamespaces } from '../utils'
+import { ensureNamespaces, tryCatch } from '../utils'
 
-interface UserTemplate {
-	namespace?: string
-	description?: (template: Record<string, any>) => void
-	components?: (template: Record<string, any>) => void
-	events?: (template: Record<string, any>) => void
-	use?: (...components: Record<string, any>[]) => void
-}
+type UserTemplate = Partial<ItemTemplate<'1.19.0'>>
 interface VanillaTemplate {
 	description?: Record<string, any>
 	components?: Record<string, any>
@@ -18,27 +12,32 @@ interface Item {
 	format_version: string
 	'minecraft:item': VanillaTemplate
 }
+interface ItemResult {
+	type: 'file'
+	data: Item
+}
 
 /**
  * # Define Item
- *
  * Generates a new item based on the given templates.
  * @param version The format version of the item.
- * @param fn A callback function with function parameters used to define the item.
- * @returns An item.
+ * @param fn A callback function with parameters to define the item.
+ * @returns A module result.
  */
 export function defineItem<Version extends ItemFormatVersion>(
 	version: Version,
 	fn: (template: ItemTemplate<Version>) => void
-): Object {
-	try {
+): ItemResult {
+	return tryCatch(() => {
 		const template = {}
 
 		fn(processTemplate(template) as ItemTemplate<Version>)
-		return transformTemplate(template, version)
-	} catch (error) {
-		throw new Error(`Failed to transform item template`, error as Error)
-	}
+
+		return {
+			type: 'file',
+			data: transformTemplate(template, version)
+		}
+	}, 'Failed to transform item template')
 }
 
 export function processTemplate(template: VanillaTemplate): UserTemplate {
