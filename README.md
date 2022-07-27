@@ -1,6 +1,5 @@
-# Atropa
-
-> ⚡ A declaratively supercharged framework for building complex Add-Ons for Minecraft Bedrock Edition.
+<h1 align="center">Atropa</h1>
+<p align="center">Declaratively supercharged framework for building complex Add-Ons for Minecraft Bedrock Edition</p>
 
 <br/>
 
