@@ -1,7 +1,7 @@
 import { logger } from '../../logger'
 import { compileModule, copyFileToTarget, scanForPaths } from '../utils'
 
-export async function build(allowHMR: boolean): Promise<void> {
+export async function build(options?: { allowHMR?: boolean }): Promise<void> {
 	const startTime = Date.now()
 	const { assets, modules } = scanForPaths({
 		paths: [
@@ -13,7 +13,9 @@ export async function build(allowHMR: boolean): Promise<void> {
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
-			await compileModule(path, { allowHMR })
+			await compileModule(path, {
+				allowHMR: options?.allowHMR || false
+			})
 		}),
 		...assets.map((path) => {
 			copyFileToTarget(path)

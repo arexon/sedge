@@ -76,7 +76,7 @@ async function runWithMode(): Promise<void> {
 	await prepare()
 	switch (atropa.mode) {
 		case 'build':
-			await build(false)
+			await build()
 			break
 		case 'dev':
 			await dev()

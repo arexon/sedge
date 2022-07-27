@@ -12,7 +12,7 @@ import {
 import { build } from './build'
 
 export async function dev(): Promise<void> {
-	await build(false)
+	await build()
 
 	const updatedFiles = new Set<string>()
 	const removedFiles = new Set<string>()
@@ -82,7 +82,7 @@ export async function dev(): Promise<void> {
 
 async function forceReload(folder: string): Promise<void> {
 	logger.info(`Changes in ${green(folder)} folder, reloading...`)
-	await build(true)
+	await build({ allowHMR: true })
 	logger.info(`Reload complete`)
 }
 
