@@ -1,4 +1,3 @@
-import type { RecipeTemplate } from '../../schema/atropa/recipe'
 import { tryCatch } from '../utils'
 import {
 	processTemplate as processBlockTemplate,
@@ -14,7 +13,10 @@ import {
 	processTemplate as processLootTableTemplate,
 	type LootTableTemplate
 } from './loot-table'
-import { processTemplate as processRecipeTemplate } from './recipe'
+import {
+	processTemplate as processRecipeTemplate,
+	type RecipeTemplate
+} from './recipe'
 
 type ComponentFormat =
 	| `block@${BlockFormatVersion}`
