@@ -1,6 +1,108 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import type { ItemFormatVersion, ItemTemplate } from '../../schema/atropa/item'
+import { UseFunction } from '../../schema/atropa/common/functions'
+import type {
+	Description,
+	Namespace
+} from '../../schema/atropa/common/template'
+import type { Randomize, Sequence } from '../../schema/vanilla/event/common'
+import type { ItemComponents_1_10_0 } from '../../schema/vanilla/item/v1.10.0'
+import type {
+	ItemComponents_1_16_100,
+	ItemEventResponses_1_16_100
+} from '../../schema/vanilla/item/v1.16.100'
+import type { ItemComponents_1_17_20 } from '../../schema/vanilla/item/v1.17.20'
+import type { ItemComponents_1_18_10 } from '../../schema/vanilla/item/v1.18.10'
+import type { ItemComponents_1_19_0 } from '../../schema/vanilla/item/v1.19.0'
 import { ensureNamespaces, tryCatch } from '../utils'
+
+interface ItemDescriptionFunction {
+	/**
+	 * # Description
+	 * The description sets required item information.
+	 * @param template The description template.
+	 */
+	description: (template: Description) => void
+}
+
+interface ItemComponentsFunction<Components extends Record<string, any>> {
+	/**
+	 * # Components
+	 * Components are used to describe the item's attributes and behavior.
+	 * @param template The components to add to the item.
+	 */
+	components: (template: Components) => void
+}
+
+interface ItemEventsFunction<Events extends Record<string, any>> {
+	/**
+	 * # Events
+	 * The events function defines the events that can be triggered by this item.
+	 * @param template The events to add to the item.
+	 */
+	events: (template: Record<string, Events>) => void
+}
+
+interface ItemTemplate_1_10_0
+	extends ItemDescriptionFunction,
+		ItemComponentsFunction<ItemComponents_1_10_0> {}
+
+interface ItemTemplate_1_16_100
+	extends ItemDescriptionFunction,
+		ItemComponentsFunction<ItemComponents_1_16_100>,
+		ItemEventsFunction<
+			ItemEventResponses_1_16_100 &
+				Randomize<ItemEventResponses_1_16_100> &
+				Sequence<ItemEventResponses_1_16_100>
+		> {}
+
+interface ItemTemplate_1_17_20
+	extends ItemDescriptionFunction,
+		ItemComponentsFunction<ItemComponents_1_17_20>,
+		ItemEventsFunction<
+			ItemEventResponses_1_16_100 &
+				Randomize<ItemEventResponses_1_16_100> &
+				Sequence<ItemEventResponses_1_16_100>
+		> {}
+
+interface ItemTemplate_1_18_10
+	extends ItemDescriptionFunction,
+		ItemComponentsFunction<ItemComponents_1_18_10>,
+		ItemEventsFunction<
+			ItemEventResponses_1_16_100 &
+				Randomize<ItemEventResponses_1_16_100> &
+				Sequence<ItemEventResponses_1_16_100>
+		> {}
+
+interface ItemTemplate_1_19_0
+	extends ItemDescriptionFunction,
+		ItemComponentsFunction<ItemComponents_1_19_0>,
+		ItemEventsFunction<
+			ItemEventResponses_1_16_100 &
+				Randomize<ItemEventResponses_1_16_100> &
+				Sequence<ItemEventResponses_1_16_100>
+		> {}
+
+export type ItemFormatVersion =
+	| '1.10.0'
+	| '1.16.100'
+	| '1.17.20'
+	| '1.18.10'
+	| '1.19.0'
+
+export type ItemTemplate<Version extends ItemFormatVersion> =
+	(Version extends '1.10.0'
+		? ItemTemplate_1_10_0
+		: Version extends '1.16.100'
+		? ItemTemplate_1_16_100
+		: Version extends '1.17.20'
+		? ItemTemplate_1_17_20
+		: Version extends '1.18.10'
+		? ItemTemplate_1_18_10
+		: Version extends '1.19.0'
+		? ItemTemplate_1_19_0
+		: never) &
+		Namespace &
+		UseFunction
 
 type UserTemplate = Partial<ItemTemplate<'1.19.0'>>
 interface VanillaTemplate {

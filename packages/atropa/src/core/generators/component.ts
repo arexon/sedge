@@ -1,10 +1,16 @@
-import type { ItemFormatVersion, ItemTemplate } from '../../schema/atropa/item'
 import type { LootTableTemplate } from '../../schema/atropa/loot-table'
 import type { RecipeTemplate } from '../../schema/atropa/recipe'
 import { tryCatch } from '../utils'
-import type { BlockFormatVersion, BlockTemplate } from './block'
-import { processTemplate as processBlockTemplate } from './block'
-import { processTemplate as processItemTemplate } from './item'
+import {
+	processTemplate as processBlockTemplate,
+	type BlockFormatVersion,
+	type BlockTemplate
+} from './block'
+import {
+	processTemplate as processItemTemplate,
+	type ItemFormatVersion,
+	type ItemTemplate
+} from './item'
 import { processTemplate as processLootTableTemplate } from './loot-table'
 import { processTemplate as processRecipeTemplate } from './recipe'
 
