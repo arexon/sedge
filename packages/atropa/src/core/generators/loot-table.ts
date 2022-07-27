@@ -1,8 +1,7 @@
 import { deepMerge } from '@antfu/utils'
-import type { UseFunction } from '../../schema/atropa/common/functions'
-import type { Namespace } from '../../schema/atropa/common/template'
 import type { Pools } from '../../schema/vanilla/loot-table'
 import { tryCatch } from '../utils'
+import type { Namespace, UseFunction } from './types'
 
 export interface LootTableTemplate extends Namespace, UseFunction {
 	/**

@@ -1,6 +1,6 @@
 import type { Config } from '../../loader'
-import type { Namespace } from '../../schema/atropa/common/template'
 import { tryCatch } from '../utils'
+import type { Namespace } from './types'
 
 type ValueOf<T> = T[keyof T]
 

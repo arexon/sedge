@@ -1,6 +1,4 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import { UseFunction } from '../../schema/atropa/common/functions'
-import { Namespace } from '../../schema/atropa/common/template'
 import type {
 	RecipeBrewingContainer,
 	RecipeBrewingMix,
@@ -10,6 +8,7 @@ import type {
 	RecipeShapeless
 } from '../../schema/vanilla/recipe'
 import { tryCatch } from '../utils'
+import type { Namespace, UseFunction } from './types'
 
 type FurnaceFunction = {
 	/**

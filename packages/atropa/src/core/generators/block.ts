@@ -1,9 +1,4 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import { UseFunction } from '../../schema/atropa/common/functions'
-import type {
-	Description,
-	Namespace
-} from '../../schema/atropa/common/template'
 import type { BlockComponents_1_16_0 } from '../../schema/vanilla/block/v1.16.0'
 import type {
 	BlockComponents_1_16_100,
@@ -15,6 +10,7 @@ import type { BlockComponents_1_19_10 } from '../../schema/vanilla/block/v1.19.1
 import type { BlockComponents_1_19_20 } from '../../schema/vanilla/block/v1.19.20'
 import type { Randomize, Sequence } from '../../schema/vanilla/event/common'
 import { ensureNamespaces, tryCatch } from '../utils'
+import type { Description, Namespace, UseFunction } from './types'
 
 interface BlockDescriptionFunction<WithProperties extends boolean> {
 	/**
