@@ -1,7 +1,8 @@
 import glob from 'fast-glob'
 import { extname, join, resolve } from 'pathe'
 
-export function replaceExt(path: string, newExt: string): string {
+export function replaceExt(path: string, newExt: string | undefined): string {
+	if (!newExt) return path
 	return path.replace(extname(path), newExt)
 }
 
@@ -10,18 +11,26 @@ export function scanForPaths(options: {
 	ignorePaths?: string[]
 }): {
 	modules: string[]
+	scripts: string[]
 	assets: string[]
 } {
 	const addPatternToPaths = (pattern: string): string[] => {
 		return options.paths.map((path) => join(path, pattern))
 	}
+
+	const behaviorPack = atropa.config.packs.behaviorPack
+	const componentsGlob = `${behaviorPack}/components/**/*.ts`
+	const scriptsGlob = `${behaviorPack}/scripts/**/*.ts`
+
 	const modules = glob.sync(addPatternToPaths('**/*.ts'), {
-		ignore: ['**/components/**/*.ts', ...(options.ignorePaths || [])]
+		ignore: [componentsGlob, scriptsGlob, ...(options.ignorePaths || [])]
 	})
+	const scripts = glob.sync(scriptsGlob)
 	const assets = glob.sync(addPatternToPaths('**/*'), {
 		ignore: ['**/*.ts', ...(options.ignorePaths || [])]
 	})
-	return { modules, assets }
+
+	return { modules, assets, scripts }
 }
 
 export function resolveToTargetPath(path: string): string {

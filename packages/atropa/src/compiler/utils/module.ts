@@ -1,9 +1,14 @@
 import { isObject } from '@antfu/utils'
+import { transformSync } from 'esbuild'
 import createJITI from 'jiti'
 import { resolve } from 'pathe'
 import { logger } from '../../logger'
 import { atropaCacheFolder } from '../constants'
-import { writeFileToTarget, writeJsonFileToTarget } from './fs'
+import {
+	readFileFromSource,
+	writeFileToTarget,
+	writeJsonFileToTarget
+} from './fs'
 
 type ModuleResult = {
 	type: 'file' | 'collection'
@@ -46,4 +51,15 @@ export async function evalModule(
 		}
 	})
 	return await jiti(path)
+}
+
+export function transformScript(path: string): void {
+	const script = readFileFromSource(path)
+	const result = transformSync(script, {
+		minify: atropa.mode === 'build' && atropa.config.atropa.minify,
+		loader: 'ts'
+	})
+	writeFileToTarget(path, result.code, {
+		newExt: '.js'
+	})
 }

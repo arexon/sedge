@@ -17,8 +17,15 @@ export function writeJsonFileToTarget(path: string, content: any): void {
 	)
 }
 
-export function writeFileToTarget(path: string, content: any): void {
-	fse.outputFileSync(resolveToTargetPath(replaceExt(path, '.json')), content)
+export function writeFileToTarget(
+	path: string,
+	content: any,
+	options?: { newExt?: string }
+): void {
+	fse.outputFileSync(
+		resolveToTargetPath(replaceExt(path, options?.newExt || undefined)),
+		content
+	)
 }
 
 export function copyFileToTarget(path: string): void {
@@ -34,4 +41,8 @@ export function removeFileFromTarget(path: string): void {
 				: resolveToTargetPath(path)
 		)
 	)
+}
+
+export function readFileFromSource(path: string): any {
+	return fse.readFileSync(resolve(path), 'utf8')
 }
