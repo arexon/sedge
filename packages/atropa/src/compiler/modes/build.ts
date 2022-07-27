@@ -3,12 +3,12 @@ import {
 	compileModule,
 	copyFileToTarget,
 	scanForPaths,
-	transformScript
+	compileScripts
 } from '../utils'
 
 export async function build(options?: { allowHMR?: boolean }): Promise<void> {
 	const startTime = Date.now()
-	const { assets, modules, scripts } = scanForPaths({
+	const { assets, modules } = scanForPaths({
 		paths: [
 			atropa.config.packs.behaviorPack,
 			atropa.config.packs.resourcePack
@@ -22,11 +22,11 @@ export async function build(options?: { allowHMR?: boolean }): Promise<void> {
 				allowHMR: options?.allowHMR || false
 			})
 		}),
-		...scripts.map((path) => {
-			transformScript(path)
-		}),
 		...assets.map((path) => {
 			copyFileToTarget(path)
+		}),
+		compileScripts({
+			incremental: false
 		})
 	])
 

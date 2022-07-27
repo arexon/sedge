@@ -1,14 +1,11 @@
 import { isObject } from '@antfu/utils'
-import { transformSync } from 'esbuild'
+import { build, type BuildResult } from 'esbuild'
 import createJITI from 'jiti'
-import { resolve } from 'pathe'
+import { join, resolve } from 'pathe'
 import { logger } from '../../logger'
 import { atropaCacheFolder } from '../constants'
-import {
-	readFileFromSource,
-	writeFileToTarget,
-	writeJsonFileToTarget
-} from './fs'
+import { writeFileToTarget, writeJsonFileToTarget } from './fs'
+import { resolveToTargetPath } from './path'
 
 type ModuleResult = {
 	type: 'file' | 'collection'
@@ -53,13 +50,19 @@ export async function evalModule(
 	return await jiti(path)
 }
 
-export function transformScript(path: string): void {
-	const script = readFileFromSource(path)
-	const result = transformSync(script, {
+export async function compileScripts(options: {
+	incremental: boolean
+}): Promise<BuildResult> {
+	const scriptFolder = join(atropa.config.packs.behaviorPack, 'scripts')
+
+	return await build({
+		entryPoints: [resolve(scriptFolder, 'index.ts')],
+		outfile: resolveToTargetPath(join(scriptFolder, 'index.js')),
+		target: 'esnext',
+		format: 'esm',
+		bundle: true,
 		minify: atropa.mode === 'build' && atropa.config.atropa.minify,
-		loader: 'ts'
-	})
-	writeFileToTarget(path, result.code, {
-		newExt: '.js'
+		incremental: options.incremental,
+		external: ['mojang-minecraft', 'mojang-minecraft-ui', 'mojang-gametest']
 	})
 }
