@@ -1,13 +1,13 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import type { Randomize, Sequence } from '../../schema/vanilla/event/common'
-import type { ItemComponents_1_10_0 } from '../../schema/vanilla/item/v1.10.0'
+import type { Randomize, Sequence } from '../../schema/event/common'
+import type { ItemComponents_1_10_0 } from '../../schema/item/v1.10.0'
 import type {
 	ItemComponents_1_16_100,
 	ItemEventResponses_1_16_100
-} from '../../schema/vanilla/item/v1.16.100'
-import type { ItemComponents_1_17_20 } from '../../schema/vanilla/item/v1.17.20'
-import type { ItemComponents_1_18_10 } from '../../schema/vanilla/item/v1.18.10'
-import type { ItemComponents_1_19_0 } from '../../schema/vanilla/item/v1.19.0'
+} from '../../schema/item/v1.16.100'
+import type { ItemComponents_1_17_20 } from '../../schema/item/v1.17.20'
+import type { ItemComponents_1_18_10 } from '../../schema/item/v1.18.10'
+import type { ItemComponents_1_19_0 } from '../../schema/item/v1.19.0'
 import { ensureNamespaces, tryCatch } from '../utils'
 import type { Description, Namespace, UseFunction } from './types'
 

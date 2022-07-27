@@ -6,7 +6,7 @@ import type {
 	RecipeMaterialReduction,
 	RecipeShaped,
 	RecipeShapeless
-} from '../../schema/vanilla/recipe'
+} from '../../schema/recipe'
 import { tryCatch } from '../utils'
 import type { Namespace, UseFunction } from './types'
 

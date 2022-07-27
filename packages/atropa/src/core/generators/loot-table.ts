@@ -1,5 +1,5 @@
 import { deepMerge } from '@antfu/utils'
-import type { Pools } from '../../schema/vanilla/loot-table'
+import type { Pools } from '../../schema/loot-table'
 import { tryCatch } from '../utils'
 import type { Namespace, UseFunction } from './types'
 
