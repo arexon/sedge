@@ -13,7 +13,7 @@ interface UseTemplateOptions {
 
 /**
  * # Use Template
- * Gets a file from the given path.
+ * Gets the compiled version of a file.
  * @param path The path to the file.
  * @param options Additional options.
  * @returns The file's content.
