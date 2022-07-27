@@ -1,12 +1,49 @@
-import type {
-	ComponentFormat,
-	ComponentTemplate
-} from '../../schema/atropa/component'
+import type { ItemFormatVersion, ItemTemplate } from '../../schema/atropa/item'
+import type { LootTableTemplate } from '../../schema/atropa/loot-table'
+import type { RecipeTemplate } from '../../schema/atropa/recipe'
 import { tryCatch } from '../utils'
+import type { BlockFormatVersion, BlockTemplate } from './block'
 import { processTemplate as processBlockTemplate } from './block'
 import { processTemplate as processItemTemplate } from './item'
 import { processTemplate as processLootTableTemplate } from './loot-table'
 import { processTemplate as processRecipeTemplate } from './recipe'
+
+type ComponentFormat =
+	| `block@${BlockFormatVersion}`
+	| `item@${ItemFormatVersion}`
+	| 'lootTable'
+	| 'recipe'
+
+type ComponentTemplate<Format extends ComponentFormat> = Omit<
+	Format extends 'block@1.16.0'
+		? BlockTemplate<'1.16.0'>
+		: Format extends 'block@1.16.100'
+		? BlockTemplate<'1.16.100'>
+		: Format extends 'block@1.18.10'
+		? BlockTemplate<'1.18.10'>
+		: Format extends 'block@1.18.30'
+		? BlockTemplate<'1.18.30'>
+		: Format extends 'block@1.19.10'
+		? BlockTemplate<'1.19.10'>
+		: Format extends 'block@1.19.20'
+		? BlockTemplate<'1.19.20'>
+		: Format extends 'item@1.10.0'
+		? ItemTemplate<'1.10.0'>
+		: Format extends 'item@1.16.100'
+		? ItemTemplate<'1.16.100'>
+		: Format extends 'item@1.17.20'
+		? ItemTemplate<'1.17.20'>
+		: Format extends 'item@1.18.10'
+		? ItemTemplate<'1.18.10'>
+		: Format extends 'item@1.19.0'
+		? ItemTemplate<'1.19.0'>
+		: Format extends 'lootTable'
+		? LootTableTemplate
+		: Format extends 'recipe'
+		? RecipeTemplate
+		: never,
+	'use'
+>
 
 /**
  * # Define Component
@@ -21,8 +58,8 @@ export function defineComponent<
 >(
 	format: Format,
 	fn: (options: Options, template: ComponentTemplate<Format>) => void
-): (options?: Options) => Record<string, any> {
-	return (options?: Options) => {
+): (options: Options) => Record<string, any> {
+	return (options: Options) => {
 		return tryCatch(() => {
 			const template: Record<string, any> = {}
 
@@ -33,7 +70,7 @@ export function defineComponent<
 				case 'block@1.18.30':
 				case 'block@1.19.10':
 					fn(
-						options || ({} as Options),
+						options,
 						processBlockTemplate(
 							template
 						) as ComponentTemplate<Format>
@@ -45,7 +82,7 @@ export function defineComponent<
 				case 'item@1.18.10':
 				case 'item@1.19.0':
 					fn(
-						options || ({} as Options),
+						options,
 						processItemTemplate(
 							template
 						) as ComponentTemplate<Format>
@@ -53,7 +90,7 @@ export function defineComponent<
 					break
 				case 'lootTable':
 					fn(
-						options || ({} as Options),
+						options,
 						processLootTableTemplate(
 							template
 						) as ComponentTemplate<Format>
@@ -61,7 +98,7 @@ export function defineComponent<
 					break
 				case 'recipe':
 					fn(
-						options || ({} as Options),
+						options,
 						processRecipeTemplate(
 							template
 						) as ComponentTemplate<Format>
