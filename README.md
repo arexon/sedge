@@ -6,11 +6,16 @@
 
 > Note: This is still a work in progress.
 
-## Why?
+## Why use Atropa?
 
-Building Add-Ons without proper tooling is often not the most pleasant experience.
-And even when you do have the tools, JSON gets in your way of programmatically generating large amounts of files or code, and doesn't let you structure the different chunks of your code to be modular and scalable.
+Atropa takes full advantage of TypeScript's powerful type system to create a functional, declarative API that elevates Add-On development to the next level!
 
-This is where Atropa comes in. Atropa takes full advantage of TypeScript's powerful type system to create a functional, declarative API that introduces Collections, Custom Components, Composable Generator Files, and Hooks.
-
-And it doesn't end there! Atropa goes beyond that and provides an advanced build pipeline through its Sedge CLI where you can set up your development environment (which takes care of compiling your project to the `com.mojang` folder) and also run a production build of your project.
+❯ ⚙️ **Generator Functions** for intuitive creation of files such as entities <br/>
+❯ 💾 **Custom Components** to allow for abstracting away logic into composable & reusable functions <br/>
+❯ 📚 **File Collections** which make it super easy to mass generate files or group a related set of files <br/>
+❯ 📦 **Modular Design** to fit into existing pipelines <br/>
+❯ 🐇 **Rapid development** experience by compiling your code into the `com.mojang` folder instantly <br/>
+❯ 🪝 **Hooks system** that allows you to only run code in a specific compile mode <br/>
+❯ 🧰 **Templating engine** for MC functions to make writing them a breeze <br/>
+❯ 🌍 **Build worlds** ergonomically by saving or testing them through a single command <br/>
+❯ 🦺 **Typesafe** so you never have to read documentation ever again <br/>
