@@ -1,6 +1,6 @@
 import { hasOwnProperty } from '@antfu/utils'
 import { blackBright, blue, magenta, yellow } from 'colorette'
-import { loadConfig } from '../loader/config'
+import { loadConfig } from '../config'
 import { logger } from '../logger'
 import { comMojangFolder } from './constants'
 import { build, dev } from './modes'

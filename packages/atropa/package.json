@@ -15,18 +15,12 @@
 	},
 	"type": "module",
 	"exports": {
-		"./loader": "./dist/loader.mjs",
 		"./compiler": "./dist/compiler.mjs",
-		"./core": "./dist/core.mjs"
+		"./core": "./dist/core.mjs",
+		"./config": "./dist/config.mjs"
 	},
 	"typesVersions": {
 		"*": {
-			"loader": [
-				"dist/loader.d.ts"
-			],
-			"compiler": [
-				"dist/compiler.d.ts"
-			],
 			"core": [
 				"dist/core.d.ts"
 			]

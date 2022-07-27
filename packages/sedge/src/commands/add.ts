@@ -33,7 +33,7 @@ export default defineCommand({
 			pack: 'server' | 'client'
 		}
 
-		const { loadConfig } = await importAtropa('loader')
+		const { loadConfig } = await importAtropa('config')
 		const config = await loadConfig()
 
 		const filePrompt = async (): Promise<{ file: File }> => {

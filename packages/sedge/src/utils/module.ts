@@ -3,14 +3,14 @@ import { normalize } from 'pathe'
 import { resolvePath } from 'mlly'
 import { blue } from 'colorette'
 import type { createAtropa } from '../../../atropa/src/compiler'
-import type { loadConfig, Config } from '../../../atropa/src/loader'
+import type { loadConfig, Config } from '../../../atropa/src/config'
 
-export async function importAtropa<Submodule extends 'compiler' | 'loader'>(
+export async function importAtropa<Submodule extends 'compiler' | 'config'>(
 	submodule: Submodule
 ): Promise<
 	Submodule extends 'compiler'
 		? { createAtropa: typeof createAtropa }
-		: Submodule extends 'loader'
+		: Submodule extends 'config'
 		? { loadConfig: typeof loadConfig }
 		: never
 > {

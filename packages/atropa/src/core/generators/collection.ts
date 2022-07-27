@@ -1,4 +1,4 @@
-import type { Config } from '../../loader'
+import type { Config } from '../../config'
 import { tryCatch } from '../utils'
 import type { Namespace } from './types'
 

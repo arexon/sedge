@@ -1,4 +1,4 @@
-import type { Config } from './loader/config'
+import type { Config } from './config'
 
 declare global {
 	var atropa: {
