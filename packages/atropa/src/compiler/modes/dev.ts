@@ -25,7 +25,7 @@ export async function dev(): Promise<void> {
 			incremental: true
 		})
 
-		for (const path of updatedFiles) {
+		updatedFiles.forEach(async (path) => {
 			if (path.includes('components')) {
 				clearSets(updatedFiles, removedFiles)
 				forceReload('components')
@@ -34,6 +34,10 @@ export async function dev(): Promise<void> {
 			if (path.includes('collections')) {
 				clearSets(updatedFiles, removedFiles)
 				forceReload('collections')
+				return
+			}
+			if (path.includes('scripts')) {
+				await scripts.rebuild!()
 				return
 			}
 
@@ -42,9 +46,8 @@ export async function dev(): Promise<void> {
 			} else {
 				copyFileToTarget(path)
 			}
-		}
-
-		for (const path of removedFiles) {
+		})
+		removedFiles.forEach(async (path) => {
 			if (path.includes('components')) {
 				clearSets(updatedFiles, removedFiles)
 				forceReload('components')
@@ -55,11 +58,13 @@ export async function dev(): Promise<void> {
 				forceReload('collections')
 				return
 			}
+			if (path.includes('scripts')) {
+				await scripts.rebuild!()
+				return
+			}
 
 			removeFileFromTarget(path)
-		}
-
-		await scripts.rebuild!()
+		})
 
 		logChanges(Array.from(updatedFiles), 'Updated', 'cyan')
 		logChanges(Array.from(removedFiles), 'Removed', 'magenta')
