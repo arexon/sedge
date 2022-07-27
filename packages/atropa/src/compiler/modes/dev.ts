@@ -5,6 +5,7 @@ import { normalize } from 'pathe'
 import { logger } from '../../logger'
 import {
 	compileModule,
+	compileScripts,
 	copyFileToTarget,
 	isModule,
 	removeFileFromTarget
@@ -19,6 +20,10 @@ export async function dev(): Promise<void> {
 
 	const reload = debounce(200, async () => {
 		console.clear()
+
+		const scripts = await compileScripts({
+			incremental: true
+		})
 
 		for (const path of updatedFiles) {
 			if (path.includes('components')) {
@@ -53,6 +58,8 @@ export async function dev(): Promise<void> {
 
 			removeFileFromTarget(path)
 		}
+
+		await scripts.rebuild!()
 
 		logChanges(Array.from(updatedFiles), 'Updated', 'cyan')
 		logChanges(Array.from(removedFiles), 'Removed', 'magenta')
