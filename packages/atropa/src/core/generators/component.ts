@@ -1,4 +1,3 @@
-import type { LootTableTemplate } from '../../schema/atropa/loot-table'
 import type { RecipeTemplate } from '../../schema/atropa/recipe'
 import { tryCatch } from '../utils'
 import {
@@ -11,7 +10,10 @@ import {
 	type ItemFormatVersion,
 	type ItemTemplate
 } from './item'
-import { processTemplate as processLootTableTemplate } from './loot-table'
+import {
+	processTemplate as processLootTableTemplate,
+	type LootTableTemplate
+} from './loot-table'
 import { processTemplate as processRecipeTemplate } from './recipe'
 
 type ComponentFormat =

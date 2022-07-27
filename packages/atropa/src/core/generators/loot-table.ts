@@ -1,6 +1,17 @@
 import { deepMerge } from '@antfu/utils'
-import type { LootTableTemplate } from '../../schema/atropa/loot-table'
+import type { UseFunction } from '../../schema/atropa/common/functions'
+import type { Namespace } from '../../schema/atropa/common/template'
+import type { Pools } from '../../schema/vanilla/loot-table'
 import { tryCatch } from '../utils'
+
+export interface LootTableTemplate extends Namespace, UseFunction {
+	/**
+	 * ## Pools
+	 * Lists the loot pools for this loot table.
+	 * @param template The pools to add to the loot table.
+	 */
+	pools(template: Pools[]): void
+}
 
 type UserTemplate = Partial<LootTableTemplate>
 interface LootTable {
