@@ -1,4 +1,4 @@
-type TagTypes =
+type RecipeTagTypes =
 	| 'blast_furnace'
 	| 'brewing_stand'
 	| 'campfire'
@@ -11,4 +11,4 @@ type TagTypes =
 	| 'material_reducer'
 	| 'smithing_table'
 
-export type { TagTypes }
+export type { RecipeTagTypes }

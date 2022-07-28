@@ -15,6 +15,7 @@ import {
 } from './loot-table'
 import {
 	processTemplate as processRecipeTemplate,
+	type RecipeTypes,
 	type RecipeTemplate
 } from './recipe'
 
@@ -22,7 +23,7 @@ type ComponentFormat =
 	| `block@${BlockFormatVersion}`
 	| `item@${ItemFormatVersion}`
 	| 'lootTable'
-	| 'recipe'
+	| `recipe#${RecipeTypes}`
 
 type ComponentTemplate<Format extends ComponentFormat> = Omit<
 	Format extends 'block@1.16.0'
@@ -49,8 +50,18 @@ type ComponentTemplate<Format extends ComponentFormat> = Omit<
 		? ItemTemplate<'1.19.0'>
 		: Format extends 'lootTable'
 		? LootTableTemplate
-		: Format extends 'recipe'
-		? RecipeTemplate
+		: Format extends 'recipe#brewing_container'
+		? RecipeTemplate<'brewing_container'>
+		: Format extends 'recipe#brewing_mix'
+		? RecipeTemplate<'brewing_mix'>
+		: Format extends 'recipe#furnace'
+		? RecipeTemplate<'furnace'>
+		: Format extends 'recipe#material_reduction'
+		? RecipeTemplate<'material_reduction'>
+		: Format extends 'recipe#shaped'
+		? RecipeTemplate<'shaped'>
+		: Format extends 'recipe#shapeless'
+		? RecipeTemplate<'shapeless'>
 		: never,
 	'use'
 >
@@ -104,7 +115,12 @@ export function defineComponent<
 						) as ComponentTemplate<Type>
 					)
 					break
-				case 'recipe':
+				case 'recipe#brewing_container':
+				case 'recipe#brewing_mix':
+				case 'recipe#furnace':
+				case 'recipe#material_reduction':
+				case 'recipe#shaped':
+				case 'recipe#shapeless':
 					fn(
 						options,
 						processRecipeTemplate(

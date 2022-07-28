@@ -1,113 +1,217 @@
-import { deepMerge, objectMap } from '@antfu/utils'
+import { deepMerge } from '@antfu/utils'
 import type {
-	RecipeBrewingContainer,
-	RecipeBrewingMix,
-	RecipeFurnace,
-	RecipeMaterialReduction,
-	RecipeShaped,
-	RecipeShapeless
+	RecipeKey,
+	RecipePattern,
+	RecipeResult as _RecipeResult,
+	RecipeTagTypes
 } from '../../schema/recipe'
 import { tryCatch } from '../utils'
-import type { Namespace, UseFunction } from './types'
+import type { Description, Namespace, UseFunction } from './types'
 
-type FurnaceFunction = {
+interface RecipeDescriptionFunction {
 	/**
-	 * ## Recipe Furnace
-	 * Represents a recipe for use with a Furnace.
-	 * @param template The furnace recipe template.
+	 * # Description
+	 * Describes the recipe.
+	 * @param description The recipe description.
 	 */
-	furnace(template: RecipeFurnace): void
+	description(template: Description): void
+}
+interface RecipeTagsFunction {
+	/**
+	 * # Tags
+	 * Item(s) that can create the recipe.
+	 * @param template The recipe tags.
+	 */
+	tags(template: RecipeTagTypes): void
+}
+interface RecipeGroupFunction {
+	/**
+	 * # Group
+	 * The group of the recipe.
+	 * @param template The recipe group.
+	 */
+	group(template: string): void
+}
+interface RecipePriorityFunction {
+	/**
+	 * # Priority
+	 * Sets the priority order of the recipe. Lower numbers represent a higher priority.
+	 * @param template The recipe priority.
+	 */
+	priority(template: number): void
+}
+interface RecipeResultFunction {
+	/**
+	 * # Result
+	 * The result of the recipe.
+	 * @param template The recipe result.
+	 */
+	result(template: _RecipeResult): void
+}
+interface RecipePatternFunction {
+	/**
+	 * # Pattern
+	 * Characters that represent a pattern to be defined by keys.
+	 * @param template The recipe pattern.
+	 */
+	pattern(template: RecipePattern): void
+}
+interface RecipeKeyFunction {
+	/**
+	 * # Key
+	 * Keys to map characters to item names to be used in `pattern`.
+	 * @param template The recipe key.
+	 */
+	key(template: RecipeKey): void
+}
+interface RecipeIngredientsFunction {
+	/**
+	 * # Ingredient
+	 * Items used as input (without a shape) for the recipe.
+	 * @param template The recipe ingredients.
+	 */
+	ingredients(template: _RecipeResult[]): void
+}
+interface RecipeInputFunction {
+	/**
+	 * # Input
+	 * Items used as input for the furnace recipe.
+	 * @param template The recipe input.
+	 */
+	input(template: string): void
+}
+interface RecipeOutputFunction {
+	/**
+	 * # Output
+	 * Items used as output for the furnace recipe.
+	 * @param template The recipe output.
+	 */
+	output(template: string): void
+}
+interface RecipeReagentFunction {
+	/**
+	 * # Reagent
+	 * Item used in the brewing container recipe with the input potion.
+	 * @param template The recipe reagent.
+	 */
+	reagent(template: string): void
 }
 
-type ShapedFunction = {
-	/**
-	 * ## Recipe Shaped
-	 * Represents a recipe that requires a dedicated pattern when using a Crafting Table.
-	 * @param template The shaped recipe template.
-	 */
-	shaped(template: RecipeShaped): void
-}
+interface RecipeShapedTemplate
+	extends RecipeDescriptionFunction,
+		RecipeTagsFunction,
+		RecipeGroupFunction,
+		RecipePriorityFunction,
+		RecipeResultFunction,
+		RecipePatternFunction,
+		RecipeKeyFunction {}
+interface RecipeShapelessTemplate
+	extends RecipeDescriptionFunction,
+		RecipeTagsFunction,
+		RecipeGroupFunction,
+		RecipePriorityFunction,
+		RecipeResultFunction,
+		RecipeIngredientsFunction {}
+interface RecipeFurnaceTemplate
+	extends RecipeDescriptionFunction,
+		RecipeTagsFunction,
+		RecipeGroupFunction,
+		RecipeInputFunction,
+		RecipeOutputFunction {}
+interface RecipeBrewingMixTemplate
+	extends RecipeDescriptionFunction,
+		RecipeTagsFunction,
+		RecipeInputFunction,
+		RecipeOutputFunction,
+		RecipeReagentFunction {}
+interface RecipeBrewingContainerTemplate
+	extends RecipeDescriptionFunction,
+		RecipeTagsFunction,
+		RecipeInputFunction,
+		RecipeOutputFunction,
+		RecipeReagentFunction {}
+interface RecipeMaterialReductionTemplate
+	extends RecipeDescriptionFunction,
+		RecipeTagsFunction,
+		RecipeInputFunction,
+		RecipeOutputFunction {}
 
-type ShapelessFunction = {
-	/**
-	 * ## Recipe Shapeless
-	 * Represents a recipe that does not require a dedicated pattern.
-	 * @param template The shapeless recipe template.
-	 */
-	shapeless(template: RecipeShapeless): void
-}
+export type RecipeTypes =
+	| 'shaped'
+	| 'shapeless'
+	| 'furnace'
+	| 'brewing_mix'
+	| 'brewing_container'
+	| 'material_reduction'
 
-type BrewingMixFunction = {
-	/**
-	 * ## Recipe Brewing Mix
-	 * Represents a recipe that for use with a Potion Brewing station.
-	 * @param template The brewing mix recipe template.
-	 */
-	brewingMix(template: RecipeBrewingMix): void
-}
+export type RecipeTemplate<Type extends RecipeTypes> = (Type extends 'shaped'
+	? RecipeShapedTemplate
+	: Type extends 'shapeless'
+	? RecipeShapelessTemplate
+	: Type extends 'furnace'
+	? RecipeFurnaceTemplate
+	: Type extends 'brewing_mix'
+	? RecipeBrewingMixTemplate
+	: Type extends 'brewing_container'
+	? RecipeBrewingContainerTemplate
+	: Type extends 'material_reduction'
+	? RecipeMaterialReductionTemplate
+	: never) &
+	Namespace &
+	UseFunction
 
-type BrewingContainerFunction = {
-	/**
-	 * ## Recipe Brewing Container
-	 * Represents a recipe that for use with a Potion Brewing station.
-	 * @param template The brewing container recipe template.
-	 */
-	brewingContainer(template: RecipeBrewingContainer): void
-}
-
-type MaterialReductionFunction = {
-	/**
-	 * ## Recipe Material Reduction
-	 * @param template The material reduction recipe template.
-	 */
-	materialReduction(template: RecipeMaterialReduction): void
-}
-
-export interface RecipeTemplate
-	extends Namespace,
-		FurnaceFunction,
-		ShapedFunction,
-		ShapelessFunction,
-		BrewingMixFunction,
-		BrewingContainerFunction,
-		MaterialReductionFunction,
-		UseFunction {}
-
-type UserTemplate = Partial<RecipeTemplate>
+type UserTemplate = Partial<
+	RecipeDescriptionFunction &
+		RecipeTagsFunction &
+		RecipeGroupFunction &
+		RecipePriorityFunction &
+		RecipeResultFunction &
+		RecipePatternFunction &
+		RecipeKeyFunction &
+		RecipeIngredientsFunction &
+		Namespace &
+		UseFunction
+>
 interface VanillaTemplate {
-	recipe?: Record<string, any>
+	description?: Record<string, any>
+	tags?: string[]
+	group?: string
+	pattern?: string[]
+	priority?: number
+	key?: Record<string, any>
+	result?: Record<string, any>
+	ingredients?: Record<string, any>[]
 }
-interface Recipe {
+
+type Recipe = {
+	[key in `minecraft:recipe_${RecipeTypes}`]?: VanillaTemplate
+} & {
 	format_version: string
-	'minecraft:recipe_shaped'?: VanillaTemplate
-	'minecraft:recipe_shapeless'?: VanillaTemplate
-	'minecraft:recipe_furnace'?: VanillaTemplate
-	'minecraft:recipe_brewing_container'?: VanillaTemplate
-	'minecraft:recipe_brewing_mix'?: VanillaTemplate
-	'minecraft:recipe_material_reduction'?: VanillaTemplate
 }
 interface RecipeResult {
-	type: 'recipe'
+	type: 'json'
 	data: Recipe
 }
 
 /**
  * # Define Recipe
  * Generates a recipe from the given template.
+ * @param type The type of recipe to generate.
  * @param fn A function that defines the recipe.
  * @returns A module result that contains the recipe.
  */
-export function defineRecipe(
-	fn: (template: RecipeTemplate) => void
+export function defineRecipe<Type extends RecipeTypes>(
+	type: Type,
+	fn: (template: RecipeTemplate<Type>) => void
 ): RecipeResult {
 	return tryCatch(() => {
 		const template = {}
 
-		fn(processTemplate(template) as RecipeTemplate)
+		fn(processTemplate(template) as RecipeTemplate<Type>)
 
 		return {
-			type: 'recipe',
-			data: transformTemplate(template, '1.12.0')
+			type: 'json',
+			data: transformTemplate(template, type)
 		}
 	}, 'Failed to transform recipe')
 }
@@ -115,53 +219,32 @@ export function defineRecipe(
 export function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
 		namespace: atropa.config.namespace,
-		shaped: (_template) => {
-			template.recipe = {
-				shaped: {
-					...template.recipe?.shaped,
-					..._template
-				}
-			}
+		description: (_template) => {
+			template.description = { ...template.description, ..._template }
 		},
-		shapeless: (_template) => {
-			template.recipe = {
-				shapeless: {
-					...template.recipe?.shapeless,
-					..._template
-				}
-			}
+		tags: (_template) => {
+			template.tags = [...(template.tags || []), _template]
 		},
-		furnace: (_template) => {
-			template.recipe = {
-				furnace: {
-					...template.recipe?.furnace,
-					..._template
-				}
-			}
+		group: (_template) => {
+			template.group = _template
 		},
-		brewingContainer: (_template) => {
-			template.recipe = {
-				brewing_container: {
-					...template.recipe?.brewing_container,
-					..._template
-				}
-			}
+		pattern: (_template) => {
+			template.pattern = [...(template.pattern || []), ..._template]
 		},
-		brewingMix: (_template) => {
-			template.recipe = {
-				brewing_mix: {
-					...template.recipe?.brewing_mix,
-					..._template
-				}
-			}
+		priority: (_template) => {
+			template.priority = _template
 		},
-		materialReduction: (_template) => {
-			template.recipe = {
-				material_reduction: {
-					...template.recipe?.material_reduction,
-					..._template
-				}
-			}
+		key: (_template) => {
+			template.key = { ...template.key, ..._template }
+		},
+		result: (_template) => {
+			template.result = { ...template.result, ..._template }
+		},
+		ingredients: (_template) => {
+			template.ingredients = [
+				...(template.ingredients || []),
+				..._template
+			]
 		},
 		use: (...components) => {
 			deepMerge(template, ...components)
@@ -169,16 +252,9 @@ export function processTemplate(template: VanillaTemplate): UserTemplate {
 	}
 }
 
-function transformTemplate(template: VanillaTemplate, version: string): Recipe {
-	const transformedTemplate = objectMap(
-		template.recipe as Required<VanillaTemplate>,
-		(key, value) => {
-			return [`minecraft:recipe_${key}`, value]
-		}
-	)
-
+function transformTemplate(template: VanillaTemplate, type: string): Recipe {
 	return {
-		format_version: version,
-		...transformedTemplate
+		format_version: '1.12.0',
+		[`minecraft:recipe_${type}`]: template
 	}
 }
