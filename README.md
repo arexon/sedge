@@ -15,7 +15,6 @@ Atropa takes full advantage of TypeScript's powerful type system to create a fun
 ❯ 📦 **Modular design** to fit into existing pipelines <br/>
 ❯ 🐇 **Rapid development** experience by compiling your code into the `com.mojang` folder instantly <br/>
 ❯ 🪝 **Hook system** that allows you to only run code at a specific compile mode <br/>
-❯ 🧰 **Templating engine** for Minecraft functions to make writing them a breeze <br/>
 ❯ 🌍 **Build worlds** ergonomically by saving or testing them through a single command <br/>
 ❯ 🦺 **Typesafe** so you never have to read documentation ever again <br/>
 ❯ 🎮 **Advanced CLI** for easy management of your project <br/>
