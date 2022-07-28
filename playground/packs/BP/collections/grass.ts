@@ -8,7 +8,7 @@ export default defineCollection(({ add, packs }) => {
 		blocks.map((block) => {
 			const grassBlock = defineBlock('1.19.10', ({ use }) => {
 				use(Attributes({ name: block }))
-			})
+			}).data
 
 			add(`${packs.behaviorPack}/blocks/${block}.json`, grassBlock)
 		})
