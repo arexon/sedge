@@ -10,7 +10,12 @@ import type { BlockComponents_1_19_10 } from '../../schema/block/v1.19.10'
 import type { BlockComponents_1_19_20 } from '../../schema/block/v1.19.20'
 import type { Randomize, Sequence } from '../../schema/event/common'
 import { ensureNamespaces, tryCatch } from '../utils'
-import type { Description, Namespace, UseFunction } from './types'
+import type {
+	Description,
+	DescriptionExperimental,
+	Namespace,
+	UseFunction
+} from './types'
 
 interface BlockDescriptionFunction<WithProperties extends boolean> {
 	/**
@@ -19,7 +24,7 @@ interface BlockDescriptionFunction<WithProperties extends boolean> {
 	 * @param template The description template.
 	 */
 	description(
-		template: WithProperties extends true
+		template: (WithProperties extends true
 			? Description & {
 					/**
 					 * ## Properties
@@ -29,7 +34,8 @@ interface BlockDescriptionFunction<WithProperties extends boolean> {
 						[key: string]: string[] | boolean[] | number[]
 					}
 			  }
-			: Description
+			: Description) &
+			DescriptionExperimental
 	): void
 }
 interface BlockPermutationsFunction<Components extends Record<string, any>> {

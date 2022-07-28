@@ -18,9 +18,12 @@ export type Namespace = {
 export interface Description {
 	/**
 	 * ## Identifier
-	 * The name must include a namespace and must not use the Minecraft namespace unless overriding a Vanilla block.
+	 * The name must include a namespace and must not use the Minecraft namespace unless you want to override it.
 	 */
 	identifier?: string
+}
+
+export interface DescriptionExperimental {
 	/**
 	 * ## Is Experimental
 	 * If true, it will only be registered if the world is marked as experimental.

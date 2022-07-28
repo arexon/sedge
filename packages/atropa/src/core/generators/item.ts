@@ -9,7 +9,12 @@ import type { ItemComponents_1_17_20 } from '../../schema/item/v1.17.20'
 import type { ItemComponents_1_18_10 } from '../../schema/item/v1.18.10'
 import type { ItemComponents_1_19_0 } from '../../schema/item/v1.19.0'
 import { ensureNamespaces, tryCatch } from '../utils'
-import type { Description, Namespace, UseFunction } from './types'
+import type {
+	Description,
+	DescriptionExperimental,
+	Namespace,
+	UseFunction
+} from './types'
 
 interface ItemDescriptionFunction {
 	/**
@@ -17,7 +22,7 @@ interface ItemDescriptionFunction {
 	 * The description sets required item information.
 	 * @param template The description template.
 	 */
-	description: (template: Description) => void
+	description: (template: Description & DescriptionExperimental) => void
 }
 
 interface ItemComponentsFunction<Components extends Record<string, any>> {
