@@ -37,7 +37,7 @@ export async function dev(): Promise<void> {
 				return
 			}
 			if (path.includes('scripts')) {
-				await scripts.rebuild!()
+				await scripts?.rebuild!()
 				return
 			}
 
@@ -59,7 +59,7 @@ export async function dev(): Promise<void> {
 				return
 			}
 			if (path.includes('scripts')) {
-				await scripts.rebuild!()
+				await scripts?.rebuild!()
 				return
 			}
 

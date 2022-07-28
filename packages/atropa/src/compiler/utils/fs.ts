@@ -39,3 +39,7 @@ export function removeFileFromTarget(path: string): void {
 export function readFileFromSource(path: string): any {
 	return fse.readFileSync(resolve(path), 'utf8')
 }
+
+export function pathExists(path: string): boolean {
+	return fse.existsSync(resolve(path))
+}

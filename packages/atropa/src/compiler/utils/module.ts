@@ -4,7 +4,7 @@ import createJITI from 'jiti'
 import { join, resolve } from 'pathe'
 import { logger } from '../../logger'
 import { atropaCacheFolder } from '../constants'
-import { writeFileToTarget, writeJsonFileToTarget } from './fs'
+import { pathExists, writeFileToTarget, writeJsonFileToTarget } from './fs'
 import { resolveToTargetPath } from './path'
 
 type ModuleResult = {
@@ -52,8 +52,10 @@ export async function evalModule(
 
 export async function compileScripts(options: {
 	incremental: boolean
-}): Promise<BuildResult> {
+}): Promise<BuildResult | void> {
 	const scriptFolder = join(atropa.config.packs.behaviorPack, 'scripts')
+
+	if (!pathExists(join(scriptFolder, 'index.ts'))) return
 
 	return await build({
 		entryPoints: [resolve(scriptFolder, 'index.ts')],
