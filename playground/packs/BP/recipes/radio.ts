@@ -1,15 +1,20 @@
 import { defineRecipe } from 'atropa/core'
 
-export default defineRecipe(({ namespace, shaped }) => {
-	shaped({
-		description: {
+export default defineRecipe(
+	'shaped',
+	({ namespace, description, tags, pattern, key, result }) => {
+		description({
 			identifier: `${namespace}:recipe.radio`
-		},
-		tags: ['crafting_table'],
-		pattern: ['###', '# #', '# #'],
-		key: {
-			'#': { item: 'minecraft:planks' }
-		},
-		result: { item: `${namespace}:radio` }
-	})
-})
+		})
+		tags('crafting_table')
+		pattern(['###', '# #', '# #'])
+		key({
+			'#': {
+				item: 'minecraft:planks'
+			}
+		})
+		result({
+			item: `${namespace}:radio`
+		})
+	}
+)
