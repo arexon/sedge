@@ -90,8 +90,8 @@ interface Recipe {
 /**
  * # Define Recipe
  * Generates a recipe from the given template.
- * @param fn A callback function with parameters to define the recipe.
- * @returns A module result.
+ * @param fn A function that defines the recipe.
+ * @returns A recipe.
  */
 export function defineRecipe(fn: (template: RecipeTemplate) => void): Recipe {
 	return tryCatch(() => {

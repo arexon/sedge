@@ -115,8 +115,8 @@ interface Item {
  * # Define Item
  * Generates a new item based on the given templates.
  * @param version The format version of the item.
- * @param fn A callback function with parameters to define the item.
- * @returns A module result.
+ * @param fn A function that defines the item.
+ * @returns An item.
  */
 export function defineItem<Version extends ItemFormatVersion>(
 	version: Version,

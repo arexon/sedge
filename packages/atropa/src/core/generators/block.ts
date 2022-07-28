@@ -163,8 +163,8 @@ interface Block {
  * # Define Block
  * Generates a new block based on the given templates.
  * @param version The format version of the block.
- * @param fn A callback function with parameters to define the block.
- * @returns A module result.
+ * @param fn A function that defines the block.
+ * @returns A block.
  */
 export function defineBlock<Version extends BlockFormatVersion>(
 	version: Version,

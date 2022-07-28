@@ -20,8 +20,8 @@ interface LootTable {
 /**
  * # Define Loot Table
  * Generates a loot table from the given template.
- * @param fn A callback function with parameters to define the loot table.
- * @returns A module result.
+ * @param fn A function that defines the loot table.
+ * @returns A loot table.
  */
 export function defineLootTable(
 	fn: (template: LootTableTemplate) => void

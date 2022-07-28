@@ -58,22 +58,22 @@ type ComponentTemplate<Format extends ComponentFormat> = Omit<
 /**
  * # Define Component
  * A Custom Component allows to abstract away complex logic into smaller, composables, and reusable chunks.
- * @param format The format of the component. The first part is for the type of file, second is for the format version for said file.
- * @param fn A callback function with parameters to define the component.
- * @returns A component function with the provided options as parameters.
+ * @param type The type of file to generate.
+ * @param fn A function that defines the component.
+ * @returns A component function with the provided `options` object as an argument.
  */
 export function defineComponent<
 	Options extends Record<string, any>,
-	Format extends ComponentFormat
+	Type extends ComponentFormat
 >(
-	format: Format,
-	fn: (options: Options, template: ComponentTemplate<Format>) => void
+	type: Type,
+	fn: (options: Options, template: ComponentTemplate<Type>) => void
 ): (options: Options) => Record<string, any> {
 	return (options: Options) => {
 		return tryCatch(() => {
 			const template: Record<string, any> = {}
 
-			switch (format) {
+			switch (type) {
 				case 'block@1.16.0':
 				case 'block@1.16.100':
 				case 'block@1.18.10':
@@ -83,7 +83,7 @@ export function defineComponent<
 						options,
 						processBlockTemplate(
 							template
-						) as ComponentTemplate<Format>
+						) as ComponentTemplate<Type>
 					)
 					break
 				case 'item@1.10.0':
@@ -93,9 +93,7 @@ export function defineComponent<
 				case 'item@1.19.0':
 					fn(
 						options,
-						processItemTemplate(
-							template
-						) as ComponentTemplate<Format>
+						processItemTemplate(template) as ComponentTemplate<Type>
 					)
 					break
 				case 'lootTable':
@@ -103,7 +101,7 @@ export function defineComponent<
 						options,
 						processLootTableTemplate(
 							template
-						) as ComponentTemplate<Format>
+						) as ComponentTemplate<Type>
 					)
 					break
 				case 'recipe':
@@ -111,7 +109,7 @@ export function defineComponent<
 						options,
 						processRecipeTemplate(
 							template
-						) as ComponentTemplate<Format>
+						) as ComponentTemplate<Type>
 					)
 			}
 			return template

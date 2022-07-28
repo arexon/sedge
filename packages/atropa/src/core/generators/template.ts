@@ -4,7 +4,7 @@ import { evalModule } from '../../compiler/utils'
 interface UseTemplateOptions {
 	/**
 	 * ## Allow HMR
-	 * If true, the file will be allowed to be hot-reloaded.
+	 * Whether or not to allow hot module replacement.
 	 * Useful in development mode when you want to reload the template after it's been changed.
 	 * @default false
 	 */
@@ -13,10 +13,10 @@ interface UseTemplateOptions {
 
 /**
  * # Use Template
- * Gets the compiled version of a file.
+ * Imports the compiled version of a file as a template.
  * @param path The path to the file.
  * @param options Additional options.
- * @returns The file's content.
+ * @returns The file's contents.
  */
 export async function useTemplate(
 	path: string,

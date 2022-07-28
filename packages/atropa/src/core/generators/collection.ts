@@ -20,18 +20,18 @@ interface CollectionTemplate extends Namespace {
 	/**
 	 * # Remove
 	 * Remove a file from the collection.
-	 * @param path The path to remove. Must match a file in the collection.
+	 * @param path The path to remove. Must match a file path in the collection.
 	 */
 	remove(path: string): void
 	/**
 	 * # Has
 	 * Checks if a file is in the collection.
-	 * @param path The path to the file.
+	 * @param path The path to the file. Must match a file path in the collection.
 	 */
 	has(path: string): boolean
 	/**
 	 * # Get
-	 * Gets *compiled* file content from the collection.
+	 * Gets the compiled version of a file from the collection.
 	 * @param path The path to the file.
 	 */
 	get(path: string): any
@@ -46,7 +46,8 @@ interface CollectionResult {
  * # Define Collection
  * Collections are a way to group related files and/or further transform already existing files.
  * They allow to import files or create templates within and define the export location of said files.
- * @param fn A callback function with parameters to define the collection.
+ * @param fn A function to define the collection.
+ * @returns A collection result.
  */
 export function defineCollection(
 	fn: (template: CollectionTemplate) => void
