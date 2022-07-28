@@ -110,24 +110,31 @@ interface Item {
 	format_version: string
 	'minecraft:item': VanillaTemplate
 }
+interface ItemResult {
+	type: 'item'
+	data: Item
+}
 
 /**
  * # Define Item
  * Generates a new item based on the given templates.
  * @param version The format version of the item.
  * @param fn A function that defines the item.
- * @returns An item.
+ * @returns A module result that contains the item.
  */
 export function defineItem<Version extends ItemFormatVersion>(
 	version: Version,
 	fn: (template: ItemTemplate<Version>) => void
-): Item {
+): ItemResult {
 	return tryCatch(() => {
 		const template = {}
 
 		fn(processTemplate(template) as ItemTemplate<Version>)
 
-		return transformTemplate(template, version)
+		return {
+			type: 'item',
+			data: transformTemplate(template, version)
+		}
 	}, 'Failed to transform item template')
 }
 

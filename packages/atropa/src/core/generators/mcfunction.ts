@@ -15,7 +15,7 @@ interface MCFunctionResult {
 /**
  * Generates an MC function file. Recommended only for generation of large functions.
  * @param fn A function that defines the MC function.
- * @returns An MC function.
+ * @returns A module result that contains the MC function.
  */
 export function defineMCFunction(
 	fn: (template: MCFunctionTemplate) => void

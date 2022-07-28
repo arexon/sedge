@@ -16,22 +16,29 @@ type UserTemplate = Partial<LootTableTemplate>
 interface LootTable {
 	pools?: Record<string, any>[]
 }
+interface LootTableResult {
+	type: 'json'
+	data: LootTable
+}
 
 /**
  * # Define Loot Table
  * Generates a loot table from the given template.
  * @param fn A function that defines the loot table.
- * @returns A loot table.
+ * @returns A module result that contains a loot table.
  */
 export function defineLootTable(
 	fn: (template: LootTableTemplate) => void
-): LootTable {
+): LootTableResult {
 	return tryCatch(() => {
 		const template = {}
 
 		fn(processTemplate(template) as LootTableTemplate)
 
-		return template
+		return {
+			type: 'json',
+			data: template
+		}
 	}, 'Failed to transform loot table')
 }
 

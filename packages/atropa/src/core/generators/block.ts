@@ -158,24 +158,31 @@ interface Block {
 	format_version: string
 	'minecraft:block': VanillaTemplate
 }
+interface BlockResult {
+	type: 'json'
+	data: Block
+}
 
 /**
  * # Define Block
  * Generates a new block based on the given templates.
  * @param version The format version of the block.
  * @param fn A function that defines the block.
- * @returns A block.
+ * @returns A module result that contains the block.
  */
 export function defineBlock<Version extends BlockFormatVersion>(
 	version: Version,
 	fn: (template: BlockTemplate<Version>) => void
-): Block {
+): BlockResult {
 	return tryCatch(() => {
 		const template = {}
 
 		fn(processTemplate(template) as BlockTemplate<Version>)
 
-		return transformTemplate(template, version)
+		return {
+			type: 'json',
+			data: transformTemplate(template, version)
+		}
 	}, 'Failed to transform block template')
 }
 

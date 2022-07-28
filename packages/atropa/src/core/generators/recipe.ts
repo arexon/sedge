@@ -86,20 +86,29 @@ interface Recipe {
 	'minecraft:recipe_brewing_mix'?: VanillaTemplate
 	'minecraft:recipe_material_reduction'?: VanillaTemplate
 }
+interface RecipeResult {
+	type: 'recipe'
+	data: Recipe
+}
 
 /**
  * # Define Recipe
  * Generates a recipe from the given template.
  * @param fn A function that defines the recipe.
- * @returns A recipe.
+ * @returns A module result that contains the recipe.
  */
-export function defineRecipe(fn: (template: RecipeTemplate) => void): Recipe {
+export function defineRecipe(
+	fn: (template: RecipeTemplate) => void
+): RecipeResult {
 	return tryCatch(() => {
 		const template = {}
 
 		fn(processTemplate(template) as RecipeTemplate)
 
-		return transformTemplate(template, '1.12.0')
+		return {
+			type: 'recipe',
+			data: transformTemplate(template, '1.12.0')
+		}
 	}, 'Failed to transform recipe')
 }
 

@@ -13,7 +13,7 @@ interface UseTemplateOptions {
 
 /**
  * # Use Template
- * Imports the compiled version of a file as a template.
+ * Imports the compiled version of a generator files as a template.
  * @param path The path to the file.
  * @param options Additional options.
  * @returns The file's contents.
@@ -22,7 +22,8 @@ export async function useTemplate(
 	path: string,
 	options?: UseTemplateOptions
 ): Promise<any> {
-	return await evalModule(resolve(path), {
+	const result = await evalModule(resolve(path), {
 		allowHMR: options?.allowHMR || false
 	})
+	return result?.data
 }
