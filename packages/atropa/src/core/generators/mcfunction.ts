@@ -7,7 +7,10 @@ interface MCFunctionTemplate extends Namespace {
 	 */
 	run: (command: string) => void
 }
-type MCFunction = string
+interface MCFunctionResult {
+	type: 'mcfunction'
+	data: string
+}
 
 /**
  * Generates an MC function file. Recommended only for generation of large functions.
@@ -16,12 +19,15 @@ type MCFunction = string
  */
 export function defineMCFunction(
 	fn: (template: MCFunctionTemplate) => void
-): MCFunction {
+): MCFunctionResult {
 	const template: string[] = []
 
 	fn(processTemplate(template))
 
-	return template.join('\n')
+	return {
+		type: 'mcfunction',
+		data: template.join('\n')
+	}
 }
 
 function processTemplate(template: string[]): MCFunctionTemplate {

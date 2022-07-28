@@ -8,7 +8,7 @@ import { pathExists, writeFileToTarget, writeJsonFileToTarget } from './fs'
 import { resolveToTargetPath } from './path'
 
 type ModuleResult = {
-	type: 'file' | 'collection'
+	type: 'json' | 'mcfunction' | 'collection'
 	data: any
 }
 
@@ -27,6 +27,14 @@ export async function compileModule(
 				}
 				writeFileToTarget(path, content)
 			}
+			break
+		case 'mcfunction':
+			writeFileToTarget(path, result.data, {
+				extension: '.mcfunction'
+			})
+			break
+		case 'json':
+			writeJsonFileToTarget(path, result.data)
 			break
 		default:
 			if (isObject(result)) writeJsonFileToTarget(path, result)
