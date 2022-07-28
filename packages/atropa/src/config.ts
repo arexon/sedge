@@ -14,6 +14,7 @@ export interface Config {
 		}
 		minify: boolean
 		ignorePaths?: string[]
+		initialCleanUp: boolean
 	}
 }
 
@@ -30,7 +31,8 @@ export async function loadConfig(): Promise<Config> {
 			targets: {
 				default: './build'
 			},
-			minify: false
+			minify: false,
+			initialCleanUp: true
 		}
 	}
 

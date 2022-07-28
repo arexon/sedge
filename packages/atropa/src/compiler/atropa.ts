@@ -85,6 +85,8 @@ async function runWithMode(): Promise<void> {
 }
 
 async function prepare(): Promise<void> {
+	if (!atropa.config.atropa.initialCleanUp) return
+
 	if (atropa.isComMojang) {
 		await prepareFolder(getComMojangPathByPack('BP'))
 		await prepareFolder(getComMojangPathByPack('RP'))

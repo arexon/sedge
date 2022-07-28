@@ -91,6 +91,11 @@
 					"description": "Whether to minify JSON, MoLang, and TypeScript in build mode.",
 					"type": "boolean",
 					"default": false
+				},
+				"initialCleanUp": {
+					"description": "Whether to clean-up the target folder before compiling the project.",
+					"type": "boolean",
+					"default": true
 				}
 			}
 		}
