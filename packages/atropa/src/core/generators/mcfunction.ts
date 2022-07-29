@@ -6,7 +6,7 @@ interface MCFunctionTemplate extends Namespace {
 	 * Adds a single command.
 	 * @param command The command to add.
 	 */
-	run: (command: string) => void
+	run(command: string): void
 }
 interface MCFunctionResult {
 	type: 'mcfunction'

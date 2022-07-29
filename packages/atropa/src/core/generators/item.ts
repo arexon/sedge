@@ -22,7 +22,7 @@ interface ItemDescriptionFunction {
 	 * The description sets required item information.
 	 * @param template The description template.
 	 */
-	description: (template: Description & DescriptionExperimental) => void
+	description(template: Description & DescriptionExperimental): void
 }
 
 interface ItemComponentsFunction<Components extends Record<string, any>> {
@@ -31,7 +31,7 @@ interface ItemComponentsFunction<Components extends Record<string, any>> {
 	 * Components are used to describe the item's attributes and behavior.
 	 * @param template The components to add to the item.
 	 */
-	components: (template: Components) => void
+	components(template: Components): void
 }
 
 interface ItemEventsFunction<Events extends Record<string, any>> {
@@ -40,7 +40,7 @@ interface ItemEventsFunction<Events extends Record<string, any>> {
 	 * The events function defines the events that can be triggered by this item.
 	 * @param template The events to add to the item.
 	 */
-	events: (template: Record<string, Events>) => void
+	events(template: Record<string, Events>): void
 }
 
 interface ItemTemplate_1_10_0
