@@ -5,7 +5,7 @@ import { join, resolve } from 'pathe'
 import { logger } from '../../logger'
 import { atropaCacheFolder } from '../constants'
 import { pathExists, writeFileToTarget, writeJsonFileToTarget } from './fs'
-import { resolveToTargetPath } from './path'
+import { replaceExt, resolveToTargetPath } from './path'
 
 type ModuleResult = {
 	type: 'json' | 'mcfunction' | 'collection'
@@ -62,12 +62,15 @@ export async function compileScripts(options: {
 	incremental: boolean
 }): Promise<BuildResult | void> {
 	const scriptFolder = join(atropa.config.packs.behaviorPack, 'scripts')
+	const scriptEntryName = atropa.config.atropa.scriptEntryName
 
-	if (!pathExists(join(scriptFolder, 'index.ts'))) return
+	if (!pathExists(join(scriptFolder, scriptEntryName))) return
 
 	return await build({
-		entryPoints: [resolve(scriptFolder, 'index.ts')],
-		outfile: resolveToTargetPath(join(scriptFolder, 'index.js')),
+		entryPoints: [resolve(scriptFolder, scriptEntryName)],
+		outfile: resolveToTargetPath(
+			join(scriptFolder, replaceExt(scriptEntryName, '.js'))
+		),
 		target: 'esnext',
 		format: 'esm',
 		bundle: true,

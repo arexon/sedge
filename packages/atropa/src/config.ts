@@ -15,6 +15,7 @@ export interface Config {
 		minify: boolean
 		ignorePaths?: string[]
 		initialCleanUp: boolean
+		scriptEntryName: string
 	}
 }
 
@@ -32,7 +33,8 @@ export async function loadConfig(): Promise<Config> {
 				default: './build'
 			},
 			minify: false,
-			initialCleanUp: true
+			initialCleanUp: true,
+			scriptEntryName: 'index.ts'
 		}
 	}
 
