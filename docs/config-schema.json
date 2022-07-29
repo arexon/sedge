@@ -96,6 +96,11 @@
 					"description": "Whether to clean-up the target folder before compiling the project.",
 					"type": "boolean",
 					"default": true
+				},
+				"scriptEntryName": {
+					"description": "The entry file for GameTest scripts.",
+					"type": "string",
+					"default": "index.ts"
 				}
 			}
 		}
