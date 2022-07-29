@@ -19,7 +19,7 @@ export default defineCommand({
 	meta: {
 		name: 'add',
 		usage: 'npx sedge add',
-		description: 'Adds a file template to your project'
+		description: 'Scaffolds a file template'
 	},
 	run: async () => {
 		interface File {

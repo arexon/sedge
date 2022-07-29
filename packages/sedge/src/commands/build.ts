@@ -6,7 +6,7 @@ export default defineCommand({
 	meta: {
 		name: 'build',
 		usage: 'npx sedge build [--target=<name>]',
-		description: 'Builds the project for production'
+		description: 'Compiles the project'
 	},
 	run: async (args) => {
 		await tryCatch(async () => {

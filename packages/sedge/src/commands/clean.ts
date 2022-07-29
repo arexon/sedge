@@ -7,7 +7,7 @@ export default defineCommand({
 	meta: {
 		name: 'clean',
 		usage: 'npx sedge clean',
-		description: 'Cleans build cache.'
+		description: 'Remove build cache'
 	},
 	run: async () => {
 		await tryCatch(async () => {

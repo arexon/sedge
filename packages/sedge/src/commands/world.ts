@@ -8,8 +8,10 @@ import { defineCommand } from './index'
 export default defineCommand({
 	meta: {
 		name: 'world',
-		usage: 'npx sedge world [--save|test] [name]',
-		description: 'Saves or tests a world in the "com.mojang" folder.'
+		usage: 'npx sedge world [--save|test=<name>]',
+		description: `Saves or tests a world from or to ${blackBright(
+			'com.mojang'
+		)} folder`
 	},
 	run: async (args) => {
 		await tryCatch(async () => {
@@ -22,7 +24,9 @@ export default defineCommand({
 			const config = await loadConfig()
 
 			if (!comMojangFolder) {
-				logger.error(`Could not find ${blue('com.mojang')} folder`)
+				logger.error(
+					`Could not find ${blackBright('com.mojang')} folder`
+				)
 				process.exit(1)
 			}
 
