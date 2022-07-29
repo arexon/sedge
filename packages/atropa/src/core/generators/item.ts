@@ -116,7 +116,7 @@ interface Item {
 	'minecraft:item': VanillaTemplate
 }
 interface ItemResult {
-	type: 'item'
+	type: 'json'
 	data: Item
 }
 
@@ -137,7 +137,7 @@ export function defineItem<Version extends ItemFormatVersion>(
 		fn(processTemplate(template) as ItemTemplate<Version>)
 
 		return {
-			type: 'item',
+			type: 'json',
 			data: transformTemplate(template, version)
 		}
 	}, 'Failed to transform item template')
