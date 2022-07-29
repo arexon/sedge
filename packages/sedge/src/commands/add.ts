@@ -1,18 +1,8 @@
-import fse from 'fs-extra'
-import prompts from 'prompts'
-import { join } from 'pathe'
 import { blackBright, blue } from 'colorette'
-import {
-	getBlockTemplate,
-	getComponentTemplate,
-	getLootTableTemplate,
-	getRecipeTemplate,
-	importAtropa,
-	getCollectionTemplate,
-	getItemTemplate,
-	logger,
-	type Config
-} from '../utils'
+import fse from 'fs-extra'
+import { join } from 'pathe'
+import prompts from 'prompts'
+import { importAtropa, logger, type Config } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -30,6 +20,7 @@ export default defineCommand({
 				| 'items'
 				| 'recipes'
 				| 'loot_tables'
+				| 'functions'
 			pack: 'server' | 'client'
 		}
 
@@ -59,12 +50,16 @@ export default defineCommand({
 						value: { type: 'items', pack: 'server' }
 					},
 					{
+						title: 'Loot Table',
+						value: { type: 'loot_tables', pack: 'server' }
+					},
+					{
 						title: 'Recipe',
 						value: { type: 'recipes', pack: 'server' }
 					},
 					{
-						title: 'Loot Table',
-						value: { type: 'loot_tables', pack: 'server' }
+						title: 'MC Function',
+						value: { type: 'functions', pack: 'server' }
 					}
 				]
 			})
@@ -126,6 +121,9 @@ export default defineCommand({
 					break
 				case 'recipes':
 					fse.outputFileSync(path, getRecipeTemplate(identifier))
+					break
+				case 'functions':
+					fse.outputFileSync(path, getMCFunctionTemplate())
 			}
 			logger.success(
 				`Added file ${blue(identifier)} @ ${blackBright(path)}`
@@ -133,3 +131,89 @@ export default defineCommand({
 		}
 	}
 })
+
+function getComponentTemplate(): string {
+	return [
+		`import { defineComponent } from 'atropa/core'`,
+		``,
+		`export default defineComponent(`,
+		`    'block@1.19.10',`,
+		`	({}, { namespace }) => {}`,
+		`)`
+	].join('\n')
+}
+
+function getCollectionTemplate(): string {
+	return [
+		`import { defineCollection } from 'atropa/core'`,
+		``,
+		`export default defineCollection(({ add, packs }) => {`,
+		`	add(\`\${packs.behaviorPack}/functions/say_hello.mcfunction\`, 'say hello')`,
+		`})`
+	].join('\n')
+}
+
+function getBlockTemplate(identifier: string): string {
+	return [
+		`import { defineBlock } from 'atropa/core'`,
+		``,
+		`export default defineBlock('1.19.10', ({ namespace, description }) => {`,
+		`	description({`,
+		`		identifier: \`\${namespace}:${identifier}\``,
+		`	})`,
+		`})`
+	].join('\n')
+}
+
+function getItemTemplate(identifier: string): string {
+	return [
+		`import { defineItem } from 'atropa/core'`,
+		``,
+		`export default defineItem('1.19.0', ({ namespace, description }) => {`,
+		`	description({`,
+		`		identifier: \`\${namespace}:${identifier}\``,
+		`	})`,
+		`})`
+	].join('\n')
+}
+
+function getLootTableTemplate(identifier: string): string {
+	return [
+		`import { defineLootTable } from 'atropa/core'`,
+		``,
+		`export default defineLootTable(({ namespace, pools }) => {`,
+		`	pools([`,
+		`		{`,
+		`			rolls: 1,`,
+		`			entries: {`,
+		`				type: 'item',`,
+		`				name: \`\${namespace}:${identifier}\`,`,
+		`				weight: 1`,
+		`			}`,
+		`		}`,
+		`	])`,
+		`})`
+	].join('\n')
+}
+
+function getRecipeTemplate(identifier: string): string {
+	return [
+		`import { defineRecipe } from 'atropa/core'`,
+		``,
+		`export default defineRecipe('shaped', ({ namespace, description }) => {`,
+		`	description({`,
+		`		identifier: \`\${namespace}:${identifier}\``,
+		`	})`,
+		`})`
+	].join('\n')
+}
+
+function getMCFunctionTemplate(): string {
+	return [
+		`import { defineMCFunction } from 'atropa/core'`,
+		``,
+		`export default defineMCFunction(({ run }) => {`,
+		`	run('say hello')`,
+		`})`
+	].join('\n')
+}
