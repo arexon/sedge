@@ -3,7 +3,8 @@ export const commands = {
 	build: async () => (await import('./build')).default,
 	clean: async () => (await import('./clean')).default,
 	dev: async () => (await import('./dev')).default,
-	help: async () => (await import('./help')).default
+	help: async () => (await import('./help')).default,
+	world: async () => (await import('./world')).default
 }
 
 export type CommandName = keyof typeof commands

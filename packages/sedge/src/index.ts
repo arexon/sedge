@@ -12,9 +12,10 @@ export default async function (): Promise<void> {
 			alias: {
 				m: 'module',
 				t: 'target',
-				h: 'help'
+				h: 'help',
+				w: 'world'
 			},
-			string: ['target', 'module'],
+			string: ['target', 'module', 'world'],
 			boolean: ['help']
 		})
 
