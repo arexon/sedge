@@ -24,7 +24,6 @@ interface ItemDescriptionFunction {
 	 */
 	description(template: Description & DescriptionExperimental): void
 }
-
 interface ItemComponentsFunction<Components extends Record<string, any>> {
 	/**
 	 * # Components
@@ -33,7 +32,6 @@ interface ItemComponentsFunction<Components extends Record<string, any>> {
 	 */
 	components(template: Components): void
 }
-
 interface ItemEventsFunction<Events extends Record<string, any>> {
 	/**
 	 * # Events
@@ -46,7 +44,6 @@ interface ItemEventsFunction<Events extends Record<string, any>> {
 interface ItemTemplate_1_10_0
 	extends ItemDescriptionFunction,
 		ItemComponentsFunction<ItemComponents_1_10_0> {}
-
 interface ItemTemplate_1_16_100
 	extends ItemDescriptionFunction,
 		ItemComponentsFunction<ItemComponents_1_16_100>,
@@ -55,7 +52,6 @@ interface ItemTemplate_1_16_100
 				Randomize<ItemEventResponses_1_16_100> &
 				Sequence<ItemEventResponses_1_16_100>
 		> {}
-
 interface ItemTemplate_1_17_20
 	extends ItemDescriptionFunction,
 		ItemComponentsFunction<ItemComponents_1_17_20>,
@@ -64,7 +60,6 @@ interface ItemTemplate_1_17_20
 				Randomize<ItemEventResponses_1_16_100> &
 				Sequence<ItemEventResponses_1_16_100>
 		> {}
-
 interface ItemTemplate_1_18_10
 	extends ItemDescriptionFunction,
 		ItemComponentsFunction<ItemComponents_1_18_10>,
@@ -73,7 +68,6 @@ interface ItemTemplate_1_18_10
 				Randomize<ItemEventResponses_1_16_100> &
 				Sequence<ItemEventResponses_1_16_100>
 		> {}
-
 interface ItemTemplate_1_19_0
 	extends ItemDescriptionFunction,
 		ItemComponentsFunction<ItemComponents_1_19_0>,
@@ -89,7 +83,6 @@ export type ItemFormatVersion =
 	| '1.17.20'
 	| '1.18.10'
 	| '1.19.0'
-
 export type ItemTemplate<Version extends ItemFormatVersion> =
 	(Version extends '1.10.0'
 		? ItemTemplate_1_10_0

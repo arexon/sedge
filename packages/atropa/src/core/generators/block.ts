@@ -79,7 +79,6 @@ interface BlockEventsFunction<Events extends Record<string, any>> {
 interface BlockTemplate_1_16_0
 	extends BlockDescriptionFunction<false>,
 		BlockComponentsFunction<BlockComponents_1_16_0> {}
-
 interface BlockTemplate_1_16_100
 	extends BlockDescriptionFunction<true>,
 		BlockPermutationsFunction<BlockComponents_1_16_100>,
@@ -89,7 +88,6 @@ interface BlockTemplate_1_16_100
 				Randomize<BlockEventResponses_1_16_100> &
 				Sequence<BlockEventResponses_1_16_100>
 		> {}
-
 interface BlockTemplate_1_18_10
 	extends BlockDescriptionFunction<true>,
 		BlockPermutationsFunction<BlockComponents_1_18_10>,
@@ -117,7 +115,6 @@ interface BlockTemplate_1_19_10
 				Randomize<BlockEventResponses_1_16_100> &
 				Sequence<BlockEventResponses_1_16_100>
 		> {}
-
 interface BlockTemplate_1_19_20
 	extends BlockDescriptionFunction<true>,
 		BlockPermutationsFunction<BlockComponents_1_19_20>,
@@ -135,7 +132,6 @@ export type BlockFormatVersion =
 	| '1.18.30'
 	| '1.19.10'
 	| '1.19.20'
-
 export type BlockTemplate<Version extends BlockFormatVersion> =
 	(Version extends '1.16.0'
 		? BlockTemplate_1_16_0

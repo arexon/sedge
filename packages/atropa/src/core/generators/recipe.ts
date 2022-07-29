@@ -143,7 +143,6 @@ export type RecipeTypes =
 	| 'brewing_mix'
 	| 'brewing_container'
 	| 'material_reduction'
-
 export type RecipeTemplate<Type extends RecipeTypes> = (Type extends 'shaped'
 	? RecipeShapedTemplate
 	: Type extends 'shapeless'
