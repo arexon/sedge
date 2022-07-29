@@ -6,7 +6,7 @@ export interface Config {
 	authors?: string[]
 	namespace: string
 	packs: {
-		[key in 'behaviorPack' | 'resourcePack']: string
+		[key in 'behaviorPack' | 'resourcePack' | 'worldTemplate']: string
 	}
 	atropa: {
 		targets: {
@@ -26,7 +26,8 @@ export async function loadConfig(): Promise<Config> {
 		namespace: 'atropa',
 		packs: {
 			behaviorPack: './packs/BP',
-			resourcePack: './packs/RP'
+			resourcePack: './packs/RP',
+			worldTemplate: './packs/WT'
 		},
 		atropa: {
 			targets: {
