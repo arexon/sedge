@@ -47,9 +47,12 @@ export async function createAtropa(options: {
 			atropa.target.name
 		)
 
-		atropa.target.path =
-			atropa.config.atropa.targets[atropa.target.name] ||
-			defaultTargetPath!
+		if (atropa.isComMojang) {
+			atropa.target.path = defaultTargetPath!
+		} else {
+			atropa.target.path =
+				atropa.config.atropa.targets[atropa.target.name]
+		}
 
 		if (targetIsConfigured || targetIsDefault) {
 			await runWithMode()

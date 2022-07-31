@@ -4,7 +4,7 @@ import { isModule, replaceExt, resolveToTargetPath } from './path'
 
 export async function prepareFolder(path: string): Promise<void> {
 	await fse.remove(path)
-	await fse.mkdir(path)
+	await fse.mkdirp(path)
 }
 
 export function writeJsonFileToTarget(path: string, content: any): void {
