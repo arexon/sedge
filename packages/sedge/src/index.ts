@@ -7,16 +7,18 @@ export default async function (): Promise<void> {
 	try {
 		const args = mri(process.argv.slice(2), {
 			default: {
-				target: 'default'
+				target: 'default',
+				websocket: false
 			},
 			alias: {
 				m: 'module',
 				t: 'target',
 				h: 'help',
-				w: 'world'
+				w: 'world',
+				ws: 'websocket'
 			},
 			string: ['target', 'module', 'world'],
-			boolean: ['help']
+			boolean: ['help', 'websocket']
 		})
 
 		const commandName = args._[0]

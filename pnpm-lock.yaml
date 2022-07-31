@@ -23,6 +23,7 @@ importers:
       '@antfu/utils': ^0.5.2
       '@types/fs-extra': ^9.0.13
       '@types/node': ^17.0.45
+      '@types/ws': ^8.5.3
       chokidar: ^3.5.3
       colorette: ^2.0.19
       consola: ^2.15.3
@@ -33,7 +34,9 @@ importers:
       pathe: ^0.3.2
       sedge: workspace:*
       unbuild: ^0.7.6
+      ws: ^8.8.1
     dependencies:
+      '@types/ws': 8.5.3
       chokidar: 3.5.3
       colorette: 2.0.19
       consola: 2.15.3
@@ -43,6 +46,7 @@ importers:
       jiti: 1.14.0
       pathe: 0.3.2
       sedge: link:../sedge
+      ws: 8.8.1
     devDependencies:
       '@antfu/utils': 0.5.2
       '@types/fs-extra': 9.0.13
@@ -590,7 +594,6 @@ packages:
 
   /@types/node/17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
-    dev: true
 
   /@types/prompts/2.0.14:
     resolution: {integrity: sha512-HZBd99fKxRWpYCErtm2/yxUZv6/PBI9J7N4TNFffl5JbrYMHBwF25DjQGTW3b3jmXq+9P6/8fCIb2ee57BFfYA==}
@@ -603,6 +606,12 @@ packages:
     dependencies:
       '@types/node': 17.0.45
     dev: true
+
+  /@types/ws/8.5.3:
+    resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
+    dependencies:
+      '@types/node': 17.0.45
+    dev: false
 
   /ansi-styles/3.2.1:
     resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}
@@ -2006,3 +2015,16 @@ packages:
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
     dev: true
+
+  /ws/8.8.1:
+    resolution: {integrity: sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false

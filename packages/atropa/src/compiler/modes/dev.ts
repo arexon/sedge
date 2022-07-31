@@ -2,6 +2,7 @@ import { debounce } from '@antfu/utils'
 import { watch } from 'chokidar'
 import { blackBright, cyan, green, magenta } from 'colorette'
 import { normalize } from 'pathe'
+import WebSocket from 'ws'
 import { logger } from '../../logger'
 import {
 	compileModule,
@@ -12,11 +13,22 @@ import {
 } from '../utils'
 import { build } from './build'
 
-export async function dev(): Promise<void> {
+export async function dev(options?: { websocket?: boolean }): Promise<void> {
 	await build()
 
 	const updatedFiles = new Set<string>()
 	const removedFiles = new Set<string>()
+
+	let wsServer: WebSocket.Server | undefined
+
+	if (options?.websocket) {
+		const port = 1570
+
+		wsServer = new WebSocket.Server({ port })
+
+		logger.success(`WebSocket server started`)
+		logger.info(`Run ${cyan(`/connect localhost:${port}`)} in Minecraft`)
+	}
 
 	const reload = debounce(200, async () => {
 		console.clear()
@@ -65,6 +77,15 @@ export async function dev(): Promise<void> {
 
 			removeFileFromTarget(path)
 		})
+		if (wsServer) {
+			wsServer.clients.forEach(async (ws) => {
+				await runCommand('reload', ws)
+				await runCommand(
+					'tellraw @s {"rawtext": [{"text": "[Atropa] Reload complete!"}]}',
+					ws
+				)
+			})
+		}
 
 		logChanges(Array.from(updatedFiles), 'Updated', 'cyan')
 		logChanges(Array.from(removedFiles), 'Removed', 'magenta')
@@ -89,6 +110,31 @@ export async function dev(): Promise<void> {
 				removedFiles.add(normalize(path))
 		}
 		reload()
+	})
+}
+
+function runCommand(command: string, ws: WebSocket) {
+	const requestId = crypto.randomUUID()
+	const data = {
+		header: {
+			version: 1,
+			requestId,
+			messageType: 'commandRequest',
+			messagePurpose: 'commandRequest'
+		},
+		body: { commandLine: command }
+	}
+	ws.send(JSON.stringify(data))
+
+	return new Promise<{
+		body: Record<string, any>
+	}>((resolve) => {
+		ws.on('message', (event) => {
+			const response = JSON.parse(event.toString())
+			if (response.header?.requestId === requestId) {
+				resolve(response.body)
+			}
+		})
 	})
 }
 

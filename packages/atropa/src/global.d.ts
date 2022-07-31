@@ -1,9 +1,10 @@
+import type { AtropaModes } from './compiler'
 import type { Config } from './config'
 
 declare global {
 	var atropa: {
 		config: Config
-		mode: 'dev' | 'build'
+		mode: AtropaModes
 		target: {
 			name: string
 			path: string

@@ -6,8 +6,10 @@ import { comMojangFolder } from './constants'
 import { build, dev } from './modes'
 import { getComMojangPathByPack, prepareFolder } from './utils'
 
+export type AtropaModes = 'build' | 'dev' | 'dev+websocket'
+
 export async function createAtropa(options: {
-	mode: 'dev' | 'build'
+	mode: AtropaModes
 	target: string
 }): Promise<void> {
 	try {
@@ -81,6 +83,8 @@ async function runWithMode(): Promise<void> {
 		case 'dev':
 			await dev()
 			break
+		case 'dev+websocket':
+			await dev({ websocket: true })
 	}
 }
 
