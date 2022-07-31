@@ -12,6 +12,7 @@ import {
 	removeFileFromTarget
 } from '../utils'
 import { build } from './build'
+import { randomUUID } from 'node:crypto'
 
 export async function dev(options?: { websocket?: boolean }): Promise<void> {
 	await build()
@@ -81,7 +82,7 @@ export async function dev(options?: { websocket?: boolean }): Promise<void> {
 			wsServer.clients.forEach(async (ws) => {
 				await runCommand('reload', ws)
 				await runCommand(
-					'tellraw @s {"rawtext": [{"text": "[Atropa] Reload complete!"}]}',
+					'tellraw @s {"rawtext": [{"text": "§d[Atropa]§r Reload complete!"}]}',
 					ws
 				)
 			})
@@ -114,7 +115,7 @@ export async function dev(options?: { websocket?: boolean }): Promise<void> {
 }
 
 function runCommand(command: string, ws: WebSocket) {
-	const requestId = crypto.randomUUID()
+	const requestId = randomUUID()
 	const data = {
 		header: {
 			version: 1,

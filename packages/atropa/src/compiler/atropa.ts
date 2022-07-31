@@ -22,7 +22,7 @@ export async function createAtropa(options: {
 			},
 			isComMojang: false
 		}
-		const modeIsDev = atropa.mode === 'dev'
+		const modeIsDev = atropa.mode !== 'build'
 		const targetIsDefault = atropa.target.name === 'default'
 		const defaultTargetPath =
 			modeIsDev && targetIsDefault
