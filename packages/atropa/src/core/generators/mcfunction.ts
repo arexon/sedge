@@ -3,10 +3,10 @@ import type { Namespace } from './types'
 
 interface MCFunctionTemplate extends Namespace {
 	/**
-	 * Adds a single command.
-	 * @param command The command to add.
+	 * Adds a single command or multiple commands.
+	 * @param template The command(s) to add.
 	 */
-	run(command: string): void
+	run(template: string | string[]): void
 }
 interface MCFunctionResult {
 	type: 'mcfunction'
@@ -36,6 +36,9 @@ export function defineMCFunction(
 function processTemplate(template: string[]): MCFunctionTemplate {
 	return {
 		namespace: atropa.config.namespace,
-		run: (command: string) => template.push(command)
+		run: (_template) => {
+			if (Array.isArray(_template)) template.push(_template.join('\n'))
+			else template.push(_template)
+		}
 	}
 }
