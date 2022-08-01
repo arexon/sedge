@@ -4,19 +4,19 @@ importers:
 
   .:
     specifiers:
-      '@node-rs/deno-lint': ^1.13.1
+      '@node-rs/deno-lint': ^1.14.0
       husky: ^8.0.1
       prettier: ^2.7.1
       turbo: ^1.4.0
       typescript: ^4.7.4
-      vitest: ^0.19.1
+      vitest: ^0.20.2
     devDependencies:
-      '@node-rs/deno-lint': 1.13.1
+      '@node-rs/deno-lint': 1.14.0
       husky: 8.0.1
       prettier: 2.7.1
       turbo: 1.4.0
       typescript: 4.7.4
-      vitest: 0.19.1
+      vitest: 0.20.2
 
   packages/atropa:
     specifiers:
@@ -330,8 +330,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@node-rs/deno-lint-android-arm-eabi/1.13.1:
-    resolution: {integrity: sha512-IV0tdrx+y8QZCVAY2oUY5rlLzHZ2939Q6BhjB8r6EPIAmlSRGZjIwkWvSX4JqXpJgUy4FEndESvvg6IjIhPaMw==}
+  /@node-rs/deno-lint-android-arm-eabi/1.14.0:
+    resolution: {integrity: sha512-1k12oBLJv3F88cNNOjbCu1J+gaX5Jvt8RyGxEq1Schl9jVt7wNe3DwwOh0VRWQ8ahBb/Jwu3dxIaxB84SR+MWg==}
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [android]
@@ -339,8 +339,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-android-arm64/1.13.1:
-    resolution: {integrity: sha512-B2rFeBVMaKFHoIAiJx+NveT677dbApZf3YG9ca3mMjw0y1X2f5T4GSYAqVVJtffJaXvAFLAV3jOYW56e7QV6Iw==}
+  /@node-rs/deno-lint-android-arm64/1.14.0:
+    resolution: {integrity: sha512-4IpL6hnA7hJUJsmDMN2EZGUIRCVuNs8dcdoYXVP7AkRE85ES1BXe0+sLeUH4eo+m/rfTm0W1lBoQLAcN8l8eCw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [android]
@@ -348,8 +348,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-darwin-arm64/1.13.1:
-    resolution: {integrity: sha512-/LaizMfSjXYhT4EkEMsN8ZvknARjIJqjVaSsBztfZI97ASE6sTPoJgmJquc0GuO4bECyfX7P2MLTtn7cfFip+w==}
+  /@node-rs/deno-lint-darwin-arm64/1.14.0:
+    resolution: {integrity: sha512-GqjDfwPewtre5BWcrryvqTEOXabTcr1SnTSDTJVTUiucLqOKxG/rBW8faXl4qoB6t5rzWl0Nk20Pf/0sEsR1kg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -357,8 +357,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-darwin-x64/1.13.1:
-    resolution: {integrity: sha512-j5LEXhDAzlQRjp+1Aa60ks7uwRIVOnqNlkdlu47a+DAjRaRwts6ywI8lzk6DdJO119GCo0HVT3UpZzF3TZZ/YQ==}
+  /@node-rs/deno-lint-darwin-x64/1.14.0:
+    resolution: {integrity: sha512-p99f+iEQ2aebcEsCFSsTwWb8R85qPbYtnwU9tRpsZ9SK9PpSOD5x8oWgV6nnbZ4ac6mhLl+HC8zIyd/pZUYVVw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -366,8 +366,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-freebsd-x64/1.13.1:
-    resolution: {integrity: sha512-wQIqMcwYBv8io+nuQ4AZ8KialltCDc1O4cy3fSdvf8KwKCtGQ0D+WG5+nooyHxqzy5m/JwqUqJO2vRJWqdAH4w==}
+  /@node-rs/deno-lint-freebsd-x64/1.14.0:
+    resolution: {integrity: sha512-eK7vrkHFYpYU+pXHsc+yktA3tWc2GYSPlYCkQN6TYMofPZY6osdSNOx94DOzBA7nopt2jYDyltxq8ExpBSLO1Q==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [freebsd]
@@ -375,8 +375,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-linux-arm-gnueabihf/1.13.1:
-    resolution: {integrity: sha512-WO+0X3jD1Nn99rH6mGDZ/vk/0kaotckF37j/IIAjT4AsWdLDAPihIfOMkTAiWSTvxkvPBs2hfc3YMQBGFP/sEw==}
+  /@node-rs/deno-lint-linux-arm-gnueabihf/1.14.0:
+    resolution: {integrity: sha512-AwT5Y3dq8abcrrTOdTWcCwNdB0G7utE/my4zuXovbvya++6FUCi0TD6tzHrrvuvEm7pvkD38lfZb5DhQTqReZA==}
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [linux]
@@ -384,8 +384,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-linux-arm64-gnu/1.13.1:
-    resolution: {integrity: sha512-/yjeKMtwAXV24Ahs2Jv5nG+GpX2gPdKHLgzPsrVuPOZvqlgCzxs04BY82QL49DHvnIcrv1W4B+StDSTapuCZ2w==}
+  /@node-rs/deno-lint-linux-arm64-gnu/1.14.0:
+    resolution: {integrity: sha512-4D2gJAAZo6FLyht423tt6dX9Ioh2hoUyLqyeQ95XJfaDAsBvuSivbsB7hd20Ti2W/s+Ngz2YoiYzdlPmwtXueg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -393,8 +393,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-linux-arm64-musl/1.13.1:
-    resolution: {integrity: sha512-kqNMlErnMaUom3IyU1pYDE/qNbU9TZXKJ9qFcCxbHdIDTieK1Wqy4yc4QpMLQFXE9XRUFOli22PEnDO7IsJezg==}
+  /@node-rs/deno-lint-linux-arm64-musl/1.14.0:
+    resolution: {integrity: sha512-r9Z2RAiqQBTpTwcdW9V6+vLuwvVdHnzPG2B7wdE3YdeivPASlKkZVk66mDuCajlYixEcZAGEf3xhvzs/D1c6Fg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -402,8 +402,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-linux-x64-gnu/1.13.1:
-    resolution: {integrity: sha512-hH7+z9AWauTUpNk7ando8EWNLd7SYROGIbWW5ho8aFapRR715HV1EwnIJZuaBn8xsWBKmP1Jg/+Q8KMAXGCi4g==}
+  /@node-rs/deno-lint-linux-x64-gnu/1.14.0:
+    resolution: {integrity: sha512-tAv/mfLmXpABqnWvOj58QrTmEm0odY+723+RDdISarqYKqhp3L9yYhRM4uw1IypudW0o17JGDxmBtvDuk4OReA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -411,8 +411,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-linux-x64-musl/1.13.1:
-    resolution: {integrity: sha512-s9RUNuXLT2itPTqU5b9pAp7Lg8KoEdAJ4yzDekGo8AK9mb/rLs7q30af7Qi5AdzWOq5VsXYjkghZH8HbwhnHEQ==}
+  /@node-rs/deno-lint-linux-x64-musl/1.14.0:
+    resolution: {integrity: sha512-/m30O5rYiYRoQw/3pfnaJe+fgckBE8iLKGw9DVZ9QGAhTHgxode/QNAWK11lenSPzWHhGe5g4C/9ow7M13Wdyg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -420,8 +420,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-win32-arm64-msvc/1.13.1:
-    resolution: {integrity: sha512-T5Xd/Q86xN9hS1zLgruxtkb9jsGHdYRN1qHG6ltYcLZPAAUP3tTjbsZhLSaGVSOmOGZt5wmmBOPSHzb2hxnXPw==}
+  /@node-rs/deno-lint-win32-arm64-msvc/1.14.0:
+    resolution: {integrity: sha512-t+QIZzGFDuOqoZBltEyuTUCsHJ8VBYJOXt1cyAZp9U9pziPzwfZzgmoLWIkcCjQtCPM2Ijy95blW/2nPRyeUiw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -429,8 +429,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-win32-ia32-msvc/1.13.1:
-    resolution: {integrity: sha512-rDCx8QBaEpEznu3x/dW4SskBSaTCaGSgR4K+YJXIihxDXWeMtyyt/ek+wB2zezIVVfaSxBkLkSBJIEdZqped7Q==}
+  /@node-rs/deno-lint-win32-ia32-msvc/1.14.0:
+    resolution: {integrity: sha512-kjT5cFi5aPpDmNTQMkLdACwyY/3l8N6id3fl2yqlxKVsQ/Dha6VtEjx7O3V7OBKeZ6z5orQpB3OazLKwB8/8Kw==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
@@ -438,8 +438,8 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint-win32-x64-msvc/1.13.1:
-    resolution: {integrity: sha512-EL5D4MGFYUjAz107fuD1OjsSjWKMvYkMB8PDmI5YbuoIyDGcq9lwCXkQbpN+T16EBHaWHlCnVPJE6YAwqJg1Vw==}
+  /@node-rs/deno-lint-win32-x64-msvc/1.14.0:
+    resolution: {integrity: sha512-OHJCjrj656OZ/98LhzbvM81xU5SQFcNDncKDfpJRlDAoJlWEdjvh6GPStcbG9ijhMqT+It/19B/Bg6+9mIMNBQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -447,27 +447,27 @@ packages:
     dev: true
     optional: true
 
-  /@node-rs/deno-lint/1.13.1:
-    resolution: {integrity: sha512-0fQ5+kAjK1QFX7iXjhLe0Sk+M2ES58q0Z1OxmDer8sF4o3m9RSP7oN1Qc9zcRkPm1DQO0z06Wr/10w7rHUQMnw==}
+  /@node-rs/deno-lint/1.14.0:
+    resolution: {integrity: sha512-Q0Hnk7TEXGviw3XAMgHatTlym1j1GBg0JkCIOZhqEZimm6JVTVDSWGtincbhFXwICZTLBDqITkna6udClEiSeA==}
     engines: {node: '>= 10'}
     hasBin: true
     dependencies:
       clipanion: 3.1.0
       typanion: 3.9.0
     optionalDependencies:
-      '@node-rs/deno-lint-android-arm-eabi': 1.13.1
-      '@node-rs/deno-lint-android-arm64': 1.13.1
-      '@node-rs/deno-lint-darwin-arm64': 1.13.1
-      '@node-rs/deno-lint-darwin-x64': 1.13.1
-      '@node-rs/deno-lint-freebsd-x64': 1.13.1
-      '@node-rs/deno-lint-linux-arm-gnueabihf': 1.13.1
-      '@node-rs/deno-lint-linux-arm64-gnu': 1.13.1
-      '@node-rs/deno-lint-linux-arm64-musl': 1.13.1
-      '@node-rs/deno-lint-linux-x64-gnu': 1.13.1
-      '@node-rs/deno-lint-linux-x64-musl': 1.13.1
-      '@node-rs/deno-lint-win32-arm64-msvc': 1.13.1
-      '@node-rs/deno-lint-win32-ia32-msvc': 1.13.1
-      '@node-rs/deno-lint-win32-x64-msvc': 1.13.1
+      '@node-rs/deno-lint-android-arm-eabi': 1.14.0
+      '@node-rs/deno-lint-android-arm64': 1.14.0
+      '@node-rs/deno-lint-darwin-arm64': 1.14.0
+      '@node-rs/deno-lint-darwin-x64': 1.14.0
+      '@node-rs/deno-lint-freebsd-x64': 1.14.0
+      '@node-rs/deno-lint-linux-arm-gnueabihf': 1.14.0
+      '@node-rs/deno-lint-linux-arm64-gnu': 1.14.0
+      '@node-rs/deno-lint-linux-arm64-musl': 1.14.0
+      '@node-rs/deno-lint-linux-x64-gnu': 1.14.0
+      '@node-rs/deno-lint-linux-x64-musl': 1.14.0
+      '@node-rs/deno-lint-win32-arm64-msvc': 1.14.0
+      '@node-rs/deno-lint-win32-ia32-msvc': 1.14.0
+      '@node-rs/deno-lint-win32-x64-msvc': 1.14.0
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -1971,8 +1971,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.19.1:
-    resolution: {integrity: sha512-E/ZXpFMUahn731wzhMBNzWRp4mGgiZFT0xdHa32cbNO0CSaHpE9hTfteEU247Gi2Dula8uXo5vvrNB6dtszmQA==}
+  /vitest/0.20.2:
+    resolution: {integrity: sha512-AFXTHrwG4d2OO6SAL8WP5ZkOwLtgeF4tlrHfXFqrHc+5chNegeR53pge0lv/C4316SqJ2DbYaUBH8vh3CdF+BQ==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
