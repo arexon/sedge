@@ -1,9 +1,9 @@
-import { pathToFileURL } from 'url'
-import { normalize } from 'pathe'
-import { resolvePath } from 'mlly'
 import { blue } from 'colorette'
-import type { createAtropa } from '../../../atropa/src/compiler'
-import type { loadConfig, Config } from '../../../atropa/src/config'
+import { resolvePath } from 'mlly'
+import { normalize } from 'pathe'
+import { pathToFileURL } from 'url'
+import type { createAtropa } from '../../../sedge/src/compiler'
+import type { Config, loadConfig } from '../../../sedge/src/config'
 
 export async function importAtropa<Submodule extends 'compiler' | 'config'>(
 	submodule: Submodule

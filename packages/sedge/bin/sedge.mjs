@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-import('../dist/index.mjs').then((module) => module.default())
+import('sedge-cli').then((module) => module.default())

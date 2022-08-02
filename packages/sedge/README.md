@@ -1,3 +1,3 @@
-# Sedge
+# Atropa
 
-> Atropa Command Line Interface
+> The Atropa core and compiler
