@@ -8,7 +8,7 @@ export async function prepareFolder(path: string): Promise<void> {
 }
 
 export function writeJsonFileToTarget(path: string, content: any): void {
-	const minify = atropa.mode === 'build' && atropa.config.atropa.minify
+	const minify = sedge.mode === 'build' && sedge.config.sedge.minify
 
 	fse.outputJSONSync(
 		resolveToTargetPath(replaceExt(path, '.json')),
@@ -35,7 +35,7 @@ export function copyFileToTarget(path: string): void {
 export function removeFileFromTarget(path: string): void {
 	fse.removeSync(
 		resolve(
-			atropa.target.path,
+			sedge.target.path,
 			isModule(path)
 				? replaceExt(resolveToTargetPath(path), '.json')
 				: resolveToTargetPath(path)

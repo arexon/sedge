@@ -1,4 +1,4 @@
-import { defineMCFunction } from 'atropa/core'
+import { defineMCFunction } from 'sedge/core'
 
 export default defineMCFunction(({ run }) => {
 	const animals = ['sheep', 'pig', 'chicken']

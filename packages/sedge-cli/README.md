@@ -1,3 +1,3 @@
 # Sedge
 
-> Atropa Command Line Interface
+> Sedge Command Line Interface

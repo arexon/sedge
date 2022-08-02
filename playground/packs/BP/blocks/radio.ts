@@ -1,4 +1,4 @@
-import { defineBlock } from 'atropa/core'
+import { defineBlock } from 'sedge/core'
 import Attributes from '../components/Attributes'
 
 export default defineBlock(

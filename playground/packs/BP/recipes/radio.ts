@@ -1,4 +1,4 @@
-import { defineRecipe } from 'atropa/core'
+import { defineRecipe } from 'sedge/core'
 
 export default defineRecipe(
 	'shaped',

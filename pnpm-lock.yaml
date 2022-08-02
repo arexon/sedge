@@ -32,7 +32,7 @@ importers:
       fs-extra: ^10.1.0
       jiti: ^1.14.0
       pathe: ^0.3.2
-      sedge: workspace:*
+      sedge-cli: workspace:*
       unbuild: ^0.7.6
       ws: ^8.8.1
     dependencies:
@@ -45,7 +45,7 @@ importers:
       fs-extra: 10.1.0
       jiti: 1.14.0
       pathe: 0.3.2
-      sedge: 'link:'
+      sedge-cli: link:../sedge-cli
       ws: 8.8.1
     devDependencies:
       '@antfu/utils': 0.5.2

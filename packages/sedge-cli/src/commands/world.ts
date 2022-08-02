@@ -2,7 +2,7 @@ import { blackBright, blue } from 'colorette'
 import fse from 'fs-extra'
 import { basename, join, normalize } from 'pathe'
 import { comMojangFolder } from '../constants'
-import { importAtropa, logger, tryCatch } from '../utils'
+import { importSedge, logger, tryCatch } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -20,7 +20,7 @@ export default defineCommand({
 				process.exit(1)
 			}
 
-			const { loadConfig } = await importAtropa('config')
+			const { loadConfig } = await importSedge('config')
 			const config = await loadConfig()
 
 			if (!comMojangFolder) {
@@ -35,7 +35,7 @@ export default defineCommand({
 			} else if (args.save) {
 				await saveWorld(join(config.packs.worldTemplate, args.save))
 			}
-		}, `This command requires the ${blue('atropa')} package to be installed in your project`)
+		}, `This command requires the ${blue('sedge')} package to be installed in your project`)
 	}
 })
 

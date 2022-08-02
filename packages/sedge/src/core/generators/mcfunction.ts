@@ -40,7 +40,7 @@ export function defineMCFunction(
 
 function processTemplate(template: string[]): MCFunctionTemplate {
 	return {
-		namespace: atropa.config.namespace,
+		namespace: sedge.config.namespace,
 		add: (_template) => {
 			if (Array.isArray(_template)) template.push(_template.join('\n'))
 			else template.push(_template)

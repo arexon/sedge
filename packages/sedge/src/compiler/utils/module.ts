@@ -3,7 +3,7 @@ import { build, type BuildResult } from 'esbuild'
 import createJITI from 'jiti'
 import { join, resolve } from 'pathe'
 import { logger } from '../../logger'
-import { atropaCacheFolder } from '../constants'
+import { sedgeCacheFolder } from '../constants'
 import { pathExists, writeFileToTarget, writeJsonFileToTarget } from './fs'
 import { replaceExt, resolveToTargetPath } from './path'
 
@@ -47,7 +47,7 @@ export async function evalModule(
 	options: { allowHMR: boolean }
 ): Promise<ModuleResult> {
 	const jiti = createJITI('', {
-		cache: atropaCacheFolder,
+		cache: sedgeCacheFolder,
 		requireCache: !options.allowHMR,
 		interopDefault: true,
 		onError: (error) => {
@@ -61,8 +61,8 @@ export async function evalModule(
 export async function compileScripts(options: {
 	incremental: boolean
 }): Promise<BuildResult | void> {
-	const scriptFolder = join(atropa.config.packs.behaviorPack, 'scripts')
-	const scriptEntryName = atropa.config.atropa.scriptEntryName
+	const scriptFolder = join(sedge.config.packs.behaviorPack, 'scripts')
+	const scriptEntryName = sedge.config.sedge.scriptEntryName
 
 	if (!pathExists(join(scriptFolder, scriptEntryName))) return
 
@@ -74,7 +74,7 @@ export async function compileScripts(options: {
 		target: 'esnext',
 		format: 'esm',
 		bundle: true,
-		minify: atropa.mode === 'build' && atropa.config.atropa.minify,
+		minify: sedge.mode === 'build' && sedge.config.sedge.minify,
 		incremental: options.incremental,
 		external: ['mojang-minecraft', 'mojang-minecraft-ui', 'mojang-gametest']
 	})

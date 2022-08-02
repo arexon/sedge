@@ -1,10 +1,10 @@
-import type { AtropaModes } from './compiler'
+import type { SedgeModes } from './compiler'
 import type { Config } from './config'
 
 declare global {
-	var atropa: {
+	var sedge: {
 		config: Config
-		mode: AtropaModes
+		mode: SedgeModes
 		target: {
 			name: string
 			path: string

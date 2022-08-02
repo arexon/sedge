@@ -6,14 +6,14 @@ import { comMojangFolder } from './constants'
 import { build, dev } from './modes'
 import { getComMojangPathByPack, prepareFolder } from './utils'
 
-export type AtropaModes = 'build' | 'dev' | 'dev+websocket'
+export type SedgeModes = 'build' | 'dev' | 'dev+websocket'
 
-export async function createAtropa(options: {
-	mode: AtropaModes
+export async function createSedge(options: {
+	mode: SedgeModes
 	target: string
 }): Promise<void> {
 	try {
-		global.atropa = {
+		global.sedge = {
 			config: await loadConfig(),
 			mode: options.mode,
 			target: {
@@ -22,15 +22,15 @@ export async function createAtropa(options: {
 			},
 			isComMojang: false
 		}
-		const modeIsDev = atropa.mode !== 'build'
-		const targetIsDefault = atropa.target.name === 'default'
+		const modeIsDev = sedge.mode !== 'build'
+		const targetIsDefault = sedge.target.name === 'default'
 		const defaultTargetPath =
 			modeIsDev && targetIsDefault
 				? comMojangFolder
-				: atropa.config.atropa.targets.default
+				: sedge.config.sedge.targets.default
 
 		if (defaultTargetPath === comMojangFolder && modeIsDev) {
-			atropa.isComMojang = true
+			sedge.isComMojang = true
 		} else if (defaultTargetPath === null && modeIsDev) {
 			throw new Error(
 				[
@@ -43,15 +43,14 @@ export async function createAtropa(options: {
 		}
 
 		const targetIsConfigured = hasOwnProperty(
-			atropa.config.atropa.targets,
-			atropa.target.name
+			sedge.config.sedge.targets,
+			sedge.target.name
 		)
 
-		if (atropa.isComMojang) {
-			atropa.target.path = defaultTargetPath!
+		if (sedge.isComMojang) {
+			sedge.target.path = defaultTargetPath!
 		} else {
-			atropa.target.path =
-				atropa.config.atropa.targets[atropa.target.name]
+			sedge.target.path = sedge.config.sedge.targets[sedge.target.name]
 		}
 
 		if (targetIsConfigured || targetIsDefault) {
@@ -61,7 +60,7 @@ export async function createAtropa(options: {
 				`Target ${yellow(
 					options.target
 				)} does not match any target in ${blackBright(
-					'config.atropa.targets'
+					'config.sedge.targets'
 				)}`
 			)
 		}
@@ -73,13 +72,13 @@ export async function createAtropa(options: {
 
 async function runWithMode(): Promise<void> {
 	logger.info(
-		`Via target ${magenta(atropa.target.name)} @ ${blackBright(
-			atropa.target.path
+		`Via target ${magenta(sedge.target.name)} @ ${blackBright(
+			sedge.target.path
 		)}`
 	)
 
 	await prepare()
-	switch (atropa.mode) {
+	switch (sedge.mode) {
 		case 'build':
 			await build()
 			break
@@ -92,12 +91,12 @@ async function runWithMode(): Promise<void> {
 }
 
 async function prepare(): Promise<void> {
-	if (!atropa.config.atropa.initialCleanUp) return
+	if (!sedge.config.sedge.initialCleanUp) return
 
-	if (atropa.isComMojang) {
+	if (sedge.isComMojang) {
 		await prepareFolder(getComMojangPathByPack('BP'))
 		await prepareFolder(getComMojangPathByPack('RP'))
 	} else {
-		await prepareFolder(atropa.target.path)
+		await prepareFolder(sedge.target.path)
 	}
 }

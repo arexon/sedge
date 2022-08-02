@@ -1,4 +1,4 @@
-import { defineLootTable } from 'atropa/core'
+import { defineLootTable } from 'sedge/core'
 
 export default defineLootTable(({ namespace, pools }) => {
 	pools([

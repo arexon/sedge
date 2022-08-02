@@ -217,7 +217,7 @@ export function defineRecipe<Type extends RecipeTypes>(
 
 export function processTemplate(template: VanillaTemplate): UserTemplate {
 	return {
-		namespace: atropa.config.namespace,
+		namespace: sedge.config.namespace,
 		description: (_template) => {
 			template.description = { ...template.description, ..._template }
 		},

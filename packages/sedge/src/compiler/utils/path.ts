@@ -16,7 +16,7 @@ export function scanForPaths(options: {
 		return options.paths.map((path) => join(path, pattern))
 	}
 
-	const BPFolder = atropa.config.packs.behaviorPack
+	const BPFolder = sedge.config.packs.behaviorPack
 	const modules = glob.sync(addPatternToPaths('**/*.ts'), {
 		ignore: [
 			`${BPFolder}/components/**/*.ts`,
@@ -32,9 +32,9 @@ export function scanForPaths(options: {
 }
 
 export function resolveToTargetPath(path: string): string {
-	if (atropa.isComMojang) {
-		const pathToBP = makePathAbsolute(atropa.config.packs.behaviorPack)
-		const pathToRP = makePathAbsolute(atropa.config.packs.resourcePack)
+	if (sedge.isComMojang) {
+		const pathToBP = makePathAbsolute(sedge.config.packs.behaviorPack)
+		const pathToRP = makePathAbsolute(sedge.config.packs.resourcePack)
 		const isBP = path.includes(pathToBP)
 		const isRP = path.includes(pathToRP)
 
@@ -42,14 +42,14 @@ export function resolveToTargetPath(path: string): string {
 		if (isRP) return path.replace(pathToRP, getComMojangPathByPack('RP'))
 	}
 
-	return resolve(atropa.target.path, path)
+	return resolve(sedge.target.path, path)
 }
 
 export function getComMojangPathByPack(packType: 'BP' | 'RP'): string {
 	return join(
-		atropa.target.path,
+		sedge.target.path,
 		`development_${packType === 'BP' ? 'behavior' : 'resource'}_packs`,
-		`${atropa.config.name} ${packType}`
+		`${sedge.config.name} ${packType}`
 	)
 }
 

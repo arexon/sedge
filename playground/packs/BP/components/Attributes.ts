@@ -1,4 +1,4 @@
-import { defineComponent } from 'atropa/core'
+import { defineComponent } from 'sedge/core'
 
 export default defineComponent(
 	'block@1.19.10',

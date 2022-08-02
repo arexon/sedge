@@ -1,3 +1,3 @@
-# Atropa
+# Sedge
 
-> The Atropa core and compiler
+> The Sedge core and compiler
