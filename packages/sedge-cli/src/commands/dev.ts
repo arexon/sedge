@@ -1,6 +1,6 @@
 import { blue } from 'colorette'
 import { tryCatch } from '../utils'
-import { importAtropa } from '../utils/module'
+import { importSedge } from '../utils/module'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -11,13 +11,13 @@ export default defineCommand({
 	},
 	run: async (args) => {
 		await tryCatch(async () => {
-			const { createAtropa } = await importAtropa('compiler')
+			const { createSedge } = await importSedge('compiler')
 			const withWebSocket = args.websocket
 
-			await createAtropa({
+			await createSedge({
 				target: args.target,
 				mode: withWebSocket ? 'dev+websocket' : 'dev'
 			})
-		}, `This command requires the ${blue('atropa')} package to be installed in your project`)
+		}, `This command requires the ${blue('sedge')} package to be installed in your project`)
 	}
 })

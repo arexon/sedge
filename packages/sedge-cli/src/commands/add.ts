@@ -2,7 +2,7 @@ import { blackBright, blue } from 'colorette'
 import fse from 'fs-extra'
 import { join } from 'pathe'
 import prompts from 'prompts'
-import { importAtropa, logger, type Config } from '../utils'
+import { importSedge, logger, type Config } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -24,7 +24,7 @@ export default defineCommand({
 			pack: 'server' | 'client'
 		}
 
-		const { loadConfig } = await importAtropa('config')
+		const { loadConfig } = await importSedge('config')
 		const config = await loadConfig()
 
 		const filePrompt = async (): Promise<{ file: File }> => {
@@ -134,7 +134,7 @@ export default defineCommand({
 
 function getComponentTemplate(): string {
 	return [
-		`import { defineComponent } from 'atropa/core'`,
+		`import { defineComponent } from 'sedge/core'`,
 		``,
 		`export default defineComponent(`,
 		`    'block@1.19.10',`,
@@ -145,7 +145,7 @@ function getComponentTemplate(): string {
 
 function getCollectionTemplate(): string {
 	return [
-		`import { defineCollection } from 'atropa/core'`,
+		`import { defineCollection } from 'sedge/core'`,
 		``,
 		`export default defineCollection(({ add, packs }) => {`,
 		`	add(\`\${packs.behaviorPack}/functions/say_hello.mcfunction\`, 'say hello')`,
@@ -155,7 +155,7 @@ function getCollectionTemplate(): string {
 
 function getBlockTemplate(identifier: string): string {
 	return [
-		`import { defineBlock } from 'atropa/core'`,
+		`import { defineBlock } from 'sedge/core'`,
 		``,
 		`export default defineBlock('1.19.10', ({ namespace, description }) => {`,
 		`	description({`,
@@ -167,7 +167,7 @@ function getBlockTemplate(identifier: string): string {
 
 function getItemTemplate(identifier: string): string {
 	return [
-		`import { defineItem } from 'atropa/core'`,
+		`import { defineItem } from 'sedge/core'`,
 		``,
 		`export default defineItem('1.19.0', ({ namespace, description }) => {`,
 		`	description({`,
@@ -179,7 +179,7 @@ function getItemTemplate(identifier: string): string {
 
 function getLootTableTemplate(identifier: string): string {
 	return [
-		`import { defineLootTable } from 'atropa/core'`,
+		`import { defineLootTable } from 'sedge/core'`,
 		``,
 		`export default defineLootTable(({ namespace, pools }) => {`,
 		`	pools([`,
@@ -198,7 +198,7 @@ function getLootTableTemplate(identifier: string): string {
 
 function getRecipeTemplate(identifier: string): string {
 	return [
-		`import { defineRecipe } from 'atropa/core'`,
+		`import { defineRecipe } from 'sedge/core'`,
 		``,
 		`export default defineRecipe('shaped', ({ namespace, description }) => {`,
 		`	description({`,
@@ -210,7 +210,7 @@ function getRecipeTemplate(identifier: string): string {
 
 function getMCFunctionTemplate(): string {
 	return [
-		`import { defineMCFunction } from 'atropa/core'`,
+		`import { defineMCFunction } from 'sedge/core'`,
 		``,
 		`export default defineMCFunction(({ run }) => {`,
 		`	run('say hello')`,

@@ -1,5 +1,5 @@
-import consola from 'consola'
 import { blue, cyan } from 'colorette'
+import consola from 'consola'
 import { version } from '../../package.json'
 import type { CommandMeta } from '../commands'
 
@@ -26,5 +26,5 @@ export function logHelp(meta?: CommandMeta): void {
 }
 
 export function logBanner() {
-	logger.start(blue(`Atropa CLI v${version}`))
+	logger.start(blue(`Sedge CLI v${version}`))
 }

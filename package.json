@@ -1,5 +1,5 @@
 {
-	"name": "atropa-monorepo",
+	"name": "sedge-monorepo",
 	"private": true,
 	"scripts": {
 		"build": "turbo run build --scope=\"!playground*\"",

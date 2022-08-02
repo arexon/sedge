@@ -8,7 +8,7 @@ export interface Config {
 	packs: {
 		[key in 'behaviorPack' | 'resourcePack' | 'worldTemplate']: string
 	}
-	atropa: {
+	sedge: {
 		targets: {
 			[name: string | 'default']: string
 		}
@@ -22,14 +22,14 @@ export interface Config {
 export async function loadConfig(): Promise<Config> {
 	let config: Config
 	const configDefaults: Config = {
-		name: 'atropa-project',
-		namespace: 'atropa',
+		name: 'sedge-project',
+		namespace: 'sedge',
 		packs: {
 			behaviorPack: './packs/BP',
 			resourcePack: './packs/RP',
 			worldTemplate: './packs/WT'
 		},
-		atropa: {
+		sedge: {
 			targets: {
 				default: './build'
 			},

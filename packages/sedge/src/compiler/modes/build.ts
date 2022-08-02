@@ -1,19 +1,19 @@
 import { logger } from '../../logger'
 import {
 	compileModule,
+	compileScripts,
 	copyFileToTarget,
-	scanForPaths,
-	compileScripts
+	scanForPaths
 } from '../utils'
 
 export async function build(options?: { allowHMR?: boolean }): Promise<void> {
 	const startTime = Date.now()
 	const { assets, modules } = scanForPaths({
 		paths: [
-			atropa.config.packs.behaviorPack,
-			atropa.config.packs.resourcePack
+			sedge.config.packs.behaviorPack,
+			sedge.config.packs.resourcePack
 		],
-		ignorePaths: atropa.config.atropa.ignorePaths
+		ignorePaths: sedge.config.sedge.ignorePaths
 	})
 
 	const results = await Promise.allSettled([
@@ -30,7 +30,7 @@ export async function build(options?: { allowHMR?: boolean }): Promise<void> {
 		})
 	])
 
-	if (atropa.mode === 'build') {
+	if (sedge.mode === 'build') {
 		const filesAmount = results.filter(
 			(result) => result.status === 'fulfilled'
 		).length

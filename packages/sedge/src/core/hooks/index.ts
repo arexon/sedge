@@ -10,8 +10,8 @@ export function useHook(hook: Hook | Hook[], fn: () => void): void {
 	if (Array.isArray(hook)) hook.map((hook) => useHook(hook, fn))
 
 	if (
-		(hook === 'on:build' && atropa.mode === 'build') ||
-		(hook === 'on:dev' && atropa.mode === 'dev')
+		(hook === 'on:build' && sedge.mode === 'build') ||
+		(hook === 'on:dev' && sedge.mode === 'dev')
 	) {
 		fn()
 	}

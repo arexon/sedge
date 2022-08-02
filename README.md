@@ -1,13 +1,13 @@
-<h1 align="center">Atropa</h1>
+<h1 align="center">Sedge</h1>
 <p align="center">Declaratively supercharged framework for building complex Add-Ons for Minecraft Bedrock Edition</p>
 
 <br/>
 
 > Note: This is still a work in progress.
 
-## Why use Atropa?
+## Why use Sedge?
 
-Atropa takes full advantage of TypeScript and its powerful type system to create a functional, declarative API that elevates Add-On development to the next level!
+Sedge takes full advantage of TypeScript and its powerful type system to create a functional, declarative API that elevates Add-On development to the next level!
 
 ❯ ⚙️ **Generator Functions** for intuitive creation of files such as entities <br/>
 ❯ 💾 **Custom Components** to allow for abstracting away logic into composable and reusable functions <br/>
@@ -18,4 +18,4 @@ Atropa takes full advantage of TypeScript and its powerful type system to create
 ❯ 🌍 **Build worlds** ergonomically by saving or testing them through a single command <br/>
 ❯ 🦺 **Typesafe** so you never have to read documentation ever again <br/>
 ❯ 🎮 **Advanced CLI** for easy management of your project <br/>
-❯ 🔧 **Hackable** to extend or modify how Atropa works <br/>
+❯ 🔧 **Hackable** to extend or modify how Sedge works <br/>

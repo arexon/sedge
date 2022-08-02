@@ -1,5 +1,5 @@
 import { blue } from 'colorette'
-import { importAtropa, tryCatch } from '../utils'
+import { importSedge, tryCatch } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -10,11 +10,11 @@ export default defineCommand({
 	},
 	run: async (args) => {
 		await tryCatch(async () => {
-			const { createAtropa } = await importAtropa('compiler')
-			await createAtropa({
+			const { createSedge } = await importSedge('compiler')
+			await createSedge({
 				target: args.target,
 				mode: 'build'
 			})
-		}, `This command requires the ${blue('atropa')} package to be installed in your project`)
+		}, `This command requires the ${blue('sedge')} package to be installed in your project`)
 	}
 })

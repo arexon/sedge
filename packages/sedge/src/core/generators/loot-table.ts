@@ -44,7 +44,7 @@ export function defineLootTable(
 
 export function processTemplate(template: LootTable): UserTemplate {
 	return {
-		namespace: atropa.config.namespace,
+		namespace: sedge.config.namespace,
 		pools: (_template) => {
 			template.pools = [..._template, ...(template.pools || [])]
 		},

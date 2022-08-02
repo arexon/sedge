@@ -1,6 +1,7 @@
 import { debounce } from '@antfu/utils'
 import { watch } from 'chokidar'
 import { blackBright, cyan, green, magenta } from 'colorette'
+import { randomUUID } from 'node:crypto'
 import { normalize } from 'pathe'
 import WebSocket from 'ws'
 import { logger } from '../../logger'
@@ -12,7 +13,6 @@ import {
 	removeFileFromTarget
 } from '../utils'
 import { build } from './build'
-import { randomUUID } from 'node:crypto'
 
 export async function dev(options?: { websocket?: boolean }): Promise<void> {
 	await build()
@@ -82,7 +82,7 @@ export async function dev(options?: { websocket?: boolean }): Promise<void> {
 			wsServer.clients.forEach(async (ws) => {
 				await runCommand('reload', ws)
 				await runCommand(
-					'tellraw @s {"rawtext": [{"text": "§d[Atropa]§r Reload complete!"}]}',
+					'tellraw @s {"rawtext": [{"text": "§d[Sedge]§r Reload complete!"}]}',
 					ws
 				)
 			})
@@ -94,7 +94,7 @@ export async function dev(options?: { websocket?: boolean }): Promise<void> {
 	})
 
 	const watcher = watch(
-		[atropa.config.packs.behaviorPack, atropa.config.packs.resourcePack],
+		[sedge.config.packs.behaviorPack, sedge.config.packs.resourcePack],
 		{ ignoreInitial: true }
 	)
 

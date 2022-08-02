@@ -1,4 +1,4 @@
-import { defineItem } from 'atropa/core'
+import { defineItem } from 'sedge/core'
 
 export default defineItem(
 	'1.19.0',

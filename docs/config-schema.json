@@ -66,8 +66,8 @@
 				"worldTemplate": "./packs/WT"
 			}
 		},
-		"atropa": {
-			"description": "Additional configurations specific to Atropa.",
+		"sedge": {
+			"description": "Additional configurations specific to Sedge.",
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {

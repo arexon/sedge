@@ -66,8 +66,8 @@ export function defineCollection(
 
 function processTemplate(template: CollectionResult): CollectionTemplate {
 	return {
-		namespace: atropa.config.namespace,
-		packs: atropa.config.packs,
+		namespace: sedge.config.namespace,
+		packs: sedge.config.packs,
 		add: (path, content) => template.data.set(path, content),
 		remove: (path) => template.data.delete(path),
 		has: (path) => template.data.has(path),

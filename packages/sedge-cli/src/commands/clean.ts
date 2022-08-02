@@ -11,14 +11,14 @@ export default defineCommand({
 	},
 	run: async () => {
 		await tryCatch(async () => {
-			const cacheFolder = '.atropa/cache'
+			const cacheFolder = '.sedge/cache'
 			if (!(await fse.pathExists(cacheFolder))) {
 				logger.info(`Looks like there's nothing to clean!`)
 				return
 			}
 
 			await fse.remove(cacheFolder)
-			logger.success('Cleaned Atropa build cache!')
-		}, `This command requires the ${blue('atropa')} package to be installed in your project`)
+			logger.success('Cleaned Sedge build cache!')
+		}, `This command requires the ${blue('sedge')} package to be installed in your project`)
 	}
 })

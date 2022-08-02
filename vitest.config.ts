@@ -3,12 +3,12 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
 	resolve: {
 		alias: {
-			'atropa/core': '/packages/atropa/src/core',
+			'sedge/core': '/packages/sedge/src/core',
 			'#playground/BP': '../playground/packs/BP'
 		}
 	},
 	define: {
-		atropa: {
+		sedge: {
 			config: { namespace: 'test' },
 			target: { name: 'test' }
 		}

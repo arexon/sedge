@@ -1,7 +1,7 @@
 import { join } from 'pathe'
 
-export const atropaFolder = '.atropa'
-export const atropaCacheFolder = join(atropaFolder, 'cache')
+export const sedgeFolder = '.sedge'
+export const sedgeCacheFolder = join(sedgeFolder, 'cache')
 
 const localAppDataFolder = process.env.LOCALAPPDATA
 export const comMojangFolder = localAppDataFolder

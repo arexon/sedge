@@ -1,4 +1,4 @@
-import { defineBlock, defineCollection, useHook } from 'atropa/core'
+import { defineBlock, defineCollection, useHook } from 'sedge/core'
 import Attributes from '../components/Attributes'
 
 export default defineCollection(({ add, packs }) => {
