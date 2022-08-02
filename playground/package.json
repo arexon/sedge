@@ -8,6 +8,6 @@
 		"build": "sedge build"
 	},
 	"devDependencies": {
-		"atropa": "workspace:*"
+		"sedge": "workspace:*"
 	}
 }
