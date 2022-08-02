@@ -1,7 +1,7 @@
 import { defineMCFunction } from 'sedge/core'
 
-export default defineMCFunction(({ run }) => {
+export default defineMCFunction(({ add }) => {
 	const animals = ['sheep', 'pig', 'chicken']
 
-	animals.forEach((animal) => run(`say ${animal}`))
+	animals.forEach((animal) => add(`say ${animal}`))
 })
