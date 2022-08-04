@@ -1,4 +1,5 @@
-<h1 align="center">Sedge</h1>
+![Sedge Banner](.github/banner.svg)
+
 <p align="center">Declaratively supercharged framework for building complex Add-Ons for Minecraft Bedrock Edition</p>
 
 <br/>
