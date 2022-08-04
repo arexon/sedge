@@ -4,14 +4,14 @@
 	"description": "Sedge Command Line Interface",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
-	"homepage": "https://github.com/arexon/sedge/packages/cli",
+	"homepage": "https://sedge.arexon.me",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/arexon/sedge.git",
+		"url": "git+https://github.com/sedge-core/sedge.git",
 		"directory": "packages/cli"
 	},
 	"bugs": {
-		"url": "https://github.com/arexon/sedge/issues"
+		"url": "https://github.com/sedge-core/sedge/issues"
 	},
 	"type": "module",
 	"main": "./dist/index.mjs",
