@@ -1,14 +1,15 @@
 import { deepMerge, objectMap } from '@antfu/utils'
-import type { BlockComponents_1_16_0 } from '../../schema/block/v1.16.0'
 import type {
+	BlockComponents_1_16_0,
 	BlockComponents_1_16_100,
-	BlockEventResponses_1_16_100
-} from '../../schema/block/v1.16.100'
-import type { BlockComponents_1_18_10 } from '../../schema/block/v1.18.10'
-import type { BlockComponents_1_18_30 } from '../../schema/block/v1.18.30'
-import type { BlockComponents_1_19_10 } from '../../schema/block/v1.19.10'
-import type { BlockComponents_1_19_20 } from '../../schema/block/v1.19.20'
-import type { Randomize, Sequence } from '../../schema/event/common'
+	BlockComponents_1_18_10,
+	BlockComponents_1_18_30,
+	BlockComponents_1_19_10,
+	BlockComponents_1_19_20,
+	BlockEventResponses_1_16_100,
+	Randomize,
+	Sequence
+} from '@sedge-core/schema'
 import { ensureNamespaces, tryCatch } from '../utils'
 import type {
 	Description,

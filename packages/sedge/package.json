@@ -44,7 +44,8 @@
 		"unbuild": "^0.7.6"
 	},
 	"dependencies": {
-		"@sedge-core/cli": "workspace:^1.0.0",
+		"@sedge-core/cli": "workspace:*",
+		"@sedge-core/schema": "workspace:*",
 		"@types/ws": "^8.5.3",
 		"chokidar": "^3.5.3",
 		"colorette": "^2.0.19",

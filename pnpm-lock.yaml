@@ -45,10 +45,17 @@ importers:
       '@types/prompts': 2.0.14
       unbuild: 0.7.6
 
+  packages/schema:
+    specifiers:
+      unbuild: ^0.7.6
+    devDependencies:
+      unbuild: 0.7.6
+
   packages/sedge:
     specifiers:
       '@antfu/utils': ^0.5.2
-      '@sedge-core/cli': workspace:^1.0.0
+      '@sedge-core/cli': workspace:*
+      '@sedge-core/schema': workspace:*
       '@types/fs-extra': ^9.0.13
       '@types/node': ^17.0.45
       '@types/ws': ^8.5.3
@@ -64,6 +71,7 @@ importers:
       ws: ^8.8.1
     dependencies:
       '@sedge-core/cli': link:../cli
+      '@sedge-core/schema': link:../schema
       '@types/ws': 8.5.3
       chokidar: 3.5.3
       colorette: 2.0.19
@@ -750,7 +758,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
     dev: true
 
   /consola/2.15.3:
