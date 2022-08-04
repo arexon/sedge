@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-import('sedge-cli').then((module) => module.default())
+import('@sedge-core/cli').then((module) => module.default())
