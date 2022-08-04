@@ -3,7 +3,7 @@ import { build, type BuildResult } from 'esbuild'
 import createJITI from 'jiti'
 import { join, resolve } from 'pathe'
 import { logger } from '../../logger'
-import { sedgeCacheFolder } from '../constants'
+import { cacheFolder } from '../constants'
 import { pathExists, writeFileToTarget, writeJsonFileToTarget } from './fs'
 import { replaceExt, resolveToTargetPath } from './path'
 
@@ -47,7 +47,7 @@ export async function evalModule(
 	options: { allowHMR: boolean }
 ): Promise<ModuleResult> {
 	const jiti = createJITI('', {
-		cache: sedgeCacheFolder,
+		cache: cacheFolder,
 		requireCache: !options.allowHMR,
 		interopDefault: true,
 		onError: (error) => {
