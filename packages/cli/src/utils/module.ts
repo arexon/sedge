@@ -1,19 +1,17 @@
+import type { Config } from '@sedge-core/shared'
 import { blue } from 'colorette'
 import { resolvePath } from 'mlly'
 import { normalize } from 'pathe'
 import { pathToFileURL } from 'url'
-import type { createSedge } from '../../../sedge/src/compiler'
-import type { Config, loadConfig } from '../../../sedge/src/config'
 
-export async function importSedge<Submodule extends 'compiler' | 'config'>(
+export async function importSedge<Submodule extends 'compiler'>(
 	submodule: Submodule
-): Promise<
-	Submodule extends 'compiler'
-		? { createSedge: typeof createSedge }
-		: Submodule extends 'config'
-		? { loadConfig: typeof loadConfig }
-		: never
-> {
+): Promise<{
+	createSedge: (options: {
+		mode: 'build' | 'dev' | 'dev+websocket'
+		target: string
+	}) => Promise<void>
+}> {
 	try {
 		const resolvedPath = normalize(await resolvePath(`sedge/${submodule}`))
 		return import(pathToFileURL(resolvedPath).href)

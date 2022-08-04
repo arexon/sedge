@@ -1,2 +1,2 @@
-export * from './error'
+export * from '@sedge-core/shared'
 export * from './object'

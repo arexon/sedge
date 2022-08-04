@@ -1,6 +1,5 @@
-import { blue } from 'colorette'
 import fse from 'fs-extra'
-import { logger, tryCatch } from '../utils'
+import { logger } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -10,15 +9,13 @@ export default defineCommand({
 		description: 'Remove build cache'
 	},
 	run: async () => {
-		await tryCatch(async () => {
-			const cacheFolder = '.sedge/cache'
-			if (!(await fse.pathExists(cacheFolder))) {
-				logger.info(`Looks like there's nothing to clean!`)
-				return
-			}
+		const cacheFolder = '.sedge/cache'
+		if (!(await fse.pathExists(cacheFolder))) {
+			logger.info(`Looks like there's nothing to clean!`)
+			return
+		}
 
-			await fse.remove(cacheFolder)
-			logger.success('Cleaned Sedge build cache!')
-		}, `This command requires the ${blue('sedge')} package to be installed in your project`)
+		await fse.remove(cacheFolder)
+		logger.success('Cleaned Sedge build cache!')
 	}
 })

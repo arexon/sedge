@@ -1,9 +1,7 @@
+import { logger } from '@sedge-core/shared'
 import { blue, cyan } from 'colorette'
-import consola from 'consola'
 import { version } from '../../package.json'
 import type { CommandMeta } from '../commands'
-
-export const logger = consola.withTag('sedge')
 
 export function logHelp(meta?: CommandMeta): void {
 	const sections: string[] = []

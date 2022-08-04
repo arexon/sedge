@@ -1,0 +1,35 @@
+{
+	"name": "@sedge-core/shared",
+	"version": "1.0.0",
+	"description": "Shared utilities for Sedge packages",
+	"author": "Arexon <me@arexon.me>",
+	"license": "MIT",
+	"homepage": "https://github.com/arexon/sedge/packages/shared",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/arexon/sedge.git",
+		"directory": "packages/shared"
+	},
+	"bugs": {
+		"url": "https://github.com/arexon/sedge/issues"
+	},
+	"type": "module",
+	"types": "dist/index.d.ts",
+	"main": "dist/index.mjs",
+	"module": "dist/index.mjs",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "unbuild",
+		"dev": "unbuild --stub"
+	},
+	"devDependencies": {
+		"@antfu/utils": "^0.5.2",
+		"unbuild": "^0.7.6"
+	},
+	"dependencies": {
+		"consola": "^2.15.3",
+		"pathe": "^0.3.2"
+	}
+}

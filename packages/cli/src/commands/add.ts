@@ -2,7 +2,7 @@ import { blackBright, blue } from 'colorette'
 import fse from 'fs-extra'
 import { join } from 'pathe'
 import prompts from 'prompts'
-import { importSedge, logger, type Config } from '../utils'
+import { loadConfig, logger, type Config } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -24,7 +24,6 @@ export default defineCommand({
 			pack: 'server' | 'client'
 		}
 
-		const { loadConfig } = await importSedge('config')
 		const config = await loadConfig()
 
 		const filePrompt = async (): Promise<{ file: File }> => {
