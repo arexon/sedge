@@ -86,7 +86,7 @@ async function runWithMode(): Promise<void> {
 			await dev()
 			break
 		case 'dev+websocket':
-			await dev({ websocket: true })
+			await dev({ enableWebSocket: true })
 	}
 }
 

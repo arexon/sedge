@@ -14,7 +14,7 @@ type ModuleResult = {
 
 export async function compileModule(
 	path: string,
-	options: { allowHMR: boolean }
+	options?: { enableHMR?: boolean }
 ): Promise<void> {
 	const result = await evalModule(resolve(path), options)
 
@@ -44,11 +44,12 @@ export async function compileModule(
 
 export async function evalModule(
 	path: string,
-	options: { allowHMR: boolean }
+	options?: { enableHMR?: boolean }
 ): Promise<ModuleResult> {
+	const { enableHMR = false } = options || {}
 	const jiti = createJITI('', {
 		cache: cacheFolder,
-		requireCache: !options.allowHMR,
+		requireCache: !enableHMR,
 		interopDefault: true,
 		onError: (error) => {
 			logger.error(error.message)
