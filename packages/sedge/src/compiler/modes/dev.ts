@@ -14,7 +14,11 @@ import {
 } from '../utils'
 import { build } from './build'
 
-export async function dev(options?: { websocket?: boolean }): Promise<void> {
+export async function dev(options?: {
+	enableWebSocket?: boolean
+}): Promise<void> {
+	const { enableWebSocket = false } = options || {}
+
 	await build()
 
 	const updatedFiles = new Set<string>()
@@ -22,7 +26,7 @@ export async function dev(options?: { websocket?: boolean }): Promise<void> {
 
 	let wsServer: WebSocket.Server | undefined
 
-	if (options?.websocket) {
+	if (enableWebSocket) {
 		const port = 1570
 
 		wsServer = new WebSocket.Server({ port })
@@ -55,7 +59,7 @@ export async function dev(options?: { websocket?: boolean }): Promise<void> {
 			}
 
 			if (isModule(path)) {
-				await compileModule(path, { allowHMR: true })
+				await compileModule(path, { enableHMR: true })
 			} else {
 				copyFileToTarget(path)
 			}
@@ -141,7 +145,7 @@ function runCommand(command: string, ws: WebSocket) {
 
 async function forceReload(folder: string): Promise<void> {
 	logger.info(`Changes in ${green(folder)} folder, reloading...`)
-	await build({ allowHMR: true })
+	await build({ enableHMR: true })
 	logger.info(`Reload complete`)
 }
 

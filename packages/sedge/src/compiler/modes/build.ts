@@ -6,7 +6,7 @@ import {
 	scanForPaths
 } from '../utils'
 
-export async function build(options?: { allowHMR?: boolean }): Promise<void> {
+export async function build(options?: { enableHMR?: boolean }): Promise<void> {
 	const startTime = Date.now()
 	const { assets, modules } = scanForPaths({
 		paths: [
@@ -18,9 +18,7 @@ export async function build(options?: { allowHMR?: boolean }): Promise<void> {
 
 	const results = await Promise.allSettled([
 		...modules.map(async (path) => {
-			await compileModule(path, {
-				allowHMR: options?.allowHMR || false
-			})
+			await compileModule(path, options)
 		}),
 		...assets.map((path) => {
 			copyFileToTarget(path)
