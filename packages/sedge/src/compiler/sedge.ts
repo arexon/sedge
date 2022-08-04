@@ -1,12 +1,15 @@
 import { blackBright, blue, magenta, yellow } from 'colorette'
-import { comMojangFolder } from './constants'
+import { join } from 'pathe'
+import type { TSConfig } from 'pkg-types'
+import { comMojangFolder, tempFolder } from './constants'
 import { build, dev } from './modes'
 import {
 	getComMojangPathByPack,
 	hasOwnProperty,
 	loadConfig,
 	logger,
-	prepareFolder
+	prepareFolder,
+	writeJsonFile
 } from './utils'
 
 export type SedgeModes = 'build' | 'dev' | 'dev+websocket'
@@ -81,6 +84,8 @@ async function runWithMode(): Promise<void> {
 	)
 
 	await prepare()
+	generateTypes()
+
 	switch (sedge.mode) {
 		case 'build':
 			await build()
@@ -102,4 +107,19 @@ async function prepare(): Promise<void> {
 	} else {
 		await prepareFolder(sedge.target.path)
 	}
+}
+
+function generateTypes(): void {
+	const tsConfig: TSConfig = {
+		compilerOptions: {
+			target: 'esnext',
+			module: 'esnext',
+			lib: ['esnext'],
+			moduleResolution: 'node',
+			esModuleInterop: true,
+			strict: true
+		},
+		include: ['../**/*']
+	}
+	writeJsonFile(join(tempFolder, 'tsconfig.json'), tsConfig)
 }

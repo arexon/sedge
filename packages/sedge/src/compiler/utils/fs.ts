@@ -28,6 +28,10 @@ export function writeFileToTarget(
 	)
 }
 
+export function writeJsonFile(path: string, content: any): void {
+	fse.outputJSONSync(path, content, { spaces: '\t' })
+}
+
 export function copyFileToTarget(path: string): void {
 	fse.copySync(path, resolveToTargetPath(path))
 }
