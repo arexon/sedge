@@ -9,13 +9,13 @@ export default defineCommand({
 		description: 'Remove build cache'
 	},
 	run: async () => {
-		const cacheFolder = '.sedge/cache'
-		if (!(await fse.pathExists(cacheFolder))) {
+		const cacheDir = '.sedge/cache'
+		if (!(await fse.pathExists(cacheDir))) {
 			logger.info(`Looks like there's nothing to clean!`)
 			return
 		}
 
-		await fse.remove(cacheFolder)
+		await fse.remove(cacheDir)
 		logger.success('Cleaned Sedge build cache!')
 	}
 })

@@ -93,7 +93,7 @@
 					"default": false
 				},
 				"initialCleanUp": {
-					"description": "Whether to clean-up the target folder before compiling the project.",
+					"description": "Whether to clean-up the target directory before compiling the project.",
 					"type": "boolean",
 					"default": true
 				},

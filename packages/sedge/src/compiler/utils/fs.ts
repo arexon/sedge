@@ -2,7 +2,7 @@ import fse from 'fs-extra'
 import { resolve } from 'pathe'
 import { isModule, replaceExt, resolveToTargetPath } from './path'
 
-export async function prepareFolder(path: string): Promise<void> {
+export async function prepareDir(path: string): Promise<void> {
 	await fse.remove(path)
 	await fse.mkdirp(path)
 }

@@ -1,14 +1,14 @@
 import { blackBright, blue, magenta, yellow } from 'colorette'
 import { join } from 'pathe'
 import type { TSConfig } from 'pkg-types'
-import { comMojangFolder, tempFolder } from './constants'
+import { comMojangDir, tempDir } from './constants'
 import { build, dev } from './modes'
 import {
 	getComMojangPathByPack,
 	hasOwnProperty,
 	loadConfig,
 	logger,
-	prepareFolder,
+	prepareDir,
 	writeJsonFile
 } from './utils'
 
@@ -32,15 +32,15 @@ export async function createSedge(options: {
 		const targetIsDefault = sedge.target.name === 'default'
 		const defaultTargetPath =
 			modeIsDev && targetIsDefault
-				? comMojangFolder
+				? comMojangDir
 				: sedge.config.sedge.targets.default
 
-		if (defaultTargetPath === comMojangFolder && modeIsDev) {
+		if (defaultTargetPath === comMojangDir && modeIsDev) {
 			sedge.isComMojang = true
 		} else if (defaultTargetPath === null && modeIsDev) {
 			throw new Error(
 				[
-					`Could not find ${blue('com.mojang')} folder`,
+					`Could not find ${blue('com.mojang')} directory`,
 					`Please set the ${blue(
 						'LOCALAPPDATA'
 					)} environment variable, or ensure that Minecraft is properly installed`
@@ -102,10 +102,10 @@ async function prepare(): Promise<void> {
 	if (!sedge.config.sedge.initialCleanUp) return
 
 	if (sedge.isComMojang) {
-		await prepareFolder(getComMojangPathByPack('BP'))
-		await prepareFolder(getComMojangPathByPack('RP'))
+		await prepareDir(getComMojangPathByPack('BP'))
+		await prepareDir(getComMojangPathByPack('RP'))
 	} else {
-		await prepareFolder(sedge.target.path)
+		await prepareDir(sedge.target.path)
 	}
 }
 
@@ -121,5 +121,5 @@ function generateTypes(): void {
 		},
 		include: ['../**/*']
 	}
-	writeJsonFile(join(tempFolder, 'tsconfig.json'), tsConfig)
+	writeJsonFile(join(tempDir, 'tsconfig.json'), tsConfig)
 }

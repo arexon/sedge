@@ -1,10 +1,10 @@
 import { join } from 'pathe'
 
-const localAppDataFolder = process.env.LOCALAPPDATA
+const localAppDataDir = process.env.LOCALAPPDATA
 
-export const comMojangFolder = localAppDataFolder
+export const comMojangDir = localAppDataDir
 	? join(
-			localAppDataFolder,
+			localAppDataDir,
 			'Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang'
 	  )
 	: null

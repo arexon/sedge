@@ -16,11 +16,11 @@ export function scanForPaths(options: {
 		return options.paths.map((path) => join(path, pattern))
 	}
 
-	const BPFolder = sedge.config.packs.behaviorPack
+	const BPDir = sedge.config.packs.behaviorPack
 	const modules = glob.sync(addPatternToPaths('**/*.ts'), {
 		ignore: [
-			`${BPFolder}/components/**/*.ts`,
-			`${BPFolder}/scripts/**/*.ts`,
+			`${BPDir}/components/**/*.ts`,
+			`${BPDir}/scripts/**/*.ts`,
 			...(options.ignorePaths || [])
 		]
 	})

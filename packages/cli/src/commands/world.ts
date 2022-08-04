@@ -1,7 +1,7 @@
 import { blackBright, blue } from 'colorette'
 import fse from 'fs-extra'
 import { basename, join, normalize } from 'pathe'
-import { comMojangFolder } from '../constants'
+import { comMojangDir } from '../constants'
 import { loadConfig, logger } from '../utils'
 import { defineCommand } from './index'
 
@@ -11,7 +11,7 @@ export default defineCommand({
 		usage: 'npx sedge world [--save|test=<name>]',
 		description: `Saves or tests a world from or to ${blackBright(
 			'com.mojang'
-		)} folder`
+		)} directory`
 	},
 	run: async (args) => {
 		if (typeof (args.save || args.test) !== 'string') {
@@ -21,8 +21,10 @@ export default defineCommand({
 
 		const config = await loadConfig()
 
-		if (!comMojangFolder) {
-			logger.error(`Could not find ${blackBright('com.mojang')} folder`)
+		if (!comMojangDir) {
+			logger.error(
+				`Could not find ${blackBright('com.mojang')} directory`
+			)
 			process.exit(1)
 		}
 
@@ -61,7 +63,7 @@ async function saveWorld(path: string): Promise<void> {
 		logger.error(
 			`Could not find world ${blue(worldName)} @ ${blackBright(
 				'com.mojang'
-			)} folder`
+			)} directory`
 		)
 		process.exit(1)
 	}
@@ -74,5 +76,5 @@ async function saveWorld(path: string): Promise<void> {
 }
 
 function getTargetWorldPath(name: string): string {
-	return join(comMojangFolder!, 'minecraftWorlds', name)
+	return join(comMojangDir!, 'minecraftWorlds', name)
 }

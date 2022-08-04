@@ -2,7 +2,7 @@ import { isObject, logger } from '@sedge-core/shared'
 import { build, type BuildResult } from 'esbuild'
 import createJITI from 'jiti'
 import { join, resolve } from 'pathe'
-import { cacheFolder } from '../constants'
+import { cacheDir } from '../constants'
 import { pathExists, writeFileToTarget, writeJsonFileToTarget } from './fs'
 import { replaceExt, resolveToTargetPath } from './path'
 
@@ -47,7 +47,7 @@ export async function evalModule(
 ): Promise<ModuleResult> {
 	const { enableHMR = false } = options || {}
 	const jiti = createJITI('', {
-		cache: cacheFolder,
+		cache: cacheDir,
 		requireCache: !enableHMR,
 		interopDefault: true,
 		onError: (error) => {
@@ -61,15 +61,15 @@ export async function evalModule(
 export async function compileScripts(options: {
 	incremental: boolean
 }): Promise<BuildResult | void> {
-	const scriptFolder = join(sedge.config.packs.behaviorPack, 'scripts')
+	const scriptDir = join(sedge.config.packs.behaviorPack, 'scripts')
 	const scriptEntryName = sedge.config.sedge.scriptEntryName
 
-	if (!pathExists(join(scriptFolder, scriptEntryName))) return
+	if (!pathExists(join(scriptDir, scriptEntryName))) return
 
 	return await build({
-		entryPoints: [resolve(scriptFolder, scriptEntryName)],
+		entryPoints: [resolve(scriptDir, scriptEntryName)],
 		outfile: resolveToTargetPath(
-			join(scriptFolder, replaceExt(scriptEntryName, '.js'))
+			join(scriptDir, replaceExt(scriptEntryName, '.js'))
 		),
 		target: 'esnext',
 		format: 'esm',

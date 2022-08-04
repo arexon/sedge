@@ -143,8 +143,8 @@ function runCommand(command: string, ws: WebSocket) {
 	})
 }
 
-async function forceReload(folder: string): Promise<void> {
-	logger.info(`Changes in ${green(folder)} folder, reloading...`)
+async function forceReload(dir: string): Promise<void> {
+	logger.info(`Changes in ${green(dir)} directory, reloading...`)
 	await build({ enableHMR: true })
 	logger.info(`Reload complete`)
 }
