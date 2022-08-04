@@ -1,23 +1,25 @@
-import mri from 'mri'
 import { blue } from 'colorette'
+import mri from 'mri'
 import { commands, type CommandName } from './commands'
-import { logger, logBanner, logHelp } from './utils'
+import { logBanner, logger, logHelp } from './utils'
 
 export default async function (): Promise<void> {
 	try {
 		const args = mri(process.argv.slice(2), {
 			default: {
 				target: 'default',
-				websocket: false
+				websocket: false,
+				template: 'sedge-core/starter'
 			},
 			alias: {
 				m: 'module',
 				t: 'target',
 				h: 'help',
 				w: 'world',
-				ws: 'websocket'
+				ws: 'websocket',
+				tp: 'template'
 			},
-			string: ['target', 'module', 'world'],
+			string: ['target', 'module', 'world', 'template'],
 			boolean: ['help', 'websocket']
 		})
 

@@ -4,6 +4,7 @@ export const commands = {
 	clean: async () => (await import('./clean')).default,
 	dev: async () => (await import('./dev')).default,
 	help: async () => (await import('./help')).default,
+	init: async () => (await import('./init')).default,
 	world: async () => (await import('./world')).default
 }
 

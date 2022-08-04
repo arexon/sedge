@@ -21,25 +21,31 @@ importers:
   packages/cli:
     specifiers:
       '@sedge-core/shared': workspace:*
+      '@types/degit': ^2.8.3
       '@types/fs-extra': ^9.0.13
       '@types/node': ^17.0.45
       '@types/prompts': ^2.0.14
       colorette: ^2.0.19
+      degit: ^2.8.4
       fs-extra: ^10.1.0
       mlly: ^0.5.5
       mri: ^1.2.0
       pathe: ^0.3.2
       prompts: ^2.4.2
+      superb: ^4.0.0
       unbuild: ^0.7.6
     dependencies:
       '@sedge-core/shared': link:../shared
       colorette: 2.0.19
+      degit: 2.8.4
       fs-extra: 10.1.0
       mlly: 0.5.5
       mri: 1.2.0
       pathe: 0.3.2
       prompts: 2.4.2
+      superb: 4.0.0
     devDependencies:
+      '@types/degit': 2.8.3
       '@types/fs-extra': 9.0.13
       '@types/node': 17.0.45
       '@types/prompts': 2.0.14
@@ -597,6 +603,10 @@ packages:
     resolution: {integrity: sha512-/zPMqDkzSZ8t3VtxOa4KPq7uzzW978M9Tvh+j7GHKuo6k6GTLxPJ4J5gE5cjfJ26pnXst0N5Hax8Sr0T2Mi9zQ==}
     dev: true
 
+  /@types/degit/2.8.3:
+    resolution: {integrity: sha512-CL7y71j2zaDmtPLD5Xq5S1Gv2dFoHl0/GBZm6s39Mj/ls28L3NzAOqf7H4H0/2TNVMgMjMVf9CAFYSjmXhi3bw==}
+    dev: true
+
   /@types/estree/0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
     dev: true
@@ -808,6 +818,12 @@ packages:
   /defu/6.0.0:
     resolution: {integrity: sha512-t2MZGLf1V2rV4VBZbWIaXKdX/mUcYW0n2znQZoADBkGGxYL8EWqCuCZBmJPJ/Yy9fofJkyuuSuo5GSwo0XdEgw==}
     dev: true
+
+  /degit/2.8.4:
+    resolution: {integrity: sha512-vqYuzmSA5I50J882jd+AbAhQtgK6bdKUJIex1JNfEUPENCgYsxugzKVZlFyMwV4i06MmnV47/Iqi5Io86zf3Ng==}
+    engines: {node: '>=8.0.0'}
+    hasBin: true
+    dev: false
 
   /dir-glob/3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
@@ -1516,6 +1532,13 @@ packages:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
     dev: true
 
+  /superb/4.0.0:
+    resolution: {integrity: sha512-4Kie62y4kBxNGXXWJAVR63sdQlswBZq2G/x1d37pRQbjqfhIH1WPhirZFHZUpI76uCDrFnxej0F3NtEy1/H+OQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      unique-random-array: 2.0.0
+    dev: false
+
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
@@ -1731,6 +1754,18 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /unique-random-array/2.0.0:
+    resolution: {integrity: sha512-xR87O95fZ7hljw84J8r1YDXrvffPLWN513BNOP4Bv0KcgG5dyEUrHwsvP7mVAOKg4Y80uqRbpUk0GKr8il70qg==}
+    engines: {node: '>=8'}
+    dependencies:
+      unique-random: 2.1.0
+    dev: false
+
+  /unique-random/2.1.0:
+    resolution: {integrity: sha512-iQ1ZgWac3b8YxGThecQFRQiqgk6xFERRwHZIWeVVsqlbmgCRl0PY13R4mUkodNgctmg5b5odG1nyW/IbOxQTqg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
