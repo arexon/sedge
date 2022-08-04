@@ -1,14 +1,14 @@
 {
-	"name": "sedge-cli",
+	"name": "@sedge-core/cli",
 	"version": "1.0.0",
 	"description": "Sedge Command Line Interface",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
-	"homepage": "https://github.com/arexon/sedge/packages/sedge",
+	"homepage": "https://github.com/arexon/sedge/packages/cli",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/arexon/sedge.git",
-		"directory": "packages/sedge"
+		"directory": "packages/cli"
 	},
 	"bugs": {
 		"url": "https://github.com/arexon/sedge/issues"
