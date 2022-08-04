@@ -4,7 +4,7 @@ import type {
 	RecipePattern,
 	RecipeResult as _RecipeResult,
 	RecipeTagTypes
-} from '../../schema/recipe'
+} from '@sedge-core/schema'
 import { tryCatch } from '../utils'
 import type { Description, Namespace, UseFunction } from './types'
 
