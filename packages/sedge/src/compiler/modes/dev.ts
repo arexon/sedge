@@ -1,15 +1,15 @@
-import { debounce } from '@antfu/utils'
 import { watch } from 'chokidar'
 import { blackBright, cyan, green, magenta } from 'colorette'
 import { randomUUID } from 'node:crypto'
 import { normalize } from 'pathe'
 import WebSocket from 'ws'
-import { logger } from '../../logger'
 import {
 	compileModule,
 	compileScripts,
 	copyFileToTarget,
+	debounce,
 	isModule,
+	logger,
 	removeFileFromTarget
 } from '../utils'
 import { build } from './build'

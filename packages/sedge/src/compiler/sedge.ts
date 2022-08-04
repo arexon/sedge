@@ -1,10 +1,13 @@
-import { hasOwnProperty } from '@antfu/utils'
 import { blackBright, blue, magenta, yellow } from 'colorette'
-import { loadConfig } from '../config'
-import { logger } from '../logger'
 import { comMojangFolder } from './constants'
 import { build, dev } from './modes'
-import { getComMojangPathByPack, prepareFolder } from './utils'
+import {
+	getComMojangPathByPack,
+	hasOwnProperty,
+	loadConfig,
+	logger,
+	prepareFolder
+} from './utils'
 
 export type SedgeModes = 'build' | 'dev' | 'dev+websocket'
 

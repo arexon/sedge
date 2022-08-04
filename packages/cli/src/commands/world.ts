@@ -2,7 +2,7 @@ import { blackBright, blue } from 'colorette'
 import fse from 'fs-extra'
 import { basename, join, normalize } from 'pathe'
 import { comMojangFolder } from '../constants'
-import { importSedge, logger, tryCatch } from '../utils'
+import { loadConfig, logger } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -14,28 +14,23 @@ export default defineCommand({
 		)} folder`
 	},
 	run: async (args) => {
-		await tryCatch(async () => {
-			if (typeof (args.save || args.test) !== 'string') {
-				logger.error('You must specify a world name to save or test.')
-				process.exit(1)
-			}
+		if (typeof (args.save || args.test) !== 'string') {
+			logger.error('You must specify a world name to save or test.')
+			process.exit(1)
+		}
 
-			const { loadConfig } = await importSedge('config')
-			const config = await loadConfig()
+		const config = await loadConfig()
 
-			if (!comMojangFolder) {
-				logger.error(
-					`Could not find ${blackBright('com.mojang')} folder`
-				)
-				process.exit(1)
-			}
+		if (!comMojangFolder) {
+			logger.error(`Could not find ${blackBright('com.mojang')} folder`)
+			process.exit(1)
+		}
 
-			if (args.test) {
-				await testWorld(join(config.packs.worldTemplate, args.test))
-			} else if (args.save) {
-				await saveWorld(join(config.packs.worldTemplate, args.save))
-			}
-		}, `This command requires the ${blue('sedge')} package to be installed in your project`)
+		if (args.test) {
+			await testWorld(join(config.packs.worldTemplate, args.test))
+		} else if (args.save) {
+			await saveWorld(join(config.packs.worldTemplate, args.save))
+		}
 	}
 })
 

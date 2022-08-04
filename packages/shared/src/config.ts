@@ -1,5 +1,5 @@
-import { deepMerge } from '@antfu/utils'
 import { resolve } from 'pathe'
+import { deepMerge } from './utils'
 
 export interface Config {
 	name: string

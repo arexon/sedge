@@ -20,11 +20,11 @@ importers:
 
   packages/cli:
     specifiers:
+      '@sedge-core/shared': workspace:*
       '@types/fs-extra': ^9.0.13
       '@types/node': ^17.0.45
       '@types/prompts': ^2.0.14
       colorette: ^2.0.19
-      consola: ^2.15.3
       fs-extra: ^10.1.0
       mlly: ^0.5.5
       mri: ^1.2.0
@@ -32,8 +32,8 @@ importers:
       prompts: ^2.4.2
       unbuild: ^0.7.6
     dependencies:
+      '@sedge-core/shared': link:../shared
       colorette: 2.0.19
-      consola: 2.15.3
       fs-extra: 10.1.0
       mlly: 0.5.5
       mri: 1.2.0
@@ -53,15 +53,14 @@ importers:
 
   packages/sedge:
     specifiers:
-      '@antfu/utils': ^0.5.2
       '@sedge-core/cli': workspace:*
       '@sedge-core/schema': workspace:*
+      '@sedge-core/shared': workspace:*
       '@types/fs-extra': ^9.0.13
       '@types/node': ^17.0.45
       '@types/ws': ^8.5.3
       chokidar: ^3.5.3
       colorette: ^2.0.19
-      consola: ^2.15.3
       esbuild: ^0.14.51
       fast-glob: ^3.2.11
       fs-extra: ^10.1.0
@@ -72,10 +71,10 @@ importers:
     dependencies:
       '@sedge-core/cli': link:../cli
       '@sedge-core/schema': link:../schema
+      '@sedge-core/shared': link:../shared
       '@types/ws': 8.5.3
       chokidar: 3.5.3
       colorette: 2.0.19
-      consola: 2.15.3
       esbuild: 0.14.51
       fast-glob: 3.2.11
       fs-extra: 10.1.0
@@ -83,9 +82,21 @@ importers:
       pathe: 0.3.2
       ws: 8.8.1
     devDependencies:
-      '@antfu/utils': 0.5.2
       '@types/fs-extra': 9.0.13
       '@types/node': 17.0.45
+      unbuild: 0.7.6
+
+  packages/shared:
+    specifiers:
+      '@antfu/utils': ^0.5.2
+      consola: ^2.15.3
+      pathe: ^0.3.2
+      unbuild: ^0.7.6
+    dependencies:
+      consola: 2.15.3
+      pathe: 0.3.2
+    devDependencies:
+      '@antfu/utils': 0.5.2
       unbuild: 0.7.6
 
   playground:

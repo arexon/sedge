@@ -1,5 +1,4 @@
-import type { Config } from '../../config'
-import { tryCatch } from '../utils'
+import { tryCatch, type Config } from '../utils'
 import type { Namespace } from './types'
 
 type ValueOf<T> = T[keyof T]
