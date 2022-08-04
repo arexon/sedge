@@ -1,7 +1,6 @@
 import { join } from 'pathe'
 
-export const sedgeFolder = '.sedge'
-export const sedgeCacheFolder = join(sedgeFolder, 'cache')
+export const cacheFolder = join('.sedge', 'cache')
 
 const localAppDataFolder = process.env.LOCALAPPDATA
 export const comMojangFolder = localAppDataFolder
