@@ -30,6 +30,6 @@
 	},
 	"dependencies": {
 		"consola": "^2.15.3",
-		"pathe": "^0.3.2"
+		"pathe": "^0.3.3"
 	}
 }
