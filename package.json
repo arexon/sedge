@@ -19,5 +19,5 @@
 	"engines": {
 		"node": ">=v16.16.0"
 	},
-	"packageManager": "pnpm@7.8.0"
+	"packageManager": "pnpm@7.9.0"
 }
