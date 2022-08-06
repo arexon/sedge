@@ -7,9 +7,8 @@ import { defineCommand } from './index'
 
 export default defineCommand({
 	meta: {
-		name: 'add',
 		usage: 'npx sedge add',
-		description: 'Scaffolds a file template'
+		description: 'Scaffold a file template'
 	},
 	run: async () => {
 		interface File {

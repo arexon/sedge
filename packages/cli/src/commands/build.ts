@@ -1,12 +1,11 @@
-import { blue } from 'colorette'
+import { requiredPackageError } from '../constants'
 import { importSedge, tryCatch } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
 	meta: {
-		name: 'build',
-		usage: 'npx sedge build [--target=<name>]',
-		description: 'Compiles the project'
+		usage: 'npx sedge build [--target|--t]',
+		description: 'Compile the project in production mode'
 	},
 	run: async (args) => {
 		await tryCatch(async () => {
@@ -15,6 +14,6 @@ export default defineCommand({
 				target: args.target,
 				mode: 'build'
 			})
-		}, `This command requires the ${blue('sedge')} package to be installed in your project`)
+		}, requiredPackageError)
 	}
 })

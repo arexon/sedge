@@ -1,4 +1,3 @@
-import { blackBright, blue } from 'colorette'
 import fse from 'fs-extra'
 import { basename, join, normalize } from 'pathe'
 import { comMojangDir } from '../constants'
@@ -7,24 +6,20 @@ import { defineCommand } from './index'
 
 export default defineCommand({
 	meta: {
-		name: 'world',
-		usage: 'npx sedge world [--save|test=<name>]',
-		description: `Saves or tests a world from or to ${blackBright(
-			'com.mojang'
-		)} directory`
+		usage: 'npx sedge world [--save|--sv] [--test|--ts]',
+		description:
+			'Saves or tests a world from or to the `com.mojang` directory'
 	},
 	run: async (args) => {
 		if (typeof (args.save || args.test) !== 'string') {
-			logger.error('You must specify a world name to save or test.')
+			logger.error('You must specify a world name to save or test')
 			process.exit(1)
 		}
 
 		const config = await loadConfig()
 
 		if (!comMojangDir) {
-			logger.error(
-				`Could not find ${blackBright('com.mojang')} directory`
-			)
+			logger.error('Could not find `com.mojang` directory')
 			process.exit(1)
 		}
 
@@ -41,18 +36,14 @@ async function testWorld(path: string): Promise<void> {
 
 	if (!(await fse.pathExists(path))) {
 		logger.error(
-			`Could not find world ${blue(worldName)} @ ${blackBright(
-				normalize(path)
-			)}`
+			`Could not find world \`${worldName}\` in \`${normalize(path)}\``
 		)
 		process.exit(1)
 	}
 
 	await fse.copy(path, getTargetWorldPath(worldName))
 
-	logger.success(
-		`World ${blue(worldName)} copied to ${blackBright('com.mojang')}`
-	)
+	logger.success(`World \`${worldName}\` copied to \`${'com.mojang'}\``)
 }
 
 async function saveWorld(path: string): Promise<void> {
@@ -61,18 +52,14 @@ async function saveWorld(path: string): Promise<void> {
 
 	if (!(await fse.pathExists(targetPath))) {
 		logger.error(
-			`Could not find world ${blue(worldName)} @ ${blackBright(
-				'com.mojang'
-			)} directory`
+			`Could not find world \`${worldName}\` in the \`${'com.mojang'}\` directory`
 		)
 		process.exit(1)
 	}
 
 	await fse.copy(targetPath, path)
 
-	logger.success(
-		`World ${blue(worldName)} saved to ${blackBright(normalize(path))}`
-	)
+	logger.success(`World \`${worldName}\` saved to \`${normalize(path)}\``)
 }
 
 function getTargetWorldPath(name: string): string {

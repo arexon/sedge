@@ -6,8 +6,7 @@ import { defineCommand } from './index'
 
 export default defineCommand({
 	meta: {
-		name: 'init',
-		usage: 'npx sedge init [--template|-tp] [dir]',
+		usage: 'npx sedge init [--template|--tm] [dir]',
 		description: 'Scaffolds a new Sedge project'
 	},
 	run: async (args) => {
@@ -30,7 +29,7 @@ export default defineCommand({
 			logger.error(
 				`Failed to clone template from \`${
 					args.template
-				}\`. Please check the repo is valid and that you've installed \`${'git'}\` correctly.`
+				}\`. Please check the repo is valid and that you've installed \`${'git'}\` correctly`
 			)
 			process.exit(1)
 		}

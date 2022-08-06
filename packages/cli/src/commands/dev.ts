@@ -1,23 +1,22 @@
-import { blue } from 'colorette'
+import { requiredPackageError } from '../constants'
 import { tryCatch } from '../utils'
-import { importSedge } from '../utils/module'
+import { importSedge } from '../utils/import'
 import { defineCommand } from './index'
 
 export default defineCommand({
 	meta: {
-		name: 'dev',
-		usage: 'npx sedge dev [--target=<name>] [--websocket]',
-		description: 'Runs the project in watch mode'
+		usage: 'npx sedge dev [--target|--t] [--websocket|--ws]',
+		description:
+			'Compiles the project in development mode and watch for changes'
 	},
 	run: async (args) => {
 		await tryCatch(async () => {
 			const { createSedge } = await importSedge('compiler')
-			const withWebSocket = args.websocket
 
 			await createSedge({
 				target: args.target,
-				mode: withWebSocket ? 'dev+websocket' : 'dev'
+				mode: args.websocket ? 'dev+websocket' : 'dev'
 			})
-		}, `This command requires the ${blue('sedge')} package to be installed in your project`)
+		}, requiredPackageError)
 	}
 })

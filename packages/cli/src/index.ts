@@ -12,14 +12,14 @@ export default async function (): Promise<void> {
 				template: 'sedge-core/starter'
 			},
 			alias: {
-				m: 'module',
 				t: 'target',
 				h: 'help',
-				w: 'world',
 				ws: 'websocket',
-				tp: 'template'
+				tm: 'template',
+				sv: 'save',
+				ts: 'test'
 			},
-			string: ['target', 'module', 'world', 'template'],
+			string: ['target', 'world', 'template', 'save', 'test'],
 			boolean: ['help', 'websocket']
 		})
 

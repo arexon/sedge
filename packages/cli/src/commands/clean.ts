@@ -4,9 +4,8 @@ import { defineCommand } from './index'
 
 export default defineCommand({
 	meta: {
-		name: 'clean',
 		usage: 'npx sedge clean',
-		description: 'Remove build cache'
+		description: 'Cleans Sedge build cache'
 	},
 	run: async () => {
 		const cacheDir = '.sedge/cache'

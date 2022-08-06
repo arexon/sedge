@@ -4,9 +4,8 @@ import { commands, defineCommand } from './index'
 
 export default defineCommand({
 	meta: {
-		name: 'help',
 		usage: 'npx sedge help',
-		description: 'Shows help'
+		description: 'Show all available commands'
 	},
 	run: () => {
 		logger.info(
@@ -14,7 +13,6 @@ export default defineCommand({
 				`npx sedge ${Object.keys(commands).join('|')} [args]`
 			)}\n`
 		)
-
 		logHelp()
 	}
 })

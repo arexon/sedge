@@ -11,7 +11,6 @@ export const commands = {
 export type CommandName = keyof typeof commands
 
 export interface CommandMeta {
-	name: string
 	usage: string
 	description: string
 }
