@@ -1,5 +1,5 @@
 import { resolve } from 'pathe'
-import { evalModule } from '../../compiler/utils'
+import { evalModule } from '../../compiler/module'
 
 interface UseTemplateOptions {
 	/**

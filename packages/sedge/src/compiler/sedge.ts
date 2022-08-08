@@ -5,8 +5,9 @@ import type { TSConfig } from 'pkg-types'
 import { logger } from '../logger'
 import { loadConfig } from './config'
 import { comMojangDir, tempDir } from './constants'
+import { prepareDir, writeJsonFile } from './fs'
 import { build, dev } from './modes'
-import { getComMojangPathByPack, prepareDir, writeJsonFile } from './utils'
+import { getComMojangPathByPack } from './path'
 
 export type SedgeModes = 'build' | 'dev' | 'dev+websocket'
 

@@ -1,10 +1,7 @@
 import { logger } from '../../logger'
-import {
-	compileModule,
-	compileScripts,
-	copyFileToTarget,
-	scanForPaths
-} from '../utils'
+import { copyFileToTarget } from '../fs'
+import { compileModule, compileScripts } from '../module'
+import { scanForPaths } from '../path'
 
 export async function build(options?: { enableHMR?: boolean }): Promise<void> {
 	const startTime = Date.now()

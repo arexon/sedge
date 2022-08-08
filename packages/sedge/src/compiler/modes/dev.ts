@@ -5,13 +5,9 @@ import { randomUUID } from 'node:crypto'
 import { normalize } from 'pathe'
 import WebSocket from 'ws'
 import { logger } from '../../logger'
-import {
-	compileModule,
-	compileScripts,
-	copyFileToTarget,
-	isModule,
-	removeFileFromTarget
-} from '../utils'
+import { copyFileToTarget, removeFileFromTarget } from '../fs'
+import { compileModule, compileScripts } from '../module'
+import { isModule } from '../path'
 import { build } from './build'
 
 export async function dev(options?: {

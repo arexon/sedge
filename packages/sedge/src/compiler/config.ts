@@ -1,5 +1,5 @@
 import { deepMerge } from '@antfu/utils'
-import { evalModule } from './utils'
+import { evalModule } from './module'
 
 export interface Config {
 	name: string
