@@ -1,3 +1,3 @@
-export { loadConfig, logger, tryCatch } from '@sedge-core/shared'
+export * from './error'
 export * from './import'
 export * from './log'

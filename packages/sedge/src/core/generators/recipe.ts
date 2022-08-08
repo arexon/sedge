@@ -1,10 +1,11 @@
+import { deepMerge } from '@antfu/utils'
 import type {
 	RecipeKey,
 	RecipePattern,
 	RecipeResult as _RecipeResult,
 	RecipeTagTypes
 } from '@sedge-core/schema'
-import { deepMerge, tryCatch } from '../utils'
+import { tryCatch } from '../utils'
 import type { Description, Namespace, UseFunction } from './types'
 
 interface RecipeDescriptionFunction {

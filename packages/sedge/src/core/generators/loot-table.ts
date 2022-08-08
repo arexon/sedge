@@ -1,5 +1,6 @@
+import { deepMerge } from '@antfu/utils'
 import type { Pools } from '@sedge-core/schema'
-import { deepMerge, tryCatch } from '../utils'
+import { tryCatch } from '../utils'
 import type { Namespace, UseFunction } from './types'
 
 export interface LootTableTemplate extends Namespace, UseFunction {

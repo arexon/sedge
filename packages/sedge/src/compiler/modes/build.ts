@@ -1,8 +1,8 @@
+import { logger } from '../../logger'
 import {
 	compileModule,
 	compileScripts,
 	copyFileToTarget,
-	logger,
 	scanForPaths
 } from '../utils'
 

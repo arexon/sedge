@@ -1,7 +1,7 @@
 import fse from 'fs-extra'
 import { basename, join, normalize } from 'pathe'
 import { comMojangDir } from '../constants'
-import { loadConfig, logger } from '../utils'
+import { importSedge, logger } from '../utils'
 import { defineCommand } from './index'
 
 export default defineCommand({
@@ -16,6 +16,7 @@ export default defineCommand({
 			process.exit(1)
 		}
 
+		const { loadConfig } = await importSedge('compiler')
 		const config = await loadConfig()
 
 		if (!comMojangDir) {

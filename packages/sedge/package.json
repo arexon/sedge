@@ -16,13 +16,15 @@
 	"type": "module",
 	"exports": {
 		"./compiler": "./dist/compiler.mjs",
-		"./core": "./dist/core.mjs",
-		"./config": "./dist/config.mjs"
+		"./core": "./dist/core.mjs"
 	},
 	"typesVersions": {
 		"*": {
 			"core": [
 				"dist/core.d.ts"
+			],
+			"compiler": [
+				"dist/compiler.d.ts"
 			]
 		}
 	},
@@ -38,6 +40,7 @@
 		"dev": "unbuild --stub"
 	},
 	"devDependencies": {
+		"@antfu/utils": "^0.5.2",
 		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^17.0.45",
 		"pkg-types": "^0.3.3",
@@ -46,10 +49,10 @@
 	"dependencies": {
 		"@sedge-core/cli": "^1.0.0-alpha.0",
 		"@sedge-core/schema": "^1.0.0-alpha.0",
-		"@sedge-core/shared": "^1.0.0-alpha.0",
 		"@types/ws": "^8.5.3",
 		"chokidar": "^3.5.3",
 		"colorette": "^2.0.19",
+		"consola": "^2.15.3",
 		"esbuild": "^0.14.53",
 		"fast-glob": "^3.2.11",
 		"fs-extra": "^10.1.0",

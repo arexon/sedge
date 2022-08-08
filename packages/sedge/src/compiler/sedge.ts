@@ -1,16 +1,12 @@
+import { hasOwnProperty } from '@antfu/utils'
 import { blackBright, blue, magenta, yellow } from 'colorette'
 import { join } from 'pathe'
 import type { TSConfig } from 'pkg-types'
+import { logger } from '../logger'
+import { loadConfig } from './config'
 import { comMojangDir, tempDir } from './constants'
 import { build, dev } from './modes'
-import {
-	getComMojangPathByPack,
-	hasOwnProperty,
-	loadConfig,
-	logger,
-	prepareDir,
-	writeJsonFile
-} from './utils'
+import { getComMojangPathByPack, prepareDir, writeJsonFile } from './utils'
 
 export type SedgeModes = 'build' | 'dev' | 'dev+websocket'
 

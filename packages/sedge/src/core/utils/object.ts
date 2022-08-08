@@ -1,4 +1,4 @@
-import { objectMap } from '.'
+import { objectMap } from '@antfu/utils'
 
 export function ensureNamespaces<K extends string, V>(
 	object: Record<K, V>,

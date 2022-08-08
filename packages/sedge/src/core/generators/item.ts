@@ -1,3 +1,4 @@
+import { deepMerge, objectMap } from '@antfu/utils'
 import type {
 	ItemComponents_1_10_0,
 	ItemComponents_1_16_100,
@@ -8,7 +9,7 @@ import type {
 	Randomize,
 	Sequence
 } from '@sedge-core/schema'
-import { deepMerge, ensureNamespaces, objectMap, tryCatch } from '../utils'
+import { ensureNamespaces, tryCatch } from '../utils'
 import type {
 	Description,
 	DescriptionExperimental,
