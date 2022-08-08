@@ -31,7 +31,6 @@
 		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^17.0.45",
 		"@types/prompts": "^2.0.14",
-		"sedge": "^1.0.0-alpha.0",
 		"unbuild": "^0.7.6"
 	},
 	"dependencies": {

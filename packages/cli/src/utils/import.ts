@@ -1,8 +1,12 @@
 import { blue } from 'colorette'
 import { resolvePath } from 'mlly'
 import { normalize } from 'pathe'
-import type { Config, createSedge, loadConfig } from 'sedge/compiler'
 import { pathToFileURL } from 'url'
+import type {
+	Config,
+	createSedge,
+	loadConfig
+} from '../../../sedge/src/compiler'
 
 export async function importSedge<Submodule extends 'compiler'>(
 	submodule: Submodule

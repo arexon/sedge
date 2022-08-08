@@ -34,7 +34,6 @@ importers:
       mri: ^1.2.0
       pathe: ^0.3.3
       prompts: ^2.4.2
-      sedge: ^1.0.0-alpha.0
       superb: ^4.0.0
       unbuild: ^0.7.6
     dependencies:
@@ -52,7 +51,6 @@ importers:
       '@types/fs-extra': 9.0.13
       '@types/node': 17.0.45
       '@types/prompts': 2.0.14
-      sedge: link:../sedge
       unbuild: 0.7.6
 
   packages/schema:
