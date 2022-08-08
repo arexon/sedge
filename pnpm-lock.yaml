@@ -60,9 +60,9 @@ importers:
 
     packages/sedge:
         specifiers:
-      '@sedge-core/cli': workspace:*
-      '@sedge-core/schema': workspace:*
-      '@sedge-core/shared': workspace:*
+            '@sedge-core/cli': ^1.0.0-alpha.0
+            '@sedge-core/schema': ^1.0.0-alpha.0
+            '@sedge-core/shared': ^1.0.0-alpha.0
             '@types/fs-extra': ^9.0.13
             '@types/node': ^17.0.45
             '@types/ws': ^8.5.3

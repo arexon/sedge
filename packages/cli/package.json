@@ -1,6 +1,6 @@
 {
 	"name": "@sedge-core/cli",
-	"version": "1.0.0",
+	"version": "1.0.0-alpha.0",
 	"description": "Sedge Command Line Interface",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
@@ -34,7 +34,7 @@
 		"unbuild": "^0.7.6"
 	},
 	"dependencies": {
-		"@sedge-core/shared": "workspace:*",
+		"@sedge-core/shared": "^1.0.0-alpha.0",
 		"colorette": "^2.0.19",
 		"degit": "^2.8.4",
 		"fs-extra": "^10.1.0",

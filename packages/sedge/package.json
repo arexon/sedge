@@ -1,6 +1,6 @@
 {
 	"name": "sedge",
-	"version": "1.0.0",
+	"version": "1.0.0-alpha.0",
 	"description": "The framework for supercharged Minecraft Add-On development.",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
@@ -44,9 +44,9 @@
 		"unbuild": "^0.7.6"
 	},
 	"dependencies": {
-		"@sedge-core/cli": "workspace:*",
-		"@sedge-core/schema": "workspace:*",
-		"@sedge-core/shared": "workspace:*",
+		"@sedge-core/cli": "^1.0.0-alpha.0",
+		"@sedge-core/schema": "^1.0.0-alpha.0",
+		"@sedge-core/shared": "^1.0.0-alpha.0",
 		"@types/ws": "^8.5.3",
 		"chokidar": "^3.5.3",
 		"colorette": "^2.0.19",

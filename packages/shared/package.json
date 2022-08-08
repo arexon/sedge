@@ -1,6 +1,6 @@
 {
 	"name": "@sedge-core/shared",
-	"version": "1.0.0",
+	"version": "1.0.0-alpha.0",
 	"description": "Shared utilities for Sedge packages",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
