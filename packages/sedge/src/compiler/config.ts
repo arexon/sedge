@@ -1,5 +1,5 @@
 import { deepMerge } from '@antfu/utils'
-import { resolve } from 'pathe'
+import { evalModule } from './utils'
 
 export interface Config {
 	name: string
@@ -20,7 +20,7 @@ export interface Config {
 }
 
 export async function loadConfig(): Promise<Config> {
-	let config: Config
+	const config = await evalModule('./config.json')
 	const configDefaults: Config = {
 		name: 'sedge-project',
 		namespace: 'sedge',
@@ -37,12 +37,6 @@ export async function loadConfig(): Promise<Config> {
 			initialCleanUp: true,
 			scriptEntryName: 'index.ts'
 		}
-	}
-
-	try {
-		config = await import(resolve('./config.json'))
-	} catch (_) {
-		config = configDefaults
 	}
 
 	return deepMerge(configDefaults, config) as Config
