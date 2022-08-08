@@ -1,6 +1,6 @@
 {
 	"name": "@sedge-core/schema",
-	"version": "1.0.0-alpha.0",
+	"version": "1.0.0-alpha.1",
 	"description": "Minecraft Bedrock Edition Add-On schema for Sedge",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",

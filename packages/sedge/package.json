@@ -1,6 +1,6 @@
 {
 	"name": "sedge",
-	"version": "1.0.0-alpha.0",
+	"version": "1.0.0-alpha.1",
 	"description": "The framework for supercharged Minecraft Add-On development.",
 	"author": "Arexon <me@arexon.me>",
 	"license": "MIT",
