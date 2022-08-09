@@ -1,4 +1,4 @@
-import { blue, cyan } from 'colorette'
+import { blue, cyan, green } from 'colorette'
 import consola from 'consola'
 import { version } from '../../package.json'
 import type { CommandMeta } from '../commands'
@@ -26,5 +26,6 @@ export function logHelp(meta?: CommandMeta): void {
 }
 
 export function logBanner() {
-	logger.start(blue(`Sedge CLI v${version}`))
+	console.clear()
+	logger.start(green(`Sedge CLI v${version}`))
 }
