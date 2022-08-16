@@ -16,6 +16,7 @@ export interface Config {
 		ignorePaths?: string[]
 		initialCleanUp: boolean
 		scriptEntryName: string
+		plugins?: string[]
 	}
 }
 

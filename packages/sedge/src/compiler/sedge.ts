@@ -1,13 +1,15 @@
 import { hasOwnProperty } from '@antfu/utils'
-import { blackBright, blue, magenta, yellow } from 'colorette'
-import { join } from 'pathe'
+import { blackBright, blue, green, magenta, yellow } from 'colorette'
+import { join, resolve } from 'pathe'
 import type { TSConfig } from 'pkg-types'
 import { logger } from '../logger'
 import { loadConfig } from './config'
 import { comMojangDir, tempDir } from './constants'
 import { prepareDir, writeJsonFile } from './fs'
 import { build, dev } from './modes'
+import { evalModule } from './module'
 import { getComMojangPathByPack } from './path'
+import { pluginHooks } from './plugin'
 
 export type SedgeModes = 'build' | 'dev' | 'dev+websocket'
 
@@ -80,8 +82,10 @@ async function runWithMode(): Promise<void> {
 		)}`
 	)
 
-	await prepare()
 	generateTypes()
+	await prepare()
+	await loadPlugins()
+	await pluginHooks.callHook('buildStart')
 
 	switch (sedge.mode) {
 		case 'build':
@@ -104,6 +108,28 @@ async function prepare(): Promise<void> {
 	} else {
 		await prepareDir(sedge.target.path)
 	}
+}
+
+async function loadPlugins(): Promise<void> {
+	const plugins = sedge.config.sedge.plugins
+
+	if (!plugins) return
+
+	for (const plugin of plugins) {
+		await evalModule(resolve('plugins', plugin))
+	}
+
+	const results = await Promise.allSettled(
+		plugins.map(async (plugin) => {
+			await evalModule(resolve('plugins', plugin))
+		})
+	)
+	const amount = results.filter(
+		(result) => result.status === 'fulfilled'
+	).length
+
+	if (!amount) return
+	logger.success(green(`Loaded ${amount} plugin${amount === 1 ? '' : 's'}`))
 }
 
 function generateTypes(): void {
