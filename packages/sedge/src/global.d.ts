@@ -1,5 +1,5 @@
 import type { SedgeModes } from './compiler'
-import type { Config } from './config'
+import type { Config } from './compiler/config'
 
 declare global {
 	var sedge: {
