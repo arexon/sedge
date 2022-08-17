@@ -1,9 +1,4 @@
-node_modules
 .DS_Store
-.pnpm-debug.log*
-.turbo
-dist
 playground/.sedge
 playground/build
-playground/dev
 playground/prototyping
