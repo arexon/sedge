@@ -1,5 +1,5 @@
-import { bgRed, bgYellow, bold, cyan, dim, green } from 'std/colors';
-import { format } from 'std/time';
+import { format } from 'datetime';
+import { bgRed, bgYellow, bold, cyan, dim, green } from 'fmt/colors.ts';
 
 interface Logger {
 	log(...data: string[]): void;

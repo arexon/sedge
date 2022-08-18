@@ -1,6 +1,6 @@
-import { ConfigPacks } from '@/compiler/mod.ts';
-import { WalkEntry, walkSync } from 'std/fs';
-import { globToRegExp, join } from 'std/path';
+import { ConfigPacks } from '@/compiler/config.ts';
+import { WalkEntry, walkSync } from 'fs';
+import { globToRegExp, join } from 'path';
 
 export function findPathsInPacks(options: {
 	packs: ConfigPacks;

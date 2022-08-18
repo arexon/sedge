@@ -1,36 +1,15 @@
-import { findMojangDir, getMojangDirPack } from '@/compiler/path_utils.ts';
-import { logger } from '@/logger.ts';
-import { deepMerge } from 'std/collection/deep_merge.ts';
-import { emptyDir } from 'std/fs';
-import { resolve, toFileUrl } from 'std/path';
-import { build } from './modes.ts';
+import { Config, loadConfig } from '@/compiler/config.ts';
+import { build } from '@/compiler/modes.ts';
+import { findMojangDir, getMojangDirPack } from '@/compiler/path.ts';
+import { logger } from '@/shared/logger.ts';
+import { emptyDir } from 'fs';
 
 export type SedgeMode = 'build' | 'dev' | 'dev+websocket';
-export type SedgeTarget = {
+export interface SedgeTarget {
 	name: string;
 	path: string;
 	isMojangDir: boolean;
-};
-export type ConfigPacks = {
-	[key in 'behaviorPack' | 'resourcePack' | 'worldTemplate']: string;
-};
-export type Config = {
-	name: string;
-	authors?: string[];
-	namespace: string;
-	packs: ConfigPacks;
-	sedge: {
-		targets: {
-			[name: string | 'default']: string;
-		};
-		minify: boolean;
-		ignorePaths?: string[];
-		initialCleanUp: boolean;
-		scriptEntryName: string;
-		plugins?: string[];
-	};
-};
-
+}
 export interface Sedge {
 	config: Config;
 	mode: SedgeMode;
@@ -74,36 +53,6 @@ export async function startSedge(options: {
 		);
 		Deno.exit(1);
 	}
-}
-
-export async function loadConfig(): Promise<Config> {
-	let config: Partial<Config> = {};
-	const defaults: Config = {
-		name: 'sedge-project',
-		namespace: 'sedge',
-		packs: {
-			behaviorPack: './packs/BP',
-			resourcePack: './packs/RP',
-			worldTemplate: './packs/WT',
-		},
-		sedge: {
-			targets: { default: './build' },
-			minify: false,
-			initialCleanUp: true,
-			scriptEntryName: 'main.ts',
-		},
-	};
-
-	try {
-		config = (await import(
-			toFileUrl(resolve('config.json')).href,
-			{ assert: { type: 'json' } }
-		)).default;
-	} catch (_) {
-		logger.warn('No [config.json] found, using defaults');
-	}
-
-	return deepMerge(defaults, config);
 }
 
 async function runMode(sedge: Sedge): Promise<void> {
