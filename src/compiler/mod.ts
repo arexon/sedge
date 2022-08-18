@@ -1,10 +1,15 @@
-import { findMojangDir } from '@/compiler/path_utils.ts';
+import { findMojangDir, getMojangDirPack } from '@/compiler/path_utils.ts';
 import { logger } from '@/logger.ts';
 import { deepMerge } from 'std/collection/deep_merge.ts';
 import { emptyDir } from 'std/fs';
 import { resolve, toFileUrl } from 'std/path';
 
-export type CompileMode = 'build' | 'dev' | 'dev+websocket';
+export type SedgeMode = 'build' | 'dev' | 'dev+websocket';
+export type SedgeTarget = {
+	name: string;
+	path: string;
+	isMojangDir: boolean;
+};
 export type Config = {
 	name: string;
 	authors?: string[];
@@ -24,17 +29,21 @@ export type Config = {
 	};
 };
 
-export async function start(options: {
-	mode: CompileMode;
+interface Sedge {
+	config: Config;
+	mode: SedgeMode;
+	target: SedgeTarget;
+}
+
+export async function startSedge(options: {
+	mode: SedgeMode;
 	target: string;
 }) {
-	// TODO: reminder to not continue using global variables
-	globalThis.sedge = {
+	const sedge: Sedge = {
 		config: await loadConfig(),
 		mode: options.mode,
 		target: { name: options.target, path: '', isMojangDir: false },
 	};
-
 	const modeIsDev = sedge.mode !== 'build';
 	const targetIsDefault = sedge.target.name === 'default';
 	const mojangDir = findMojangDir();
@@ -56,7 +65,7 @@ export async function start(options: {
 	else sedge.target.path = sedge.config.sedge.targets[sedge.target.name];
 
 	// If the target is not configured, use the default one. Otherwise, throw an error.
-	if (targetIsConfigured || targetIsDefault) runMode();
+	if (targetIsConfigured || targetIsDefault) runMode(sedge);
 	else {
 		logger.error(
 			`Target [${options.target}] does not match any configured target in [config.sedge.targets]`,
@@ -95,21 +104,26 @@ export async function loadConfig(): Promise<Config> {
 	return deepMerge(defaults, config);
 }
 
-async function runMode(): Promise<void> {
+async function runMode(sedge: Sedge): Promise<void> {
 	logger.info(`Via target [${sedge.target.name}] at (${sedge.target.path})`);
 
-	await prepareDirs();
+	await prepareDirs(sedge);
 
 	if (sedge.mode === 'build') console.log('Build mode');
 	if (sedge.mode === 'dev') console.log('Dev mode');
 	if (sedge.mode === 'dev+websocket') console.log('Dev+Websocket mode');
 }
 
-async function prepareDirs(): Promise<void> {
+async function prepareDirs(sedge: Sedge): Promise<void> {
 	if (!sedge.config.sedge.initialCleanUp) return;
 
 	if (sedge.target.isMojangDir) {
-		// TODO: Clean up the project in [com.mojang] directory
+		await emptyDir(
+			getMojangDirPack(sedge.config.name, 'BP', sedge.target.path),
+		);
+		await emptyDir(
+			getMojangDirPack(sedge.config.name, 'RP', sedge.target.path),
+		);
 	} else {
 		await emptyDir(sedge.target.path);
 	}
