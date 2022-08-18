@@ -3,6 +3,7 @@ import { logger } from '@/logger.ts';
 import { deepMerge } from 'std/collection/deep_merge.ts';
 import { emptyDir } from 'std/fs';
 import { resolve, toFileUrl } from 'std/path';
+import { build } from './modes.ts';
 
 export type SedgeMode = 'build' | 'dev' | 'dev+websocket';
 export type SedgeTarget = {
@@ -10,13 +11,14 @@ export type SedgeTarget = {
 	path: string;
 	isMojangDir: boolean;
 };
+export type ConfigPacks = {
+	[key in 'behaviorPack' | 'resourcePack' | 'worldTemplate']: string;
+};
 export type Config = {
 	name: string;
 	authors?: string[];
 	namespace: string;
-	packs: {
-		[key in 'behaviorPack' | 'resourcePack' | 'worldTemplate']: string;
-	};
+	packs: ConfigPacks;
 	sedge: {
 		targets: {
 			[name: string | 'default']: string;
@@ -29,7 +31,7 @@ export type Config = {
 	};
 };
 
-interface Sedge {
+export interface Sedge {
 	config: Config;
 	mode: SedgeMode;
 	target: SedgeTarget;
@@ -109,7 +111,7 @@ async function runMode(sedge: Sedge): Promise<void> {
 
 	await prepareDirs(sedge);
 
-	if (sedge.mode === 'build') console.log('Build mode');
+	if (sedge.mode === 'build') await build(sedge);
 	if (sedge.mode === 'dev') console.log('Dev mode');
 	if (sedge.mode === 'dev+websocket') console.log('Dev+Websocket mode');
 }
