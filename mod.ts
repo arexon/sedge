@@ -1,6 +1,6 @@
-import { start } from '@/compiler/mod.ts';
+import { startSedge } from '@/compiler/mod.ts';
 
-await start({
+await startSedge({
 	mode: 'build',
-	target: 'prototype',
+	target: 'default',
 });

@@ -1,6 +1,18 @@
 import { logger } from '@/logger.ts';
 import { join } from 'std/path';
 
+export function getMojangDirPack(
+	packName: string,
+	packType: 'BP' | 'RP',
+	targetPath: string,
+): string {
+	return join(
+		targetPath,
+		`development_${packType === 'BP' ? 'behavior' : 'resource'}_packs`,
+		`${packName} ${packType}`,
+	);
+}
+
 export function findMojangDir(): string {
 	const path = join(
 		Deno.env.get('LOCALAPPDATA') || '',
