@@ -1,9 +1,9 @@
 {
 	"imports": {
 		"@/": "./src/",
-		"collection/": "https://deno.land/std@0.152.0/collections/",
-		"path": "https://deno.land/std@0.152.0/path/mod.ts",
-		"colors": "https://deno.land/std@0.152.0/fmt/colors.ts",
-		"time": "https://deno.land/std@0.152.0/datetime/mod.ts"
+		"std/collection/": "https://deno.land/std@0.152.0/collections/",
+		"std/path": "https://deno.land/std@0.152.0/path/mod.ts",
+		"std/colors": "https://deno.land/std@0.152.0/fmt/colors.ts",
+		"std/time": "https://deno.land/std@0.152.0/datetime/mod.ts"
 	}
 }

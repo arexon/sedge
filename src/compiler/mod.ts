@@ -1,7 +1,6 @@
 import { logger } from '@/logger.ts';
-import { deepMerge } from 'collection/deep_merge.ts';
-import { resolve } from 'https://deno.land/std@0.152.0/path/win32.ts';
-import { toFileUrl } from 'path';
+import { deepMerge } from 'std/collection/deep_merge.ts';
+import { resolve, toFileUrl } from 'std/path';
 
 export type CompileMode = 'build' | 'dev' | 'dev+websocket';
 export type Config = {

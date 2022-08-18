@@ -1,5 +1,5 @@
-import { bgRed, bgYellow, bold, cyan, dim, green } from 'colors';
-import { format } from 'time';
+import { bgRed, bgYellow, bold, cyan, dim, green } from 'std/colors';
+import { format } from 'std/time';
 
 interface Logger {
 	log(...data: string[]): void;
