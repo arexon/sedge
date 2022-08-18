@@ -1,6 +1,6 @@
 import { findPathsInPacks } from '@/compiler/file_system.ts';
 import { Sedge } from '@/compiler/mod.ts';
-import { logger } from '@/logger.ts';
+import { logger } from '@/shared/logger.ts';
 
 export async function build(sedge: Sedge, options?: {
 	hmr?: boolean;

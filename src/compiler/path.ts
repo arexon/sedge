@@ -1,5 +1,5 @@
-import { logger } from '@/logger.ts';
-import { join } from 'std/path';
+import { logger } from '@/shared/logger.ts';
+import { join } from 'path';
 
 export function getMojangDirPack(
 	packName: string,
