@@ -1,3 +1,6 @@
 import { start } from '@/compiler/mod.ts';
 
-await start();
+await start({
+	mode: 'build',
+	target: 'prototype',
+});
