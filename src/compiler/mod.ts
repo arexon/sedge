@@ -1,5 +1,7 @@
+import { logger } from '@/logger.ts';
 import { deepMerge } from 'collection/deep_merge.ts';
-import { resolve, toFileUrl } from 'path';
+import { resolve } from 'https://deno.land/std@0.152.0/path/win32.ts';
+import { toFileUrl } from 'path';
 
 export type CompileMode = 'build' | 'dev' | 'dev+websocket';
 export type Config = {
@@ -30,16 +32,14 @@ export async function start(options: {
 			config: await loadConfig(),
 		};
 	} catch (error) {
-		console.error(error);
+		logger.error(error.toString());
+		Deno.exit(1);
 	}
 }
 
 export async function loadConfig(): Promise<Config> {
-	const config: Config = (await import(
-		toFileUrl(resolve('config.json')).href,
-		{ assert: { type: 'json' } }
-	)).default;
-	const configDefaults: Config = {
+	let config: Partial<Config> = {};
+	const defaults: Config = {
 		name: 'sedge-project',
 		namespace: 'sedge',
 		packs: {
@@ -57,5 +57,14 @@ export async function loadConfig(): Promise<Config> {
 		},
 	};
 
-	return deepMerge(configDefaults, config);
+	try {
+		config = (await import(
+			toFileUrl(resolve('config.json')).href,
+			{ assert: { type: 'json' } }
+		)).default;
+	} catch (_) {
+		logger.warn('No [config.json] found, using defaults');
+	}
+
+	return deepMerge(defaults, config);
 }
