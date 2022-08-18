@@ -10,5 +10,13 @@
 			"singleQuote": true
 		}
 	},
-	"importMap": "import_map.json"
+	"lint": {
+		"rules": {
+			"exclude": ["no-var"]
+		}
+	},
+	"importMap": "import_map.json",
+	"compilerOptions": {
+		"types": ["./src/global.d.ts"]
+	}
 }
