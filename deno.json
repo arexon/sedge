@@ -1,13 +1,14 @@
 {
-  "tasks": {
-    "lint": "deno lint && deno fmt --check",
-    "fmt": "deno fmt"
-  },
-  "fmt": {
-    "options": {
-      "indentWidth": 4,
-      "useTabs": true,
-      "singleQuote": true
-    }
-  }
+	"tasks": {
+		"lint": "deno lint && deno fmt --check",
+		"fmt": "deno fmt"
+	},
+	"fmt": {
+		"options": {
+			"indentWidth": 4,
+			"useTabs": true,
+			"singleQuote": true
+		}
+	},
+	"importMap": "import_map.json"
 }
