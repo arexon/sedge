@@ -1,4 +1,4 @@
-import { startSedge } from '@/compiler//mod.ts';
+import { startSedge } from '@/compiler/mod.ts';
 
 await startSedge({
 	mode: 'build',
