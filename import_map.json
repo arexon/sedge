@@ -1,6 +1,5 @@
 {
 	"imports": {
-		"@/": "./src/",
 		"collection/": "https://deno.land/std@0.152.0/collections/",
 		"fmt/": "https://deno.land/std@0.152.0/fmt/",
 		"path": "https://deno.land/std@0.152.0/path/mod.ts",
