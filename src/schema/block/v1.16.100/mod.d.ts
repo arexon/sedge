@@ -37,5 +37,5 @@ interface BlockComponents_1_16_100
 		Components_1_16_0.Loot,
 		Components_1_16_0.MapColor {}
 
-export { BlockEventResponses_1_16_100 } from '@/schema/block/v1.16.100/events-responses.d.ts';
+export { BlockEventResponses_1_16_100 } from '@/schema/block/v1.16.100/events_responses.d.ts';
 export { BlockComponents_1_16_100 };
