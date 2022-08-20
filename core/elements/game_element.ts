@@ -30,35 +30,3 @@ export function createGameElement<Template, Data, Result>(
 		});
 	};
 }
-
-interface BlockTemplate {
-	description(name: string): void;
-}
-interface BlockData {
-	format_version: string;
-	description: {
-		name: string;
-	};
-}
-interface Result<Data extends Record<string, any>> {
-	type: 'gameElement';
-	data: Data;
-}
-
-export const defineBlock = createGameElement<
-	BlockTemplate,
-	BlockData,
-	Result<BlockData>
->(
-	{
-		process: (template) => ({
-			description(name) {
-				template.description = { name };
-			},
-		}),
-		transform: (template) => ({
-			type: 'gameElement',
-			data: template,
-		}),
-	},
-);
