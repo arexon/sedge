@@ -11,6 +11,8 @@ export async function build(sedge: Sedge, options?: {
 		ignorePaths: sedge.config.sedge.ignorePaths,
 	});
 
+	if (assets.length === 0 && modules.length === 0) return;
+
 	const results = await Promise.allSettled([
 		...modules.map(({ path }) => {
 			logger.info(`modules (${path})`);
