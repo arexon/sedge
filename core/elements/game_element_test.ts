@@ -1,4 +1,4 @@
-import { assertInstanceOf, assertObjectMatch } from 'testing/asserts.ts';
+import { assertObjectMatch } from 'testing/asserts.ts';
 import { Result } from '../types.ts';
 import { createGameElement } from './game_element.ts';
 
@@ -6,7 +6,7 @@ Deno.test('createGameElement', () => {
 	const defineFooBar = createGameElement<
 		{ foo(name: string): void },
 		{ version: number; foo: string },
-		Result<{ version: number; foo: string }>
+		Result<{ baz: number; foo: string }>
 	>({
 		process: (template) => ({
 			foo: (name) => template.foo = name,
@@ -14,13 +14,11 @@ Deno.test('createGameElement', () => {
 		transform: (template) => ({
 			type: 'gameElement',
 			data: {
-				version: 1,
+				baz: 1,
 				foo: template.foo,
 			},
 		}),
 	});
-
-	assertInstanceOf(defineFooBar, Function);
 
 	const result = defineFooBar(({ foo }) => {
 		foo('bar');
@@ -29,7 +27,7 @@ Deno.test('createGameElement', () => {
 	assertObjectMatch(result, {
 		type: 'gameElement',
 		data: {
-			version: 1,
+			baz: 1,
 			foo: 'bar',
 		},
 	});
