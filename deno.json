@@ -2,7 +2,8 @@
 	"tasks": {
 		"dev": "cd playground && deno run -A ../mod.ts",
 		"lint": "deno lint && deno fmt --check",
-		"fmt": "deno fmt"
+		"fmt": "deno fmt",
+		"test": "deno test"
 	},
 	"fmt": {
 		"options": {
@@ -16,8 +17,5 @@
 			"exclude": ["no-var", "no-explicit-any"]
 		}
 	},
-	"importMap": "import_map.json",
-	"compilerOptions": {
-		"types": ["./src/global.d.ts"]
-	}
+	"importMap": "import_map.json"
 }
