@@ -1,0 +1,19 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🔔
+        uses: actions/checkout@v3
+
+      - name: Setup Deno 💽
+        uses: denoland/setup-deno@v1.0.0
+        with:
+          deno-version: v1.x
+
+      - name: Test 🧪
+        run: deno task test
