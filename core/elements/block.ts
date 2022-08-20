@@ -9,15 +9,15 @@ import {
 	BlockEventResponses_1_16_100,
 	Randomize,
 	Sequence,
-} from '../schema/mod.d.ts';
-import { tryCatch } from '../shared/try_catch.ts';
+} from '../../schema/mod.d.ts';
+import { tryCatch } from '../../shared/try_catch.ts';
 import {
 	Description,
 	DescriptionExperimental,
 	Namespace,
 	UseFunction,
-} from './_interface.ts';
-import { ensureNamespaces } from './_util.ts';
+} from './types.ts';
+import { ensureNamespaces } from './utils.ts';
 
 interface BlockDescriptionFunction<WithProperties extends boolean> {
 	/**
@@ -185,7 +185,7 @@ export function defineBlock<Version extends BlockFormatVersion>(
 			type: 'json',
 			data: transformTemplate(template, version),
 		};
-	}, 'Failed to transform block template');
+	});
 }
 
 export function processTemplate(template: VanillaTemplate): UserTemplate {
