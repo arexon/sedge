@@ -3,7 +3,7 @@
 		"dev": "cd playground && deno run -A ../mod.ts",
 		"lint": "deno lint && deno fmt --check",
 		"fmt": "deno fmt",
-		"test": "deno test"
+		"test": "deno test -A"
 	},
 	"fmt": {
 		"options": {
