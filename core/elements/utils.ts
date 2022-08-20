@@ -10,7 +10,7 @@ export function ensureNamespaces<K extends string, V>(
 	});
 }
 
-function ensurePrefix<T extends string>(prefix: string, string: T): T {
+export function ensurePrefix<T extends string>(prefix: string, string: T): T {
 	if (!string.startsWith(prefix)) return `${prefix}:${string}` as T;
 	return string;
 }
