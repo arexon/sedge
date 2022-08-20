@@ -4,7 +4,7 @@ import { Config, loadConfig } from './config.ts';
 import { build } from './modes.ts';
 import { findMojangDir, getMojangDirPack } from './path.ts';
 
-export type SedgeMode = 'build' | 'dev' | 'dev+websocket';
+export type SedgeMode = 'build' | 'dev' | 'devWebSocket';
 export interface SedgeTarget {
 	name: string;
 	path: string;
@@ -20,19 +20,23 @@ export async function startSedge(options: {
 	mode: SedgeMode;
 	target: string;
 }) {
+	const config = await loadConfig();
 	const sedge: Sedge = {
-		config: await loadConfig(),
+		config,
 		mode: options.mode,
-		target: { name: options.target, path: '', isMojangDir: false },
+		target: {
+			name: options.target,
+			path: config.sedge.targets[options.target] || '',
+			isMojangDir: false,
+		},
 	};
+
 	const modeIsDev = sedge.mode !== 'build';
 	const targetIsDefault = sedge.target.name === 'default';
-	const mojangDir = findMojangDir();
-	const defaultTargetPath = modeIsDev && targetIsDefault
-		? mojangDir
-		: sedge.config.sedge.targets.default;
 
-	if (defaultTargetPath === mojangDir && modeIsDev) {
+	// We don't want to set `com.mojang` options if not needed
+	if (targetIsDefault && modeIsDev) {
+		sedge.target.path = findMojangDir();
 		sedge.target.isMojangDir = true;
 	}
 
@@ -40,13 +44,7 @@ export async function startSedge(options: {
 		sedge.config.sedge.targets,
 		sedge.target.name,
 	);
-
-	// Fill out the `target` object with the processed path and name
-	if (sedge.target.isMojangDir) sedge.target.path = defaultTargetPath;
-	else sedge.target.path = sedge.config.sedge.targets[sedge.target.name];
-
-	// If the target is not configured, use the default one. Otherwise, throw an error.
-	if (targetIsConfigured || targetIsDefault) runMode(sedge);
+	if (targetIsConfigured || targetIsDefault) await runMode(sedge);
 	else {
 		logger.error(
 			`Target [${options.target}] does not match any configured target in [config.sedge.targets]`,
@@ -62,7 +60,7 @@ async function runMode(sedge: Sedge): Promise<void> {
 
 	if (sedge.mode === 'build') await build(sedge);
 	if (sedge.mode === 'dev') console.log('Dev mode');
-	if (sedge.mode === 'dev+websocket') console.log('Dev+Websocket mode');
+	if (sedge.mode === 'devWebSocket') console.log('Dev WebSocket mode');
 }
 
 async function prepareDirs(sedge: Sedge): Promise<void> {
