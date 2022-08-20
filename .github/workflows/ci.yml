@@ -1,4 +1,4 @@
-name: Build
+name: ci
 
 on: [push, pull_request]
 
@@ -14,6 +14,9 @@ jobs:
         uses: denoland/setup-deno@v1.0.0
         with:
           deno-version: v1.x
+
+      - name: Lint ✅
+        run: deno task lint
 
       - name: Test 🧪
         run: deno task test
