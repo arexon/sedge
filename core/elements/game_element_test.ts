@@ -1,6 +1,6 @@
 import { assertInstanceOf, assertObjectMatch } from 'testing/asserts.ts';
+import { Result } from '../types.ts';
 import { createGameElement } from './game_element.ts';
-import { Result } from './types.ts';
 
 Deno.test('createGameElement', () => {
 	const defineFooBar = createGameElement<
