@@ -2,9 +2,7 @@ import { logger } from '../shared/logger.ts';
 import { findPathsInPacks } from './file_system.ts';
 import { Sedge } from './mod.ts';
 
-export async function build(sedge: Sedge, options?: {
-	hmr?: boolean;
-}): Promise<void> {
+export async function build(sedge: Sedge): Promise<void> {
 	const startTime = Date.now();
 	const { assets, modules } = findPathsInPacks({
 		packs: sedge.config.packs,
