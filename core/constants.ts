@@ -1,0 +1,1 @@
+export const SEDGE_NAMESPACE = '__SEDGE_NAMESPACE__';
