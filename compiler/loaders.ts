@@ -6,7 +6,7 @@ import { SedgeFileSystem } from './fs.ts';
 
 interface ModuleOptions {
 	hmr?: boolean;
-	config?: Config;
+	config?: Partial<Config>;
 	fs: SedgeFileSystem;
 }
 
@@ -25,13 +25,16 @@ export async function loadModule(
 	return applyConfig(result.default, config!);
 }
 
-function applyConfig<Object extends Record<string, any>>(
+export function applyConfig<Object extends Record<string, any>>(
 	object: Object,
-	config: Config,
+	config: Partial<Config>,
 ): Object {
 	if (!config) return object;
 	return JSON.parse(
-		JSON.stringify(object).replaceAll(SEDGE_NAMESPACE, config.namespace),
+		JSON.stringify(object).replaceAll(
+			SEDGE_NAMESPACE,
+			config.namespace || '',
+		),
 	);
 }
 
