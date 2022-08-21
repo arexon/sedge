@@ -1,6 +1,6 @@
 import { logger } from '../shared/logger.ts';
-import { findPathsInPacks } from './file_system.ts';
 import { Sedge } from './mod.ts';
+import { findPathsInPacks } from './path.ts';
 
 export async function build(sedge: Sedge): Promise<void> {
 	const startTime = Date.now();
