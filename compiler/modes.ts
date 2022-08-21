@@ -1,4 +1,5 @@
 import { logger } from '../shared/logger.ts';
+import { loadModule } from './loaders.ts';
 import { Sedge } from './mod.ts';
 import { findPathsInPacks } from './path.ts';
 
@@ -12,12 +13,12 @@ export async function build(sedge: Sedge): Promise<void> {
 	if (assets.length === 0 && modules.length === 0) return;
 
 	const results = await Promise.allSettled([
-		...modules.map(({ path }) => {
-			logger.info(`modules (${path})`);
+		...modules.map(async ({ path }) => {
+			const result = await loadModule(path, { config: sedge.config });
+
+			console.log(result);
 		}),
-		...assets.map(({ path }) => {
-			logger.info(`assets (${path})`);
-		}),
+		...assets.map(() => {}),
 		// TODO: compile scripts
 	]);
 
