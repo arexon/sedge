@@ -19,7 +19,7 @@ export interface Sedge {
 export async function startSedge(options: {
 	mode: SedgeMode;
 	target: string;
-}) {
+}): Promise<void> {
 	const config = await loadConfig();
 	const sedge: Sedge = {
 		config,
