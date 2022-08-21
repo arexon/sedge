@@ -1,24 +1,26 @@
 import { Md5 } from 'hash/md5.ts';
-import { resolve, toFileUrl } from 'path';
+import { toFileUrl } from 'path';
 import { SEDGE_NAMESPACE } from '../core/constants.ts';
 import { Config } from './config.ts';
+import { SedgeFileSystem } from './fs.ts';
 
 interface ModuleOptions {
 	hmr?: boolean;
 	config?: Config;
+	fs: SedgeFileSystem;
 }
 
 export async function loadModule(
 	path: string,
-	options: ModuleOptions = {},
+	options: ModuleOptions,
 ): Promise<any> {
-	const { hmr = false, config } = options;
-	const source = Deno.readTextFileSync(resolve(path));
+	const { hmr = false, config, fs } = options;
+	const source = fs.readTextFileSync(path);
 
-	let fileUrl = toFileUrl(resolve(path)).href;
+	let fileUrl = toFileUrl(path).href;
 	if (hmr) fileUrl = `${fileUrl}?hash=${hashModule(source)}`;
 
-	const result = await import(fileUrl);
+	const result = await fs.import(fileUrl);
 
 	return applyConfig(result.default, config!);
 }
