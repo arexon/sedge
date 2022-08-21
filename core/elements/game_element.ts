@@ -3,8 +3,8 @@ import { tryCatch } from '../../shared/try_catch.ts';
 export interface GameElementOptions<Template, Data, Result> {
 	/**
 	 * Return a template which will be used to process the data.
-	 * @param data The data to be processed.
-	 * @returns The template to be used to process the data.
+	 * @param data The data to be processed
+	 * @returns The template to be used to process the data
 	 */
 	process(data: Data): Template;
 	/**
