@@ -1,8 +1,9 @@
 import { WalkEntry, walkSync } from 'fs';
-import { globToRegExp, join } from 'path';
+import { extname, globToRegExp, join } from 'path';
 import { logger } from '../shared/logger.ts';
 import { SedgeFileSystem } from './fs.ts';
 import { ConfigPacks } from './loaders.ts';
+import { Sedge } from './start.ts';
 
 export function findPathsInPacks(options: {
 	packs: Partial<ConfigPacks>;
@@ -48,6 +49,32 @@ export function findPathsInPacks(options: {
 	return { modules, assets };
 }
 
+export function getTargetPath(path: string, sedge: Sedge): string {
+	if (sedge.target.isMojangDir) {
+		const pathToBP = sedge.config.packs.behaviorPack.replace(/^\.\//, '')
+			.replaceAll('/', '\\');
+		const pathToRP = sedge.config.packs.resourcePack.replace(/^\.\//, '')
+			.replaceAll('/', '\\');
+		const isBP = path.includes(pathToBP);
+		const isRP = path.includes(pathToRP);
+
+		if (isBP) {
+			return path.replace(
+				pathToBP,
+				getMojangDirPack(sedge.config.name, 'BP', sedge.target.path),
+			);
+		}
+		if (isRP) {
+			return path.replace(
+				pathToRP,
+				getMojangDirPack(sedge.config.name, 'RP', sedge.target.path),
+			);
+		}
+	}
+
+	return join(sedge.target.path, path);
+}
+
 export function getMojangDirPack(
 	packName: string,
 	packType: 'BP' | 'RP',
@@ -79,4 +106,8 @@ export function findMojangDir(fs: SedgeFileSystem): string {
 		);
 		Deno.exit(1);
 	}
+}
+
+export function toExtension(path: string, newExtension: string): string {
+	return path.replace(extname(path), newExtension);
 }

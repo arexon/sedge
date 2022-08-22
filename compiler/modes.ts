@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { logger } from '../shared/logger.ts';
 import { loadModule } from './loaders.ts';
 import { Sedge } from './mod.ts';
-import { findPathsInPacks } from './path.ts';
+import { findPathsInPacks, getTargetPath } from './path.ts';
 
 export async function build(sedge: Sedge): Promise<void> {
 	const startTime = Date.now();
@@ -20,7 +20,7 @@ export async function build(sedge: Sedge): Promise<void> {
 				fs: sedge.fs,
 			});
 
-			console.log(result);
+			sedge.fs.outputModule(getTargetPath(path, sedge), result);
 		}),
 		...assets.map(() => {}),
 		// TODO: compile scripts
