@@ -1,4 +1,4 @@
-import { assertObjectMatch } from 'testing/asserts.ts';
+import { assertEquals, assertObjectMatch } from 'testing/asserts.ts';
 import { fakeFileSystem } from './fs.ts';
 import { applyConfig, loadConfig, loadModule } from './loaders.ts';
 
@@ -22,16 +22,16 @@ Deno.test('loadModule', async () => {
 		config: { namespace: 'test' },
 	});
 
-	assertObjectMatch(result, moduleResult);
+	assertEquals(result, moduleResult);
 });
 
 Deno.test('applyConfig: with config', () => {
-	assertObjectMatch(
+	assertEquals(
 		applyConfig(moduleResult, { namespace: 'test' }),
 		moduleResult,
 	);
 });
 
 Deno.test('applyConfig: without config', () => {
-	assertObjectMatch(applyConfig(moduleResult, {}), moduleResult);
+	assertEquals(applyConfig(moduleResult, {}), moduleResult);
 });

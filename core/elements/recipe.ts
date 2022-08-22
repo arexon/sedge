@@ -103,11 +103,11 @@ interface RecipeTemplate extends Namespace {
 
 interface RecipeData {
 	format_version: string;
-	'minecraft:recipe_furnace': RecipeFurnace;
-	'minecraft:recipe_brewing_container': RecipeBrewingContainer;
-	'minecraft:recipe_brewing_mix': RecipeBrewingMix;
-	'minecraft:recipe_shaped': RecipeShaped;
-	'minecraft:recipe_shapeless': RecipeShapeless;
+	'minecraft:recipe_furnace'?: RecipeFurnace;
+	'minecraft:recipe_brewing_container'?: RecipeBrewingContainer;
+	'minecraft:recipe_brewing_mix'?: RecipeBrewingMix;
+	'minecraft:recipe_shaped'?: RecipeShaped;
+	'minecraft:recipe_shapeless'?: RecipeShapeless;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { assertObjectMatch } from 'testing/asserts.ts';
+import { assertEquals } from 'testing/asserts.ts';
 import { Result } from '../types.ts';
 import { createGameElement } from './game_element.ts';
 
@@ -24,7 +24,7 @@ Deno.test('createGameElement', () => {
 		foo('bar');
 	});
 
-	assertObjectMatch(result, {
+	assertEquals(result, {
 		type: 'gameElement',
 		data: {
 			baz: 1,
