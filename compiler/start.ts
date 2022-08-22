@@ -1,7 +1,7 @@
 import { emptyDir } from 'fs';
 import { resolve } from 'path';
 import { logger } from '../shared/logger.ts';
-import { sedgeFileSystem } from './fs.ts';
+import { SedgeFileSystem, sedgeFileSystem } from './fs.ts';
 import { Config, loadConfig } from './loaders.ts';
 import { build } from './modes.ts';
 import { findMojangDir, getMojangDirPack } from './path.ts';
@@ -16,6 +16,7 @@ export interface Sedge {
 	config: Config;
 	mode: SedgeMode;
 	target: SedgeTarget;
+	fs: SedgeFileSystem;
 }
 
 export async function startSedge(options: {
@@ -31,6 +32,7 @@ export async function startSedge(options: {
 			path: config.sedge.targets[options.target] || '',
 			isMojangDir: false,
 		},
+		fs: sedgeFileSystem,
 	};
 
 	const modeIsDev = sedge.mode !== 'build';
