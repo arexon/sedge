@@ -34,12 +34,15 @@ export async function build(
 		// TODO: compile scripts
 	]);
 
-	if (sedge.mode === 'build') logCompilationInfo(results, startTime);
+	if (sedge.mode === 'build') {
+		logCompilationInfo(results, startTime, sedge.config.sedge.cache);
+	}
 }
 
 function logCompilationInfo(
 	results: PromiseSettledResult<string | void>[],
 	startTime: number,
+	cache: boolean,
 ): void {
 	let cacheHits = 0;
 	let cacheMisses = 0;
@@ -53,7 +56,9 @@ function logCompilationInfo(
 	logger.success(
 		`Compiled [${cacheHits + cacheMisses}] files in ${
 			Date.now() - startTime
-		} ms (|)`,
-		`Cache Hits(:) [${cacheHits}] (|) Cache Misses(:) [${cacheMisses}]`,
+		} ms`,
+		cache
+			? `(|) Cache Hits(:) [${cacheHits}] (|) Cache Misses(:) [${cacheMisses}]`
+			: '',
 	);
 }

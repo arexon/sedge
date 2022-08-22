@@ -20,11 +20,8 @@ export interface Config {
 		targets: {
 			[name: string]: string;
 		};
-		minify: boolean;
 		ignorePaths?: string[];
-		initialCleanUp: boolean;
-		scriptEntryName: string;
-		plugins?: string[];
+		cache: boolean;
 	};
 }
 
@@ -43,9 +40,7 @@ export async function loadConfig(
 		},
 		sedge: {
 			targets: { default: './build' },
-			minify: false,
-			initialCleanUp: true,
-			scriptEntryName: 'main.ts',
+			cache: true,
 		},
 	};
 
@@ -72,8 +67,10 @@ export async function loadModule(
 	const source = fs.readTextFileSync(path);
 	const hash = hashModule(source);
 
-	if (hash === cache[path]) return undefined;
-	cache[path] = hash;
+	if (config?.sedge?.cache) {
+		if (hash === cache[path]) return undefined;
+		cache[path] = hash;
+	}
 
 	const result = await fs.import(`${toFileUrl(path).href}?hash=${hash}`);
 	return applyConfig(result.default, config!);
