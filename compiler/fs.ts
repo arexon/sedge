@@ -1,17 +1,25 @@
 import { SEDGE_NAMESPACE } from '../core/constants.ts';
 
 export interface SedgeFileSystem {
-	import(path: string): Promise<any>;
+	import(path: string, type?: 'json'): Promise<any>;
 	readTextFileSync(path: string | URL): string;
 }
 
 export const sedgeFileSystem: SedgeFileSystem = {
-	import: (path) => import(path),
+	import: (path, type) => {
+		if (type === 'json') return import(path, { assert: { type } });
+		return import(path);
+	},
 	readTextFileSync: (path) => Deno.readTextFileSync(path),
 };
 
 export const fakeFileSystem: SedgeFileSystem = {
-	import: () => {
+	import: (_, type) => {
+		if (type === 'json') {
+			return Promise.resolve({
+				default: { identifier: 'foo' },
+			});
+		}
 		return Promise.resolve({
 			default: {
 				type: 'foobar',

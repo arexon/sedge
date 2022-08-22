@@ -1,6 +1,7 @@
 import { deepMerge } from 'collection/deep_merge.ts';
-import { resolve, toFileUrl } from 'path';
+import { toFileUrl } from 'path';
 import { logger } from '../shared/logger.ts';
+import { SedgeFileSystem } from './fs.ts';
 
 export interface ConfigPacks {
 	behaviorPack: string;
@@ -25,7 +26,10 @@ export interface Config {
 	};
 }
 
-export async function loadConfig(): Promise<Config> {
+export async function loadConfig(
+	path: string,
+	fs: SedgeFileSystem,
+): Promise<Config> {
 	let config: Partial<Config> = {};
 	const defaults: Config = {
 		name: 'sedge-project',
@@ -44,10 +48,7 @@ export async function loadConfig(): Promise<Config> {
 	};
 
 	try {
-		config = (await import(
-			toFileUrl(resolve('config.json')).href,
-			{ assert: { type: 'json' } }
-		)).default;
+		config = (await fs.import(toFileUrl(path).href, 'json')).default;
 	} catch (_) {
 		logger.warn('No [config.json] found, using defaults');
 	}

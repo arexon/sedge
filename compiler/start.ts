@@ -1,6 +1,8 @@
 import { emptyDir } from 'fs';
+import { resolve } from 'path';
 import { logger } from '../shared/logger.ts';
 import { Config, loadConfig } from './config.ts';
+import { sedgeFileSystem } from './fs.ts';
 import { build } from './modes.ts';
 import { findMojangDir, getMojangDirPack } from './path.ts';
 
@@ -20,7 +22,7 @@ export async function startSedge(options: {
 	mode: SedgeMode;
 	target: string;
 }): Promise<void> {
-	const config = await loadConfig();
+	const config = await loadConfig(resolve('config.json'), sedgeFileSystem);
 	const sedge: Sedge = {
 		config,
 		mode: options.mode,
