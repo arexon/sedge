@@ -1,4 +1,4 @@
-import { SEDGE_NAMESPACE } from '../constants.ts';
+import { SEDGE_NAMESPACE } from '../../shared/constants.ts';
 import { Namespace, Result } from '../types.ts';
 import { createGameElement } from './game_element.ts';
 
