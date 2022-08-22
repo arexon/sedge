@@ -1,10 +1,10 @@
-import { emptyDir } from 'fs';
-import { resolve } from 'path';
+import { resolve, toFileUrl } from 'path';
+import { SEDGE_CACHE_FILE } from '../shared/constants.ts';
 import { logger } from '../shared/logger.ts';
 import { SedgeFileSystem, sedgeFileSystem } from './fs.ts';
 import { Config, loadConfig } from './loaders.ts';
 import { build } from './modes.ts';
-import { findMojangDir, getMojangDirPack } from './path.ts';
+import { findMojangDir } from './path.ts';
 
 export type SedgeMode = 'build' | 'dev' | 'devWebSocket';
 export interface SedgeTarget {
@@ -60,24 +60,35 @@ export async function startSedge(options: {
 async function startMode(sedge: Sedge): Promise<void> {
 	logger.info(`Via target [${sedge.target.name}] at (${sedge.target.path})`);
 
-	await prepareDirs(sedge);
+	// await prepareDirs(sedge);
+	const cache = await loadCacheData(sedge.fs);
 
-	if (sedge.mode === 'build') await build(sedge);
+	if (sedge.mode === 'build') await build(sedge, cache);
 	if (sedge.mode === 'dev') console.log('Dev mode');
 	if (sedge.mode === 'devWebSocket') console.log('Dev WebSocket mode');
+
+	saveCacheData(sedge.fs, cache);
 }
 
-async function prepareDirs(sedge: Sedge): Promise<void> {
-	if (!sedge.config.sedge.initialCleanUp) return;
+async function loadCacheData(
+	fs: SedgeFileSystem,
+): Promise<Record<string, string>> {
+	const cachePath = resolve(SEDGE_CACHE_FILE);
 
-	if (sedge.target.isMojangDir) {
-		await emptyDir(
-			getMojangDirPack(sedge.config.name, 'BP', sedge.target.path),
-		);
-		await emptyDir(
-			getMojangDirPack(sedge.config.name, 'RP', sedge.target.path),
-		);
-	} else {
-		await emptyDir(sedge.target.path);
+	try {
+		return (await fs.import(toFileUrl(cachePath).href, 'json')).default;
+	} catch (_) {
+		fs.outputJsonFileSync(cachePath, {});
+		return {};
 	}
+}
+
+function saveCacheData(
+	fs: SedgeFileSystem,
+	cache: Record<string, string>,
+): void {
+	fs.outputJsonFileSync(
+		resolve(SEDGE_CACHE_FILE),
+		cache,
+	);
 }

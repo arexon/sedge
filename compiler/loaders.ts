@@ -61,17 +61,21 @@ export async function loadConfig(
 interface ModuleOptions {
 	config?: Partial<Config>;
 	fs: SedgeFileSystem;
+	cache: Record<string, string>;
 }
 
 export async function loadModule(
 	path: string,
 	options: ModuleOptions,
-): Promise<any> {
-	const { config, fs } = options;
+): Promise<any | undefined> {
+	const { config, fs, cache } = options;
 	const source = fs.readTextFileSync(path);
-	const fileUrl = `${toFileUrl(path).href}?hash=${hashModule(source)}`;
-	const result = await fs.import(fileUrl);
+	const hash = hashModule(source);
 
+	if (hash === cache[path]) return undefined;
+	cache[path] = hash;
+
+	const result = await fs.import(`${toFileUrl(path).href}?hash=${hash}`);
 	return applyConfig(result.default, config!);
 }
 
