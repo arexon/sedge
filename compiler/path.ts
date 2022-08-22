@@ -1,6 +1,5 @@
 import { WalkEntry, walkSync } from 'fs';
-import { normalize } from 'https://deno.land/std@0.152.0/path/win32.ts';
-import { extname, globToRegExp, join } from 'path';
+import { extname, globToRegExp, join, normalize } from 'path';
 import { logger } from '../shared/logger.ts';
 import { SedgeFileSystem } from './fs.ts';
 import { ConfigPacks } from './loaders.ts';
