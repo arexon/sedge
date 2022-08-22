@@ -1,6 +1,5 @@
 import { resolve } from 'path';
 import { logger } from '../shared/logger.ts';
-import { sedgeFileSystem } from './fs.ts';
 import { loadModule } from './loaders.ts';
 import { Sedge } from './mod.ts';
 import { findPathsInPacks } from './path.ts';
@@ -18,7 +17,7 @@ export async function build(sedge: Sedge): Promise<void> {
 		...modules.map(async ({ path }) => {
 			const result = await loadModule(resolve(path), {
 				config: sedge.config,
-				fs: sedgeFileSystem,
+				fs: sedge.fs,
 			});
 
 			console.log(result);
