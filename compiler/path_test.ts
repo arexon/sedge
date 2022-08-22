@@ -1,7 +1,61 @@
 import { join } from 'path';
 import { assertEquals, assertStringIncludes } from 'testing/asserts.ts';
 import { testFileSystem } from './fs.ts';
-import { findMojangDir, getMojangDirPack } from './path.ts';
+import { Sedge } from './mod.ts';
+import { findMojangDir, getMojangDirPack, getTargetPath } from './path.ts';
+
+const sedge = {
+	config: {
+		name: 'test',
+		packs: {
+			behaviorPack: './packs/BP',
+			resourcePack: './packs/RP',
+		},
+	},
+	target: {
+		path: './games/com.mojang',
+		isMojangDir: true,
+	},
+} as Sedge;
+
+Deno.test('getTargetPath: in mojang directory', () => {
+	assertEquals(
+		getTargetPath(join('packs', 'BP', 'blocks', 'foo.ts'), sedge),
+		join(
+			'games',
+			'com.mojang',
+			'development_behavior_packs',
+			'test BP',
+			'blocks',
+			'foo.ts',
+		),
+	);
+	assertEquals(
+		getTargetPath(join('packs', 'RP', 'blocks', 'foo.ts'), sedge),
+		join(
+			'games',
+			'com.mojang',
+			'development_resource_packs',
+			'test RP',
+			'blocks',
+			'foo.ts',
+		),
+	);
+});
+
+Deno.test('getTargetPath: in production', () => {
+	sedge.target.path = './build';
+	sedge.target.isMojangDir = false;
+
+	assertEquals(
+		getTargetPath(join('packs', 'BP', 'blocks', 'foo.ts'), sedge),
+		join('build', 'packs', 'BP', 'blocks', 'foo.ts'),
+	);
+	assertEquals(
+		getTargetPath(join('packs', 'RP', 'blocks', 'foo.ts'), sedge),
+		join('build', 'packs', 'RP', 'blocks', 'foo.ts'),
+	);
+});
 
 Deno.test('getMojangDirPack: simple', () => {
 	assertEquals(

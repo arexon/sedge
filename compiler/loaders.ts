@@ -59,7 +59,6 @@ export async function loadConfig(
 }
 
 interface ModuleOptions {
-	hmr?: boolean;
 	config?: Partial<Config>;
 	fs: SedgeFileSystem;
 }
@@ -68,12 +67,9 @@ export async function loadModule(
 	path: string,
 	options: ModuleOptions,
 ): Promise<any> {
-	const { hmr = false, config, fs } = options;
+	const { config, fs } = options;
 	const source = fs.readTextFileSync(path);
-
-	let fileUrl = toFileUrl(path).href;
-	if (hmr) fileUrl = `${fileUrl}?hash=${hashModule(source)}`;
-
+	const fileUrl = `${toFileUrl(path).href}?hash=${hashModule(source)}`;
 	const result = await fs.import(fileUrl);
 
 	return applyConfig(result.default, config!);
