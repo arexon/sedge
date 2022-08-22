@@ -1,4 +1,4 @@
-import { tryCatch } from '../../shared/try_catch.ts';
+import { tryCatch } from '../../shared/mod.ts';
 
 export interface GameElementOptions<Template, Data, Result> {
 	/**

@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { logger } from '../shared/logger.ts';
+import { logger } from '../shared/mod.ts';
 import { loadModule } from './loaders.ts';
 import { Sedge } from './mod.ts';
 import { findPathsInPacks, getTargetPath } from './path.ts';
