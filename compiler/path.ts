@@ -1,4 +1,5 @@
 import { WalkEntry, walkSync } from 'fs';
+import { normalize } from 'https://deno.land/std@0.152.0/path/win32.ts';
 import { extname, globToRegExp, join } from 'path';
 import { logger } from '../shared/logger.ts';
 import { SedgeFileSystem } from './fs.ts';
@@ -51,10 +52,8 @@ export function findPathsInPacks(options: {
 
 export function getTargetPath(path: string, sedge: Sedge): string {
 	if (sedge.target.isMojangDir) {
-		const pathToBP = sedge.config.packs.behaviorPack.replace(/^\.\//, '')
-			.replaceAll('/', '\\');
-		const pathToRP = sedge.config.packs.resourcePack.replace(/^\.\//, '')
-			.replaceAll('/', '\\');
+		const pathToBP = normalize(sedge.config.packs.behaviorPack);
+		const pathToRP = normalize(sedge.config.packs.resourcePack);
 		const isBP = path.includes(pathToBP);
 		const isRP = path.includes(pathToRP);
 
