@@ -20,6 +20,7 @@ Deno.test('loadModule', async () => {
 	const result = await loadModule('/test.ts', {
 		fs: testFileSystem,
 		config: { namespace: 'test' },
+		cache: {},
 	});
 
 	assertEquals(result, moduleResult);
