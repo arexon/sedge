@@ -1,7 +1,7 @@
 import { deepMerge } from 'collection/deep_merge.ts';
 import { Md5 } from 'hash/md5.ts';
 import { toFileUrl } from 'path';
-import { SEDGE_NAMESPACE } from '../core/constants.ts';
+import { SEDGE_NAMESPACE } from '../shared/constants.ts';
 import { logger } from '../shared/logger.ts';
 import { SedgeFileSystem } from './fs.ts';
 
