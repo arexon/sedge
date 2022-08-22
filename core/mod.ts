@@ -1,1 +1,1 @@
-export { defineBlock } from './block.ts';
+export * from './elements/recipe.ts';
