@@ -1,63 +1,64 @@
 import { join } from 'path';
-import { assertEquals, assertStringIncludes } from 'testing/asserts.ts';
-import { testFileSystem } from './fs.ts';
+import { assertEquals } from 'testing/asserts.ts';
 import { Sedge } from './mod.ts';
-import { findMojangDir, getMojangDirPack, getTargetPath } from './path.ts';
+import { getMojangDirPack, getTargetPath, toExtension } from './path.ts';
 
-const sedge = {
-	config: {
-		name: 'test',
-		packs: {
-			behaviorPack: './packs/BP',
-			resourcePack: './packs/RP',
+Deno.test('getTargetPath', async (t) => {
+	const sedge = {
+		config: {
+			name: 'test',
+			packs: {
+				behaviorPack: './packs/BP',
+				resourcePack: './packs/RP',
+			},
 		},
-	},
-	target: {
-		path: './games/com.mojang',
-		isMojangDir: true,
-	},
-} as Sedge;
+		target: {
+			path: './games/com.mojang',
+			isMojangDir: true,
+		},
+	} as Sedge;
 
-Deno.test('getTargetPath: in mojang directory', () => {
-	assertEquals(
-		getTargetPath(join('packs', 'BP', 'blocks', 'foo.ts'), sedge),
-		join(
-			'games',
-			'com.mojang',
-			'development_behavior_packs',
-			'test BP',
-			'blocks',
-			'foo.ts',
-		),
-	);
-	assertEquals(
-		getTargetPath(join('packs', 'RP', 'blocks', 'foo.ts'), sedge),
-		join(
-			'games',
-			'com.mojang',
-			'development_resource_packs',
-			'test RP',
-			'blocks',
-			'foo.ts',
-		),
-	);
+	await t.step('should return `com.mojang` packs paths', () => {
+		assertEquals(
+			getTargetPath(join('packs', 'BP', 'blocks', 'foo.ts'), sedge),
+			join(
+				'games',
+				'com.mojang',
+				'development_behavior_packs',
+				'test BP',
+				'blocks',
+				'foo.ts',
+			),
+		);
+		assertEquals(
+			getTargetPath(join('packs', 'RP', 'blocks', 'foo.ts'), sedge),
+			join(
+				'games',
+				'com.mojang',
+				'development_resource_packs',
+				'test RP',
+				'blocks',
+				'foo.ts',
+			),
+		);
+	});
+
+	await t.step('should return a path to the target directory', () => {
+		sedge.target.path = './build';
+		sedge.target.isMojangDir = false;
+
+		assertEquals(
+			getTargetPath(join('packs', 'BP', 'blocks', 'foo.ts'), sedge),
+			join('build', 'packs', 'BP', 'blocks', 'foo.ts'),
+		);
+		assertEquals(
+			getTargetPath(join('packs', 'RP', 'blocks', 'foo.ts'), sedge),
+			join('build', 'packs', 'RP', 'blocks', 'foo.ts'),
+		);
+	});
 });
 
-Deno.test('getTargetPath: in production', () => {
-	sedge.target.path = './build';
-	sedge.target.isMojangDir = false;
-
-	assertEquals(
-		getTargetPath(join('packs', 'BP', 'blocks', 'foo.ts'), sedge),
-		join('build', 'packs', 'BP', 'blocks', 'foo.ts'),
-	);
-	assertEquals(
-		getTargetPath(join('packs', 'RP', 'blocks', 'foo.ts'), sedge),
-		join('build', 'packs', 'RP', 'blocks', 'foo.ts'),
-	);
-});
-
-Deno.test('getMojangDirPack: simple', () => {
+Deno.test('getMojangDirPack', () => {
 	assertEquals(
 		getMojangDirPack('foo', 'BP', 'bar'),
 		join('bar', 'development_behavior_packs', 'foo BP'),
@@ -68,26 +69,6 @@ Deno.test('getMojangDirPack: simple', () => {
 	);
 });
 
-Deno.test('getMojangDirPack: complex', () => {
-	assertEquals(
-		getMojangDirPack('foo/bar', 'BP', 'bar/baz'),
-		join('bar', 'baz', 'development_behavior_packs', 'foo', 'bar BP'),
-	);
-	assertEquals(
-		getMojangDirPack('foo/bar', 'RP', 'bar/baz'),
-		join('bar', 'baz', 'development_resource_packs', 'foo', 'bar RP'),
-	);
-});
-
-Deno.test('findMojangDir', () => {
-	assertStringIncludes(
-		findMojangDir(testFileSystem),
-		join(
-			'Packages',
-			'Microsoft.MinecraftUWP_8wekyb3d8bbwe',
-			'LocalState',
-			'games',
-			'com.mojang',
-		),
-	);
+Deno.test('toExtension', () => {
+	assertEquals(toExtension('foo/bar/baz.ts', '.json'), 'foo/bar/baz.json');
 });
