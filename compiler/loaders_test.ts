@@ -1,11 +1,11 @@
 import { assertEquals, assertObjectMatch } from 'testing/asserts.ts';
-import { fakeFileSystem } from './fs.ts';
+import { testFileSystem } from './fs.ts';
 import { applyConfig, loadConfig, loadModule } from './loaders.ts';
 
 Deno.test('loadConfig', async () => {
 	const config = await loadConfig(
 		'/config.json',
-		fakeFileSystem,
+		testFileSystem,
 	);
 
 	assertObjectMatch(config, { identifier: 'foo' });
@@ -18,7 +18,7 @@ const moduleResult = {
 
 Deno.test('loadModule', async () => {
 	const result = await loadModule('/test.ts', {
-		fs: fakeFileSystem,
+		fs: testFileSystem,
 		config: { namespace: 'test' },
 	});
 

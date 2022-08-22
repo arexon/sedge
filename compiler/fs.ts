@@ -13,7 +13,7 @@ export const sedgeFileSystem: SedgeFileSystem = {
 	readTextFileSync: (path) => Deno.readTextFileSync(path),
 };
 
-export const fakeFileSystem: SedgeFileSystem = {
+export const testFileSystem: SedgeFileSystem = {
 	import: (_, type) => {
 		if (type === 'json') {
 			return Promise.resolve({
