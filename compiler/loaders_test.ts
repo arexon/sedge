@@ -1,6 +1,15 @@
 import { assertObjectMatch } from 'testing/asserts.ts';
 import { fakeFileSystem } from './fs.ts';
-import { applyConfig, loadModule } from './loaders.ts';
+import { applyConfig, loadConfig, loadModule } from './loaders.ts';
+
+Deno.test('loadConfig', async () => {
+	const config = await loadConfig(
+		'/config.json',
+		fakeFileSystem,
+	);
+
+	assertObjectMatch(config, { identifier: 'foo' });
+});
 
 const moduleResult = {
 	type: 'foobar',

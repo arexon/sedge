@@ -1,8 +1,8 @@
 import { emptyDir } from 'fs';
 import { resolve } from 'path';
 import { logger } from '../shared/logger.ts';
-import { Config, loadConfig } from './config.ts';
 import { sedgeFileSystem } from './fs.ts';
+import { Config, loadConfig } from './loaders.ts';
 import { build } from './modes.ts';
 import { findMojangDir, getMojangDirPack } from './path.ts';
 
