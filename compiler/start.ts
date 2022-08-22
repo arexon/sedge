@@ -40,7 +40,7 @@ export async function startSedge(options: {
 
 	// We don't want to set `com.mojang` options if not needed
 	if (targetIsDefault && modeIsDev) {
-		sedge.target.path = findMojangDir();
+		sedge.target.path = findMojangDir(sedge.fs);
 		sedge.target.isMojangDir = true;
 	}
 
