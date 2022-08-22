@@ -60,14 +60,14 @@ export async function startSedge(options: {
 async function startMode(sedge: Sedge): Promise<void> {
 	logger.info(`Via target [${sedge.target.name}] at (${sedge.target.path})`);
 
-	// await prepareDirs(sedge);
-	const cache = await loadCacheData(sedge.fs);
+	let cache: Record<string, string> = {};
+	if (sedge.config.sedge.cache) cache = await loadCacheData(sedge.fs);
 
 	if (sedge.mode === 'build') await build(sedge, cache);
 	if (sedge.mode === 'dev') console.log('Dev mode');
 	if (sedge.mode === 'devWebSocket') console.log('Dev WebSocket mode');
 
-	saveCacheData(sedge.fs, cache);
+	if (sedge.config.sedge.cache) saveCacheData(sedge.fs, cache);
 }
 
 async function loadCacheData(
