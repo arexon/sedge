@@ -1,6 +1,6 @@
 import { WalkEntry, walkSync } from 'fs';
 import { extname, globToRegExp, join, normalize } from 'path';
-import { logger } from '../shared/logger.ts';
+import { logger } from '../shared/mod.ts';
 import { SedgeFileSystem } from './fs.ts';
 import { ConfigPacks } from './loaders.ts';
 import { Sedge } from './start.ts';

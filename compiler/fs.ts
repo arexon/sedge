@@ -1,6 +1,6 @@
 import { dirname } from 'path';
 import { Result } from '../core/types.ts';
-import { SEDGE_NAMESPACE } from '../shared/constants.ts';
+import { SEDGE_NAMESPACE } from '../shared/mod.ts';
 import { toExtension } from './path.ts';
 
 export interface SedgeFileSystem {

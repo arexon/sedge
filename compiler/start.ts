@@ -1,6 +1,5 @@
 import { resolve, toFileUrl } from 'path';
-import { SEDGE_CACHE_FILE } from '../shared/constants.ts';
-import { logger } from '../shared/logger.ts';
+import { logger, SEDGE_CACHE_FILE } from '../shared/mod.ts';
 import { SedgeFileSystem, sedgeFileSystem } from './fs.ts';
 import { Config, loadConfig } from './loaders.ts';
 import { build } from './modes.ts';
