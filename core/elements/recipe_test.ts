@@ -1,4 +1,4 @@
-import { assertObjectMatch } from 'testing/asserts.ts';
+import { assertEquals } from 'testing/asserts.ts';
 import { defineRecipe } from './recipe.ts';
 
 const description = {
@@ -8,7 +8,7 @@ const description = {
 };
 
 Deno.test('defineRecipe: shaped', () => {
-	assertObjectMatch(
+	assertEquals(
 		defineRecipe(({ namespace, shaped }) => {
 			shaped({
 				description: {
@@ -41,7 +41,7 @@ Deno.test('defineRecipe: shaped', () => {
 });
 
 Deno.test('defineRecipe: shapeless', () => {
-	assertObjectMatch(
+	assertEquals(
 		defineRecipe(({ namespace, shapeless }) => {
 			shapeless({
 				description: {
@@ -74,7 +74,7 @@ Deno.test('defineRecipe: shapeless', () => {
 });
 
 Deno.test('defineRecipe: furnace', () => {
-	assertObjectMatch(
+	assertEquals(
 		defineRecipe(({ namespace, furnace }) => {
 			furnace({
 				description: {
@@ -125,7 +125,7 @@ Deno.test('defineRecipe: brewing', () => {
 		});
 	});
 
-	assertObjectMatch(
+	assertEquals(
 		brewingContainer,
 		{
 			type: 'gameElement',
@@ -138,7 +138,7 @@ Deno.test('defineRecipe: brewing', () => {
 			},
 		},
 	);
-	assertObjectMatch(
+	assertEquals(
 		brewingMix,
 		{
 			type: 'gameElement',
