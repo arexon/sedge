@@ -1,7 +1,7 @@
 import { WalkEntry, walkSync } from 'fs';
 import { globToRegExp, join } from 'path';
 import { logger } from '../shared/logger.ts';
-import { ConfigPacks } from './config.ts';
+import { ConfigPacks } from './loaders.ts';
 
 export function findPathsInPacks(options: {
 	packs: Partial<ConfigPacks>;
