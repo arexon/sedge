@@ -1,8 +1,8 @@
 {
 	"tasks": {
 		"dev": "cd playground && deno run -A ../mod.ts",
-		"lint": "deno lint && deno fmt --check",
-		"fmt": "deno fmt",
+		"lint": "deno lint --ignore=playground && deno fmt --ignore=playground",
+		"fmt": "deno fmt --ignore=playground",
 		"test": "deno test -A"
 	},
 	"fmt": {
