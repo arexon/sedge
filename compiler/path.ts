@@ -1,6 +1,7 @@
 import { WalkEntry, walkSync } from 'fs';
 import { globToRegExp, join } from 'path';
 import { logger } from '../shared/logger.ts';
+import { SedgeFileSystem } from './fs.ts';
 import { ConfigPacks } from './loaders.ts';
 
 export function findPathsInPacks(options: {
@@ -59,7 +60,7 @@ export function getMojangDirPack(
 	);
 }
 
-export function findMojangDir(): string {
+export function findMojangDir(fs: SedgeFileSystem): string {
 	try {
 		const path = join(
 			Deno.env.get('LOCALAPPDATA') || '',
@@ -69,7 +70,7 @@ export function findMojangDir(): string {
 			'games',
 			'com.mojang',
 		);
-		Deno.lstatSync(path).isDirectory;
+		fs.lstatSync(path).isDirectory;
 
 		return path;
 	} catch (_) {
