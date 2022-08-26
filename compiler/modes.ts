@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import { logger } from '../shared/mod.ts';
-import { loadModule } from './loaders.ts';
+import { hashFile, loadModule } from './loaders.ts';
 import { Sedge } from './mod.ts';
 import { findPathsInPacks, getTargetPath } from './path.ts';
 
@@ -32,7 +32,23 @@ export async function build(
 
 			return Promise.resolve('cacheMiss');
 		}),
-		...assets.map(() => {}),
+		...assets.map(({ path }) => {
+			if (sedge.config.sedge.cache) {
+				const source = sedge.fs.readTextFileSync(path);
+				const hash = hashFile(source);
+
+				newCache[resolve(path)] = hash;
+
+				if (hash === cache[resolve(path)]) {
+					console.log(hash === cache[resolve(path)]);
+					return Promise.resolve('cacheHit');
+				}
+			}
+
+			sedge.fs.copyFileSync(path, resolve(getTargetPath(path, sedge)));
+
+			return Promise.resolve('cacheMiss');
+		}),
 		// TODO: compile scripts
 	]);
 

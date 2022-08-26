@@ -68,7 +68,7 @@ export async function loadModule(
 ): Promise<LoadedModule> {
 	const { config, fs, cache } = options;
 	const source = fs.readTextFileSync(path);
-	const hash = hashModule(source);
+	const hash = hashFile(source);
 
 	if (config.sedge?.cache && hash === cache[path]) {
 		return { result: undefined, hash };
@@ -93,6 +93,6 @@ export function applyConfig<Object extends Record<string, any>>(
 	);
 }
 
-function hashModule(source: string): string {
+export function hashFile(source: string): string {
 	return new Md5().update(JSON.stringify(source)).toString();
 }
