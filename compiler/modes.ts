@@ -13,7 +13,7 @@ export async function build(
 		packs: sedge.config.packs,
 		ignorePaths: sedge.config.sedge.ignorePaths,
 	});
-	const newCache: Record<string, any> = cache;
+	const newCache: Record<string, any> = { ...cache };
 
 	if (assets.length === 0 && modules.length === 0) return {};
 
