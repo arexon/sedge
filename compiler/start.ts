@@ -62,7 +62,7 @@ async function startMode(sedge: Sedge): Promise<void> {
 	let cache: Record<string, string> = {};
 	if (sedge.config.sedge.cache) cache = await loadCacheData(sedge.fs);
 
-	if (sedge.mode === 'build') await build(sedge, cache);
+	if (sedge.mode === 'build') cache = await build(sedge, cache);
 	if (sedge.mode === 'dev') console.log('Dev mode');
 	if (sedge.mode === 'devWebSocket') console.log('Dev WebSocket mode');
 

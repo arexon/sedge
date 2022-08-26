@@ -7,23 +7,25 @@ import { findPathsInPacks, getTargetPath } from './path.ts';
 export async function build(
 	sedge: Sedge,
 	cache: Record<string, string>,
-): Promise<void> {
+): Promise<Record<string, string>> {
 	const startTime = Date.now();
 	const { assets, modules } = findPathsInPacks({
 		packs: sedge.config.packs,
 		ignorePaths: sedge.config.sedge.ignorePaths,
 	});
+	const newCache: Record<string, any> = cache;
 
-	if (assets.length === 0 && modules.length === 0) return;
+	if (assets.length === 0 && modules.length === 0) return {};
 
 	const results = await Promise.allSettled([
 		...modules.map(async ({ path }) => {
-			const result = await loadModule(resolve(path), {
+			const { result, hash } = await loadModule(resolve(path), {
 				cache,
 				config: sedge.config,
 				fs: sedge.fs,
 			});
 
+			if (sedge.config.sedge.cache) newCache[resolve(path)] = hash;
 			if (result === undefined) return Promise.resolve('cacheHit');
 
 			sedge.fs.outputModule(resolve(getTargetPath(path, sedge)), result);
@@ -37,6 +39,8 @@ export async function build(
 	if (sedge.mode === 'build') {
 		logCompilationInfo(results, startTime, sedge.config.sedge.cache);
 	}
+
+	return newCache;
 }
 
 function logCompilationInfo(
