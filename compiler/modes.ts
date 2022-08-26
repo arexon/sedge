@@ -51,9 +51,7 @@ export async function build(
 		// TODO: compile scripts
 	]);
 
-	if (sedge.mode === 'build') {
-		logCompilationInfo(results, startTime, sedge.config.sedge.cache);
-	}
+	if (sedge.mode === 'build') logCompilationInfo(results, startTime);
 
 	return newCache;
 }
@@ -61,7 +59,6 @@ export async function build(
 function logCompilationInfo(
 	results: PromiseSettledResult<string | void>[],
 	startTime: number,
-	cache: boolean,
 ): void {
 	let cacheHits = 0;
 	let cacheMisses = 0;
@@ -72,12 +69,16 @@ function logCompilationInfo(
 		}
 	}
 
+	let cacheStatus = '';
+	if (cacheMisses === 0) cacheStatus = '(>>>) [FULL TURBO]';
+	else if (cacheMisses > 0 && cacheHits > 0) {
+		cacheStatus = `(>>>) [${cacheHits}] cache hits`;
+	}
+
 	logger.success(
 		`Compiled [${cacheHits + cacheMisses}] files in ${
 			Date.now() - startTime
 		} ms`,
-		cache
-			? `(|) Cache Hits(:) [${cacheHits}] (|) Cache Misses(:) [${cacheMisses}]`
-			: '',
+		cacheStatus,
 	);
 }
