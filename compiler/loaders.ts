@@ -56,28 +56,21 @@ interface ModuleOptions {
 	config: Partial<Config>;
 	fs: SedgeFileSystem;
 	cache: Record<string, string>;
-}
-interface LoadedModule {
-	result: any;
 	hash: string;
 }
 
 export async function loadModule(
 	path: string,
 	options: ModuleOptions,
-): Promise<LoadedModule> {
-	const { config, fs, cache } = options;
-	const source = fs.readTextFileSync(path);
-	const hash = hashFile(source);
+): Promise<any> {
+	const { config, fs, cache, hash } = options;
 
-	if (config.sedge?.cache && hash === cache[path]) {
-		return { result: undefined, hash };
-	}
+	if (config.sedge?.cache && hash === cache[path]) return undefined;
 
 	let result = await fs.import(`${toFileUrl(path).href}?hash=${hash}`);
 	result = applyConfig(result.default, config!);
 
-	return { result, hash };
+	return result;
 }
 
 export function applyConfig<Object extends Record<string, any>>(
@@ -93,6 +86,11 @@ export function applyConfig<Object extends Record<string, any>>(
 	);
 }
 
-export function hashFile(source: string): string {
+export function invalidateCache(path: string, fs: SedgeFileSystem): string {
+	const source = fs.readTextFileSync(path);
+	return hashFile(source);
+}
+
+function hashFile(source: string): string {
 	return new Md5().update(JSON.stringify(source)).toString();
 }
