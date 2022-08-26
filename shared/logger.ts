@@ -2,6 +2,7 @@ import { format } from 'datetime';
 import { bgRed, bgYellow, bold, cyan, dim, green } from 'fmt/colors.ts';
 
 interface Logger {
+	clear(): void;
 	log(...data: string[]): void;
 	info(...data: string[]): void;
 	success(...data: string[]): void;
@@ -16,30 +17,33 @@ function createLogger(): Logger {
 	const time = dim(format(new Date(), 'hh:mm:ss'));
 
 	return {
-		log(...data) {
-			console.log(formatData({ data, time }));
+		clear: () => console.clear(),
+		log: (...data) => console.log(formatData({ data, time })),
+		info: (...data) => {
+			return console.log(
+				formatData({ level: cyan(bold('i')), data, time }),
+			);
 		},
-		info(...data) {
-			console.log(formatData({ level: cyan(bold('i')), data, time }));
+		success: (...data) => {
+			return console.log(
+				formatData({ level: green(bold('✔')), data, time }),
+			);
 		},
-		success(...data) {
-			console.log(formatData({ level: green(bold('✔')), data, time }));
-		},
-		start(...data) {
-			console.log(
+		start: (...data) => {
+			return console.log(
 				formatData({ level: green(bold('start')), data, time }),
 			);
 		},
-		warn(...data) {
-			console.log(formatData({
+		warn: (...data) => {
+			return console.log(formatData({
 				spaceOut: true,
 				level: bgYellow(bold(' WARN ')),
 				data,
 				time,
 			}));
 		},
-		error(...data) {
-			console.log(formatData({
+		error: (...data) => {
+			return console.log(formatData({
 				spaceOut: true,
 				level: bgRed(bold(' ERROR ')),
 				data,
