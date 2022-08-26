@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import { logger } from '../shared/mod.ts';
-import { hashFile, loadModule } from './loaders.ts';
+import { invalidateCache, loadModule } from './loaders.ts';
 import { Sedge } from './mod.ts';
 import { findPathsInPacks, getTargetPath } from './path.ts';
 
@@ -19,10 +19,12 @@ export async function build(
 
 	const results = await Promise.allSettled([
 		...modules.map(async ({ path }) => {
-			const { result, hash } = await loadModule(resolve(path), {
+			const hash = invalidateCache(resolve(path), sedge.fs);
+			const result = await loadModule(resolve(path), {
 				cache,
 				config: sedge.config,
 				fs: sedge.fs,
+				hash,
 			});
 
 			if (sedge.config.sedge.cache) newCache[resolve(path)] = hash;
@@ -34,13 +36,10 @@ export async function build(
 		}),
 		...assets.map(({ path }) => {
 			if (sedge.config.sedge.cache) {
-				const source = sedge.fs.readTextFileSync(path);
-				const hash = hashFile(source);
-
+				const hash = invalidateCache(resolve(path), sedge.fs);
 				newCache[resolve(path)] = hash;
 
 				if (hash === cache[resolve(path)]) {
-					console.log(hash === cache[resolve(path)]);
 					return Promise.resolve('cacheHit');
 				}
 			}

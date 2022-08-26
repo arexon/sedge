@@ -17,10 +17,11 @@ const moduleResult = {
 };
 
 Deno.test('loadModule', async () => {
-	const { result } = await loadModule('/test.ts', {
+	const result = await loadModule('/test.ts', {
 		fs: testFileSystem,
 		config: { namespace: 'test' },
 		cache: {},
+		hash: '',
 	});
 
 	assertEquals(result, moduleResult);
