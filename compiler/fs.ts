@@ -6,6 +6,7 @@ import { toExtension } from './path.ts';
 export interface SedgeFileSystem {
 	import(path: string, type?: 'json'): Promise<any>;
 	readTextFileSync(path: string | URL): string;
+	copyFileSync(fromPath: string | URL, toPath: string | URL): void;
 	lstatSync(path: string | URL): Deno.FileInfo;
 	outputTextFileSync(path: string, data: string): void;
 	outputJsonFileSync(path: string, data: Record<string, any>): void;
@@ -18,6 +19,7 @@ export const sedgeFileSystem: SedgeFileSystem = {
 		return import(path);
 	},
 	readTextFileSync: (path) => Deno.readTextFileSync(path),
+	copyFileSync: (fromPath, toPath) => Deno.copyFileSync(fromPath, toPath),
 	lstatSync: (path) => Deno.lstatSync(path),
 	outputTextFileSync: (path, data) => {
 		Deno.mkdirSync(dirname(path), { recursive: true });
