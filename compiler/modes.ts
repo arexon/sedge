@@ -114,12 +114,6 @@ export async function dev(
 				}
 			}),
 			...[...filesToRemove].map((path) => {
-				try {
-					sedge.fs.lstatSync(resolve(getTargetPath(path, sedge)));
-				} catch {
-					filesToRemove.delete(path);
-				}
-
 				sedge.fs.removeSync(resolve(getTargetPath(path, sedge)));
 			}),
 		]);
