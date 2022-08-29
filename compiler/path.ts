@@ -1,5 +1,5 @@
 import { WalkEntry, walkSync } from 'fs';
-import { extname, globToRegExp, join, normalize } from 'path';
+import { extname, globToRegExp, join, normalize, relative } from 'path';
 import { logger } from '../shared/mod.ts';
 import { SedgeFileSystem } from './fs.ts';
 import { ConfigPacks } from './loaders.ts';
@@ -108,4 +108,8 @@ export function findMojangDir(fs: SedgeFileSystem): string {
 
 export function toExtension(path: string, newExtension: string): string {
 	return path.replace(extname(path), newExtension);
+}
+
+export function toRelative(path: string): string {
+	return relative(Deno.cwd(), path);
 }

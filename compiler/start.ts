@@ -1,8 +1,9 @@
-import { resolve, toFileUrl } from 'path';
-import { logger, SEDGE_CACHE_FILE } from '../shared/mod.ts';
+import { ensureDir } from 'fs';
+import { resolve } from 'path';
+import { logger } from '../shared/mod.ts';
 import { SedgeFileSystem, sedgeFileSystem } from './fs.ts';
-import { Config, loadConfig } from './loaders.ts';
-import { build } from './modes.ts';
+import { Config, ConfigPacks, loadConfig } from './loaders.ts';
+import { build, dev } from './modes.ts';
 import { findMojangDir } from './path.ts';
 
 export type SedgeMode = 'build' | 'dev' | 'devWebSocket';
@@ -47,8 +48,10 @@ export async function startSedge(options: {
 		sedge.config.sedge.targets,
 		sedge.target.name,
 	);
-	if (targetIsConfigured || targetIsDefault) await startMode(sedge);
-	else {
+	if (targetIsConfigured || targetIsDefault) {
+		await ensurePacksExist(sedge.config.packs);
+		await startMode(sedge);
+	} else {
 		logger.error(
 			`Target [${options.target}] does not match any configured target in [config.sedge.targets]`,
 		);
@@ -59,35 +62,12 @@ export async function startSedge(options: {
 async function startMode(sedge: Sedge): Promise<void> {
 	logger.info(`Via target [${sedge.target.name}] at (${sedge.target.path})`);
 
-	let cache: Record<string, string> = {};
-	if (sedge.config.sedge.cache) cache = await loadCacheData(sedge.fs);
-
-	if (sedge.mode === 'build') cache = await build(sedge, cache);
-	if (sedge.mode === 'dev') console.log('Dev mode');
+	if (sedge.mode === 'build') await build(sedge);
+	if (sedge.mode === 'dev') await dev(sedge);
 	if (sedge.mode === 'devWebSocket') console.log('Dev WebSocket mode');
-
-	if (sedge.config.sedge.cache) saveCacheData(sedge.fs, cache);
 }
 
-async function loadCacheData(
-	fs: SedgeFileSystem,
-): Promise<Record<string, string>> {
-	const cachePath = resolve(SEDGE_CACHE_FILE);
-
-	try {
-		return (await fs.import(toFileUrl(cachePath).href, 'json')).default;
-	} catch (_) {
-		fs.outputJsonFileSync(cachePath, {});
-		return {};
-	}
-}
-
-function saveCacheData(
-	fs: SedgeFileSystem,
-	cache: Record<string, string>,
-): void {
-	fs.outputJsonFileSync(
-		resolve(SEDGE_CACHE_FILE),
-		cache,
-	);
+async function ensurePacksExist(packs: ConfigPacks): Promise<void> {
+	await ensureDir(packs.behaviorPack);
+	await ensureDir(packs.resourcePack);
 }
