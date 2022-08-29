@@ -6,6 +6,7 @@
 		"datetime": "https://deno.land/std@0.153.0/datetime/mod.ts",
 		"fs": "https://deno.land/std@0.153.0/fs/mod.ts",
 		"testing/": "https://deno.land/std@0.153.0/testing/",
-		"hash/": "https://deno.land/std@0.153.0/hash/"
+		"hash/": "https://deno.land/std@0.153.0/hash/",
+		"async": "https://deno.land/std@0.153.0/async/mod.ts"
 	}
 }
