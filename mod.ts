@@ -1,6 +1,1 @@
-import { startSedge } from './compiler/mod.ts';
-
-await startSedge({
-	mode: 'build',
-	target: 'default',
-});
+export * from './core/mod.ts';
