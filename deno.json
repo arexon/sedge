@@ -1,6 +1,7 @@
 {
 	"tasks": {
-		"dev": "cd playground && deno run -A ../mod.ts",
+		"build": "cd playground && sedge build",
+		"dev": "cd playground && sedge dev -t prototype",
 		"lint": "deno lint --ignore=playground && deno fmt --ignore=playground",
 		"fmt": "deno fmt --ignore=playground",
 		"test": "deno test -A"

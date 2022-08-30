@@ -7,6 +7,7 @@
 		"fs": "https://deno.land/std@0.153.0/fs/mod.ts",
 		"testing/": "https://deno.land/std@0.153.0/testing/",
 		"hash/": "https://deno.land/std@0.153.0/hash/",
-		"async": "https://deno.land/std@0.153.0/async/mod.ts"
+		"async": "https://deno.land/std@0.153.0/async/mod.ts",
+		"cliffy/": "https://deno.land/x/cliffy@v0.24.3/"
 	}
 }
