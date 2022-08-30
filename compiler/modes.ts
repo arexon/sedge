@@ -157,25 +157,27 @@ function logCompilationInfo(
 	results: PromiseSettledResult<string | void>[],
 	startTime: number,
 ): void {
-	let cacheHits = 0;
-	let cacheMisses = 0;
-	for (const result of results) {
+	const { cacheHits, cacheMisses } = results.reduceRight((prev, result) => {
 		if (result.status === 'fulfilled') {
-			if (result.value === 'cacheHit') cacheHits++;
-			else if (result.value === 'cacheMiss') cacheMisses++;
+			if (result.value === 'cacheHit') {
+				return { ...prev, ...{ cacheHits: 1 + prev.cacheHits } };
+			} else if (result.value === 'cacheMiss') {
+				return { ...prev, ...{ cacheMisses: 1 + prev.cacheMisses } };
+			}
 		}
-	}
+		return prev;
+	}, { cacheHits: 0, cacheMisses: 0 });
 
-	let cacheStatus = '';
-	if (cacheMisses === 0) cacheStatus = '(>>>) [FULL TURBO]';
-	else if (cacheMisses > 0 && cacheHits > 0) {
-		cacheStatus = `(>>>) [${cacheHits}] cache hits`;
-	}
+	const cacheStatus = cacheMisses === 0
+		? '(>>>) [FULL TURBO]'
+		: cacheMisses > 0 && cacheHits > 0
+		? `(>>>) [${cacheHits}] cache hits`
+		: '';
 
 	logger.success(
-		`Compiled [${cacheHits + cacheMisses}] files in ${
+		`Compiled [${cacheHits + cacheMisses}] files in [${
 			Date.now() - startTime
-		} ms`,
+		} ms]`,
 		cacheStatus,
 	);
 }
