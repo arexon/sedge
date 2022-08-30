@@ -1,4 +1,4 @@
-import { Command } from 'cliffy/command/command.ts';
+import { Command } from 'cliffy/command/mod.ts';
 import { logger, SEDGE_CACHE_FILE } from '../../shared/mod.ts';
 
 export const clean = new Command()
