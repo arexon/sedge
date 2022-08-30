@@ -1,4 +1,4 @@
-import { Command } from 'cliffy/command/command.ts';
+import { Command } from 'cliffy/command/mod.ts';
 import { startSedge } from '../../compiler/mod.ts';
 
 export const dev = new Command()
