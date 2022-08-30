@@ -11,11 +11,6 @@ Deno.test('loadConfig', async () => {
 	assertObjectMatch(config, { identifier: 'foo' });
 });
 
-const moduleResult = {
-	type: 'foobar',
-	data: { identifier: 'test:foo' },
-};
-
 Deno.test('loadModule', async () => {
 	const result = await loadModule('/test.ts', {
 		fs: testFileSystem,
@@ -24,16 +19,26 @@ Deno.test('loadModule', async () => {
 		hash: '',
 	});
 
-	assertEquals(result, moduleResult);
+	assertEquals(result, {
+		type: 'foobar',
+		data: { identifier: 'test:foo' },
+	});
 });
 
-Deno.test('applyConfig: with config', () => {
-	assertEquals(
-		applyConfig(moduleResult, { namespace: 'test' }),
-		moduleResult,
-	);
-});
+Deno.test('applyConfig', async ({ step }) => {
+	const moduleResult = {
+		type: 'foobar',
+		data: { identifier: 'test:foo' },
+	};
 
-Deno.test('applyConfig: without config', () => {
-	assertEquals(applyConfig(moduleResult, {}), moduleResult);
+	await step('with config', () => {
+		assertEquals(
+			applyConfig(moduleResult, { namespace: 'test' }),
+			moduleResult,
+		);
+	});
+
+	await step('without config', () => {
+		assertEquals(applyConfig(moduleResult, {}), moduleResult);
+	});
 });
