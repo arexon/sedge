@@ -3,7 +3,7 @@ import { assertEquals } from 'testing/asserts.ts';
 import { Sedge } from './mod.ts';
 import { getMojangDirPack, getTargetPath, toExtension } from './path.ts';
 
-Deno.test('getTargetPath', async (t) => {
+Deno.test('getTargetPath', async ({ step }) => {
 	const sedge = {
 		config: {
 			name: 'test',
@@ -18,7 +18,7 @@ Deno.test('getTargetPath', async (t) => {
 		},
 	} as Sedge;
 
-	await t.step('should return `com.mojang` packs paths', () => {
+	await step('should return `com.mojang` packs paths', () => {
 		assertEquals(
 			getTargetPath(join('packs', 'BP', 'blocks', 'foo.ts'), sedge),
 			join(
@@ -43,7 +43,7 @@ Deno.test('getTargetPath', async (t) => {
 		);
 	});
 
-	await t.step('should return a path to the target directory', () => {
+	await step('should return a path to the target directory', () => {
 		sedge.target.path = './build';
 		sedge.target.isMojangDir = false;
 
@@ -58,15 +58,20 @@ Deno.test('getTargetPath', async (t) => {
 	});
 });
 
-Deno.test('getMojangDirPack', () => {
-	assertEquals(
-		getMojangDirPack('foo', 'BP', 'bar'),
-		join('bar', 'development_behavior_packs', 'foo BP'),
-	);
-	assertEquals(
-		getMojangDirPack('foo', 'RP', 'bar'),
-		join('bar', 'development_resource_packs', 'foo RP'),
-	);
+Deno.test('getMojangDirPack', async ({ step }) => {
+	await step('Should get a path to BP in `com.mojang`', () => {
+		assertEquals(
+			getMojangDirPack('foo', 'BP', 'bar'),
+			join('bar', 'development_behavior_packs', 'foo BP'),
+		);
+	});
+
+	await step('Should get a path to RP in `com.mojang`', () => {
+		assertEquals(
+			getMojangDirPack('foo', 'RP', 'bar'),
+			join('bar', 'development_resource_packs', 'foo RP'),
+		);
+	});
 });
 
 Deno.test('toExtension', () => {
