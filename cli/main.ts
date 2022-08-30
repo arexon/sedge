@@ -4,7 +4,7 @@ import {
 	UpgradeCommand,
 } from 'cliffy/command/upgrade/mod.ts';
 import { SEDGE_VERSION } from '../shared/mod.ts';
-import { build, clean, dev } from './commands/mod.ts';
+import { build, clean, dev, init } from './commands/mod.ts';
 
 await new Command()
 	.name('sedge')
@@ -26,5 +26,6 @@ await new Command()
 	)
 	.command('build', build)
 	.command('dev', dev)
+	.command('init', init)
 	.command('clean', clean)
 	.parse(Deno.args);
