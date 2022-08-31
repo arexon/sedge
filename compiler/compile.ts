@@ -20,7 +20,6 @@ export async function compileModule(
 	const { sedge, path, cache, updateCache } = options;
 	const source = sedge.fs.readTextFileSync(path);
 	const hash = invalidateCache(source, sedge.config);
-	console.log(hash);
 
 	const result = await loadModule(resolve(path), {
 		config: sedge.config,
