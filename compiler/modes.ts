@@ -1,4 +1,5 @@
 import { debounce } from 'async';
+import { stop } from 'esbuild';
 import { extname, resolve } from 'path';
 import { logger } from '../shared/mod.ts';
 import { filterUnusedCache, loadCache, saveCache } from './cache.ts';
@@ -59,10 +60,7 @@ export async function build(sedge: Sedge): Promise<void> {
 	saveCache(cacheFile, newCache, sedge.fs);
 	logCompilationInfo(results, startTime);
 
-	if (scripts.length > 0) {
-		// This is for esbuild's `transformSync` child process to stop once the project is compiled
-		Deno.exit(0);
-	}
+	if (scripts.length > 0) stop();
 }
 
 export async function dev(sedge: Sedge): Promise<void> {

@@ -7,7 +7,7 @@ import { Sedge } from './start.ts';
 
 export function findPathsInPacks(options: {
 	packs: Partial<ConfigPacks>;
-	ignorePaths?: string[];
+	ignorePaths: string[];
 }): {
 	modules: WalkEntry[];
 	assets: WalkEntry[];
@@ -21,7 +21,7 @@ export function findPathsInPacks(options: {
 		globToRegExp(join(BP, '**/*.ts')),
 	];
 
-	const ignoredPaths = options.ignorePaths?.map((path) => {
+	const ignoredPaths = options.ignorePaths.map((path) => {
 		return globToRegExp(path);
 	});
 
@@ -32,7 +32,7 @@ export function findPathsInPacks(options: {
 			skip: [
 				globToRegExp(join(BP, 'components/**')),
 				globToRegExp(join(BP, 'scripts/**')),
-				...(ignoredPaths || []),
+				...ignoredPaths,
 			],
 		})),
 	];
@@ -46,7 +46,7 @@ export function findPathsInPacks(options: {
 			skip: [
 				globToRegExp(join(BP, 'scripts/**')),
 				...moduleGlobs,
-				...(ignoredPaths || []),
+				...ignoredPaths,
 			],
 		})),
 	];

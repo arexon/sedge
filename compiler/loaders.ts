@@ -19,7 +19,8 @@ export interface Config {
 		targets: {
 			[name: string]: string;
 		};
-		ignorePaths?: string[];
+		ignorePaths: string[];
+		minify: boolean;
 	};
 }
 
@@ -38,6 +39,8 @@ export function loadConfig(
 		},
 		sedge: {
 			targets: { default: './build' },
+			ignorePaths: [],
+			minify: false,
 		},
 	};
 
