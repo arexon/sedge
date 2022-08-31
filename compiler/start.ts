@@ -23,7 +23,7 @@ export async function startSedge(options: {
 	mode: SedgeMode;
 	target: string;
 }): Promise<void> {
-	const config = await loadConfig(resolve('config.json'), sedgeFileSystem);
+	const config = loadConfig(resolve('config.json'), sedgeFileSystem);
 	const sedge: Sedge = {
 		config,
 		mode: options.mode,

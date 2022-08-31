@@ -24,10 +24,10 @@ export interface Config {
 	};
 }
 
-export async function loadConfig(
+export function loadConfig(
 	path: string,
 	fs: SedgeFileSystem,
-): Promise<Config> {
+): Config {
 	let config: Partial<Config> = {};
 	const defaults: Config = {
 		name: 'sedge-project',
@@ -43,7 +43,7 @@ export async function loadConfig(
 	};
 
 	try {
-		config = (await fs.import(toFileUrl(path).href, 'json')).default;
+		config = fs.readJsonFileSync(path);
 	} catch {
 		logger.warn('No [config.json] found, using defaults');
 	}
