@@ -28,7 +28,7 @@ export async function build(sedge: Sedge): Promise<void> {
 				hash,
 			});
 
-			if (sedge.config.sedge.cache) newCache[resolve(path)] = hash;
+			newCache[resolve(path)] = hash;
 			if (result === undefined) return Promise.resolve('cacheHit');
 
 			sedge.fs.outputModule(resolve(getTargetPath(path, sedge)), result);
@@ -36,13 +36,11 @@ export async function build(sedge: Sedge): Promise<void> {
 			return Promise.resolve('cacheMiss');
 		}),
 		...assets.map(({ path }) => {
-			if (sedge.config.sedge.cache) {
-				const hash = invalidateCache(resolve(path), sedge.fs);
-				newCache[resolve(path)] = hash;
+			const hash = invalidateCache(resolve(path), sedge.fs);
+			newCache[resolve(path)] = hash;
 
-				if (hash === oldCache[resolve(path)]) {
-					return Promise.resolve('cacheHit');
-				}
+			if (hash === oldCache[resolve(path)]) {
+				return Promise.resolve('cacheHit');
 			}
 
 			sedge.fs.copyFileSync(path, resolve(getTargetPath(path, sedge)));
@@ -90,9 +88,7 @@ export async function dev(
 						hash,
 					});
 
-					if (sedge.config.sedge.cache) {
-						newCache[resolve(path)] = hash;
-					}
+					newCache[resolve(path)] = hash;
 					if (result === undefined) return;
 
 					sedge.fs.outputModule(
@@ -100,12 +96,10 @@ export async function dev(
 						result,
 					);
 				} else {
-					if (sedge.config.sedge.cache) {
-						const hash = invalidateCache(resolve(path), sedge.fs);
-						newCache[resolve(path)] = hash;
+					const hash = invalidateCache(resolve(path), sedge.fs);
+					newCache[resolve(path)] = hash;
 
-						if (hash === oldCache[resolve(path)]) return;
-					}
+					if (hash === oldCache[resolve(path)]) return;
 
 					sedge.fs.outputTextFileSync(
 						resolve(getTargetPath(path, sedge)),

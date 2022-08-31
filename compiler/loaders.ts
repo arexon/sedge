@@ -21,7 +21,6 @@ export interface Config {
 			[name: string]: string;
 		};
 		ignorePaths?: string[];
-		cache: boolean;
 	};
 }
 
@@ -40,7 +39,6 @@ export async function loadConfig(
 		},
 		sedge: {
 			targets: { default: './build' },
-			cache: true,
 		},
 	};
 
@@ -65,9 +63,8 @@ export async function loadModule(
 	options: ModuleOptions,
 ): Promise<any> {
 	const { config, fs, cache, hash } = options;
-	const isCached = config.sedge?.cache && hash === cache[path];
 
-	if (isCached) return undefined;
+	if (hash === cache[path]) return undefined;
 
 	let result = await fs.import(`${toFileUrl(path).href}?hash=${hash}`);
 	result = applyConfig(result.default, config);
