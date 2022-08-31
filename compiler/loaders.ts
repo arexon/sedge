@@ -1,5 +1,4 @@
 import { deepMerge } from 'collection/deep_merge.ts';
-import { Md5 } from 'hash/md5.ts';
 import { toFileUrl } from 'path';
 import { logger, SEDGE_NAMESPACE } from '../shared/mod.ts';
 import { CacheRecord } from './cache.ts';
@@ -83,12 +82,4 @@ export function applyConfig<Object extends Record<string, any>>(
 			config.namespace || '',
 		),
 	);
-}
-
-export function invalidateCache(path: string, fs: SedgeFileSystem): string {
-	const source = fs.readTextFileSync(path);
-
-	return new Md5().update(
-		typeof source === 'object' ? JSON.stringify(source) : source,
-	).toString();
 }
