@@ -24,13 +24,13 @@ function createLogger(): Logger {
 		start: (...data) =>
 			console.log(formatData({ level: green(bold('start')), data })),
 		warn: (...data) =>
-			console.log(formatData({
+			console.warn(formatData({
 				spaceOut: true,
 				level: bgYellow(bold(' WARN ')),
 				data,
 			})),
 		error: (...data) =>
-			console.log(formatData({
+			console.error(formatData({
 				spaceOut: true,
 				level: bgRed(bold(' ERROR ')),
 				data,
