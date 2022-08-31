@@ -3,6 +3,7 @@ import { WalkEntry } from 'fs';
 import { Md5 } from 'hash/md5.ts';
 import { join, resolve } from 'path';
 import { SedgeFileSystem } from './fs.ts';
+import { Config } from './loaders.ts';
 
 export type CacheRecord = Record<string, string>;
 
@@ -35,8 +36,6 @@ export function filterUnusedCache(
 	return filterEntries(cache, ([path, _]) => paths.includes(path));
 }
 
-export function invalidateCache(source: string): string {
-	return new Md5().update(
-		typeof source === 'object' ? JSON.stringify(source) : source,
-	).toString();
+export function invalidateCache(source: string, config: Config): string {
+	return new Md5().update(JSON.stringify({ source, config })).toString();
 }

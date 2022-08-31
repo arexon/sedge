@@ -19,7 +19,9 @@ export async function compileModule(
 ): CompileResult {
 	const { sedge, path, cache, updateCache } = options;
 	const source = sedge.fs.readTextFileSync(path);
-	const hash = invalidateCache(source);
+	const hash = invalidateCache(source, sedge.config);
+	console.log(hash);
+
 	const result = await loadModule(resolve(path), {
 		config: sedge.config,
 		fs: sedge.fs,
@@ -44,7 +46,7 @@ export function compileAsset(
 ): CompileResult {
 	const { sedge, path, cache, updateCache } = options;
 	const source = sedge.fs.readTextFileSync(path);
-	const hash = invalidateCache(source);
+	const hash = invalidateCache(source, sedge.config);
 
 	if (hash === cache[resolve(path)]) return Promise.resolve('cacheHit');
 	updateCache(hash);
@@ -63,7 +65,7 @@ export async function compileScript(
 ): CompileResult {
 	const { sedge, path, cache, updateCache } = options;
 	const source = sedge.fs.readTextFileSync(path);
-	const hash = invalidateCache(source);
+	const hash = invalidateCache(source, sedge.config);
 
 	if (hash === cache[resolve(path)]) return Promise.resolve('cacheHit');
 	updateCache(hash);
