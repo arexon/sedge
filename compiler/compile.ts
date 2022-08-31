@@ -1,6 +1,6 @@
 import { resolve } from 'path';
-import { CacheRecord } from './cache.ts';
-import { invalidateCache, loadModule } from './loaders.ts';
+import { CacheRecord, invalidateCache } from './cache.ts';
+import { loadModule } from './loaders.ts';
 import { Sedge } from './mod.ts';
 import { getTargetPath } from './path.ts';
 

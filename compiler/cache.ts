@@ -1,5 +1,6 @@
 import { filterEntries } from 'collection/filter_entries.ts';
 import { WalkEntry } from 'fs';
+import { Md5 } from 'hash/md5.ts';
 import { resolve } from 'path';
 import { SEDGE_CACHE_FILE } from '../shared/mod.ts';
 import { SedgeFileSystem } from './fs.ts';
@@ -11,7 +12,7 @@ export function loadCache(fs: SedgeFileSystem): CacheRecord {
 
 	try {
 		return fs.readJsonFileSync(cachePath);
-	} catch (_) {
+	} catch {
 		fs.outputJsonFileSync(cachePath, {});
 		return {};
 	}
@@ -36,4 +37,12 @@ export function filterUnusedCache(
 	);
 
 	return filterEntries(cache, ([path, _]) => paths.includes(path));
+}
+
+export function invalidateCache(path: string, fs: SedgeFileSystem): string {
+	const source = fs.readTextFileSync(path);
+
+	return new Md5().update(
+		typeof source === 'object' ? JSON.stringify(source) : source,
+	).toString();
 }
