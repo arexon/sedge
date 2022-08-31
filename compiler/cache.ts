@@ -11,7 +11,7 @@ export function loadCache(file: string, fs: SedgeFileSystem): CacheRecord {
 	try {
 		return fs.readJsonFileSync(path);
 	} catch {
-		fs.outputJsonFileSync(path, {});
+		fs.outputJsonFileSync(path, {}, false);
 		return {};
 	}
 }
@@ -21,10 +21,7 @@ export function saveCache(
 	cache: CacheRecord,
 	fs: SedgeFileSystem,
 ): void {
-	fs.outputJsonFileSync(
-		join('.sedge', file),
-		cache,
-	);
+	fs.outputJsonFileSync(join('.sedge', file), cache, false);
 }
 
 export function filterUnusedCache(

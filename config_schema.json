@@ -56,6 +56,11 @@
 					"description": "Lists glob patterns pointing to paths to ignore when building the project.",
 					"type": "array",
 					"items": { "type": "string" }
+				},
+				"minify": {
+					"description": "Minify JavaScript/TypeScript, MoLang, and JSON.",
+					"type": "boolean",
+					"default": false
 				}
 			}
 		}

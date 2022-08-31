@@ -1,4 +1,4 @@
-import { dirname } from 'path';
+import { dirname, extname } from 'path';
 import { Result } from '../core/types.ts';
 import { toExtension } from './path.ts';
 
@@ -11,8 +11,21 @@ export interface SedgeFileSystem {
 
 	readJsonFileSync(path: string): Record<string, any>;
 	outputTextFileSync(path: string, data: string): void;
-	outputJsonFileSync(path: string, data: Record<string, any>): void;
-	outputModule(path: string, result: Result<any>): void;
+	outputJsonFileSync(
+		path: string,
+		data: Record<string, any>,
+		minify: boolean,
+	): void;
+	outputModule(
+		path: string,
+		result: Result<any>,
+		minify: boolean,
+	): void;
+	outputAsset(
+		path: string,
+		data: any,
+		minify: boolean,
+	): void;
 }
 
 export const sedgeFileSystem: SedgeFileSystem = {
@@ -30,17 +43,18 @@ export const sedgeFileSystem: SedgeFileSystem = {
 		Deno.mkdirSync(dirname(path), { recursive: true });
 		Deno.writeTextFileSync(path, data);
 	},
-	outputJsonFileSync: (path, data) => {
+	outputJsonFileSync: (path, data, minify) => {
 		sedgeFileSystem.outputTextFileSync(
 			path,
-			JSON.stringify(data, null, '\t'),
+			JSON.stringify(data, undefined, minify ? undefined : '\t'),
 		);
 	},
-	outputModule: (path, result) => {
+	outputModule: (path, result, minify) => {
 		if (result.type === 'gameElement') {
 			return sedgeFileSystem.outputJsonFileSync(
 				toExtension(path, '.json'),
 				result.data,
+				minify,
 			);
 		}
 
@@ -48,9 +62,17 @@ export const sedgeFileSystem: SedgeFileSystem = {
 			return sedgeFileSystem.outputJsonFileSync(
 				toExtension(path, '.json'),
 				result.data,
+				minify,
 			);
 		} else {
 			return sedgeFileSystem.outputTextFileSync(path, result.data);
+		}
+	},
+	outputAsset: (path, data, minify) => {
+		if (extname(path) === '.json') {
+			sedgeFileSystem.outputJsonFileSync(path, JSON.parse(data), minify);
+		} else {
+			sedgeFileSystem.outputTextFileSync(path, data);
 		}
 	},
 };

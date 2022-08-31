@@ -1,4 +1,4 @@
-import { transform } from 'esbuild';
+import { Loader, transform } from 'esbuild';
 import { extname, resolve } from 'path';
 import { CacheRecord, invalidateCache } from './cache.ts';
 import { loadModule } from './loaders.ts';
@@ -30,7 +30,11 @@ export async function compileModule(
 	updateCache(hash);
 	if (result === undefined) return Promise.resolve('cacheHit');
 
-	sedge.fs.outputModule(resolve(getTargetPath(path, sedge)), result);
+	sedge.fs.outputModule(
+		resolve(getTargetPath(path, sedge)),
+		result,
+		sedge.config.sedge.minify,
+	);
 
 	return Promise.resolve('cacheMiss');
 }
@@ -45,7 +49,11 @@ export function compileAsset(
 	if (hash === cache[resolve(path)]) return Promise.resolve('cacheHit');
 	updateCache(hash);
 
-	sedge.fs.outputTextFileSync(resolve(getTargetPath(path, sedge)), source);
+	sedge.fs.outputAsset(
+		resolve(getTargetPath(path, sedge)),
+		source,
+		sedge.config.sedge.minify,
+	);
 
 	return Promise.resolve('cacheMiss');
 }
@@ -54,16 +62,19 @@ export async function compileScript(
 	options: CompileOptions,
 ): CompileResult {
 	const { sedge, path, cache, updateCache } = options;
-	let source = sedge.fs.readTextFileSync(path);
+	const source = sedge.fs.readTextFileSync(path);
 	const hash = invalidateCache(source);
 
 	if (hash === cache[resolve(path)]) return Promise.resolve('cacheHit');
 	updateCache(hash);
 
-	if (extname(path) === '.ts') source = (await transform(source)).code;
+	const loader = extname(path).substring(1) as Loader;
 	sedge.fs.outputTextFileSync(
 		resolve(toExtension(getTargetPath(path, sedge), '.js')),
-		source,
+		(await transform(source, {
+			loader,
+			minify: sedge.config.sedge.minify,
+		})).code,
 	);
 
 	return Promise.resolve('cacheMiss');
