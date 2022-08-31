@@ -8,6 +8,7 @@
 		"testing/": "https://deno.land/std@0.153.0/testing/",
 		"hash/": "https://deno.land/std@0.153.0/hash/",
 		"async": "https://deno.land/std@0.153.0/async/mod.ts",
-		"cliffy/": "https://deno.land/x/cliffy@v0.24.3/"
+		"cliffy/": "https://deno.land/x/cliffy@v0.24.3/",
+		"esbuild": "https://deno.land/x/esbuild@v0.15.6/mod.js"
 	}
 }
