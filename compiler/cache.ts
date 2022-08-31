@@ -6,9 +6,7 @@ import { SedgeFileSystem } from './fs.ts';
 
 export type CacheRecord = Record<string, string>;
 
-export function loadCache(
-	fs: SedgeFileSystem,
-): CacheRecord {
+export function loadCache(fs: SedgeFileSystem): CacheRecord {
 	const cachePath = resolve(SEDGE_CACHE_FILE);
 
 	try {
