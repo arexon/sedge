@@ -43,6 +43,14 @@ export const init = new Command()
 				data: ['.DS_Store', '.sedge', 'build'].join('\n'),
 			},
 			{
+				path: join(dir, '.vscode', 'settings.json'),
+				data: stringify({
+					'deno.enable': true,
+					'deno.importMap': 'import_map.json',
+					'editor.defaultFormatter': 'denoland.vscode-deno',
+				}),
+			},
+			{
 				path: join(dir, 'config.json'),
 				data: stringify({
 					$schema: `${baseUrl}/config_schema.json`,
