@@ -1,14 +1,14 @@
 import { assertEquals } from 'testing/asserts.ts';
 import { defineRecipe } from './recipe.ts';
 
-const description = {
-	description: {
-		identifier: '__SEDGE_NAMESPACE__:foo_recipe',
-	},
-};
-
 Deno.test('defineRecipe', async ({ step }) => {
-	await step('Should return a shaped recipe', () => {
+	const description = {
+		description: {
+			identifier: '__SEDGE_NAMESPACE__:foo_recipe',
+		},
+	};
+
+	await step('should return a shaped recipe', () => {
 		assertEquals(
 			defineRecipe(({ namespace, shaped }) => {
 				shaped({
@@ -41,7 +41,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 		);
 	});
 
-	await step('Should return a shapeless recipe', () => {
+	await step('should return a shapeless recipe', () => {
 		assertEquals(
 			defineRecipe(({ namespace, shapeless }) => {
 				shapeless({
@@ -74,7 +74,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 		);
 	});
 
-	await step('Should return a furnace recipe', () => {
+	await step('should return a furnace recipe', () => {
 		assertEquals(
 			defineRecipe(({ namespace, furnace }) => {
 				furnace({
@@ -101,7 +101,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 		);
 	});
 
-	await step('Brewing', async ({ step }) => {
+	await step('brewing', async ({ step }) => {
 		const brewingTemplate: any = {
 			tags: ['brewing_stand'],
 			input: 'minecraft:potion',
@@ -109,7 +109,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 			reagent: 'minecraft:gunpowder',
 		};
 
-		await step('Should return a brewing container recipe', () => {
+		await step('should return a brewing container recipe', () => {
 			assertEquals(
 				defineRecipe(({ namespace, brewing }) => {
 					brewing('container', {
@@ -132,7 +132,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 			);
 		});
 
-		await step('Should return a brewing mix recipe', () => {
+		await step('should return a brewing mix recipe', () => {
 			assertEquals(
 				defineRecipe(({ namespace, brewing }) => {
 					brewing('mix', {
