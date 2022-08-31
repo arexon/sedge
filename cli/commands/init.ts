@@ -22,14 +22,13 @@ export const init = new Command()
 		}
 
 		const stringify = (value: any) => JSON.stringify(value, null, '\t');
+
+		const baseUrl = `https://deno.land/x/sedge@${SEDGE_VERSION}`;
 		const files: Array<Record<'path' | 'data', string>> = [
 			{
 				path: join(dir, 'import_map.json'),
 				data: stringify({
-					imports: {
-						sedge:
-							`https://deno.land/x/sedge@${SEDGE_VERSION}/mod.ts`,
-					},
+					imports: { sedge: `${baseUrl}/mod.ts` },
 				}),
 			},
 			{
@@ -46,6 +45,7 @@ export const init = new Command()
 			{
 				path: join(dir, 'config.json'),
 				data: stringify({
+					$schema: `${baseUrl}/config_schema.json`,
 					name: 'sedge-starter',
 					namespace: 'starter',
 				}),
