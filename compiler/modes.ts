@@ -15,7 +15,8 @@ export async function build(sedge: Sedge): Promise<void> {
 
 	if (assets.length === 0 && modules.length === 0) return;
 
-	const oldCache = loadCache(sedge.fs);
+	const cacheFile = `${sedge.target.name}_cache.json`;
+	const oldCache = loadCache(cacheFile, sedge.fs);
 	const newCache = filterUnusedCache(oldCache, [...assets, ...modules]);
 
 	const results = await Promise.allSettled([
@@ -42,7 +43,7 @@ export async function build(sedge: Sedge): Promise<void> {
 		// TODO: compile scripts
 	]);
 
-	saveCache(newCache, sedge.fs);
+	saveCache(cacheFile, newCache, sedge.fs);
 	logCompilationInfo(results, startTime);
 }
 
@@ -55,7 +56,8 @@ export async function dev(sedge: Sedge): Promise<void> {
 
 		logger.clear();
 
-		const oldCache = loadCache(sedge.fs);
+		const cacheFile = `${sedge.target.name}_cache.json`;
+		const oldCache = loadCache(cacheFile, sedge.fs);
 		const newCache = { ...oldCache };
 
 		await Promise.all([
@@ -94,7 +96,7 @@ export async function dev(sedge: Sedge): Promise<void> {
 		logChangesInfo([...filesToRemove], 'remove');
 		filesToUpdate.clear();
 		filesToRemove.clear();
-		saveCache(newCache, sedge.fs);
+		saveCache(cacheFile, newCache, sedge.fs);
 	};
 
 	const updateFileSets = debounce(async ({ kind, paths }: Deno.FsEvent) => {

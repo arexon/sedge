@@ -20,11 +20,11 @@ const cache: CacheRecord = {
 };
 
 Deno.test('loadCache', () => {
-	assertEquals(loadCache(fs), cache);
+	assertEquals(loadCache('foo_cache.json', fs), cache);
 });
 
 Deno.test('saveCache', () => {
-	saveCache(cache, fs);
+	saveCache('foo_cache.json', cache, fs);
 });
 
 Deno.test('filterUnusedCache', async ({ step }) => {
