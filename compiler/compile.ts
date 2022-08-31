@@ -38,7 +38,6 @@ export function compileAsset(options: CompileOptions) {
 	const hash = invalidateCache(resolve(path), sedge.fs);
 
 	if (hash === cache[resolve(path)]) return cacheHit;
-
 	updateCache(hash);
 
 	sedge.fs.copyFileSync(path, resolve(getTargetPath(path, sedge)));
