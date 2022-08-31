@@ -25,8 +25,6 @@ export async function build(sedge: Sedge): Promise<void> {
 				path,
 				sedge,
 				cache: newCache,
-				cacheHit: Promise.resolve('cacheHit'),
-				cacheMiss: Promise.resolve('cacheMiss'),
 				updateCache: (hash) => newCache[resolve(path)] = hash,
 			});
 		}),
@@ -35,8 +33,6 @@ export async function build(sedge: Sedge): Promise<void> {
 				path,
 				sedge,
 				cache: newCache,
-				cacheHit: Promise.resolve('cacheHit'),
-				cacheMiss: Promise.resolve('cacheMiss'),
 				updateCache: (hash) => newCache[resolve(path)] = hash,
 			});
 		}),
