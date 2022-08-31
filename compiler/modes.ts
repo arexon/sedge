@@ -2,22 +2,32 @@ import { debounce } from 'async';
 import { extname, resolve } from 'path';
 import { logger } from '../shared/mod.ts';
 import { filterUnusedCache, loadCache, saveCache } from './cache.ts';
-import { compileAsset, compileModule } from './compile.ts';
+import { compileAsset, compileModule, compileScript } from './compile.ts';
 import { Sedge } from './mod.ts';
 import { findPathsInPacks, getTargetPath, toRelative } from './path.ts';
 
 export async function build(sedge: Sedge): Promise<void> {
 	const startTime = Date.now();
-	const { assets, modules } = findPathsInPacks({
+	const { assets, modules, scripts } = findPathsInPacks({
 		packs: sedge.config.packs,
 		ignorePaths: sedge.config.sedge.ignorePaths,
 	});
 
-	if (assets.length === 0 && modules.length === 0) return;
+	if (
+		assets.length === 0 &&
+		modules.length === 0 &&
+		scripts.length === 0
+	) {
+		return;
+	}
 
 	const cacheFile = `${sedge.target.name}_cache.json`;
 	const oldCache = loadCache(cacheFile, sedge.fs);
-	const newCache = filterUnusedCache(oldCache, [...assets, ...modules]);
+	const newCache = filterUnusedCache(oldCache, [
+		...assets,
+		...modules,
+		...scripts,
+	]);
 
 	const results = await Promise.allSettled([
 		...modules.map(async ({ path }) => {
@@ -28,19 +38,31 @@ export async function build(sedge: Sedge): Promise<void> {
 				updateCache: (hash) => newCache[resolve(path)] = hash,
 			});
 		}),
-		...assets.map(({ path }) => {
-			return compileAsset({
+		...assets.map(async ({ path }) => {
+			return await compileAsset({
 				path,
 				sedge,
 				cache: newCache,
 				updateCache: (hash) => newCache[resolve(path)] = hash,
 			});
 		}),
-		// TODO: compile scripts
+		...scripts.map(async ({ path }) => {
+			return await compileScript({
+				path,
+				sedge,
+				cache: newCache,
+				updateCache: (hash) => newCache[resolve(path)] = hash,
+			});
+		}),
 	]);
 
 	saveCache(cacheFile, newCache, sedge.fs);
 	logCompilationInfo(results, startTime);
+
+	if (scripts.length > 0) {
+		// This is for esbuild's `transformSync` child process to stop once the project is compiled
+		Deno.exit(0);
+	}
 }
 
 export async function dev(sedge: Sedge): Promise<void> {
@@ -71,15 +93,22 @@ export async function dev(sedge: Sedge): Promise<void> {
 					return;
 				}
 
-				if (extname(path) === '.ts') {
+				if (extname(path) === '.ts' && !path.includes('scripts')) {
 					return await compileModule({
 						path,
 						sedge,
 						cache: newCache,
 						updateCache: (hash) => newCache[resolve(path)] = hash,
 					});
+				} else if (path.includes('scripts')) {
+					return await compileScript({
+						path,
+						sedge,
+						cache: newCache,
+						updateCache: (hash) => newCache[resolve(path)] = hash,
+					});
 				} else {
-					return compileAsset({
+					return await compileAsset({
 						path,
 						sedge,
 						cache: newCache,

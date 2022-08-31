@@ -38,9 +38,7 @@ export function filterUnusedCache(
 	return filterEntries(cache, ([path, _]) => paths.includes(path));
 }
 
-export function invalidateCache(path: string, fs: SedgeFileSystem): string {
-	const source = fs.readTextFileSync(path);
-
+export function invalidateCache(source: string): string {
 	return new Md5().update(
 		typeof source === 'object' ? JSON.stringify(source) : source,
 	).toString();

@@ -11,6 +11,7 @@ export function findPathsInPacks(options: {
 }): {
 	modules: WalkEntry[];
 	assets: WalkEntry[];
+	scripts: WalkEntry[];
 } {
 	const BP = options.packs.behaviorPack!;
 	const RP = options.packs.resourcePack!;
@@ -42,11 +43,21 @@ export function findPathsInPacks(options: {
 				globToRegExp(join(RP, '**/*')),
 				globToRegExp(join(BP, '**/*')),
 			],
-			skip: [...moduleGlobs, ...(ignoredPaths || [])],
+			skip: [
+				globToRegExp(join(BP, 'scripts/**')),
+				...moduleGlobs,
+				...(ignoredPaths || []),
+			],
+		})),
+	];
+	const scripts = [
+		...(walkSync('.', {
+			includeDirs: false,
+			match: [globToRegExp(join(BP, 'scripts/**/*.{js,ts}'))],
 		})),
 	];
 
-	return { modules, assets };
+	return { modules, assets, scripts };
 }
 
 export function getTargetPath(path: string, sedge: Sedge): string {
