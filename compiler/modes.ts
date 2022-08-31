@@ -2,7 +2,7 @@ import { debounce } from 'async';
 import { extname, resolve } from 'path';
 import { logger } from '../shared/mod.ts';
 import { filterUnusedCache, loadCache, saveCache } from './cache.ts';
-import { invalidateCache, loadModule } from './loaders.ts';
+import { compileAsset, compileModule } from './compile.ts';
 import { Sedge } from './mod.ts';
 import { findPathsInPacks, getTargetPath, toRelative } from './path.ts';
 
@@ -20,32 +20,24 @@ export async function build(sedge: Sedge): Promise<void> {
 
 	const results = await Promise.allSettled([
 		...modules.map(async ({ path }) => {
-			const hash = invalidateCache(resolve(path), sedge.fs);
-			const result = await loadModule(resolve(path), {
-				config: sedge.config,
-				fs: sedge.fs,
-				cache: oldCache,
-				hash,
+			return await compileModule({
+				path,
+				sedge,
+				cache: newCache,
+				cacheHit: Promise.resolve('cacheHit'),
+				cacheMiss: Promise.resolve('cacheMiss'),
+				updateCache: (hash) => newCache[resolve(path)] = hash,
 			});
-
-			newCache[resolve(path)] = hash;
-			if (result === undefined) return Promise.resolve('cacheHit');
-
-			sedge.fs.outputModule(resolve(getTargetPath(path, sedge)), result);
-
-			return Promise.resolve('cacheMiss');
 		}),
 		...assets.map(({ path }) => {
-			const hash = invalidateCache(resolve(path), sedge.fs);
-			newCache[resolve(path)] = hash;
-
-			if (hash === oldCache[resolve(path)]) {
-				return Promise.resolve('cacheHit');
-			}
-
-			sedge.fs.copyFileSync(path, resolve(getTargetPath(path, sedge)));
-
-			return Promise.resolve('cacheMiss');
+			return compileAsset({
+				path,
+				sedge,
+				cache: newCache,
+				cacheHit: Promise.resolve('cacheHit'),
+				cacheMiss: Promise.resolve('cacheMiss'),
+				updateCache: (hash) => newCache[resolve(path)] = hash,
+			});
 		}),
 		// TODO: compile scripts
 	]);
@@ -54,9 +46,7 @@ export async function build(sedge: Sedge): Promise<void> {
 	logCompilationInfo(results, startTime);
 }
 
-export async function dev(
-	sedge: Sedge,
-): Promise<void> {
+export async function dev(sedge: Sedge): Promise<void> {
 	const filesToUpdate = new Set<string>();
 	const filesToRemove = new Set<string>();
 
@@ -80,31 +70,19 @@ export async function dev(
 				}
 
 				if (extname(path) === '.ts') {
-					const hash = invalidateCache(resolve(path), sedge.fs);
-					const result = await loadModule(resolve(path), {
-						config: sedge.config,
-						fs: sedge.fs,
-						cache: oldCache,
-						hash,
+					return await compileModule({
+						path,
+						sedge,
+						cache: newCache,
+						updateCache: (hash) => newCache[resolve(path)] = hash,
 					});
-
-					newCache[resolve(path)] = hash;
-					if (result === undefined) return;
-
-					sedge.fs.outputModule(
-						resolve(getTargetPath(path, sedge)),
-						result,
-					);
 				} else {
-					const hash = invalidateCache(resolve(path), sedge.fs);
-					newCache[resolve(path)] = hash;
-
-					if (hash === oldCache[resolve(path)]) return;
-
-					sedge.fs.outputTextFileSync(
-						resolve(getTargetPath(path, sedge)),
-						source,
-					);
+					return compileAsset({
+						path,
+						sedge,
+						cache: newCache,
+						updateCache: (hash) => newCache[resolve(path)] = hash,
+					});
 				}
 			}),
 			...[...filesToRemove].map((path) => {
