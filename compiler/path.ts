@@ -98,7 +98,7 @@ export function findMojangDir(fs: SedgeFileSystem): string {
 		fs.lstatSync(path).isDirectory;
 
 		return path;
-	} catch (_) {
+	} catch {
 		logger.error(
 			'Could not find the [com.mojang] directory. Please ensure that Minecraft is properly installed',
 		);

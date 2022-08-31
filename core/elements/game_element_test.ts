@@ -20,15 +20,16 @@ Deno.test('createGameElement', () => {
 		}),
 	});
 
-	const result = defineFooBar(({ foo }) => {
-		foo('bar');
-	});
-
-	assertEquals(result, {
-		type: 'gameElement',
-		data: {
-			baz: 1,
-			foo: 'bar',
+	assertEquals(
+		defineFooBar(({ foo }) => {
+			foo('bar');
+		}),
+		{
+			type: 'gameElement',
+			data: {
+				baz: 1,
+				foo: 'bar',
+			},
 		},
-	});
+	);
 });

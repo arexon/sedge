@@ -2,17 +2,17 @@ import { assertEquals, assertObjectMatch } from 'testing/asserts.ts';
 import { ensureNamespaces, ensurePrefix } from './utils.ts';
 
 Deno.test('ensurePrefix', async ({ step }) => {
-	await step('Should return a prefixed string', () => {
+	await step('return a prefixed string', () => {
 		assertEquals(ensurePrefix('foo', 'bar'), 'foo:bar');
 	});
 
-	await step('Should not modify the already prefixed string', () => {
+	await step('not modify the already prefixed string', () => {
 		assertEquals(ensurePrefix('foo', 'foo:bar'), 'foo:bar');
 	});
 });
 
 Deno.test('ensureNamespaces', async ({ step }) => {
-	await step('Should prefix all high-level keys with a namespace', () => {
+	await step('prefix all high-level keys with a namespace', () => {
 		assertObjectMatch(
 			ensureNamespaces({
 				foo: { bar: 'baz' },
@@ -27,7 +27,7 @@ Deno.test('ensureNamespaces', async ({ step }) => {
 		);
 	});
 
-	await step('Should not modify keys already namespaced', () => {
+	await step('not modify keys that are already namespaced', () => {
 		assertObjectMatch(
 			ensureNamespaces({
 				'foobar:foo': { bar: 'baz' },
@@ -42,7 +42,7 @@ Deno.test('ensureNamespaces', async ({ step }) => {
 		);
 	});
 
-	await step('Should skip empty an object', () => {
+	await step('skip an empty object', () => {
 		assertObjectMatch(ensureNamespaces({}, 'foobar'), {});
 	});
 });
