@@ -45,7 +45,7 @@ export function compileAsset(
 	if (hash === cache[resolve(path)]) return Promise.resolve('cacheHit');
 	updateCache(hash);
 
-	sedge.fs.copyFileSync(path, resolve(getTargetPath(path, sedge)));
+	sedge.fs.outputTextFileSync(resolve(getTargetPath(path, sedge)), source);
 
 	return Promise.resolve('cacheMiss');
 }
