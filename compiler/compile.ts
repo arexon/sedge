@@ -6,17 +6,15 @@ import { getTargetPath } from './path.ts';
 
 interface CompileOptions {
 	sedge: Sedge;
-	cache: CacheRecord;
 	path: string;
-	cacheHit?: Promise<string>;
-	cacheMiss?: Promise<string>;
+	cache: CacheRecord;
 	updateCache(hash: string): void;
 }
 
 export async function compileModule(
 	options: CompileOptions,
-): Promise<string | undefined> {
-	const { sedge, cache, path, cacheHit, cacheMiss, updateCache } = options;
+): Promise<string> {
+	const { sedge, path, cache, updateCache } = options;
 	const hash = invalidateCache(resolve(path), sedge.fs);
 	const result = await loadModule(resolve(path), {
 		config: sedge.config,
@@ -26,21 +24,23 @@ export async function compileModule(
 	});
 
 	updateCache(hash);
-	if (result === undefined) return cacheHit;
+	if (result === undefined) return Promise.resolve('cacheHit');
 
 	sedge.fs.outputModule(resolve(getTargetPath(path, sedge)), result);
 
-	return cacheMiss;
+	return Promise.resolve('cacheMiss');
 }
 
-export function compileAsset(options: CompileOptions) {
-	const { sedge, cache, path, cacheHit, cacheMiss, updateCache } = options;
+export function compileAsset(
+	options: CompileOptions,
+): Promise<string> {
+	const { sedge, path, cache, updateCache } = options;
 	const hash = invalidateCache(resolve(path), sedge.fs);
 
-	if (hash === cache[resolve(path)]) return cacheHit;
+	if (hash === cache[resolve(path)]) return Promise.resolve('cacheHit');
 	updateCache(hash);
 
 	sedge.fs.copyFileSync(path, resolve(getTargetPath(path, sedge)));
 
-	return cacheMiss;
+	return Promise.resolve('cacheMiss');
 }
