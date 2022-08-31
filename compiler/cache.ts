@@ -1,29 +1,28 @@
 import { filterEntries } from 'collection/filter_entries.ts';
 import { WalkEntry } from 'fs';
 import { Md5 } from 'hash/md5.ts';
-import { resolve } from 'path';
-import { SEDGE_CACHE_FILE } from '../shared/mod.ts';
+import { join, resolve } from 'path';
 import { SedgeFileSystem } from './fs.ts';
 
 export type CacheRecord = Record<string, string>;
 
-export function loadCache(fs: SedgeFileSystem): CacheRecord {
-	const cachePath = resolve(SEDGE_CACHE_FILE);
-
+export function loadCache(file: string, fs: SedgeFileSystem): CacheRecord {
+	const path = join('.sedge', file);
 	try {
-		return fs.readJsonFileSync(cachePath);
+		return fs.readJsonFileSync(path);
 	} catch {
-		fs.outputJsonFileSync(cachePath, {});
+		fs.outputJsonFileSync(path, {});
 		return {};
 	}
 }
 
 export function saveCache(
+	file: string,
 	cache: CacheRecord,
 	fs: SedgeFileSystem,
 ): void {
 	fs.outputJsonFileSync(
-		resolve(SEDGE_CACHE_FILE),
+		join('.sedge', file),
 		cache,
 	);
 }
