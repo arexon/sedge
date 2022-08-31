@@ -1,0 +1,63 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"type": "object",
+	"properties": {
+		"name": {
+			"description": "The name of the project.",
+			"type": "string"
+		},
+		"authors": {
+			"description": "Creator of the project.",
+			"type": "array",
+			"items": { "type": "string" }
+		},
+		"namespace": {
+			"description": "The namespace used for the project. The namespace 'minecraft' is not a valid string for this field.",
+			"type": "string",
+			"not": { "pattern": "minecraft" }
+		},
+		"packs": {
+			"description": "Maps the id of packs this project contains to a path relative to the config.json.",
+			"type": "object",
+			"propertyNames": {
+				"enum": [
+					"behaviorPack",
+					"resourcePack",
+					"skinPack",
+					"worldTemplate"
+				]
+			},
+			"patternProperties": {
+				".*": {
+					"description": "Path to the pack relative to the config.json.",
+					"type": "string"
+				}
+			},
+			"default": {
+				"behaviorPack": "./packs/BP",
+				"resourcePack": "./packs/RP",
+				"skinPack": "./packs/SP",
+				"worldTemplate": "./packs/WT"
+			}
+		},
+		"sedge": {
+			"description": "Config specific to Sedge.",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"targets": {
+					"description": "Defines the project output locations. The key is the target id, and the value is the target path.",
+					"type": "object",
+					"patternProperties": {
+						".*": { "type": "string" }
+					}
+				},
+				"ignorePaths": {
+					"description": "Lists glob patterns pointing to paths to ignore when building the project.",
+					"type": "array",
+					"items": { "type": "string" }
+				}
+			}
+		}
+	}
+}
