@@ -44,14 +44,14 @@ export async function loadConfig(
 
 	try {
 		config = (await fs.import(toFileUrl(path).href, 'json')).default;
-	} catch (_) {
+	} catch {
 		logger.warn('No [config.json] found, using defaults');
 	}
 
 	return deepMerge<Required<Config>>(defaults, config);
 }
 
-interface ModuleOptions {
+interface LoadModuleOptions {
 	config: Partial<Config>;
 	fs: SedgeFileSystem;
 	cache: CacheRecord;
@@ -60,7 +60,7 @@ interface ModuleOptions {
 
 export async function loadModule(
 	path: string,
-	options: ModuleOptions,
+	options: LoadModuleOptions,
 ): Promise<any> {
 	const { config, fs, cache, hash } = options;
 
@@ -87,9 +87,8 @@ export function applyConfig<Object extends Record<string, any>>(
 
 export function invalidateCache(path: string, fs: SedgeFileSystem): string {
 	const source = fs.readTextFileSync(path);
-	return hashFile(source);
-}
 
-function hashFile(source: string): string {
-	return new Md5().update(JSON.stringify(source)).toString();
+	return new Md5().update(
+		typeof source === 'object' ? JSON.stringify(source) : source,
+	).toString();
 }
