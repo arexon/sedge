@@ -62,12 +62,16 @@ export async function dev(sedge: Sedge): Promise<void> {
 
 		await Promise.all([
 			...[...filesToUpdate].map(async (path) => {
-				const source = sedge.fs.readTextFileSync(path);
-				if (!source) {
-					logger.info(
-						`Skipping over updating an empty file at (${path})`,
-					);
-					filesToUpdate.delete(path);
+				try {
+					const source = sedge.fs.readTextFileSync(path);
+					if (!source) {
+						logger.info(
+							`Skipping over updating an empty file at (${path})`,
+						);
+						return;
+					}
+				} catch {
+					delete newCache[resolve(path)];
 					return;
 				}
 
