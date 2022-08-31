@@ -1,6 +1,5 @@
 import { dirname } from 'path';
 import { Result } from '../core/types.ts';
-import { SEDGE_NAMESPACE } from '../shared/mod.ts';
 import { toExtension } from './path.ts';
 
 export interface SedgeFileSystem {
@@ -54,23 +53,4 @@ export const sedgeFileSystem: SedgeFileSystem = {
 			return sedgeFileSystem.outputTextFileSync(path, result.data);
 		}
 	},
-};
-
-export const testFileSystem: SedgeFileSystem = {
-	import: (_, type) => {
-		if (type === 'json') {
-			return Promise.resolve({
-				default: { identifier: 'foo' },
-			});
-		}
-		return Promise.resolve({
-			default: {
-				type: 'foobar',
-				data: { identifier: `${SEDGE_NAMESPACE}:foo` },
-			},
-		});
-	},
-	readTextFileSync: () => 'export default 1',
-	// @ts-ignore - we only need `isDirectory`
-	lstatSync: () => ({ isDirectory: true }),
 };
