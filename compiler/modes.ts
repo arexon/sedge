@@ -13,6 +13,8 @@ import {
 } from './path.ts';
 
 export async function build(sedge: Sedge): Promise<void> {
+	logger.info(`Via target [${sedge.target.name}] at (${sedge.target.path})`);
+
 	const startTime = Date.now();
 	const { assets, modules, scripts } = findPathsInPacks({
 		packs: sedge.config.packs,
@@ -70,6 +72,8 @@ export async function build(sedge: Sedge): Promise<void> {
 
 export async function dev(sedge: Sedge): Promise<void> {
 	await build(sedge);
+
+	logger.info('Watching for changes...');
 
 	const filesToUpdate = new Set<string>();
 	const filesToRemove = new Set<string>();
@@ -137,6 +141,7 @@ export async function dev(sedge: Sedge): Promise<void> {
 		filesToUpdate.clear();
 		filesToRemove.clear();
 		saveCache(cacheFile, newCache, sedge.fs);
+		logger.info('Watching for changes...');
 	};
 
 	const updateFileSets = debounce(async ({ kind, paths }: Deno.FsEvent) => {

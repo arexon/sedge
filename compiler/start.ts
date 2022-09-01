@@ -48,19 +48,13 @@ export async function startSedge(options: {
 		sedge.target.name,
 	);
 	if (targetIsConfigured || targetIsDefault) {
-		await startMode(sedge);
+		if (sedge.mode === 'build') await build(sedge);
+		if (sedge.mode === 'dev') await dev(sedge);
+		if (sedge.mode === 'devWebSocket') console.log('Dev WebSocket mode');
 	} else {
 		logger.error(
 			`Target [${options.target}] does not match any configured target in [config.sedge.targets]`,
 		);
 		Deno.exit(1);
 	}
-}
-
-async function startMode(sedge: Sedge): Promise<void> {
-	logger.info(`Via target [${sedge.target.name}] at (${sedge.target.path})`);
-
-	if (sedge.mode === 'build') await build(sedge);
-	if (sedge.mode === 'dev') await dev(sedge);
-	if (sedge.mode === 'devWebSocket') console.log('Dev WebSocket mode');
 }
