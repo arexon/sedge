@@ -1,5 +1,10 @@
 import { tryCatch } from '../../shared/mod.ts';
 
+export interface GameElementResult<Data extends Record<string, any> | string> {
+	extension: '.json' | '.mcfunction' | '.js';
+	data: Data;
+}
+
 export interface GameElementOptions<Template, Data, Result> {
 	/**
 	 * Return a template which will be used to process the data.

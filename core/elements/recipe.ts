@@ -1,6 +1,6 @@
 import { SEDGE_NAMESPACE } from '../../shared/mod.ts';
-import { Namespace, Result } from '../types.ts';
-import { createGameElement } from './game_element.ts';
+import { Namespace } from '../types.ts';
+import { createGameElement, GameElementResult } from './game_element.ts';
 
 interface RecipeItemData {
 	/** Provides the identifier of the item. */
@@ -133,7 +133,7 @@ interface RecipeData {
 export const defineRecipe = createGameElement<
 	RecipeTemplate,
 	RecipeData,
-	Result<RecipeData>
+	GameElementResult<RecipeData>
 >({
 	process: (data) => ({
 		namespace: SEDGE_NAMESPACE,
@@ -146,7 +146,7 @@ export const defineRecipe = createGameElement<
 		shapeless: (recipe) => data['minecraft:recipe_shapeless'] = recipe,
 	}),
 	transform: (data) => ({
-		type: 'gameElement',
+		extension: '.json',
 		data: { ...{ format_version: '1.12.0' }, ...data },
 	}),
 });
