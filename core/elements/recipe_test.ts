@@ -24,7 +24,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 				});
 			}),
 			{
-				type: 'gameElement',
+				extension: '.json',
 				data: {
 					format_version: '1.12.0',
 					'minecraft:recipe_shaped': {
@@ -57,7 +57,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 				});
 			}),
 			{
-				type: 'gameElement',
+				extension: '.json',
 				data: {
 					format_version: '1.12.0',
 					'minecraft:recipe_shapeless': {
@@ -87,7 +87,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 				});
 			}),
 			{
-				type: 'gameElement',
+				extension: '.json',
 				data: {
 					format_version: '1.12.0',
 					'minecraft:recipe_furnace': {
@@ -120,7 +120,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 					});
 				}),
 				{
-					type: 'gameElement',
+					extension: '.json',
 					data: {
 						format_version: '1.12.0',
 						'minecraft:recipe_brewing_container': {
@@ -143,7 +143,7 @@ Deno.test('defineRecipe', async ({ step }) => {
 					});
 				}),
 				{
-					type: 'gameElement',
+					extension: '.json',
 					data: {
 						format_version: '1.12.0',
 						'minecraft:recipe_brewing_mix': {

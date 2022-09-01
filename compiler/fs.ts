@@ -1,5 +1,5 @@
 import { dirname, extname } from 'path';
-import { Result } from '../core/types.ts';
+import { GameElementResult } from '../core/elements/game_element.ts';
 import { toExtension } from './path.ts';
 
 export interface SedgeFileSystem {
@@ -16,7 +16,7 @@ export interface SedgeFileSystem {
 	): void;
 	outputModule(
 		path: string,
-		result: Result<any>,
+		result: GameElementResult<Record<string, any> | string>,
 		minify: boolean,
 	): void;
 	outputAsset(
@@ -43,18 +43,13 @@ export const sedgeFileSystem: SedgeFileSystem = {
 		);
 	},
 	outputModule: (path, result, minify) => {
-		if (result.type === 'gameElement') {
+		if (
+			result.extension === '.json' ||
+			typeof result.data === 'object'
+		) {
 			return sedgeFileSystem.outputJsonFileSync(
 				toExtension(path, '.json'),
-				result.data,
-				minify,
-			);
-		}
-
-		if (typeof result.data === 'object') {
-			return sedgeFileSystem.outputJsonFileSync(
-				toExtension(path, '.json'),
-				result.data,
+				result.data as Record<string, any>,
 				minify,
 			);
 		} else {
