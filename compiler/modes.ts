@@ -1,6 +1,6 @@
 import { debounce } from 'async';
 import { stop } from 'esbuild';
-import { extname, resolve } from 'path';
+import { extname } from 'path';
 import { logger } from '../shared/mod.ts';
 import { filterUnusedCache, loadCache, saveCache } from './cache.ts';
 import { compileAsset, compileModule, compileScript } from './compile.ts';
@@ -36,7 +36,7 @@ export async function build(sedge: Sedge): Promise<void> {
 				path,
 				sedge,
 				cache: newCache,
-				updateCache: (hash) => newCache[resolve(path)] = hash,
+				updateCache: (hash) => newCache[path] = hash,
 			});
 		}),
 		...assets.map(async ({ path }) => {
@@ -44,7 +44,7 @@ export async function build(sedge: Sedge): Promise<void> {
 				path,
 				sedge,
 				cache: newCache,
-				updateCache: (hash) => newCache[resolve(path)] = hash,
+				updateCache: (hash) => newCache[path] = hash,
 			});
 		}),
 		...scripts.map(async ({ path }) => {
@@ -52,7 +52,7 @@ export async function build(sedge: Sedge): Promise<void> {
 				path,
 				sedge,
 				cache: newCache,
-				updateCache: (hash) => newCache[resolve(path)] = hash,
+				updateCache: (hash) => newCache[path] = hash,
 			});
 		}),
 	]);
@@ -87,7 +87,7 @@ export async function dev(sedge: Sedge): Promise<void> {
 						return;
 					}
 				} catch {
-					delete newCache[resolve(path)];
+					delete newCache[path];
 					return;
 				}
 
@@ -96,26 +96,26 @@ export async function dev(sedge: Sedge): Promise<void> {
 						path,
 						sedge,
 						cache: newCache,
-						updateCache: (hash) => newCache[resolve(path)] = hash,
+						updateCache: (hash) => newCache[path] = hash,
 					});
 				} else if (path.includes('scripts')) {
 					return await compileScript({
 						path,
 						sedge,
 						cache: newCache,
-						updateCache: (hash) => newCache[resolve(path)] = hash,
+						updateCache: (hash) => newCache[path] = hash,
 					});
 				} else {
 					return await compileAsset({
 						path,
 						sedge,
 						cache: newCache,
-						updateCache: (hash) => newCache[resolve(path)] = hash,
+						updateCache: (hash) => newCache[path] = hash,
 					});
 				}
 			}),
 			...[...filesToRemove].map((path) => {
-				sedge.fs.removeSync(resolve(getTargetPath(path, sedge)));
+				sedge.fs.removeSync(getTargetPath(path, sedge));
 			}),
 		]);
 

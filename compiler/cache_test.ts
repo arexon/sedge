@@ -1,5 +1,5 @@
 import { WalkEntry } from 'fs';
-import { resolve } from 'path';
+import { join } from 'path';
 import { assertEquals } from 'testing/asserts.ts';
 import {
 	CacheRecord,
@@ -15,8 +15,8 @@ const fs: SedgeFileSystem = {
 	outputJsonFileSync: () => '',
 };
 const cache: CacheRecord = {
-	[resolve('foo', 'bar', 'baz.json')]: 'af306bb243db97bbd88e1d59a546de87',
-	[resolve('foo', 'qux.json')]: 'd5d96c47b4acc6a85f5853de29f48c46',
+	[join('foo', 'bar', 'baz.json')]: 'af306bb243db97bbd88e1d59a546de87',
+	[join('foo', 'qux.json')]: 'd5d96c47b4acc6a85f5853de29f48c46',
 };
 
 Deno.test('loadCache', () => {
@@ -28,9 +28,9 @@ Deno.test('saveCache', () => {
 });
 
 Deno.test('filterUnusedCache', async ({ step }) => {
-	const foo = resolve('foo', 'qux.json');
-	const bar = resolve('foo', 'bar', 'baz.json');
-	const baz = resolve('foo', 'bar.ts');
+	const foo = join('foo', 'qux.json');
+	const bar = join('foo', 'bar', 'baz.json');
+	const baz = join('foo', 'bar.ts');
 	const { [foo]: _, ...expectedCache } = cache;
 
 	await step('with array of paths', () => {
