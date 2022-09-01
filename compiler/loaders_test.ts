@@ -26,7 +26,6 @@ Deno.test('loadModule', async () => {
 	const result = await loadModule('/test.ts', {
 		fs,
 		config: { namespace: 'test' },
-		cache: {},
 		hash: '',
 	});
 
