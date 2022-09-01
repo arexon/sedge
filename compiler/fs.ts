@@ -28,8 +28,8 @@ export interface SedgeFileSystem {
 
 export const sedgeFileSystem: SedgeFileSystem = {
 	import: (path) => import(path),
-	readTextFileSync: (path) => Deno.readTextFileSync(path),
-	removeSync: (path) => Deno.removeSync(path),
+	readTextFileSync: (path) => Deno.readTextFileSync(resolve(path)),
+	removeSync: (path) => Deno.removeSync(resolve(path)),
 	statSync: (path) => Deno.lstatSync(path),
 	readJsonFileSync: (path) => JSON.parse(Deno.readTextFileSync(path)),
 	outputTextFileSync: (path, data) => {

@@ -1,8 +1,7 @@
-import { ensureDir } from 'fs';
 import { resolve } from 'path';
 import { logger } from '../shared/mod.ts';
 import { SedgeFileSystem, sedgeFileSystem } from './fs.ts';
-import { Config, ConfigPacks, loadConfig } from './loaders.ts';
+import { Config, loadConfig } from './loaders.ts';
 import { build, dev } from './modes.ts';
 import { findMojangDir } from './path.ts';
 
@@ -49,7 +48,6 @@ export async function startSedge(options: {
 		sedge.target.name,
 	);
 	if (targetIsConfigured || targetIsDefault) {
-		await ensurePacksExist(sedge.config.packs);
 		await startMode(sedge);
 	} else {
 		logger.error(
@@ -65,9 +63,4 @@ async function startMode(sedge: Sedge): Promise<void> {
 	if (sedge.mode === 'build') await build(sedge);
 	if (sedge.mode === 'dev') await dev(sedge);
 	if (sedge.mode === 'devWebSocket') console.log('Dev WebSocket mode');
-}
-
-async function ensurePacksExist(packs: ConfigPacks): Promise<void> {
-	await ensureDir(packs.behaviorPack);
-	await ensureDir(packs.resourcePack);
 }
