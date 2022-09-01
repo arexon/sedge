@@ -3,12 +3,10 @@ import { Result } from '../core/types.ts';
 import { toExtension } from './path.ts';
 
 export interface SedgeFileSystem {
-	import(path: string, type?: 'json'): Promise<any>;
-	readTextFileSync(path: string | URL): string;
-	copyFileSync(fromPath: string | URL, toPath: string | URL): void;
-	removeSync(path: string | URL): void;
-	lstatSync(path: string | URL): Deno.FileInfo;
-
+	import(path: string): Promise<any>;
+	readTextFileSync(path: string): string;
+	removeSync(path: string): void;
+	statSync(path: string): Deno.FileInfo;
 	readJsonFileSync(path: string): Record<string, any>;
 	outputTextFileSync(path: string, data: string): void;
 	outputJsonFileSync(
@@ -29,15 +27,10 @@ export interface SedgeFileSystem {
 }
 
 export const sedgeFileSystem: SedgeFileSystem = {
-	import: (path, type) => {
-		if (type === 'json') return import(path, { assert: { type } });
-		return import(path);
-	},
+	import: (path) => import(path),
 	readTextFileSync: (path) => Deno.readTextFileSync(path),
-	copyFileSync: (fromPath, toPath) => Deno.copyFileSync(fromPath, toPath),
 	removeSync: (path) => Deno.removeSync(path),
-	lstatSync: (path) => Deno.lstatSync(path),
-
+	statSync: (path) => Deno.lstatSync(path),
 	readJsonFileSync: (path) => JSON.parse(Deno.readTextFileSync(path)),
 	outputTextFileSync: (path, data) => {
 		Deno.mkdirSync(dirname(path), { recursive: true });
