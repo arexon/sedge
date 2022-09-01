@@ -1,7 +1,6 @@
 import { deepMerge } from 'collection/deep_merge.ts';
 import { toFileUrl } from 'path';
 import { logger, SEDGE_NAMESPACE } from '../shared/mod.ts';
-import { CacheRecord } from './cache.ts';
 import { SedgeFileSystem } from './fs.ts';
 
 export interface ConfigPacks {
@@ -56,7 +55,6 @@ export function loadConfig(
 interface LoadModuleOptions {
 	config: Partial<Config>;
 	fs: SedgeFileSystem;
-	cache: CacheRecord;
 	hash: string;
 }
 
@@ -64,14 +62,10 @@ export async function loadModule(
 	path: string,
 	options: LoadModuleOptions,
 ): Promise<any> {
-	const { config, fs, cache, hash } = options;
+	const { config, fs, hash } = options;
+	const result = await fs.import(`${toFileUrl(path).href}?hash=${hash}`);
 
-	if (hash === cache[path]) return undefined;
-
-	let result = await fs.import(`${toFileUrl(path).href}?hash=${hash}`);
-	result = applyConfig(result.default, config);
-
-	return result;
+	return applyConfig(result.default, config);
 }
 
 export function applyConfig<Object extends Record<string, any>>(

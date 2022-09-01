@@ -24,12 +24,11 @@ export async function compileModule(
 	const result = await loadModule(resolve(path), {
 		config: sedge.config,
 		fs: sedge.fs,
-		cache,
 		hash,
 	});
 
+	if (hash === cache[resolve(path)]) return Promise.resolve('cacheHit');
 	updateCache(hash);
-	if (result === undefined) return Promise.resolve('cacheHit');
 
 	sedge.fs.outputModule(
 		resolve(getTargetPath(path, sedge)),
