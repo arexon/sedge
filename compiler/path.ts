@@ -106,7 +106,7 @@ export function findMojangDir(fs: SedgeFileSystem): string {
 			'games',
 			'com.mojang',
 		);
-		fs.lstatSync(path).isDirectory;
+		fs.statSync(path).isDirectory;
 
 		return path;
 	} catch {
