@@ -2,6 +2,7 @@
 	"tasks": {
 		"build": "cd playground && sedge build",
 		"dev": "cd playground && sedge dev -t prototype",
+		"clean": "cd playground && sedge clean",
 		"lint": "deno lint --ignore=playground && deno fmt --ignore=playground",
 		"fmt": "deno fmt --ignore=playground",
 		"test": "deno test -A"
@@ -15,7 +16,7 @@
 	},
 	"lint": {
 		"rules": {
-			"exclude": ["no-var", "no-explicit-any"]
+			"exclude": ["no-explicit-any"]
 		}
 	},
 	"importMap": "import_map.json"
