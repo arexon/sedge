@@ -1,7 +1,7 @@
 import { filterEntries } from 'collection/filter_entries.ts';
 import { WalkEntry } from 'fs';
 import { Md5 } from 'hash/md5.ts';
-import { join, resolve } from 'path';
+import { join } from 'path';
 import { SedgeFileSystem } from './fs.ts';
 import { Config } from './loaders.ts';
 
@@ -29,9 +29,9 @@ export function filterUnusedCache(
 	cache: CacheRecord,
 	entries: WalkEntry[] | string[],
 ): CacheRecord {
-	const paths = entries.map((entry) =>
-		resolve(typeof entry === 'string' ? entry : entry.path)
-	);
+	const paths = entries.map((entry) => {
+		return typeof entry === 'string' ? entry : entry.path;
+	});
 
 	return filterEntries(cache, ([path, _]) => paths.includes(path));
 }

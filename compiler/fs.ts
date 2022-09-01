@@ -1,4 +1,4 @@
-import { dirname, extname } from 'path';
+import { dirname, extname, resolve } from 'path';
 import { GameElementResult } from '../core/elements/game_element.ts';
 import { toExtension } from './path.ts';
 
@@ -33,8 +33,8 @@ export const sedgeFileSystem: SedgeFileSystem = {
 	statSync: (path) => Deno.lstatSync(path),
 	readJsonFileSync: (path) => JSON.parse(Deno.readTextFileSync(path)),
 	outputTextFileSync: (path, data) => {
-		Deno.mkdirSync(dirname(path), { recursive: true });
-		Deno.writeTextFileSync(path, data);
+		Deno.mkdirSync(dirname(resolve(path)), { recursive: true });
+		Deno.writeTextFileSync(resolve(path), data);
 	},
 	outputJsonFileSync: (path, data, minify) => {
 		sedgeFileSystem.outputTextFileSync(
