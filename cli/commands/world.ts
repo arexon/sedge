@@ -11,16 +11,16 @@ export const world = new Command()
 		'Saves or tests a world from or to the `com.mojang` directory respectively.',
 	)
 	.option(
-		'-s, --save <world:string>',
+		'-s, --save <worlds...:string>',
 		'Saves a world by copying it from from `com.mojang` directory.',
 		{ required: true },
 	)
 	.option(
-		'-t, --test <world:string>',
+		'-t, --test <worlds...:string>',
 		'Tests a world by copying it to the `com.mojang` directory.',
 		{ conflicts: ['save'], required: true },
 	)
-	.action(async ({ save, test }) => {
+	.action(({ save, test }) => {
 		const { packs } = loadConfig('config.json', sedgeFileSystem);
 
 		const getTargetWorldPath = (name: string) => {
@@ -30,40 +30,43 @@ export const world = new Command()
 				name,
 			);
 		};
-
-		if (save) {
-			const targetPath = getTargetWorldPath(save);
-			const worldPath = join(packs.worldTemplate, save);
+		const saveWorld = async (world: string): Promise<void> => {
+			const targetPath = getTargetWorldPath(world);
+			const worldPath = join(packs.worldTemplate, world);
 
 			try {
 				Deno.statSync(targetPath);
 			} catch {
 				logger.error(
-					`Could not find world [${save}] in the [com.mojang] directory.`,
+					`Could not find world [${world}] in the [com.mojang] directory.`,
 				);
 				Deno.exit(0);
 			}
 
-			await copy(targetPath, worldPath);
+			await copy(targetPath, worldPath, { overwrite: true });
 
-			logger.success(`World [${save}] was saved to (${worldPath}).`);
-		} else if (test) {
-			const worldPath = join(packs.worldTemplate, test);
-			const targetPath = getTargetWorldPath(test);
+			logger.success(`World [${world}] was saved to (${worldPath}).`);
+		};
+		const testWorld = async (world: string): Promise<void> => {
+			const worldPath = join(packs.worldTemplate, world);
+			const targetPath = getTargetWorldPath(world);
 
 			try {
 				Deno.statSync(worldPath);
 			} catch {
 				logger.error(
-					`Could not find world [${test}] in (${worldPath}).`,
+					`Could not find world [${world}] in (${worldPath}).`,
 				);
 				Deno.exit(0);
 			}
 
-			await copy(worldPath, targetPath);
+			await copy(worldPath, targetPath, { overwrite: true });
 
 			logger.success(
-				`World [${test}] was copied to the [com.mojang] directory.`,
+				`World [${world}] was copied to the [com.mojang] directory.`,
 			);
-		}
+		};
+
+		if (save) save.forEach(async (world) => await saveWorld(world));
+		else if (test) test.forEach(async (world) => await testWorld(world));
 	});
