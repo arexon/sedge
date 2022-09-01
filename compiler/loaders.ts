@@ -1,5 +1,5 @@
 import { deepMerge } from 'collection/deep_merge.ts';
-import { toFileUrl } from 'path';
+import { resolve, toFileUrl } from 'path';
 import { logger, SEDGE_NAMESPACE } from '../shared/mod.ts';
 import { SedgeFileSystem } from './fs.ts';
 
@@ -63,7 +63,9 @@ export async function loadModule(
 	options: LoadModuleOptions,
 ): Promise<any> {
 	const { config, fs, hash } = options;
-	const result = await fs.import(`${toFileUrl(path).href}?hash=${hash}`);
+	const result = await fs.import(
+		`${toFileUrl(resolve(path)).href}?hash=${hash}`,
+	);
 
 	return applyConfig(result.default, config);
 }

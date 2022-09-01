@@ -5,7 +5,12 @@ import { logger } from '../shared/mod.ts';
 import { filterUnusedCache, loadCache, saveCache } from './cache.ts';
 import { compileAsset, compileModule, compileScript } from './compile.ts';
 import { Sedge } from './mod.ts';
-import { findPathsInPacks, getTargetPath, toRelative } from './path.ts';
+import {
+	findPathsInPacks,
+	getTargetPath,
+	toExtension,
+	toRelative,
+} from './path.ts';
 
 export async function build(sedge: Sedge): Promise<void> {
 	const startTime = Date.now();
@@ -64,6 +69,8 @@ export async function build(sedge: Sedge): Promise<void> {
 }
 
 export async function dev(sedge: Sedge): Promise<void> {
+	await build(sedge);
+
 	const filesToUpdate = new Set<string>();
 	const filesToRemove = new Set<string>();
 
@@ -115,7 +122,13 @@ export async function dev(sedge: Sedge): Promise<void> {
 				}
 			}),
 			...[...filesToRemove].map((path) => {
-				sedge.fs.removeSync(getTargetPath(path, sedge));
+				if (extname(path) === '.ts' && !path.includes('scripts')) {
+					sedge.fs.removeSync(
+						toExtension(getTargetPath(path, sedge), '.json'),
+					);
+				} else {
+					sedge.fs.removeSync(getTargetPath(path, sedge));
+				}
 			}),
 		]);
 
